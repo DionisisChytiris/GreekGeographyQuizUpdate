@@ -27,29 +27,32 @@ const Introduction = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <View
-          style={{
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            // backgroundColor: "grey",
-            // backgroundColor: "transparent",
-            width: '62%',
-            height: '30%',
-            marginTop: -50,
-            marginLeft: "auto",
-            marginRight: "auto",
-            // borderRadius: 25,
-          }}
-        >
+        <View style={{marginLeft: "auto", paddingRight: 30, paddingBottom: 20}}>
           <Pressable 
              onPress={() => {
               navigation.navigate("Quiz");
               setShow(false);
             }}
-            style={{marginRight: -280}}>
+            >
             <MaterialIcons name="cancel" size={24} color="white" />
           </Pressable>
+        </View>
+        <View
+          style={{
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: '85%',
+            height: '40%',
+            marginTop: -50,
+            // width: '62%',
+            // height: '30%',
+            // marginTop: -50,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          
           <Video
             ref={video}
             style={styles.video}
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
   },
-  video: { width: "100%", height: "100%", borderRadius: 25 },
+  video: { width: "100%", height: "85%", borderRadius: 5 },
   buttons: {
     width: 100,
     marginLeft: "auto",

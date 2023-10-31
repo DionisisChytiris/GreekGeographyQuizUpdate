@@ -103,11 +103,11 @@ import {
             <View style={ styles.containerInfo}>
             <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: "600",
                   color: "white",
                   textAlign: "center",
-                  paddingTop: 40,
+                  paddingTop: 30,
                 }}
               >
                 Βουνά

@@ -46,9 +46,9 @@ const QuizScreen = () => {
           <View style={styles.button4}/>
           <Text style={styles.buttonTxt4}>Γενικές Ερωτήσεις</Text>
         </Pressable>
-        <View>
+        {/* <View>
           <Text>Api version {Platform.Version?.toString()}</Text>
-        </View>
+        </View> */}
         
       </ImageBackground>
     </View>

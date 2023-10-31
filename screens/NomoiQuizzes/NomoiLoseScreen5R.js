@@ -16,10 +16,10 @@ const NomoiLoseScreen5R = () => {
         <View
           style={{
             width: "75%",
-            height: "58%",
+            height: "45%",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: "35%",
+            marginTop: 180,
             borderRadius: 20,
           }}
         >
@@ -42,10 +42,11 @@ const NomoiLoseScreen5R = () => {
             <View>
               <Text
                 style={{
-                  color: "red",
+                  color: "magenta",
                   fontSize: 25,
                   fontWeight: "600",
                   marginLeft: 10,
+                  marginBottom: 30
                 }}
               >
                 Λυπάμαι Έχασες
@@ -53,7 +54,7 @@ const NomoiLoseScreen5R = () => {
               <Text
                 style={{
                   color: "white",
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: "600",
                   marginLeft: 35,
                   marginTop: 30,
@@ -62,6 +63,26 @@ const NomoiLoseScreen5R = () => {
               >
                 Τέλος χρόνου
               </Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    marginHorizontal: 20,
+                  }}
+                >
+                  Επιστροφή στην αρχική σελίδα{" "}
+                  <AntDesign name="home" size={16} color="white" />
+                </Text>
+              </View>
             </View>
            
           </View>

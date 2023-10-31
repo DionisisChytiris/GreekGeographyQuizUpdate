@@ -1,16 +1,12 @@
 {
   "expo": {
-    "name": "GreekGeographyQuizApp",
+    "name": "Γεωγραφία της Ελλάδας",
     "slug": "GreekGeographyQuizApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/geography.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "splash": {},
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -18,13 +14,24 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.greekgeographyquizapp.dion",
+      "versionCode": 6,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/AppIcon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8e57705c-5ea4-459b-8705-25056f4c466f"
+      }
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#00000000",
+      "translucent": true
     }
   }
 }

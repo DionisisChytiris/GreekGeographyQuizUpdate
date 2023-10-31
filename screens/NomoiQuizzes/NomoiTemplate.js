@@ -94,7 +94,7 @@ import {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>
           <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
-            <View style={{ marginTop: 30 }} />
+            <View style={{ marginTop: 20 }} />
             <View style={styles.containerInfo}>
               <View style={styles.levelBox}>
                 <View>{props.star}</View>
@@ -346,7 +346,7 @@ import {
       borderRadius: 25,
       marginLeft: "auto",
       marginRight: "auto",
-      marginBottom: 30,
+      marginBottom: 40,
       // marginTop: 20,
     },
     button1: {

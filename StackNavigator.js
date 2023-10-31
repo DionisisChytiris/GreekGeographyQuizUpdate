@@ -9,6 +9,7 @@ import {GeneralQuestions1, GeneralQuestions1R} from './screens/GeneralQuestionsQ
 import { LakeRiver, LakeRiverRepeat, LakeRiverResults, LakeRiverResultsRepeat, LakeRiverLoseScreen, LakeRiverLoseScreenR} from './screens/LakeRiverQuizzes'
 import { Mountain, MountainRepeat, MountainResults, MountainResultsRepeat, MountainLoseScreen, MountainLoseScreenR } from './screens/MountainQuizzes';
 import {GeneralQuestionsResults1, GeneralQuestionsResults1R, GenQResLoseScreen, GenQResLoseScreenR} from './screens/GeneralQuestionsResults';
+// import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
 
 const Stack = createNativeStackNavigator();

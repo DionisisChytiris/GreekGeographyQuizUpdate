@@ -1,20 +1,10 @@
 import { View, Text, Pressable, ImageBackground } from "react-native";
-import React,{useState} from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-// import LoseScreenAiMsg from "./LoseScreenAi";
+import { AntDesign } from "@expo/vector-icons";
 
 const NomoiLoseScreen1R = () => {
   const navigation = useNavigation();
-//   const [btn1, setBtn1] = useState(false)
-//   const [btn2, setBtn2] = useState(false)
-//   const [show, setShow] = useState(true)
-
-//   const hide1 = () => setBtn1(true)
-//   const hide2 = () => setBtn2(true)
-
-//   setTimeout(hide1, 6500)
-//   setTimeout(hide2, 9500)
 
   return (
     <View style={{ height: "100%", backgroundColor: "darkblue" }}>
@@ -26,10 +16,10 @@ const NomoiLoseScreen1R = () => {
         <View
           style={{
             width: "75%",
-            height: "58%",
+            height: "45%",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: "35%",
+            marginTop: 180,
             borderRadius: 20,
           }}
         >
@@ -52,10 +42,11 @@ const NomoiLoseScreen1R = () => {
             <View>
               <Text
                 style={{
-                  color: "red",
+                  color: "magenta",
                   fontSize: 25,
                   fontWeight: "600",
                   marginLeft: 10,
+                  marginBottom: 30
                 }}
               >
                 Λυπάμαι Έχασες
@@ -63,7 +54,7 @@ const NomoiLoseScreen1R = () => {
               <Text
                 style={{
                   color: "white",
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: "600",
                   marginLeft: 35,
                   marginTop: 30,
@@ -72,6 +63,26 @@ const NomoiLoseScreen1R = () => {
               >
                 Τέλος χρόνου
               </Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    marginHorizontal: 20,
+                  }}
+                >
+                  Επιστροφή στην αρχική σελίδα{" "}
+                  <AntDesign name="home" size={16} color="white" />
+                </Text>
+              </View>
             </View>
            
           </View>

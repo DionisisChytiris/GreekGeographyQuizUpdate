@@ -32,7 +32,7 @@ const NomoiInstructions = () => {
             fontWeight: "600",
           }}
         >
-          Νόμοι / Πόλεις
+          Νομοί / Πόλεις
         </Text>
         <Text style={{ fontSize: 16 }}> - Αυτή η κατηγορία ερωτήσεων</Text>
         <Text style={{ fontSize: 16 }}>αποτελείται από 6 επίπεδα.</Text>
