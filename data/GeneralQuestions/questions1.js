@@ -101,7 +101,7 @@ const questions1 =  [
     },
     {
         id: 5,
-        question: "Ποια βρίσκεται το «Πέτρινο Δάσος»;",
+        question: "Που βρίσκεται το «Πέτρινο Δάσος»;",
         options:[
             {
                 id:"0",
@@ -146,10 +146,9 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 0,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/generalQuestions/preveza.jpg'),
         result: 'Τα γεωγραφικά διαμερίσματα της Ελλάδας είναι εννιά: \nΘράκη, Μακεδονία, Θεσσαλία, Ήπειρος, Στερεά Ελλάδα, Πελοπόννησος, Κρήτη, Νησιά Αιγαίου και Νησιά Ιονίου. \nΗ Πρέβεζα ανήκει στην Ήπειρο.'
     },
-    
     {
         id: 7,
         question: "Ποιος από τους παρακάτω νομούς έχει μεγαλύτερο πληθυσμό;",
@@ -172,7 +171,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 1,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/generalQuestions/population.png'),
         result: 'Ο πληθυσμός του Ν.Αιτωλοακαρνανίας είναι περίπου 224.429 κάτοικοι.\nΟ πληθυσμός του Ν.Μαγνησίας είναι περίπου 206.995 κάτοικοι. \nΟ πληθυσμός του Ν.Ηλείας είναι περίπου 193.288 κάτοικοι. \nΟ πληθυσμός του Ν.Δωδεκανήσου είναι περίπου 190.071.'
     },
     {
@@ -272,7 +271,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 2,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/generalQuestions/thessaly.jpeg'),
         result: 'Τα Τρίκαλα βρίσκονται στην Θεσσαλία. \nΗ Βέροια, η Κατερίνη και τα Γιαννιτσά βρίσκονται στην Μακεδονία.'
     },
     {
@@ -352,7 +351,7 @@ const questions1 =  [
     },
     {
         id: 15,
-        question: 'Με πόσες χώρες συνορεύει η Ελλάδα;',
+        question: 'Με πόσες χώρες συνορεύει χερσαία η Ελλάδα;',
         options:[
             {
                 id:"0",
@@ -372,7 +371,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 3,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/MorePhotos/sinora.jpg'),
         result: 'Η Ελλάδα συνορεύει με 4 χώρες: την Αλβανία, την Βόρειο Μακεδονία, τη Βουλγαρία και την Τουρκία.'
     },
     { 
@@ -597,7 +596,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 3,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/generalQuestions/voidokilia.jpg'),
         result: 'Η παραλία της Βοϊδοκοιλιάς βρίσκεται στην δυτική πλευρά της Μεσσηνίας λίγα χιλιόμετρα από την Πύλο.'
     },
     {

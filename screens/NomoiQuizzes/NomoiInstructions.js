@@ -28,7 +28,6 @@ const NomoiInstructions = () => {
           style={{
             fontSize: 22,
             padding: 20,
-            textDecoration: "underline",
             fontWeight: "600",
           }}
         >
@@ -48,7 +47,7 @@ const NomoiInstructions = () => {
           onPress={() => navigation.navigate("Nomoi1")}
           style={{
             width: 120,
-            backgroundColor: "magenta",
+            backgroundColor: "#ffb266",
             padding: 10,
             paddingBottom: 15,
             marginVertical: "8%",
@@ -56,7 +55,7 @@ const NomoiInstructions = () => {
             borderRadius: 20,
           }}
         >
-          <Text style={{ color: "white" }}>Ερωτήσεις </Text>
+          <Text style={{ color: "white", fontWeight: '600' }}>Ερωτήσεις </Text>
         </Pressable>
         <View style={{marginBottom: 10, marginTop: -15,marginHorizontal: 15}}>
           <Text style={{ fontSize: 10 }}>Ο διοικητικός διαχωρισμός σε νομούς δεν ισχύει πλέον (από το 2011), αλλά έχει ιστορική αξία και είναι ακόμα χρήσιμος.</Text>
@@ -73,7 +72,6 @@ const NomoiInstructions = () => {
           width: "100%",
           height: "24%",
           zIndex: -1,
-          // marginBottom: 50,
         }}
       />
     </View>

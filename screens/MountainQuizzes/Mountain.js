@@ -127,7 +127,7 @@ import {
                   justifyContent: "center",
                   width: 24,
                   height: 24,
-                  backgroundColor: "green",
+                  backgroundColor: "#00ff00",
                   borderRadius: 20,
                 }}
               >
@@ -139,7 +139,7 @@ import {
             <View style={styles.progressBarBack}>
               <Text
                 style={{
-                  backgroundColor: "green",
+                  backgroundColor: "#00ff00",
                   borderRadius: 12,
                   position: "absolute",
                   left: 0,

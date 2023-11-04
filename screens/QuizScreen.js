@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
   button1: {
     position: "absolute",
     opacity: 0.5,
-    backgroundColor: "blue",
+    // backgroundColor: "red",
+    backgroundColor: "#0080ff",
     width: "100%",
     height: "100%",
     borderRadius: 25,
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   button2: {
     position: "absolute",
     opacity: 0.4,
-    backgroundColor: "green",
+    backgroundColor: "#00ff00",
     width: "100%",
     height: "100%",
     borderRadius: 25,
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
   },
   button3: {
     position: "absolute",
-    opacity: 0.8,
-    backgroundColor: "gray",
+    opacity: 0.4,
+    backgroundColor: "#ff8000",
     width: "100%",
     height: "100%",
     borderRadius: 25,

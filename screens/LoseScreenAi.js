@@ -23,7 +23,7 @@ const LoseScreenAiMsg = (props) => {
             ref={video}
             style={{
                 width: "100%", 
-                height: "100%", 
+                height: "100%",
                 borderRadius: 45
             }}
             source={require("../assets/video/aiTimeEnd.mp4")}

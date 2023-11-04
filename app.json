@@ -3,10 +3,14 @@
     "name": "Γεωγραφία της Ελλάδας",
     "slug": "GreekGeographyQuizApp",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/geography.png",
+    "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "splash": {},
+    "splash": {
+      "image": "./assets/adaptive-icon-test.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -15,9 +19,9 @@
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
-      "versionCode": 6,
+      "versionCode": 11,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon-test.png",
         "backgroundColor": "#ffffff"
       }
     },

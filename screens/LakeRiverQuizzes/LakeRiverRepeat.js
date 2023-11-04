@@ -126,7 +126,7 @@ import {
                   justifyContent: "center",
                   width: 24,
                   height: 24,
-                  backgroundColor: "blue",
+                  backgroundColor: "#0059DF",
                   borderRadius: 20,
                 }}
               >
@@ -139,7 +139,7 @@ import {
               <Text
                 style={{
                   // backgroundColor: "#ffc0cb",
-                  backgroundColor: "blue",
+                  backgroundColor: "#0059DF",
                   borderRadius: 12,
                   position: "absolute",
                   left: 0,

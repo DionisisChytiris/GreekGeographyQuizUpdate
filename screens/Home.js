@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,6 +11,20 @@ import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
   const navigation = useNavigation();
+  const [fadeAnim] = useState(new Animated.Value(0));
+  const [showBtn, setShowBtn] = useState(false);
+  
+  const hide = () => setShowBtn(true);
+
+  setTimeout(hide, 2500);
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -19,24 +33,30 @@ const Home = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <View
+        <Animated.View
           style={{
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+            opacity: fadeAnim,
           }}
         >
-          <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
-          <Text style={{ color: "white", fontSize: 26 }}>της</Text>
-          <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text>
-        </View>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
+            <Text style={{ color: "white", fontSize: 26 }}>της</Text>
+            <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text>
+          </View>
+        </Animated.View>
 
         <Pressable
           onPress={() => navigation.navigate("Introduction")}
           style={styles.button}
         >
-          <View style={styles.button1} />
-          <Text style={styles.btnText}>Είσοδος</Text>
+          <View style={showBtn? styles.button1 : null} />
+          <Text style={showBtn? styles.btnText : styles.btnText1}>Είσοδος</Text>
         </Pressable>
       </ImageBackground>
     </View>
@@ -50,7 +70,7 @@ const styles = StyleSheet.create({
   button: {
     position: "relative",
     width: 140,
-    height: 45,
+    height: 48,
     borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
@@ -66,11 +86,17 @@ const styles = StyleSheet.create({
   },
   btnText: {
     position: "absolute",
-    bottom: 12,
-    left: 37,
+    bottom: 14,
+    left: 36,
     color: "white",
     fontWeight: "600",
     fontSize: 17,
+  },
+  btnText1: {
+    position: "absolute",
+    bottom: 14,
+    left: 36,
+    opacity: 0
   },
 });
 
