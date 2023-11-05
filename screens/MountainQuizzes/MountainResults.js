@@ -21,7 +21,7 @@ import {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
         <ImageBackground
-          source={require("../../assets/MorePhotos/mountain1.jpeg")}
+          source={require("../../assets/MorePhotos/mountain1vikos.jpg")}
           // resizeMode="cover"
           style={{ height: "100%" }}
         >

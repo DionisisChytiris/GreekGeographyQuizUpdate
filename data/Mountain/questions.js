@@ -92,7 +92,7 @@ const questions =  [
             },
         ],
         correctAnswerIndex: 2,
-        img: require('../../assets/MorePhotos/mountain1.jpeg'),
+        img: require('../../assets/MorePhotos/mountain1.jpg'),
         result: "Η Βασιλίτσα είναι βουνό της Μακεδονίας και της Ηπείρου, στα όρια των νομών Ιωαννίνων και Γρεβενών. Η κορυφή της έχει υψόμετρο 2.249 μέτρα και βρίσκεται στο κεντρικό τμήμα της οροσειράς της Βόρειας Πίνδου."
     },
     {
@@ -308,7 +308,7 @@ const questions =  [
             },
         ],
         correctAnswerIndex: 2,
-        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        img: require('../../assets/generalQuestions/psiloritis.jpg'),
         result: "Ο Ψηλορείτης, γνωστός και ως Ίδη, είναι ορεινός όγκος στην κεντρική Κρήτη με ύψος 2.456 μέτρα. Έχει 5 κορυφές που ξεπερνούν τα 2000 μέτρα: Ίδη (2.456 μ.), Αγκαθιάς (2.424 μ.), Στολίστρα (2.325 μ.), Βουλομένου (2.267 μ.) και Κούσακας (2.209 μ.)."
     },
     {

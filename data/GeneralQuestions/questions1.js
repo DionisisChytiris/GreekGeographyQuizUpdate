@@ -21,7 +21,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 1,
-        img: require('../../assets/generalQuestions/greece.jpg'),
+        img: require('../../assets/capitals/rethimno1.jpg'),
         result: 'H έκταση της Κρήτης είναι 8.303 χλμ². \nH έκταση της Εύβοιας είναι 3.670 χλμ². \nH έκταση της Ρόδου είναι 1.401 χλμ². \nH έκταση της Κέρκυρας είναι 585,3 χλμ². '
     },
     {
@@ -455,19 +455,19 @@ const questions1 =  [
         options:[
             {
                 id:"0",
-                answer:"Πρέβεζα",
+                answer:"Θράκη",
             },
             {
                 id:"1",
-                answer:"Νυδρί",
+                answer:"Ήπειρος",
             },
             {
                 id:"2",
-                answer:"Λευκάδα",
+                answer:"Μακεδονία",
             },
             {
                 id:"3",
-                answer:"Λευκίμμη",
+                answer:"Θεσσαλία",
             },
         ],
         correctAnswerIndex: 2,
