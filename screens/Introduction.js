@@ -23,11 +23,11 @@ const Introduction = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/meteora.jpg")}
+        source={require("../assets/introduction2.png")}
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <View style={{marginLeft: "auto", paddingRight: 30, paddingBottom: 20}}>
+        <View style={{ marginLeft: "auto", paddingRight: 40, paddingBottom: 0}}>
           <Pressable 
              onPress={() => {
               navigation.navigate("Quiz");
@@ -39,14 +39,14 @@ const Introduction = () => {
         </View>
         <View
           style={{
-            // flexDirection: "column",
-            // alignItems: "center",
-            // justifyContent: "center",
+            // width: '100%',
+            // height: '32%',
             width: '65%',
             height: '32%',
-            marginTop: -50,
+            marginBottom: 150,
             marginLeft: "auto",
             marginRight: "auto",
+
           }}
         >
           
@@ -72,6 +72,8 @@ const Introduction = () => {
           <View style={styles.button1} />
           <Text style={styles.btnText}>Κατηγορίες</Text>
         </Pressable>
+
+        
       </ImageBackground>
     </View>
   );
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: "absolute",
-    bottom: 100,
+    bottom: 180,
     right: 60,
     width: 140,
     height: 48,
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   },
   button1: {
     position: "absolute",
-    opacity: 0.3,
+    opacity: 0.8,
     backgroundColor: "magenta",
     width: "100%",
     height: "100%",

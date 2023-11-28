@@ -13,6 +13,10 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "../../Coding/ApiKey/seraphic-effect-403613-e866fad48ca3.json"
+      }
+    }
   }
 }
