@@ -4,8 +4,7 @@ import {
   View,
   Text,
   Pressable,
-  ImageBackground,
-  Platform
+  ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,11 +14,10 @@ const QuizScreen = () => {
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/romaikiAgora.jpg")}
-        // source={require("../assets/ath.jpg")}
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <Text style={{ textAlign: "center", color: "white", fontSize: 22, fontWeight: '600', marginBottom: 40}}>
+        <Text style={{ textAlign: "center", color: "white", fontSize: 24, fontWeight: '600', marginBottom: 40}}>
           Επέλεξε κατηγορία
         </Text>
         <Pressable
@@ -46,9 +44,6 @@ const QuizScreen = () => {
           <View style={styles.button4}/>
           <Text style={styles.buttonTxt4}>Γενικές Ερωτήσεις</Text>
         </Pressable>
-        {/* <View>
-          <Text>Api version {Platform.Version?.toString()}</Text>
-        </View> */}
         
       </ImageBackground>
     </View>
@@ -64,7 +59,7 @@ const styles = StyleSheet.create({
   buttonA: {
     position: "relative",
     // width: 215,
-    width: 200,
+    width: 250,
     // height: 60,
     height: 55,
     borderRadius: 25,
@@ -84,7 +79,7 @@ const styles = StyleSheet.create({
   buttonTxt1: {
     position: "absolute",
     bottom: 18,
-    left: 25,
+    left: 54,
     color: "white",
     fontWeight: "600",
     // textAlign: "center",
@@ -92,7 +87,7 @@ const styles = StyleSheet.create({
   },
   buttonB: {
     position: "relative",
-    width: 120,
+    width: 250,
     height: 50,
     borderRadius: 25,
     marginLeft: "auto",
@@ -110,7 +105,7 @@ const styles = StyleSheet.create({
   buttonTxt2: {
     position: "absolute",
     bottom: 15,
-    left: 35,
+    left: 97,
     color: "white",
     fontWeight: "600",
     // textAlign: "center",
@@ -118,7 +113,7 @@ const styles = StyleSheet.create({
   },
   buttonC: {
     position: "relative",
-    width: 200,
+    width: 250,
     height: 50,
     borderRadius: 25,
     marginLeft: "auto",
@@ -136,7 +131,7 @@ const styles = StyleSheet.create({
   buttonTxt3: {
     position: "absolute",
     bottom: 15,
-    left: 34,
+    left: 61,
     color: "white",
     fontWeight: "600",
     textAlign: "center",
@@ -144,7 +139,7 @@ const styles = StyleSheet.create({
   },
   buttonD: {
     position: "relative",
-    width: 220,
+    width: 250,
     height: 50,
     borderRadius: 25,
     marginLeft: "auto",
@@ -162,7 +157,7 @@ const styles = StyleSheet.create({
   buttonTxt4: {
     position: "absolute",
     bottom: 15,
-    left: 32,
+    left: 47,
     color: "white",
     fontWeight: "600",
     textAlign: "center",

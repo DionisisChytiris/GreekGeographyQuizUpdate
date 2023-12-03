@@ -13,7 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 const Introduction = () => {
   const navigation = useNavigation();
   const video = React.useRef(null);
-  const [showBtn, setShowBtn] = useState(false);
+  const [showBtn, setShowBtn] = useState(true);
   const [show, setShow] = useState(true);
 
   const hide = () => setShowBtn(true);
@@ -23,11 +23,12 @@ const Introduction = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/introduction2.png")}
+        source={require("../assets/meteora.jpg")}
+        // source={require("../assets/introduction2.png")}
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <View style={{ marginLeft: "auto", paddingRight: 40, paddingBottom: 0}}>
+        {/* <View style={{ marginLeft: "auto", paddingRight: 40, paddingBottom: 0}}>
           <Pressable 
              onPress={() => {
               navigation.navigate("Quiz");
@@ -36,7 +37,7 @@ const Introduction = () => {
             >
             <MaterialIcons name="cancel" size={24} color="white" />
           </Pressable>
-        </View>
+        </View> */}
         <View
           style={{
             // width: '100%',

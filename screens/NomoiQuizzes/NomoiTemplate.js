@@ -11,6 +11,7 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import styles from "../styles/testStyle";
   import { Ionicons } from "@expo/vector-icons";
+  import {Audio} from 'expo-av'
   
   // import { Entypo } from "@expo/vector-icons";
   
@@ -29,6 +30,32 @@ import {
     const [nextQueButton, setNextQueButton] = useState(styles.nextQueButton);
     let interval = null;
     let index1 = index + 1;
+
+    // Correct Sound Effect
+    const [correctSound, setCorrectSound] = useState();
+    async function CorrectPlaySound() {
+      const { sound } = await Audio.Sound.createAsync(
+        require("../../assets/sounds/correct2.wav")
+      );
+      setCorrectSound(correctSound);
+      await sound.playAsync();
+    } 
+    useEffect(()=>{
+      return correctSound? ()=>correctSound.uploadAsync(): undefined
+    },[correctSound])
+
+    // Wrong Sound Effect
+    const [wrongSound, setWrongSound] = useState();
+    async function WrongPlaySound() {
+      const { sound } = await Audio.Sound.createAsync(
+        require("../../assets/sounds/wrong.wav")
+      );
+      setWrongSound(wrongSound);
+      await sound.playAsync();
+    } 
+    useEffect(()=>{
+      return wrongSound? ()=>wrongSound.uploadAsync(): undefined
+    },[wrongSound])
   
     useEffect(() => {
       if (selectedAnswerIndex !== null) {
@@ -37,11 +64,13 @@ import {
           setAnswerStatus(true);
           setStyle(styles.quizContainer1);
           setNextQueButton(styles.nextQueButton1);
+          CorrectPlaySound();
           answers.push({ question: index + 1, answer: true });
         } else {
           setAnswerStatus(false);
           setStyle(styles.quizContainer2);
           setNextQueButton(styles.nextQueButton2);
+          WrongPlaySound();
           answers.push({ question: index + 1, answer: false });
         }
       }

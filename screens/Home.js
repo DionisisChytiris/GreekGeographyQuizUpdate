@@ -16,12 +16,12 @@ const Home = () => {
   
   const hide = () => setShowBtn(true);
 
-  setTimeout(hide, 1700);
+  setTimeout(hide, 900);
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 1500,
+      duration: 800,
       useNativeDriver: true,
     }).start();
   }, []);
@@ -43,6 +43,7 @@ const Home = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
+              marginTop: 30
             }}
           >
             <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
@@ -69,12 +70,12 @@ const styles = StyleSheet.create({
   },
   button: {
     position: "relative",
-    width: 140,
-    height: 48,
+    width: 180,
+    height: 70,
     borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 50,
+    marginTop: 80,
   },
   button1: {
     position: "absolute",
@@ -86,11 +87,11 @@ const styles = StyleSheet.create({
   },
   btnText: {
     position: "absolute",
-    bottom: 14,
-    left: 36,
+    bottom: 23,
+    left: 52,
     color: "white",
-    fontWeight: "600",
-    fontSize: 17,
+    // fontWeight: "600",
+    fontSize: 20,
   },
   btnText1: {
     position: "absolute",
