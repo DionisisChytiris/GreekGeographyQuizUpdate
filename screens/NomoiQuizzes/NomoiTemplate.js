@@ -6,6 +6,7 @@ import {
     Image,
     ScrollView,
     StyleSheet,
+    Vibration
   } from "react-native";
   import React, { useState, useEffect } from "react";
   import { useNavigation } from "@react-navigation/native";
@@ -71,6 +72,7 @@ import {
           setStyle(styles.quizContainer2);
           setNextQueButton(styles.nextQueButton2);
           WrongPlaySound();
+          Vibration.vibrate();
           answers.push({ question: index + 1, answer: false });
         }
       }

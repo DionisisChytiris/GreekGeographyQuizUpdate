@@ -70,11 +70,11 @@ const Mountain = () => {
         CorrectPlaySound();
         answers.push({ question: index + 1, answer: true });
       } else {
-        setAnswerStatus(false);
+        setAnswerStatus();
         setStyle(styles.quizContainer2);
         setNextQueButton(styles.nextQueButton2);
         WrongPlaySound();
-        Vibration.vibrate(),
+        Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
     }
@@ -105,7 +105,7 @@ const Mountain = () => {
 
   // if(counter === 0){
   //   setIndex(index + 1)
-  //   setCounter(15)
+  //   setCounter(15)  
   // }
 
   useEffect(() => {
@@ -359,6 +359,7 @@ const Mountain = () => {
 
           <Pressable
             onPress={() => navigation.navigate("Quiz")}
+            // onPress={()=>setCorrectSound(sound)}
             style={stylesT.button0}
           >
             <View style={stylesT.button1} />
