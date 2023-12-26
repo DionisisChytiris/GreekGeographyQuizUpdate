@@ -1,9 +1,11 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const NomoiInstructions = () => {
   const navigation = useNavigation();
+  const [color, setColor] = useState('#ff8000')
+
   return (
     <View style={{ flex: 1, backgroundColor: "lightblue" }}>
       <Image
@@ -44,10 +46,14 @@ const NomoiInstructions = () => {
         <Text style={{ fontSize: 16 }}>να απαντήσεις τουλάχιστον</Text>
         <Text style={{ fontSize: 16, marginBottom: -10 }}>5 ερωτήσεις σωστά.</Text>
         <Pressable
-          onPress={() => navigation.navigate("Nomoi1")}
+          onPressIn={() => setColor('#ffb266')}
+          onPressOut={() => {
+            navigation.navigate("Nomoi1")
+            setColor('#ff8000')
+          }}
           style={{
             width: 120,
-            backgroundColor: "#ffb266",
+            backgroundColor: color,
             padding: 10,
             paddingBottom: 15,
             marginVertical: "8%",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   StyleSheet,
   View,
@@ -10,6 +10,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const QuizScreen = () => {
   const navigation = useNavigation();
+  const [color1, setColor1] = useState('#0080ff')
+  const [color2, setColor2] = useState('#00ff00')
+  const [color3, setColor3] = useState('#ff8000')
+  const [color4, setColor4] = useState('magenta')
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -21,27 +26,43 @@ const QuizScreen = () => {
           Επέλεξε κατηγορία
         </Text>
         <Pressable
-          onPress={() => navigation.navigate("LakeRiver")}
+          onPressIn={() => setColor1('#00abff')}
+          onPressOut={() => {
+            navigation.navigate("LakeRiver")
+            setColor1('#0080ff')
+          }}
           style={styles.buttonA}>
-          <View style={styles.button1}/>
+          <View style={[styles.button1, {backgroundColor: color1}]}/>
           <Text style={styles.buttonTxt1}>Λίμνες / Ποτάμια</Text>
         </Pressable>
         <Pressable
-          onPress={() => navigation.navigate("Mountain")}
+          onPressIn={() => setColor2('#56ff34')}
+          onPressOut={() => {
+            navigation.navigate("Mountain")
+            setColor2('#00ff00')
+          }}
           style={styles.buttonB}>
-          <View style={styles.button2}/>
+          <View style={[styles.button2, {backgroundColor: color2}]}/>
           <Text style={styles.buttonTxt2}>Βουνά</Text>
         </Pressable>
         <Pressable
-          onPress={() => navigation.navigate("Instructions")}
+          onPressIn={() => setColor3('#ffab00')}
+          onPressOut={() => {
+            navigation.navigate("Instructions")
+            setColor3('#ff8000')
+          }}
           style={styles.buttonC}>
-          <View style={styles.button3}/>
+          <View style={[styles.button3,{backgroundColor: color3}]}/>
           <Text style={styles.buttonTxt3}>Νομοί / Πόλεις</Text>
         </Pressable>
         <Pressable
-          onPress={() => navigation.navigate("GeneralQuestions1")}
+          onPressIn={() => setColor4('purple')}
+          onPressOut={() => {
+            navigation.navigate("GeneralQuestions1")
+            setColor4('magenta')
+          }}
           style={styles.buttonD}>
-          <View style={styles.button4}/>
+          <View style={[styles.button4, {backgroundColor: color4}]}/>
           <Text style={styles.buttonTxt4}>Γενικές Ερωτήσεις</Text>
         </Pressable>
         

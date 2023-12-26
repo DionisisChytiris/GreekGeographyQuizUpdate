@@ -15,6 +15,7 @@ const Introduction = () => {
   const video = React.useRef(null);
   const [showBtn, setShowBtn] = useState(true);
   const [show, setShow] = useState(true);
+  const [color, setColor] = useState('magenta')
 
   const hide = () => setShowBtn(true);
 
@@ -63,14 +64,16 @@ const Introduction = () => {
         </View>
 
         <Pressable
-          onPress={() => {
+        onPressIn={()=>setColor('purple')}
+          onPressOut={() => {
             navigation.navigate("Quiz");
             setShow(false);
+            setColor('magenta')
           }}
           // style={showBtn > 8 ? styles.button : styles.buttonA}
           style={showBtn ? styles.button : styles.buttonA}
         >
-          <View style={styles.button1} />
+          <View style={[styles.button1, {backgroundColor: color}]} />
           <Text style={styles.btnText}>Κατηγορίες</Text>
         </Pressable>
 
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
   button1: {
     position: "absolute",
     opacity: 0.8,
-    backgroundColor: "magenta",
+    // backgroundColor: "magenta",
     width: "100%",
     height: "100%",
     borderRadius: 25,

@@ -13,6 +13,7 @@ const Home = () => {
   const navigation = useNavigation();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [showBtn, setShowBtn] = useState(false);
+  const [color, setColor] = useState('magenta')
   
   const hide = () => setShowBtn(true);
 
@@ -53,10 +54,15 @@ const Home = () => {
         </Animated.View>
 
         <Pressable
-          onPress={() => navigation.navigate("Introduction")}
+          // onPress={() => navigation.navigate("Introduction")}
+          onPressIn={()=>setColor('purple')}
+          onPressOut={() => {
+            navigation.navigate("Introduction")
+            setColor('magenta')
+          }}
           style={styles.button}
         >
-          <View style={showBtn? styles.button1 : null} />
+          <View style={showBtn? [styles.button1, {backgroundColor: color}] : null} />
           <Text style={showBtn? styles.btnText : styles.btnText1}>Είσοδος</Text>
         </Pressable>
       </ImageBackground>
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
   button1: {
     position: "absolute",
     opacity: 0.3,
-    backgroundColor: "magenta",
+    // backgroundColor: 'magenta',
     width: "100%",
     height: "100%",
     borderRadius: 25,

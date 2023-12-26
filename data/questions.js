@@ -1,8 +1,6 @@
-
-
 const questions1 =  [
     {
-        question: "In what contintent is Indonesia?",
+        question: "In what continent is Indonesia?",
         options:[
             {
                 id:"0",
