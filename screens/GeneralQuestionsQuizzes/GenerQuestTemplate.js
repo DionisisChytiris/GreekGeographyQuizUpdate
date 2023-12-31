@@ -30,6 +30,8 @@ import {
     const [counter, setCounter] = useState(15);
     const [style, setStyle] = useState(styles.quizContainer);
     const [nextQueButton, setNextQueButton] = useState(styles.nextQueButton);
+    const [btnBackground, setBtnBackground] = useState('magenta')
+    const [opacityBtn, setOpacityBtn] = useState(1)
     let interval = null;
     let index1 = index + 1;
 
@@ -249,10 +251,12 @@ import {
                   )
                 ) : answerStatus === null ? null : (
                   <Pressable
+                  onPressIn = {()=> setOpacityBtn(0.8)}
                     onPress={() => {
                       setIndex(index + 1);
+                      setOpacityBtn(1)
                     }}
-                    style={nextQueButton}
+                    style={[nextQueButton, {opacity: opacityBtn}]}
                   >
                     <Text style={{ color: "white", fontSize: 12 }}>
                       Επόμενη Ερώτηση
@@ -372,10 +376,14 @@ import {
                 )}
               </View>
               <Pressable
-                onPress={() => navigation.navigate("Quiz")}
+                onPressIn= {()=>setBtnBackground('purple')}
+                onPressOut={() => {
+                  navigation.navigate("Quiz")
+                  setBtnBackground('magenta')
+                }}
                 style={stylesT.button0}
               >
-                <View style={stylesT.button1} />
+                <View style={[stylesT.button1, {backgroundColor: btnBackground}]} />
                 <View style={stylesT.btnText}>
                   <Ionicons name="home-outline" size={20} color="white" />
                 </View>

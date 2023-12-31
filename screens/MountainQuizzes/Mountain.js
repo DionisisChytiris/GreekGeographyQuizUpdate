@@ -31,6 +31,7 @@ const Mountain = () => {
   const [counter, setCounter] = useState(15);
   const [style, setStyle] = useState(styles.quizContainer);
   const [nextQueButton, setNextQueButton] = useState(styles.nextQueButton);
+  const [btnBackground, setBtnBackground] = useState('#2E86C1')
   let interval = null;
   let index1 = index + 1;
 
@@ -358,11 +359,15 @@ const Mountain = () => {
           </View>
 
           <Pressable
-            onPress={() => navigation.navigate("Quiz")}
+            onPressIn= {()=>setBtnBackground('#62a9da')}
+            onPressOut={() => {
+              navigation.navigate("Quiz")
+              setBtnBackground('#2E86C1')
+            }}
             // onPress={()=>setCorrectSound(sound)}
             style={stylesT.button0}
           >
-            <View style={stylesT.button1} />
+            <View style={[stylesT.button1,{backgroundColor: btnBackground}]} />
             <View style={stylesT.btnText}>
               <Ionicons name="home-outline" size={20} color="white" />
             </View>
