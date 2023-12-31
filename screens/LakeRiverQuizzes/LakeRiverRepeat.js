@@ -380,12 +380,13 @@ import {
   const stylesT = StyleSheet.create({
     button0: {
       position: "relative",
-      width: 80,
+      width: 180,
       height: 40,
       borderRadius: 25,
       marginLeft: "auto",
       marginRight: "auto",
-      marginBottom: 60,
+      marginTop: 20,
+      marginBottom: 40,
     },
     button1: {
       position: "absolute",
@@ -398,7 +399,7 @@ import {
     btnText: {
       position: "absolute",
       bottom: 11,
-      left: 30,
+      left: 79,
       color: "white",
       fontWeight: "600",
       fontSize: 20,

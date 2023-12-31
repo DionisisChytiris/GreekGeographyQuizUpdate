@@ -378,13 +378,15 @@ export default Mountain;
 const stylesT = StyleSheet.create({
   button0: {
     position: "relative",
-    width: 80,
+    // position: "absolute",
+    // bottom: 20,
+    width: 180,
     height: 40,
     borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 10,
-    marginBottom: 50,
+    marginTop: 25,
+    marginBottom: 35,
   },
   button1: {
     position: "absolute",
@@ -397,7 +399,7 @@ const stylesT = StyleSheet.create({
   btnText: {
     position: "absolute",
     bottom: 11,
-    left: 30,
+    left: 79,
     color: "white",
     fontWeight: "600",
     fontSize: 20,

@@ -58,6 +58,7 @@ const NomoiInstructions = () => {
             paddingBottom: 15,
             marginVertical: "8%",
             alignItems: "center",
+            justifyContent: 'center',
             borderRadius: 20,
           }}
         >
