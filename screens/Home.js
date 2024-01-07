@@ -49,7 +49,7 @@ const Home = () => {
           >
             <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
             <Text style={{ color: "white", fontSize: 26 }}>της</Text>
-            <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text>
+            <Text style={{ color: "white", fontSize: 30 }}>Ελλάς</Text>
           </View>
         </Animated.View>
 
