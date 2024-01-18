@@ -7,14 +7,16 @@ import {
   ScrollView,
   ImageBackground,
   StyleSheet,
-  Vibration
+  Vibration,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/testStyle";
 import questions from "../../data/Mountain/questions";
 import { Ionicons } from "@expo/vector-icons";
-import {Audio} from 'expo-av'
+import { Audio } from "expo-av";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Entypo } from "@expo/vector-icons";
 
 // import { Entypo } from "@expo/vector-icons";
 
@@ -31,9 +33,15 @@ const Mountain = () => {
   const [counter, setCounter] = useState(15);
   const [style, setStyle] = useState(styles.quizContainer);
   const [nextQueButton, setNextQueButton] = useState(styles.nextQueButton);
-  const [btnBackground, setBtnBackground] = useState('#2E86C1')
+  const [btnBackground, setBtnBackground] = useState("#2E86C1");
   let interval = null;
   let index1 = index + 1;
+  const bottomSheetModalRef = useRef(null);
+  const snapPoints = ["50%"];
+
+  const handleModal = () => {
+    bottomSheetModalRef.current?.present();
+  };
 
   // Correct Sound Effect
   const [correctSound, setCorrectSound] = useState();
@@ -43,10 +51,10 @@ const Mountain = () => {
     );
     setCorrectSound(correctSound);
     await sound.playAsync();
-  } 
-  useEffect(()=>{
-    return correctSound? ()=>correctSound.uploadAsync(): undefined
-  },[correctSound])
+  }
+  useEffect(() => {
+    return correctSound ? () => correctSound.uploadAsync() : undefined;
+  }, [correctSound]);
 
   // Wrong Sound Effect
   const [wrongSound, setWrongSound] = useState();
@@ -56,10 +64,10 @@ const Mountain = () => {
     );
     setWrongSound(wrongSound);
     await sound.playAsync();
-  } 
-  useEffect(()=>{
-    return wrongSound? ()=>wrongSound.uploadAsync(): undefined
-  },[wrongSound])
+  }
+  useEffect(() => {
+    return wrongSound ? () => wrongSound.uploadAsync() : undefined;
+  }, [wrongSound]);
 
   useEffect(() => {
     if (selectedAnswerIndex !== null) {
@@ -106,7 +114,7 @@ const Mountain = () => {
 
   // if(counter === 0){
   //   setIndex(index + 1)
-  //   setCounter(15)  
+  //   setCounter(15)
   // }
 
   useEffect(() => {
@@ -126,12 +134,7 @@ const Mountain = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
-        <ImageBackground
-          source={require("../../assets/meteora.jpg")}
-          // style={
-          //   answerStatus == null ? { height: "100%" } : { height: "120%" }
-          // }
-        >
+        <ImageBackground source={require("../../assets/meteora.jpg")}>
           <View style={styles.containerInfo}>
             <Text
               style={{
@@ -232,30 +235,85 @@ const Mountain = () => {
 
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
-              answerStatus === null ? null : (
+              answerStatus === null ? (
                 <Pressable
-                  onPress={() =>
-                    navigation.navigate("MountainResults", {
-                      points: points,
-                      data: data,
-                    })
-                  }
+                  onPressIn={() => setBtnBackground("#62a9da")}
+                  onPressOut={() => {
+                    navigation.navigate("Quiz");
+                    setBtnBackground("#2E86C1");
+                  }}
+                  style={stylesT.button0}
+                >
+                  <View
+                    style={[
+                      stylesT.button1,
+                      { backgroundColor: btnBackground },
+                    ]}
+                  />
+                  <View style={stylesT.btnText}>
+                    <Ionicons name="home-outline" size={20} color="white" />
+                  </View>
+                </Pressable>
+              ) : (
+                <View style={{ marginBottom: 25 }}>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate("MountainResults", {
+                        points: points,
+                        data: data,
+                      })
+                    }
+                    style={nextQueButton}
+                  >
+                    <Text style={{ color: "white" }}>Αποτελέσματα</Text>
+                  </Pressable>
+                </View>
+              )
+            ) : answerStatus === null ? (
+              <View style={{ marginBottom: 25 }}>
+                <Pressable
+                  onPressIn={() => setBtnBackground("#62a9da")}
+                  onPressOut={() => {
+                    navigation.navigate("Quiz");
+                    setBtnBackground("#2E86C1");
+                  }}
+                  style={stylesT.button0}
+                >
+                  <View
+                    style={[
+                      stylesT.button1,
+                      { backgroundColor: btnBackground },
+                    ]}
+                  />
+                  <View style={stylesT.btnText}>
+                    <Ionicons name="home-outline" size={20} color="white" />
+                  </View>
+                </Pressable>
+              </View>
+            ) : (
+              <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                <Pressable
+                  onPress={() => setIndex(index + 1)}
                   style={nextQueButton}
                 >
-                  <Text style={{ color: "white" }}>Αποτελέσματα</Text>
+                  <Text style={{ color: "white", fontSize: 12 }}>
+                    Επόμενη Ερώτηση
+                  </Text>
                 </Pressable>
-              )
-            ) : answerStatus === null ? null : (
-              <Pressable
-                onPress={() => setIndex(index + 1)}
-                style={nextQueButton}
-              >
-                <Text style={{ color: "white", fontSize: 12 }}>
-                  Επόμενη Ερώτηση
-                </Text>
-              </Pressable>
+                <Pressable onPress={handleModal}>
+                  <Text>
+                    <Entypo name="info-with-circle" size={28} color="white" />
+                  </Text>
+                </Pressable>
+              </View>
             )}
 
+            <BottomSheetModal
+              ref={bottomSheetModalRef}
+              index={0}
+              snapPoints={snapPoints}
+              backgroundStyle={{ borderRadius: 50 }}
+            >
             {answerStatus === null ? null : (
               <View
                 style={answerStatus === null ? null : { alignItems: "center" }}
@@ -263,19 +321,18 @@ const Mountain = () => {
                 {!!answerStatus ? (
                   <View
                     style={{
-                      margin: 40,
                       alignItems: "center",
                       backgroundColor: "white",
                       borderRadius: 20,
+                      width: "100%",
                     }}
                   >
                     <View
                       style={{
-                        flexDirection: "column",
+                        flexDirection: "row",
                         alignItems: "center",
-                        marginTop: 30,
-                        width: 250,
-                        height: 180,
+                        justifyContent: "center",
+                        height: 60,
                       }}
                     >
                       <Text
@@ -292,39 +349,47 @@ const Mountain = () => {
                           height: 50,
                         }}
                       />
-                      <Text>Συνέχισε έτσι</Text>
                     </View>
-                    {/* <Image
-                        source={currentQuestion?.imgMap}
-                        resizeMode="cover"
-                        style={{
-                          borderRadius: 10,
-                          marginBottom: 10,
-                          marginHorizontal: 3,
-                          width: 300,
-                          height: 250,
-                        }}
-                      /> */}
-                    <Text style={{ margin: 20, color: "green" }}>
-                      {currentQuestion?.result}{" "}
-                    </Text>
+                    <View
+                      style={{
+                        paddingBottom: 20,
+                        paddingHorizontal: 15,
+                        gap: 10,
+                        backgroundColor: "#f5f5f5",
+                        height: 300,
+                        borderRadius: 20,
+                        padding: 10,
+                      }}
+                    >
+                      <Text style={{ color: "#22c200" }}>
+                        {currentQuestion?.result1}{" "}
+                      </Text>
+                      <Text style={{ color: "black" }}>
+                        {currentQuestion?.result2}{" "}
+                      </Text>
+                      <Text style={{ color: "#014acf" }}>
+                        {currentQuestion?.result3}{" "}
+                      </Text>
+                      <Text style={{ color: "magenta" }}>
+                        {currentQuestion?.result4}{" "}
+                      </Text>
+                    </View>
                   </View>
                 ) : (
                   <View
                     style={{
-                      margin: 40,
+                      flex: 1,
                       alignItems: "center",
                       backgroundColor: "white",
-                      borderRadius: 20,
+                      width: "95%",
                     }}
                   >
                     <View
                       style={{
-                        flexDirection: "column",
+                        flexDirection: "row",
                         alignItems: "center",
-                        marginTop: 30,
-                        width: 250,
-                        height: 200,
+                        justifyContent: "center",
+                        height: 60,
                       }}
                     >
                       <Text style={{ color: "red", fontSize: 20, padding: 10 }}>
@@ -339,39 +404,38 @@ const Mountain = () => {
                           height: 50,
                         }}
                       />
-                      {/* <Text>Προσπάθησε περισσότερο</Text> */}
                     </View>
                     <View
                       style={{
-                        marginTop: -40,
-                        paddingBottom: 40,
-                        paddingHorizontal: 25,
+                        paddingBottom: 20,
+                        paddingHorizontal: 15,
+                        gap: 10,
+                        backgroundColor: "#f5f5f5",
+                        height: 300,
+                        borderRadius: 20,
+                        padding: 10,
                       }}
                     >
-                      <Text style={{ color: "green" }}>
-                        {currentQuestion?.result}
+                      <Text style={{ color: "#22c200" }}>
+                        {currentQuestion?.result1}{" "}
+                      </Text>
+                      <Text style={{ color: "black" }}>
+                        {currentQuestion?.result2}{" "}
+                      </Text>
+                      <Text style={{ color: "#014acf" }}>
+                        {currentQuestion?.result3}{" "}
+                      </Text>
+                      <Text style={{ color: "magenta" }}>
+                        {currentQuestion?.result4}{" "}
                       </Text>
                     </View>
                   </View>
                 )}
               </View>
             )}
-          </View>
 
-          <Pressable
-            onPressIn= {()=>setBtnBackground('#62a9da')}
-            onPressOut={() => {
-              navigation.navigate("Quiz")
-              setBtnBackground('#2E86C1')
-            }}
-            // onPress={()=>setCorrectSound(sound)}
-            style={stylesT.button0}
-          >
-            <View style={[stylesT.button1,{backgroundColor: btnBackground}]} />
-            <View style={stylesT.btnText}>
-              <Ionicons name="home-outline" size={20} color="white" />
-            </View>
-          </Pressable>
+            </BottomSheetModal>
+          </View>
         </ImageBackground>
       </ScrollView>
     </SafeAreaView>

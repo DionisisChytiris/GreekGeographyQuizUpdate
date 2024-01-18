@@ -9,12 +9,14 @@ import {
   StyleSheet,
   Vibration,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/testStyle";
 import questions from "../../data/Mountain/questions";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Entypo } from "@expo/vector-icons";
 
 // import { Entypo } from "@expo/vector-icons";
 
@@ -31,9 +33,15 @@ const MountainRepeat = () => {
   const [counter, setCounter] = useState(15);
   const [style, setStyle] = useState(styles.quizContainer);
   const [nextQueButton, setNextQueButton] = useState(styles.nextQueButton);
-  const [btnBackground, setBtnBackground] = useState('#2E86C1')
+  const [btnBackground, setBtnBackground] = useState("#2E86C1");
   let interval = null;
   let index1 = index + 1;
+  const bottomSheetModalRef = useRef(null);
+  const snapPoints = ["50%"];
+
+  const handleModal = () => {
+    bottomSheetModalRef.current?.present();
+  };
 
   // Correct Sound Effect
   const [correctSound, setCorrectSound] = useState();
@@ -126,8 +134,6 @@ const MountainRepeat = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
-        {/* <View style={{ height: "110vh", backgroundColor: "darkblue" }}> */}
-        {/* <View style={{ height: '110vh', backgroundColor: "darkblue" }}> */}
         <ImageBackground
           source={require("../../assets/meteora.jpg")}
           // resizeMode="cover"
@@ -235,30 +241,79 @@ const MountainRepeat = () => {
 
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
-              answerStatus === null ? null : (
+              answerStatus === null ? (
                 <Pressable
-                  onPress={() =>
-                    navigation.navigate("MountainResultsRepeat", {
-                      points: points,
-                      data: data,
-                    })
-                  }
+                  onPressIn={() => setBtnBackground("#62a9da")}
+                  onPressOut={() => {
+                    navigation.navigate("Quiz");
+                    setBtnBackground("#2E86C1");
+                  }}
+                  style={stylesT.button0}
+                >
+                  <View
+                    style={[
+                      stylesT.button1,
+                      { backgroundColor: btnBackground },
+                    ]}
+                  />
+                  <View style={stylesT.btnText}>
+                    <Ionicons name="home-outline" size={20} color="white" />
+                  </View>
+                </Pressable>
+              ) : (
+                <View style={{ marginBottom: 25 }}>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate("MountainResultsRepeat", {
+                        points: points,
+                        data: data,
+                      })
+                    }
+                    style={nextQueButton}
+                  >
+                    <Text style={{ color: "white" }}>Αποτελέσματα</Text>
+                  </Pressable>
+                </View>
+              )
+            ) : answerStatus === null ? (
+              <View style={{ marginBottom: 25 }}>
+                <Pressable
+                  onPressIn={() => setBtnBackground("#62a9da")}
+                  onPressOut={() => {
+                    navigation.navigate("Quiz");
+                    setBtnBackground("#2E86C1");
+                  }}
+                  style={stylesT.button0}
+                >
+                  <View
+                    style={[
+                      stylesT.button1,
+                      { backgroundColor: btnBackground },
+                    ]}
+                  />
+                  <View style={stylesT.btnText}>
+                    <Ionicons name="home-outline" size={20} color="white" />
+                  </View>
+                </Pressable>
+              </View>
+            ) : (
+              <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                <Pressable
+                  onPress={() => setIndex(index + 1)}
                   style={nextQueButton}
                 >
-                  <Text style={{ color: "white" }}>Αποτελέσματα</Text>
+                  <Text style={{ color: "white", fontSize: 12 }}>
+                    Επόμενη Ερώτηση
+                  </Text>
                 </Pressable>
-              )
-            ) : answerStatus === null ? null : (
-              <Pressable
-                onPress={() => setIndex(index + 1)}
-                style={nextQueButton}
-              >
-                <Text style={{ color: "white", fontSize: 12 }}>
-                  Επόμενη Ερώτηση
-                </Text>
-              </Pressable>
+                <Pressable onPress={handleModal}>
+                  <Text>
+                    <Entypo name="info-with-circle" size={28} color="white" />
+                  </Text>
+                </Pressable>
+              </View>
             )}
-
+            {/* 
             {answerStatus === null ? null : (
               <View
                 style={answerStatus === null ? null : { alignItems: "center" }}
@@ -297,17 +352,6 @@ const MountainRepeat = () => {
                       />
                       <Text>Συνέχισε έτσι</Text>
                     </View>
-                    {/* <Image
-                          source={currentQuestion?.imgMap}
-                          resizeMode="cover"
-                          style={{
-                            borderRadius: 10,
-                            marginBottom: 10,
-                            marginHorizontal: 3,
-                            width: 300,
-                            height: 250,
-                          }}
-                        /> */}
                     <Text
                       style={{
                         color: "green",
@@ -348,7 +392,6 @@ const MountainRepeat = () => {
                           height: 50,
                         }}
                       />
-                      {/* <Text>Προσπάθησε περισσότερο</Text> */}
                     </View>
                     <View
                       style={{
@@ -364,22 +407,140 @@ const MountainRepeat = () => {
                   </View>
                 )}
               </View>
-            )}
+            )} */}
           </View>
-
-          <Pressable
-            onPressIn= {()=>setBtnBackground('#62a9da')}
-            onPressOut={() => {
-              navigation.navigate("Quiz")
-              setBtnBackground('#2E86C1')
-            }}
-            style={stylesT.button0}
+          <BottomSheetModal
+            ref={bottomSheetModalRef}
+            index={0}
+            snapPoints={snapPoints}
+            backgroundStyle={{ borderRadius: 50 }}
           >
-            <View style={[stylesT.button1,{backgroundColor: btnBackground}]} />
-            <View style={stylesT.btnText}>
-              <Ionicons name="home-outline" size={20} color="white" />
+            <View>
+              {answerStatus === null ? null : (
+                <View
+                  style={
+                    answerStatus === null ? null : { alignItems: "center" }
+                  }
+                >
+                  {!!answerStatus ? (
+                    <View
+                      style={{
+                        alignItems: "center",
+                        backgroundColor: "white",
+                        borderRadius: 20,
+                        width: "100%",
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: 60,
+                        }}
+                      >
+                        <Text
+                          style={{ color: "green", fontSize: 20, padding: 10 }}
+                        >
+                          Σωστή Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/thumbUp.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          paddingBottom: 20,
+                          paddingHorizontal: 15,
+                          gap: 10,
+                          backgroundColor: "#f5f5f5",
+                          height: 300,
+                          borderRadius: 20,
+                          padding: 10,
+                        }}
+                      >
+                        <Text style={{ color: "#22c200" }}>
+                          {currentQuestion?.result1}{" "}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                          {currentQuestion?.result2}{" "}
+                        </Text>
+                        <Text style={{ color: "#014acf" }}>
+                          {currentQuestion?.result3}{" "}
+                        </Text>
+                        <Text style={{ color: "magenta" }}>
+                          {currentQuestion?.result4}{" "}
+                        </Text>
+                      </View>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        flex: 1,
+                        alignItems: "center",
+                        backgroundColor: "white",
+                        width: "95%",
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: 60,
+                        }}
+                      >
+                        <Text
+                          style={{ color: "red", fontSize: 20, padding: 10 }}
+                        >
+                          Λάθος Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/sadFace.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          paddingBottom: 20,
+                          paddingHorizontal: 15,
+                          gap: 10,
+                          backgroundColor: "#f5f5f5",
+                          height: 300,
+                          borderRadius: 20,
+                          padding: 10,
+                        }}
+                      >
+                        <Text style={{ color: "#22c200" }}>
+                          {currentQuestion?.result1}{" "}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                          {currentQuestion?.result2}{" "}
+                        </Text>
+                        <Text style={{ color: "#014acf" }}>
+                          {currentQuestion?.result3}{" "}
+                        </Text>
+                        <Text style={{ color: "magenta" }}>
+                          {currentQuestion?.result4}{" "}
+                        </Text>
+                      </View>
+                    </View>
+                  )}
+                </View>
+              )}
             </View>
-          </Pressable>
+          </BottomSheetModal>
         </ImageBackground>
         {/* </View> */}
       </ScrollView>
