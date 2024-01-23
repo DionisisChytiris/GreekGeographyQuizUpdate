@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   View,
@@ -7,6 +7,8 @@ import {
   ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AntDesign } from '@expo/vector-icons';
 
 const QuizScreen = () => {
   const navigation = useNavigation();
@@ -14,6 +16,35 @@ const QuizScreen = () => {
   const [color2, setColor2] = useState('#00ff00')
   const [color3, setColor3] = useState('#ff8000')
   const [color4, setColor4] = useState('magenta')
+  const [name, setName] = useState('')
+
+  useEffect(()=>{
+    getData()
+  },[])
+
+  const getData = ()=>{
+    try{
+      AsyncStorage.getItem('UserData')
+        .then((value)=>{
+          if(value !=null){
+            let user = JSON.parse(value)
+            setName(user.Name)
+          }
+        })
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const removeData = async () => {
+    try {
+      await AsyncStorage.clear();
+      navigation.navigate("SetUserName");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -22,6 +53,15 @@ const QuizScreen = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
+        <View style={{position: 'absolute', top: 40, left: 30}}>
+          <Text style={{color: 'white', fontSize: 16}}>Γεία σου {name}!!! </Text>
+          <Pressable
+            style={{marginTop: 10}}
+            onPress={removeData}
+          >
+            <AntDesign name="edit" size={24} color="lightgray" />
+          </Pressable>
+        </View>
         <Text style={{ textAlign: "center", color: "white", fontSize: 24, fontWeight: '600', marginBottom: 40}}>
           Επέλεξε κατηγορία
         </Text>

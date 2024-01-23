@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Home, QuizScreen, Introduction, LoseScreen} from './screens'
+import {Home, QuizScreen, Introduction, LoseScreen, SetUserName} from './screens'
 import {Nomoi1, Nomoi1R, Nomoi2, Nomoi2R, Nomoi3, Nomoi3R, Nomoi4, Nomoi4R, Nomoi5, Nomoi5R, Nomoi6, Nomoi6Final,Nomoi6R, NomoiLoseScreen1, NomoiLoseScreen1R, NomoiLoseScreen2, NomoiLoseScreen2R, NomoiLoseScreen3, NomoiLoseScreen3R, NomoiLoseScreen4, NomoiLoseScreen4R, NomoiLoseScreen5, NomoiLoseScreen5R, NomoiLoseScreen6, NomoiLoseScreen6R} from './screens/NomoiQuizzes'
 import {NomoiResult1, NomoiResult2, NomoiResult3, NomoiResult4, NomoiResult5, NomoiResult6, ResultsScreen} from './screens/NomoiResults'
 import NomoiInstructions from './screens/NomoiQuizzes/NomoiInstructions';
@@ -20,6 +20,7 @@ const StackNavigator =()=> {
       <Stack.Navigator>
         {/* <Stack.Screen name="Home" component={Nomoi6} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>    
+        <Stack.Screen name="SetUserName" component={SetUserName} options={{headerShown: false}}/>    
         <Stack.Screen name="Quiz" component={QuizScreen} options={{headerShown: false, orientation: 'portrait'}}/>
         <Stack.Screen name="Introduction" component={Introduction} options={{headerShown: false, orientation: 'portrait'}}/>
         <Stack.Screen name="Instructions" component={NomoiInstructions} options={{headerShown: false, orientation: 'portrait'}}/>

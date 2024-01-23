@@ -1,11 +1,28 @@
-import { View, Text, Pressable, ImageBackground } from "react-native";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, Pressable, ImageBackground, Image } from "react-native";
+import React, {useState, useEffect} from "react";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const GenQResLoseScreenR = () => {
-  const navigation = useNavigation();
+const GenQResLoseScreenR = ({navigation}) => {
+  const [name, setName] = useState('')
 
+  useEffect(()=>{
+    getData()
+  },[])
+
+  const getData = ()=>{
+    try{
+      AsyncStorage.getItem('UserData')
+        .then((value)=>{
+          if(value !=null){
+            let user = JSON.parse(value)
+            setName(user.Name)
+          }
+        })
+    }catch(e){
+      console.log(e)
+    }
+  }
   return (
     <View style={{ height: "100%", backgroundColor: "darkblue" }}>
       <ImageBackground
@@ -41,14 +58,35 @@ const GenQResLoseScreenR = () => {
             <View>
               <Text
                 style={{
-                  color: "magenta",
-                  fontSize: 25,
+                  color: "white",
+                  fontSize: 22,
                   fontWeight: "600",
                   marginLeft: 10,
-                  marginBottom: 30
+                  marginBottom: 10
                 }}
               >
-                Λυπάμαι Έχασες
+                Λυπάμαι {name ? name: 
+                  <Image
+                  source={require("../../assets/sadFace.jpg")}
+                  style={{
+                    marginVertical: 20,
+                    marginLeft: 30,
+                    width: 50,
+                    height: 50,
+                  }}
+                />
+                }
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 22,
+                  fontWeight: "600",
+                  marginBottom: 30, 
+                  textAlign: 'center'
+                }}
+              >
+                 Έχασες
               </Text>
               <Text
                 style={{

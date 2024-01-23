@@ -8,13 +8,32 @@ import {
   Animated,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
   const navigation = useNavigation();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [showBtn, setShowBtn] = useState(false);
-  const [color, setColor] = useState('magenta')
-  
+  const [color, setColor] = useState("magenta");
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("UserData").then((value) => {
+        if (value != null) {
+          let user = JSON.parse(value);
+          setName(user.Name);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const hide = () => setShowBtn(true);
 
   setTimeout(hide, 900);
@@ -34,6 +53,11 @@ const Home = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
+        {name ? (
+          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 160, left: '20%', right: '20%'}}>
+            <Text style={{ color: "#ccc", fontSize: 18, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
+          </View>
+        ) : null}
         <Animated.View
           style={{
             opacity: fadeAnim,
@@ -44,7 +68,7 @@ const Home = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              marginTop: 30
+              marginTop: 30,
             }}
           >
             <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
@@ -55,15 +79,26 @@ const Home = () => {
 
         <Pressable
           // onPress={() => navigation.navigate("Introduction")}
-          onPressIn={()=>setColor('purple')}
+          onPressIn={() => setColor("purple")}
           onPressOut={() => {
-            navigation.navigate("Introduction")
-            setColor('magenta')
+            // {
+            //   name
+            //     ? navigation.navigate("Introduction")
+            //     : navigation.navigate("SetUserName");
+            // }
+            navigation.navigate('Introduction')
+            setColor("magenta");
           }}
           style={styles.button}
         >
-          <View style={showBtn? [styles.button1, {backgroundColor: color}] : null} />
-          <Text style={showBtn? styles.btnText : styles.btnText1}>Είσοδος</Text>
+          <View
+            style={
+              showBtn ? [styles.button1, { backgroundColor: color }] : null
+            }
+          />
+          <Text style={showBtn ? styles.btnText : styles.btnText1}>
+            Είσοδος
+          </Text>
         </Pressable>
       </ImageBackground>
     </View>
@@ -103,7 +138,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 14,
     left: 36,
-    opacity: 0
+    opacity: 0,
   },
 });
 

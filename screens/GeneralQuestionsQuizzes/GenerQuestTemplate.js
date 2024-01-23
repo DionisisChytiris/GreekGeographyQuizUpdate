@@ -377,6 +377,8 @@ const GenerQuestTemplate = (props) => {
                           height: 300,
                           borderRadius: 20,
                           padding: 10,
+                          alignItems: 'center', 
+                          justifyContent: 'center'
                         }}
                       >
                         <Text style={{ color: "#22c200" }}>
@@ -433,6 +435,8 @@ const GenerQuestTemplate = (props) => {
                           height: 300,
                           borderRadius: 20,
                           padding: 10,
+                          alignItems: 'center', 
+                          justifyContent: 'center'
                         }}
                       >
                         <Text style={{ color: "#22c200" }}>

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Video, ResizeMode } from "expo-av";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Introduction = () => {
@@ -20,6 +21,26 @@ const Introduction = () => {
   const hide = () => setShowBtn(true);
 
   setTimeout(hide, 9000);
+
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("UserData").then((value) => {
+        if (value != null) {
+          let user = JSON.parse(value);
+          setName(user.Name);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -66,7 +87,12 @@ const Introduction = () => {
         <Pressable
         onPressIn={()=>setColor('purple')}
           onPressOut={() => {
-            navigation.navigate("Quiz");
+            {
+              name
+                ? navigation.navigate("Quiz")
+                : navigation.navigate("SetUserName");
+            }
+            // navigation.navigate("Quiz");
             setShow(false);
             setColor('magenta')
           }}

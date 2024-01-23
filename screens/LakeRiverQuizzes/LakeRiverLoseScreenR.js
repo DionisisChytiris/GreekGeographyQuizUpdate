@@ -1,10 +1,28 @@
 import { View, Text, Pressable, ImageBackground, Image } from "react-native";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, {useState, useEffect} from "react";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LakeRiverLoseScreenR = () => {
-  const navigation = useNavigation();
+const LakeRiverLoseScreenR = ({navigation}) => {
+  const [name, setName] = useState('')
+
+  useEffect(()=>{
+    getData()
+  },[])
+
+  const getData = ()=>{
+    try{
+      AsyncStorage.getItem('UserData')
+        .then((value)=>{
+          if(value !=null){
+            let user = JSON.parse(value)
+            setName(user.Name)
+          }
+        })
+    }catch(e){
+      console.log(e)
+    }
+  }
 
   return (
     <View style={{ height: "100%", backgroundColor: "darkblue" }}>
@@ -39,26 +57,28 @@ const LakeRiverLoseScreenR = () => {
             }}
           >
             <View>
-              {/* <Image
-                source={require("../../assets/sad.png")}
-                resizeMode="cover"
-                style={{
-                  width: 90,
-                  height: 90,
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}
-              /> */}
               <Text
                 style={{
-                  color: "magenta",
-                  fontSize: 25,
+                  color: "white",
+                  fontSize: 23,
                   fontWeight: "600",
                   marginLeft: 10,
+                  marginBottom: 10
+                }}
+              >
+                Λυπάμαι {name}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 23,
+                  fontWeight: "600",
+                  textAlign: 'center',
+                  // marginLeft: 10,
                   marginBottom: 30
                 }}
               >
-                Λυπάμαι Έχασες
+                 Έχασες
               </Text>
               <Text
                 style={{
