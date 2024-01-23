@@ -18,28 +18,29 @@ const QuizScreen = () => {
   const [color4, setColor4] = useState('magenta')
   const [name, setName] = useState('')
 
-  useEffect(()=>{
-    getData()
-  },[])
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const getData = ()=>{
-    try{
-      AsyncStorage.getItem('UserData')
-        .then((value)=>{
-          if(value !=null){
-            let user = JSON.parse(value)
-            setName(user.Name)
-          }
-        })
-    }catch(e){
-      console.log(e)
+  const getData = () => {
+    try {
+      AsyncStorage.getItem("UserData").then((value) => {
+        if (value != null) {
+          let user = JSON.parse(value);
+          setName(user.Name);
+        }
+      });
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
+
 
   const removeData = async () => {
     try {
       await AsyncStorage.clear();
       navigation.navigate("SetUserName");
+      // setName('')
     } catch (error) {
       console.log(error);
     }
@@ -55,13 +56,13 @@ const QuizScreen = () => {
       >
         <View style={{position: 'absolute', top: 40, left: 30}}>
           <Text style={{color: 'white', fontSize: 16}}>Γεία σου {name}!!! </Text>
+        </View>
           <Pressable
-            style={{marginTop: 10}}
+            style={{position: 'absolute', top: 10, right: 0, padding: 30}}
             onPress={removeData}
           >
             <AntDesign name="edit" size={24} color="lightgray" />
           </Pressable>
-        </View>
         <Text style={{ textAlign: "center", color: "white", fontSize: 24, fontWeight: '600', marginBottom: 40}}>
           Επέλεξε κατηγορία
         </Text>

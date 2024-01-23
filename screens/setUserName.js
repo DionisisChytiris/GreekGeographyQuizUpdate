@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput,Alert } from "react-native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -7,7 +7,7 @@ const SetUserName = ({ navigation }) => {
 
   const setData = async () => {
     if (name.length == 0) {
-      alert("No name!");
+      Alert.alert("","Εισάγεται το όνομά σας ή πατήστε το κουμπί ''Εξοδος'");
     } else {
       try {
         const user = {
@@ -24,6 +24,18 @@ const SetUserName = ({ navigation }) => {
       }
     }
   };
+
+  
+  const removeData = async () => {
+    try {
+      await AsyncStorage.clear();
+      navigation.navigate("Quiz");
+      // setName('')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <View
@@ -63,8 +75,9 @@ const SetUserName = ({ navigation }) => {
             borderRadius: 30,
           }}
           onPress={() => navigation.navigate("Quiz")}
+          // onPress={removeData}
         >
-          <Text>Skip </Text>
+          <Text>Έξοδος </Text>
         </Pressable>
         <Pressable
           style={{

@@ -53,11 +53,6 @@ const Home = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        {name ? (
-          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 160, left: '20%', right: '20%'}}>
-            <Text style={{ color: "#ccc", fontSize: 18, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
-          </View>
-        ) : null}
         <Animated.View
           style={{
             opacity: fadeAnim,
@@ -100,6 +95,11 @@ const Home = () => {
             Είσοδος
           </Text>
         </Pressable>
+        {name ? (
+          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 80, left: '20%', right: '20%'}}>
+            <Text style={{ color: "#1cec29", fontSize: 18, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
+          </View>
+        ) : null}
       </ImageBackground>
     </View>
   );

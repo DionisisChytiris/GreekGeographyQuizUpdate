@@ -79,20 +79,10 @@ const LoseScreen = (props) => {
                   // marginHorizontal: 'auto',
                 }}
               >
-                Λυπάμαι{" "}
+                Λυπάμαι
                 {name ? (
                   name
-                ) : (
-                  <Image
-                    source={require("../assets/ates.png")}
-                    style={{
-                      marginVertical: 20,
-                      marginLeft: 30,
-                      width: 60,
-                      height: 60,
-                    }}
-                  />
-                )}
+                ) : " 'Εχασες"}
               </Text>
               {/* <Text
                 style={{

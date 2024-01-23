@@ -66,7 +66,7 @@ const LakeRiverLoseScreenR = ({navigation}) => {
                   marginBottom: 10
                 }}
               >
-                Λυπάμαι {name}
+                Λυπάμαι {name ? name : "Έχασες"}
               </Text>
               <Text
                 style={{
@@ -78,7 +78,7 @@ const LakeRiverLoseScreenR = ({navigation}) => {
                   marginBottom: 30
                 }}
               >
-                 Έχασες
+                 {name ? "Έχασες" : null}
               </Text>
               <Text
                 style={{

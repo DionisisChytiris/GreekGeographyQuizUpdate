@@ -65,17 +65,7 @@ const GenQResLoseScreenR = ({navigation}) => {
                   marginBottom: 10
                 }}
               >
-                Λυπάμαι {name ? name: 
-                  <Image
-                  source={require("../../assets/sadFace.jpg")}
-                  style={{
-                    marginVertical: 20,
-                    marginLeft: 30,
-                    width: 50,
-                    height: 50,
-                  }}
-                />
-                }
+                Λυπάμαι {name ? name : "Έχασες"}
               </Text>
               <Text
                 style={{
@@ -86,7 +76,7 @@ const GenQResLoseScreenR = ({navigation}) => {
                   textAlign: 'center'
                 }}
               >
-                 Έχασες
+                 {name ? "Έχασες" : null}
               </Text>
               <Text
                 style={{
