@@ -9,6 +9,7 @@ import {GeneralQuestions1, GeneralQuestions1R} from './screens/GeneralQuestionsQ
 import { LakeRiver, LakeRiverRepeat, LakeRiverResults, LakeRiverResultsRepeat, LakeRiverLoseScreen, LakeRiverLoseScreenR} from './screens/LakeRiverQuizzes'
 import { Mountain, MountainRepeat, MountainResults, MountainResultsRepeat, MountainLoseScreen, MountainLoseScreenR } from './screens/MountainQuizzes';
 import {GeneralQuestionsResults1, GeneralQuestionsResults1R, GenQResLoseScreen, GenQResLoseScreenR} from './screens/GeneralQuestionsResults';
+import UpdateUserName from './screens/UpdateUserName';
 // import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
 
@@ -21,6 +22,7 @@ const StackNavigator =()=> {
         {/* <Stack.Screen name="Home" component={Nomoi6} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>    
         <Stack.Screen name="SetUserName" component={SetUserName} options={{headerShown: false}}/>    
+        <Stack.Screen name="UpdateUserName" component={UpdateUserName} options={{headerShown: false}}/>    
         <Stack.Screen name="Quiz" component={QuizScreen} options={{headerShown: false, orientation: 'portrait'}}/>
         <Stack.Screen name="Introduction" component={Introduction} options={{headerShown: false, orientation: 'portrait'}}/>
         <Stack.Screen name="Instructions" component={NomoiInstructions} options={{headerShown: false, orientation: 'portrait'}}/>

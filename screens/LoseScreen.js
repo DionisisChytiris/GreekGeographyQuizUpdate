@@ -1,4 +1,10 @@
-import { View, Text, Pressable, ImageBackground, Image } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ImageBackground,
+  StyleSheet,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
@@ -43,16 +49,7 @@ const LoseScreen = (props) => {
         // resizeMode="cover"
         style={{ height: "100%" }}
       >
-        <View
-          style={{
-            width: "75%",
-            height: "58%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginTop: "35%",
-            borderRadius: 20,
-          }}
-        >
+        <View style={styles.container}>
           <View
             style={{
               width: "100%",
@@ -66,45 +63,14 @@ const LoseScreen = (props) => {
             style={{
               position: "absolute",
               top: "10%",
-              left: "15%",
+              left: "13.5%",
             }}
           >
             <View>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 22,
-                  fontWeight: "600",
-                  textAlign: "center",
-                  // marginHorizontal: 'auto',
-                }}
-              >
-                Λυπάμαι
-                {name ? (
-                  name
-                ) : " 'Εχασες"}
+              <Text style={styles.text1}>
+                Λυπάμαι {name ? name : " 'Εχασες"}
               </Text>
-              {/* <Text
-                style={{
-                  color: "white",
-                  fontSize: 22,
-                  fontWeight: "600",
-                  textAlign: 'center'
-                  // marginHorizontal: 'auto',
-                }}
-              >
-                 Έχασες
-              </Text> */}
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 20,
-                  fontWeight: "600",
-                  marginLeft: 25,
-                  marginTop: 20,
-                  // marginBottom: 30,
-                }}
-              >
+              <Text style={styles.text2}>
                 Τέλος χρόνου
               </Text>
               {/* <View style={{width: '95%'}}> */}
@@ -116,45 +82,15 @@ const LoseScreen = (props) => {
         </View>
 
         <View style={{ marginHorizontal: 40 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              marginTop: 60,
-            }}
-          >
+          <View style={styles.btnBox}>
             <Pressable
               onPress={() => {
                 navigation.navigate("Quiz");
                 setShow(false);
               }}
-              style={
-                btn2
-                  ? {
-                      opacity: 1,
-                      alignItems: "center",
-                      width: 90,
-                      height: 60,
-                    }
-                  : {
-                      opacity: 0,
-                      alignItems: "center",
-                      width: 90,
-                      height: 60,
-                    }
-              }
+              style={btn2 ? styles.opacity1 : styles.opacity0}
             >
-              <View
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  backgroundColor: "magenta",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: 20,
-                  opacity: 0.5,
-                }}
-              />
+              <View style={styles.btn} />
               <View style={{ position: "absolute", top: 15 }}>
                 <AntDesign name="home" size={24} color="white" />
               </View>
@@ -164,33 +100,9 @@ const LoseScreen = (props) => {
                 navigation.navigate(props.loseScreen);
                 setShow(false);
               }}
-              style={
-                btn1
-                  ? {
-                      opacity: 1,
-                      alignItems: "center",
-                      width: 90,
-                      height: 60,
-                    }
-                  : {
-                      opacity: 0,
-                      alignItems: "center",
-                      width: 90,
-                      height: 60,
-                    }
-              }
+              style={btn1 ? styles.opacity1 : styles.opacity0}
             >
-              <View
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  backgroundColor: "magenta",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: 20,
-                  opacity: 0.5,
-                }}
-              />
+              <View style={styles.btn} />
               <View style={{ position: "absolute", top: 15 }}>
                 <MaterialIcons name="replay" size={24} color="white" />
               </View>
@@ -203,3 +115,53 @@ const LoseScreen = (props) => {
 };
 
 export default LoseScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    width: "75%",
+    height: "58%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "35%",
+    borderRadius: 20,
+  },
+  opacity1: {
+    opacity: 1,
+    alignItems: "center",
+    width: 90,
+    height: 60,
+  },
+  opacity0: {
+    opacity: 0,
+    alignItems: "center",
+    width: 90,
+    height: 60,
+  },
+  text1: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  text2: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "600",
+    textAlign: "center",
+    marginTop: 20,
+  },
+  btnBox: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 60,
+  },
+  btn: {
+    position: "absolute",
+    top: 0,
+    backgroundColor: "magenta",
+    width: "100%",
+    height: "100%",
+    borderRadius: 20,
+    opacity: 0.5,
+  },
+});

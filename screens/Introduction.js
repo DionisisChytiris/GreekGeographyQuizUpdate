@@ -87,12 +87,12 @@ const Introduction = () => {
         <Pressable
         onPressIn={()=>setColor('purple')}
           onPressOut={() => {
-            {
+              {
               name
                 ? navigation.navigate("Quiz")
                 : navigation.navigate("SetUserName");
             }
-            // navigation.navigate("Quiz");
+            // navigation.navigate("SetUserName");
             setShow(false);
             setColor('magenta')
           }}

@@ -39,7 +39,7 @@ const QuizScreen = () => {
   const removeData = async () => {
     try {
       await AsyncStorage.clear();
-      navigation.navigate("SetUserName");
+      navigation.navigate("UpdateUserName");
       // setName('')
     } catch (error) {
       console.log(error);
@@ -54,15 +54,18 @@ const QuizScreen = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
-        <View style={{position: 'absolute', top: 40, left: 30}}>
-          <Text style={{color: 'white', fontSize: 16}}>Γεία σου {name}!!! </Text>
+        <View style={{position: 'absolute',top: 0, width:'100%', height: 92, backgroundColor: '#f5f5f5'}}>
+        <View style={{position: 'absolute', top: 50, left: 20}}>
+        {/* <View style={{}}> */}
+          <Text style={{color: '#006f96', fontSize: 16, fontWeight: 'bold'}}>Γεία σου {name}!!! </Text>
         </View>
           <Pressable
-            style={{position: 'absolute', top: 10, right: 0, padding: 30}}
+            style={{position: 'absolute', top: 20, right: 0, padding: 30}}
             onPress={removeData}
           >
-            <AntDesign name="edit" size={24} color="lightgray" />
+            <AntDesign name="edit" size={24} color="black" />
           </Pressable>
+          </View>
         <Text style={{ textAlign: "center", color: "white", fontSize: 24, fontWeight: '600', marginBottom: 40}}>
           Επέλεξε κατηγορία
         </Text>
@@ -128,6 +131,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 50,
+    elevation: 24,
+    shadowOffset: {width: 3, height: 3},
+    shadowOpacity: 1.0,
   },
   button1: {
     position: "absolute",
@@ -155,6 +161,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 40,
+    elevation: 24,
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: 1.0,
   },
   button2: {
     position: "absolute",
@@ -181,6 +190,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 40,
+    elevation: 24,
+    shadowOffset: {width: 3, height: 3},
+    shadowOpacity: 1.0,
   },
   button3: {
     position: "absolute",
@@ -207,6 +219,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 40,
+    elevation: 24,
+    shadowOffset: {width: 3, height: 3},
+    shadowOpacity: 1.0,
   },
   button4: {
     position: "absolute",

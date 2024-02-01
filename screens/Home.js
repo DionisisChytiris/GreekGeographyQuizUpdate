@@ -78,8 +78,8 @@ const Home = () => {
           onPressOut={() => {
             // {
             //   name
-            //     ? navigation.navigate("Introduction")
-            //     : navigation.navigate("SetUserName");
+            //     ? navigation.navigate("Quiz")
+            //     : navigation.navigate("Introduction");
             // }
             navigation.navigate('Introduction')
             setColor("magenta");
@@ -96,8 +96,8 @@ const Home = () => {
           </Text>
         </Pressable>
         {name ? (
-          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', bottom: 80, left: '20%', right: '20%'}}>
-            <Text style={{ color: "#1cec29", fontSize: 18, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
+          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 60, left: '15%', right: '15%', padding: 10, backgroundColor: '#f5f5f5', borderRadius: 20}}>
+            <Text style={{ color: "#006f96", fontSize: 16, fontWeight: 'bold' }}>Καλώς ήλθες!!!</Text>
           </View>
         ) : null}
       </ImageBackground>

@@ -2,10 +2,10 @@ import { View, Text, Pressable, TextInput,Alert } from "react-native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SetUserName = ({ navigation }) => {
+const UpdateUserName = ({ navigation }) => {
   const [name, setName] = useState("");
 
-  const setData = async () => {
+  const UpDateName = async () => {
     if (name.length == 0) {
       Alert.alert("","Εισάγεται το όνομά σας");
     } else {
@@ -17,7 +17,7 @@ const SetUserName = ({ navigation }) => {
               : name[0].toUpperCase() + name.slice(1),
         };
         await AsyncStorage.setItem("UserData", JSON.stringify(user));
-        navigation.navigate("Quiz");
+        navigation.navigate("Home");
         // setName(' ');
       } catch (e) {
         console.log(e);
@@ -58,7 +58,6 @@ const SetUserName = ({ navigation }) => {
           style={{
             width: 150,
             height: 50,
-            // paddingVertical: 5,
             paddingHorizontal: 30,
             backgroundColor: "#ccc",
             borderRadius: 30,
@@ -67,9 +66,8 @@ const SetUserName = ({ navigation }) => {
             elevation: 15,
             shadowOffset: {width: 3, height: 3},
             shadowOpacity: 1.0,
-            // borderRadius: 10,
           }}
-          onPress={() => navigation.navigate("Quiz")}
+          onPress={() => navigation.navigate("Home")}
         >
           <Text style={{fontSize: 12, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>Είσοδος χωρίς όνομα</Text>
         </Pressable>
@@ -86,7 +84,7 @@ const SetUserName = ({ navigation }) => {
             shadowOffset: {width: 3, height: 3},
             shadowOpacity: 1.0,
           }}
-          onPress={setData}
+          onPress={UpDateName}
         >
           <Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Είσοδος με όνομα</Text>
         </Pressable>
@@ -95,4 +93,4 @@ const SetUserName = ({ navigation }) => {
   );
 };
 
-export default SetUserName;
+export default UpdateUserName;

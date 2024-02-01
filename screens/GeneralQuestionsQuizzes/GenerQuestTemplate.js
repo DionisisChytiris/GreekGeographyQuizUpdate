@@ -38,6 +38,17 @@ const GenerQuestTemplate = (props) => {
   let index1 = index + 1;
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["50%"];
+  const [heart, setHeart] = useState(["❤︎", "❤︎", "❤︎"]);
+
+  const removeHeart = () => {
+    const newArray = heart.length - 1;
+    heart.pop(newArray);
+    setHeart(heart);
+  };
+
+  if (heart.length === 0) {
+    navigation.navigate("LakeRiverLoseScreenR");
+  }
 
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
@@ -83,6 +94,7 @@ const GenerQuestTemplate = (props) => {
         setStyle(styles.quizContainer2);
         setNextQueButton(styles.nextQueButton2);
         WrongPlaySound();
+        removeHeart();
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
@@ -161,13 +173,18 @@ const GenerQuestTemplate = (props) => {
                   {index + 1} / {totalQuestions}
                 </Text>
               </View>
+
+              <View>
+                <Text style={{ color: "red", fontSize: 25 }}>{heart}</Text>
+              </View>
+
               <View
                 style={{
                   //  padding: 5,
                   alignItems: "center",
                   justifyContent: "center",
-                  width: 24,
-                  height: 24,
+                  width: 34,
+                  height: 34,
                   backgroundColor: "magenta",
                   borderRadius: 20,
                 }}
@@ -313,7 +330,19 @@ const GenerQuestTemplate = (props) => {
                       Επόμενη Ερώτηση
                     </Text>
                   </Pressable>
-                  <Pressable onPress={handleModal}>
+                  <Pressable
+                    style={{
+                      position: "absolute",
+                      bottom: -15,
+                      right: -10,
+                      backgroundColor: "transparent",
+                      width: 80,
+                      height: 80,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={handleModal}
+                  >
                     <Text>
                       <Entypo name="info-with-circle" size={28} color="white" />
                     </Text>
@@ -337,17 +366,17 @@ const GenerQuestTemplate = (props) => {
                       <View
                         style={{
                           alignItems: "center",
-                        backgroundColor: "white",
-                        borderRadius: 20,
-                        width: "100%",
+                          backgroundColor: "white",
+                          borderRadius: 20,
+                          width: "100%",
                         }}
                       >
                         <View
                           style={{
                             flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: 60,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            height: 60,
                           }}
                         >
                           <Text
@@ -369,31 +398,31 @@ const GenerQuestTemplate = (props) => {
                           />
                         </View>
                         <View
-                        style={{
-                          paddingBottom: 20,
-                          paddingHorizontal: 15,
-                          gap: 10,
-                          backgroundColor: "#f5f5f5",
-                          height: 300,
-                          borderRadius: 20,
-                          padding: 10,
-                          alignItems: 'center', 
-                          justifyContent: 'center'
-                        }}
-                      >
-                        <Text style={{ color: "#22c200" }}>
-                          {currentQuestion?.result1}{" "}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                          {currentQuestion?.result2}{" "}
-                        </Text>
-                        <Text style={{ color: "#014acf" }}>
-                          {currentQuestion?.result3}{" "}
-                        </Text>
-                        <Text style={{ color: "magenta" }}>
-                          {currentQuestion?.result4}{" "}
-                        </Text>
-                      </View>
+                          style={{
+                            paddingBottom: 20,
+                            paddingHorizontal: 15,
+                            gap: 10,
+                            backgroundColor: "#f5f5f5",
+                            height: 300,
+                            borderRadius: 20,
+                            padding: 10,
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text style={{ color: "#22c200" }}>
+                            {currentQuestion?.result1}{" "}
+                          </Text>
+                          <Text style={{ color: "black" }}>
+                            {currentQuestion?.result2}{" "}
+                          </Text>
+                          <Text style={{ color: "#014acf" }}>
+                            {currentQuestion?.result3}{" "}
+                          </Text>
+                          <Text style={{ color: "magenta" }}>
+                            {currentQuestion?.result4}{" "}
+                          </Text>
+                        </View>
                       </View>
                     ) : (
                       <View
@@ -427,31 +456,31 @@ const GenerQuestTemplate = (props) => {
                           />
                         </View>
                         <View
-                        style={{
-                          paddingBottom: 20,
-                          paddingHorizontal: 15,
-                          gap: 10,
-                          backgroundColor: "#f5f5f5",
-                          height: 300,
-                          borderRadius: 20,
-                          padding: 10,
-                          alignItems: 'center', 
-                          justifyContent: 'center'
-                        }}
-                      >
-                        <Text style={{ color: "#22c200" }}>
-                          {currentQuestion?.result1}{" "}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                          {currentQuestion?.result2}{" "}
-                        </Text>
-                        <Text style={{ color: "#014acf" }}>
-                          {currentQuestion?.result3}{" "}
-                        </Text>
-                        <Text style={{ color: "magenta" }}>
-                          {currentQuestion?.result4}{" "}
-                        </Text>
-                      </View>
+                          style={{
+                            paddingBottom: 20,
+                            paddingHorizontal: 15,
+                            gap: 10,
+                            backgroundColor: "#f5f5f5",
+                            height: 300,
+                            borderRadius: 20,
+                            padding: 10,
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text style={{ color: "#22c200" }}>
+                            {currentQuestion?.result1}{" "}
+                          </Text>
+                          <Text style={{ color: "black" }}>
+                            {currentQuestion?.result2}{" "}
+                          </Text>
+                          <Text style={{ color: "#014acf" }}>
+                            {currentQuestion?.result3}{" "}
+                          </Text>
+                          <Text style={{ color: "magenta" }}>
+                            {currentQuestion?.result4}{" "}
+                          </Text>
+                        </View>
                       </View>
                     )}
                   </View>

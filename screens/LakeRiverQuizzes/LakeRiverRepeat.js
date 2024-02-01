@@ -38,6 +38,17 @@ const LakeRiverRepeat = () => {
   let index1 = index + 1;
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["50%"];
+  const [heart, setHeart] = useState(["❤︎", "❤︎", "❤︎"])
+ 
+  const removeHeart = () => {
+    const newArray = heart.length - 1
+    heart.pop(newArray)
+    setHeart(heart)
+  }
+
+  if (heart.length === 0) {
+    navigation.navigate("LakeRiverLoseScreenR");
+  }
 
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
@@ -87,6 +98,7 @@ const LakeRiverRepeat = () => {
         setStyle(styles.quizContainer2);
         setNextQueButton(styles.nextQueButton2);
         WrongPlaySound();
+        removeHeart()
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
@@ -164,12 +176,18 @@ const LakeRiverRepeat = () => {
               </Text>
             </View>
 
+            <View>
+              <Text style={{ color: "red", fontSize: 25 }}>
+                {heart}
+              </Text>
+            </View>
+
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                width: 24,
-                height: 24,
+                width: 34,
+                height: 34,
                 backgroundColor: "#0059DF",
                 borderRadius: 20,
               }}
@@ -249,20 +267,23 @@ const LakeRiverRepeat = () => {
             {index + 1 >= data.length ? (
               answerStatus === null ? (
                 <Pressable
-                onPressIn={() => setBtnBackground("#62a9da")}
-                onPressOut={() => {
-                  navigation.navigate("Quiz");
-                  setBtnBackground("#2E86C1");
-                }}
-                style={stylesT.button0}
-              >
-                <View
-                  style={[stylesT.button1, { backgroundColor: btnBackground }]}
-                />
-                <View style={stylesT.btnText}>
-                  <Ionicons name="home-outline" size={20} color="white" />
-                </View>
-              </Pressable>
+                  onPressIn={() => setBtnBackground("#62a9da")}
+                  onPressOut={() => {
+                    navigation.navigate("Quiz");
+                    setBtnBackground("#2E86C1");
+                  }}
+                  style={stylesT.button0}
+                >
+                  <View
+                    style={[
+                      stylesT.button1,
+                      { backgroundColor: btnBackground },
+                    ]}
+                  />
+                  <View style={stylesT.btnText}>
+                    <Ionicons name="home-outline" size={20} color="white" />
+                  </View>
+                </Pressable>
               ) : (
                 <View style={{ marginBottom: 40 }}>
                   <Pressable
@@ -304,102 +325,25 @@ const LakeRiverRepeat = () => {
                     Επόμενη Ερώτηση
                   </Text>
                 </Pressable>
-                <Pressable onPress={handleModal}>
+                <Pressable
+                  style={{
+                    position: "absolute",
+                    bottom: -15,
+                    right: -10,
+                    backgroundColor: "transparent",
+                    width: 80,
+                    height: 80,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onPress={handleModal}
+                >
                   <Text>
                     <Entypo name="info-with-circle" size={28} color="white" />
                   </Text>
                 </Pressable>
               </View>
             )}
-            {/* 
-            {answerStatus === null ? null : (
-              <View
-                style={answerStatus === null ? null : { alignItems: "center" }}
-              >
-                {!!answerStatus ? (
-                  <View
-                    style={{
-                      margin: 40,
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                      width: "80%",
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginTop: 30,
-                        // width: 300,
-                        height: 180,
-                      }}
-                    >
-                      <Text
-                        style={{ color: "green", fontSize: 20, padding: 10 }}
-                      >
-                        Σωστή Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/thumbUp.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                      <Text>Συνέχισε έτσι</Text>
-                    </View>
-                    <View style={{ paddingBottom: 20, paddingHorizontal: 25 }}>
-                      <Text>{currentQuestion?.result} </Text>
-                    </View>
-                  </View>
-                ) : (
-                  <View
-                    style={{
-                      margin: 40,
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                      width: "80%",
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginTop: 30,
-                        width: 250,
-                        height: 200,
-                      }}
-                    >
-                      <Text style={{ color: "red", fontSize: 20, padding: 10 }}>
-                        Λάθος Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/sadFace.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                    </View>
-                    <View
-                      style={{
-                        marginTop: -40,
-                        paddingBottom: 20,
-                        paddingHorizontal: 25,
-                      }}
-                    >
-                      <Text>{currentQuestion?.result} </Text>
-                    </View>
-                  </View>
-                )}
-              </View>
-            )} */}
           </View>
           <BottomSheetModal
             ref={bottomSheetModalRef}
@@ -543,7 +487,7 @@ const stylesT = StyleSheet.create({
     borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 40,
   },
   button1: {

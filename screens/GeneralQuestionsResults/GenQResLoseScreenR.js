@@ -52,7 +52,7 @@ const GenQResLoseScreenR = ({navigation}) => {
             style={{
               position: "absolute",
               top: "20%",
-              left: "10%",
+              left: "8%",
             }}
           >
             <View>
@@ -61,7 +61,7 @@ const GenQResLoseScreenR = ({navigation}) => {
                   color: "white",
                   fontSize: 22,
                   fontWeight: "600",
-                  marginLeft: 10,
+                  textAlign: 'center',
                   marginBottom: 10
                 }}
               >

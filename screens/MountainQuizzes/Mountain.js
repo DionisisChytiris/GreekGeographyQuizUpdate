@@ -38,6 +38,17 @@ const Mountain = () => {
   let index1 = index + 1;
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["50%"];
+  const [heart, setHeart] = useState(["❤︎", "❤︎", "❤︎"]);
+
+  const removeHeart = () => {
+    const newArray = heart.length - 1;
+    heart.pop(newArray);
+    setHeart(heart);
+  };
+
+  if (heart.length === 0) {
+    navigation.navigate("LakeRiverLoseScreenR");
+  }
 
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
@@ -83,6 +94,7 @@ const Mountain = () => {
         setStyle(styles.quizContainer2);
         setNextQueButton(styles.nextQueButton2);
         WrongPlaySound();
+        removeHeart();
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
@@ -155,13 +167,17 @@ const Mountain = () => {
               </Text>
             </View>
 
+            <View>
+              <Text style={{ color: "red", fontSize: 25 }}>{heart}</Text>
+            </View>
+
             <View
               style={{
                 //  padding: 5,
                 alignItems: "center",
                 justifyContent: "center",
-                width: 24,
-                height: 24,
+                width: 34,
+                height: 34,
                 backgroundColor: "#00ff00",
                 borderRadius: 20,
               }}
@@ -300,7 +316,19 @@ const Mountain = () => {
                     Επόμενη Ερώτηση
                   </Text>
                 </Pressable>
-                <Pressable onPress={handleModal}>
+                <Pressable
+                  style={{
+                    position: "absolute",
+                    bottom: -15,
+                    right: -10,
+                    backgroundColor: "transparent",
+                    width: 80,
+                    height: 80,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onPress={handleModal}
+                >
                   <Text>
                     <Entypo name="info-with-circle" size={28} color="white" />
                   </Text>
@@ -314,126 +342,129 @@ const Mountain = () => {
               snapPoints={snapPoints}
               backgroundStyle={{ borderRadius: 50 }}
             >
-            {answerStatus === null ? null : (
-              <View
-                style={answerStatus === null ? null : { alignItems: "center" }}
-              >
-                {!!answerStatus ? (
-                  <View
-                    style={{
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                      width: "100%",
-                    }}
-                  >
+              {answerStatus === null ? null : (
+                <View
+                  style={
+                    answerStatus === null ? null : { alignItems: "center" }
+                  }
+                >
+                  {!!answerStatus ? (
                     <View
                       style={{
-                        flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "center",
-                        height: 60,
+                        backgroundColor: "white",
+                        borderRadius: 20,
+                        width: "100%",
                       }}
                     >
-                      <Text
-                        style={{ color: "green", fontSize: 20, padding: 10 }}
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: 60,
+                        }}
                       >
-                        Σωστή Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/thumbUp.jpg")}
-                        resizeMode="cover"
+                        <Text
+                          style={{ color: "green", fontSize: 20, padding: 10 }}
+                        >
+                          Σωστή Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/thumbUp.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                      </View>
+                      <View
                         style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
+                          paddingBottom: 20,
+                          paddingHorizontal: 15,
+                          gap: 10,
+                          backgroundColor: "#f5f5f5",
+                          height: 300,
+                          borderRadius: 20,
+                          padding: 10,
                         }}
-                      />
+                      >
+                        <Text style={{ color: "#22c200" }}>
+                          {currentQuestion?.result1}{" "}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                          {currentQuestion?.result2}{" "}
+                        </Text>
+                        <Text style={{ color: "#014acf" }}>
+                          {currentQuestion?.result3}{" "}
+                        </Text>
+                        <Text style={{ color: "magenta" }}>
+                          {currentQuestion?.result4}{" "}
+                        </Text>
+                      </View>
                     </View>
+                  ) : (
                     <View
                       style={{
-                        paddingBottom: 20,
-                        paddingHorizontal: 15,
-                        gap: 10,
-                        backgroundColor: "#f5f5f5",
-                        height: 300,
-                        borderRadius: 20,
-                        padding: 10,
-                      }}
-                    >
-                      <Text style={{ color: "#22c200" }}>
-                        {currentQuestion?.result1}{" "}
-                      </Text>
-                      <Text style={{ color: "black" }}>
-                        {currentQuestion?.result2}{" "}
-                      </Text>
-                      <Text style={{ color: "#014acf" }}>
-                        {currentQuestion?.result3}{" "}
-                      </Text>
-                      <Text style={{ color: "magenta" }}>
-                        {currentQuestion?.result4}{" "}
-                      </Text>
-                    </View>
-                  </View>
-                ) : (
-                  <View
-                    style={{
-                      flex: 1,
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      width: "95%",
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
+                        flex: 1,
                         alignItems: "center",
-                        justifyContent: "center",
-                        height: 60,
+                        backgroundColor: "white",
+                        width: "95%",
                       }}
                     >
-                      <Text style={{ color: "red", fontSize: 20, padding: 10 }}>
-                        Λάθος Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/sadFace.jpg")}
-                        resizeMode="cover"
+                      <View
                         style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: 60,
                         }}
-                      />
+                      >
+                        <Text
+                          style={{ color: "red", fontSize: 20, padding: 10 }}
+                        >
+                          Λάθος Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/sadFace.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          paddingBottom: 20,
+                          paddingHorizontal: 15,
+                          gap: 10,
+                          backgroundColor: "#f5f5f5",
+                          height: 300,
+                          borderRadius: 20,
+                          padding: 10,
+                        }}
+                      >
+                        <Text style={{ color: "#22c200" }}>
+                          {currentQuestion?.result1}{" "}
+                        </Text>
+                        <Text style={{ color: "black" }}>
+                          {currentQuestion?.result2}{" "}
+                        </Text>
+                        <Text style={{ color: "#014acf" }}>
+                          {currentQuestion?.result3}{" "}
+                        </Text>
+                        <Text style={{ color: "magenta" }}>
+                          {currentQuestion?.result4}{" "}
+                        </Text>
+                      </View>
                     </View>
-                    <View
-                      style={{
-                        paddingBottom: 20,
-                        paddingHorizontal: 15,
-                        gap: 10,
-                        backgroundColor: "#f5f5f5",
-                        height: 300,
-                        borderRadius: 20,
-                        padding: 10,
-                      }}
-                    >
-                      <Text style={{ color: "#22c200" }}>
-                        {currentQuestion?.result1}{" "}
-                      </Text>
-                      <Text style={{ color: "black" }}>
-                        {currentQuestion?.result2}{" "}
-                      </Text>
-                      <Text style={{ color: "#014acf" }}>
-                        {currentQuestion?.result3}{" "}
-                      </Text>
-                      <Text style={{ color: "magenta" }}>
-                        {currentQuestion?.result4}{" "}
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              </View>
-            )}
-
+                  )}
+                </View>
+              )}
             </BottomSheetModal>
           </View>
         </ImageBackground>

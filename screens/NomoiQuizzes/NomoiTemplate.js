@@ -16,8 +16,6 @@ import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Entypo } from "@expo/vector-icons";
 
-// import { Entypo } from "@expo/vector-icons";
-
 const NomoiTemplate = (props) => {
   const navigation = useNavigation();
   const data = props.questions;
@@ -36,6 +34,17 @@ const NomoiTemplate = (props) => {
   let index1 = index + 1;
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["50%"];
+  const [heart, setHeart] = useState(["❤︎", "❤︎", "❤︎"]);
+
+  const removeHeart = () => {
+    const newArray = heart.length - 1;
+    heart.pop(newArray);
+    setHeart(heart);
+  };
+
+  if (heart.length === 0) {
+    navigation.navigate("LakeRiverLoseScreenR");
+  }
 
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
@@ -81,6 +90,7 @@ const NomoiTemplate = (props) => {
         setStyle(styles.quizContainer2);
         setNextQueButton(styles.nextQueButton2);
         WrongPlaySound();
+        removeHeart();
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
@@ -138,34 +148,43 @@ const NomoiTemplate = (props) => {
           <View style={styles.containerInfo}>
             <View style={styles.levelBox}>
               <View>{props.star}</View>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "600",
+                  color: "white",
+                  paddingTop: 20,
+                  paddingLeft: 35
+                }}
+              >
+                Νομοί / Πόλεις
+              </Text>
               <Text style={{ color: "white", fontSize: 12 }}>
                 Επίπεδο {props.num}
               </Text>
             </View>
           </View>
+          <View></View>
 
-          <View style={styles.progressContainerInfo}>
+          <View style={[styles.progressContainerInfo, {marginBottom: 25}]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
               </Text>
             </View>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "white",
-                paddingBottom: 50,
-              }}
-            >
-              Νομοί / Πόλεις
-            </Text>
+
+            <View>
+              <Text style={{ color: "red", fontSize: 25 }}>
+                {heart}
+              </Text>
+            </View>
+
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                width: 24,
-                height: 24,
+                width: 34,
+                height: 34,
                 backgroundColor: "#ff8000",
                 borderRadius: 20,
               }}
@@ -342,7 +361,7 @@ const NomoiTemplate = (props) => {
                           alignItems: "center",
                           justifyContent: "center",
                           height: 60,
-                          marginBottom: 20
+                          marginBottom: 20,
                         }}
                       >
                         <Text
