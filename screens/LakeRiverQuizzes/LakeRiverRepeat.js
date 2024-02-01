@@ -8,6 +8,7 @@ import {
   ImageBackground,
   StyleSheet,
   Vibration,
+  Alert
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,8 +18,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Entypo } from "@expo/vector-icons";
-
-// import { Entypo } from "@expo/vector-icons";
 
 const LakeRiverRepeat = () => {
   const navigation = useNavigation();
@@ -39,11 +38,24 @@ const LakeRiverRepeat = () => {
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["50%"];
   const [heart, setHeart] = useState(["❤︎", "❤︎", "❤︎"])
+  const [cor, setCor] = useState(0)
+  // const [tr, setTr] = useState(true)
  
   const removeHeart = () => {
     const newArray = heart.length - 1
     heart.pop(newArray)
     setHeart(heart)
+    // if(heart.length == 2){
+    //   tr && Alert.alert('','Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.', setTr(false))
+    // }
+  }
+
+  const addHeart = ()=> {
+    if(cor === 2 &&  heart.length < 5) {
+      heart.push("❤︎")
+      setCor(0)
+      setHeart(heart)
+    }
   }
 
   if (heart.length === 0) {
@@ -92,6 +104,8 @@ const LakeRiverRepeat = () => {
         setStyle(styles.quizContainer1);
         setNextQueButton(styles.nextQueButton1);
         CorrectPlaySound();
+        setCor(cor=>cor + 1)
+        addHeart()
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
