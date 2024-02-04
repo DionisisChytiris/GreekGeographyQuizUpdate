@@ -9,6 +9,7 @@ import {
   import React from "react";
   import { useNavigation, useRoute } from "@react-navigation/native";
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+  import AsyncStorage from "@react-native-async-storage/async-storage";
   
   const NomoiResultTemplate = (props) => {
     const route = useRoute();
@@ -18,10 +19,22 @@ import {
     const nextQ = props.nextQ;
     const img = props.img;
   
-    const score = Math.floor(
-      (route.params.points * 100) / route.params.data.length
-    );
+    
+  const scores = route.params.points;
+  const data = route.params.data;
+  const scoreNomoi = Math.floor((scores * 100) / data.length);
+
   
+  const setData = async () => {
+    try {
+      var user = scoreNomoi;
+      await AsyncStorage.setItem("scoreNomoi", JSON.stringify(user));
+      console.log(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "blue" }}>
         <ImageBackground
@@ -47,7 +60,7 @@ import {
   
             <View style={{ marginHorizontal: 25 }}>
               <View style={styles.container}>
-                {score > 49 ? (
+                {scoreNomoi > 49 ? (
                   <View>
                     <View style={styles.score}>
                       <Text
@@ -58,7 +71,7 @@ import {
                           color: "green",
                         }}
                       >
-                        {score}
+                        {scoreNomoi}
                       </Text>
                       <Text style={{ fontSize: 20, color: "green" }}>%</Text>
                     </View>
@@ -101,7 +114,7 @@ import {
                       <Text
                         style={{ fontSize: 50, fontWeight: "bold", color: "red" }}
                       >
-                        {score}
+                        {scoreNomoi}
                       </Text>
                       <Text style={{ fontSize: 20, color: "red" }}>%</Text>
                     </View>
@@ -171,17 +184,25 @@ import {
               </View>
             </View>
   
-            {score < 50 ? (
+            {scoreNomoi < 50 ? (
               <View style={{marginHorizontal: 35}}>
                 <View style={styles.buttonBox}>
                   <Pressable
-                    onPress={() => navigation.navigate("Quiz")}
+                    // onPress={() => navigation.navigate("Quiz")}
+                    onPress={() => {
+                      navigation.navigate("Quiz");
+                      setData();
+                    }}
                     style={styles.button}
                   >
                     <AntDesign name="home" size={24} color="white" />
                   </Pressable>
                   <Pressable
-                    onPress={() => navigation.navigate(repeatQ)}
+                    // onPress={() => navigation.navigate(repeatQ)}
+                    onPress={() => {
+                      navigation.navigate(repeatQ);
+                      setData();
+                    }}
                     style={styles.button}
                   >
                     <MaterialIcons name="replay" size={24} color="white" />
@@ -191,7 +212,11 @@ import {
             ) : (
               <View style={styles.buttonBox1}>
                 <Pressable
-                  onPress={() => navigation.navigate(nextQ)}
+                  // onPress={() => navigation.navigate(nextQ)}
+                  onPress={() => {
+                    navigation.navigate(nextQ);
+                    setData();
+                  }}
                   style={styles.nextQueButton}
                 >
                   <Text style={{ fontSize: 14, color: "white" }}>Επόμενο Επίπεδο</Text>

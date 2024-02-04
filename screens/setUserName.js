@@ -18,7 +18,7 @@ const SetUserName = ({ navigation }) => {
         };
         await AsyncStorage.setItem("UserData", JSON.stringify(user));
         navigation.navigate("Quiz");
-        // setName(' ');
+        setName(' ');
       } catch (e) {
         console.log(e);
       }

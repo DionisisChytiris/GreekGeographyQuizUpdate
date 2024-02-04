@@ -10,13 +10,26 @@ import {
   import React from "react";
   import { useNavigation, useRoute } from "@react-navigation/native";
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+  import AsyncStorage from "@react-native-async-storage/async-storage";
   
   const MountainResults = () => {
     const route = useRoute();
     const navigation = useNavigation();
   
-    // const score = 50;
-    const score = Math.floor((route.params.points * 100) / route.params.data.length);
+    const scores = route.params.points;
+    const data = route.params.data;
+    const scoreMountain = Math.floor((scores * 100) / data.length);
+
+    
+  const setData= async () => {
+    try {
+      var userM = scoreMountain;
+      await AsyncStorage.setItem("scoreMountain", JSON.stringify(userM));
+      console.log(userM);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
@@ -42,18 +55,18 @@ import {
             </View>
   
             <View style={styles.container}>
-              {score > 49 ? (
+              {scoreMountain > 49 ? (
                 <View>
                   <View style={styles.score}>
                     <Text
                       style={{ fontSize: 50, fontWeight: "bold", color: "green" }}
                     >
-                      {score}
+                      {scoreMountain}
                     </Text>
                     <Text style={{ fontSize: 20, color: "green" }}>%</Text>
                   </View>
                   <View style={{ alignItems: "center", marginHorizontal: 20 }}>
-                    {score === 100 ? (
+                    {scoreMountain === 100 ? (
                       <View>
                         <Text
                           style={{
@@ -104,7 +117,7 @@ import {
                     <Text
                       style={{ fontSize: 60, fontWeight: "bold", color: "red" }}
                     >
-                      {score}
+                      {scoreMountain}
                     </Text>
                     <Text style={{ fontSize: 20, color: "red" }}>%</Text>
                   </View>
@@ -125,10 +138,13 @@ import {
                 </View>
               )}
             </View>
-            { score === 100 ? (
+            { scoreMountain === 100 ? (
               <View style={styles.buttonBox2}>
                 <Pressable
-                  onPress={() => navigation.navigate("Quiz")}
+                  onPress={() => {
+                    navigation.navigate("Quiz");
+                    setData();
+                  }}
                   style={styles.button0}
                 >
                   <View style={styles.button1} />
@@ -140,7 +156,10 @@ import {
             ): (
               <View style={styles.buttonBox1}>
                 <Pressable
-                  onPress={() => navigation.navigate("Quiz")}
+                  onPress={() => {
+                    navigation.navigate("Quiz");
+                    setData();
+                  }}
                   style={styles.button0}
                 >
                   <View style={styles.button1} />

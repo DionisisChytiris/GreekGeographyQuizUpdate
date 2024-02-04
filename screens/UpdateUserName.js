@@ -1,27 +1,31 @@
 import { View, Text, Pressable, TextInput,Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UpdateUserName = ({ navigation }) => {
   const [name, setName] = useState("");
 
+  useEffect(()=>{
+    UpDateName()
+  },[])
+
   const UpDateName = async () => {
-    if (name.length == 0) {
-      Alert.alert("","Εισάγεται το όνομά σας");
-    } else {
-      try {
-        const user = {
-          Name: 
-            name.slice(-1) === "ς" || name.slice(-1) === "Σ"  
-              ? name[0].toUpperCase() + name.slice(1, -1)
-              : name[0].toUpperCase() + name.slice(1),
-        };
-        await AsyncStorage.setItem("UserData", JSON.stringify(user));
-        navigation.navigate("Home");
-        // setName(' ');
-      } catch (e) {
-        console.log(e);
-      }
+    // if (name === '') {
+    //   Alert.alert("","Εισάγεται το όνομά σας");
+    // } else {
+    // }
+    try {
+      const user = {
+        Name: 
+          name.slice(-1) === "ς" || name.slice(-1) === "Σ"  
+            ? name[0].toUpperCase() + name.slice(1, -1)
+            : name[0].toUpperCase() + name.slice(1),
+      };
+      await AsyncStorage.setItem("UserData", JSON.stringify(user));
+      navigation.navigate("Home");
+      // setName(' ');
+    } catch (e) {
+      console.log(e);
     }
   };
 
