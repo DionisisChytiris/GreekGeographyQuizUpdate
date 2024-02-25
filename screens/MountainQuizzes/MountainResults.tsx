@@ -30,7 +30,7 @@ import {
     try {
       var userM = scoreMountain;
       await AsyncStorage.setItem("scoreMountain", JSON.stringify(userM));
-      console.log(userM);
+      // console.log(userM);
     } catch (e) {
       console.log(e);
     }
@@ -173,7 +173,10 @@ import {
                   </View>
                 </Pressable>
                 <Pressable
-                  onPress={() => navigation.navigate("MountainRepeat")}
+                  onPress={() => {
+                    navigation.navigate("MountainRepeat")
+                    setData()
+                  }}
                   style={styles.button0}
                 >
                   <View style={styles.button1} />

@@ -12,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
-import { RotateInDownLeft } from "react-native-reanimated";
+// import { RotateInDownLeft } from "react-native-reanimated";
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, 'Quiz'>
 
@@ -56,7 +56,7 @@ const QuizScreen = () => {
         if (value != null) {
           let score = JSON.parse(value);
           setScore(score);
-          // console.log("score" + " " + score);
+          console.log("score" + " " + score);
         }
       });
     } catch (e) {
@@ -124,7 +124,7 @@ const QuizScreen = () => {
       console.log(error);
     }
   };
-
+ 
   const alertTest = ()=>{
     Alert.alert('', '', [
       {text: 'Ακυρωση', onPress: ()=>{}},
@@ -165,6 +165,7 @@ const QuizScreen = () => {
           onPressOut={() => {
             navigation.navigate("LakeRiver");
             setColor1("#0080ff");
+            // removeRiver()
           }}
           style={styles.buttonA}
         >

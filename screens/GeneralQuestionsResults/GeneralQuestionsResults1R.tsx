@@ -12,6 +12,7 @@ import {
   import { StackNavigationProp } from "@react-navigation/stack";
 import {RootStackParamList} from '../../Types/RootStackParamList'
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+  import AsyncStorage from "@react-native-async-storage/async-storage";
 
   type GenQRProp= StackNavigationProp<RootStackParamList,'GeneralQuestionsResult1R'>
   type GenQRRouteProp<RouteName extends keyof RootStackParamList>= RouteProp<RootStackParamList, RouteName>
@@ -23,8 +24,19 @@ import {RootStackParamList} from '../../Types/RootStackParamList'
     // const repeatQ = props.repeatQ
   
     // const score = 60;
-    const score = (route.params.points * 100) / route.params.data.length
-  
+    const scoreGeneral = (route.params.points * 100) / route.params.data.length
+    
+  const setData = async () => {
+    try {
+      var user = scoreGeneral;
+      await AsyncStorage.setItem("scoreGeneral", JSON.stringify(user));
+      console.log(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "blue" }}>
         <ImageBackground
@@ -49,18 +61,18 @@ import {RootStackParamList} from '../../Types/RootStackParamList'
             </View>
   
             <View style={stylesT.container}>
-              {score > 49 ? (
+              {scoreGeneral > 49 ? (
                 <View>
                   <View style={stylesT.score}>
                     <Text
                       style={{ fontSize: 50, fontWeight: "bold", color: "green" }}
                     >
-                      {score}
+                      {scoreGeneral}
                     </Text>
                     <Text style={{ fontSize: 20, color: "green" }}>%</Text>
                   </View>
                   <View style={{ alignItems: "center", marginHorizontal: 20 }}>
-                    {score === 100 ? (
+                    {scoreGeneral === 100 ? (
                       <View>
                         <Text
                           style={{
@@ -110,7 +122,7 @@ import {RootStackParamList} from '../../Types/RootStackParamList'
                     <Text
                       style={{ fontSize: 50, fontWeight: "bold", color: "red" }}
                     >
-                      {score}
+                      {scoreGeneral}
                     </Text>
                     <Text style={{ fontSize: 20, color: "red" }}>%</Text>
                   </View>
@@ -133,7 +145,10 @@ import {RootStackParamList} from '../../Types/RootStackParamList'
   
             <View style={stylesT.buttonBox}>
               <Pressable
-                onPress={() => navigation.navigate("Quiz")}
+                onPress={() => 
+                  {navigation.navigate("Quiz")
+                  setData()
+              }}
                 style={stylesT.button0}
               >
                 <View style={stylesT.button1} />

@@ -30,7 +30,7 @@ const LakeRiverResults = () => {
       var user = score;
       await AsyncStorage.setItem("score", JSON.stringify(user));
       // setScore(score)
-      console.log(user);
+      // console.log(user);
     } catch (e) {
       console.log(e);
     }
@@ -171,7 +171,10 @@ const LakeRiverResults = () => {
                 </View>
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate("LakeRiverRepeat")}
+                onPress={() => {
+                  navigation.navigate("LakeRiverRepeat")
+                  setData()
+                }}
                 style={styles.button0}
               >
                 <View style={styles.button1} />

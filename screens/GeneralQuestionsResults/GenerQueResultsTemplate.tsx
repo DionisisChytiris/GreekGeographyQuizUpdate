@@ -173,7 +173,10 @@ const GenerQueResultsTemplate = (props:any) => {
                 </View>
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate(props.repeat)}
+                onPress={() => {
+                  navigation.navigate(props.repeat)
+                  setData()
+                }}
                 style={stylesT.button0}
               >
                 <View style={stylesT.button1} />
