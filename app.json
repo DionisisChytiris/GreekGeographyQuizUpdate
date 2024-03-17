@@ -19,7 +19,7 @@
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
-      "versionCode": 19,
+      "versionCode": 20,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",
         "backgroundColor": "#ffffff"
