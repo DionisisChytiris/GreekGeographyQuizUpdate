@@ -5,16 +5,20 @@ import {
   Text,
   Pressable,
   ImageBackground,
-  Alert
+  Alert,
+  Linking,
+  Image
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 // import { RotateInDownLeft } from "react-native-reanimated";
 
-type QuizScreenProp = StackNavigationProp<RootStackParamList, 'Quiz'>
+type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz">;
+
+const urlTest = 'https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion'
 
 const QuizScreen = () => {
   const navigation = useNavigation<QuizScreenProp>();
@@ -32,9 +36,9 @@ const QuizScreen = () => {
   useEffect(() => {
     getData();
     getDataRivers();
-    getDataMountain()
-    getDataGeneral()
-    getDataNomoi()
+    getDataMountain();
+    getDataGeneral();
+    getDataNomoi();
   }, []);
 
   const getData = () => {
@@ -117,24 +121,24 @@ const QuizScreen = () => {
   };
   const removeName = async () => {
     try {
-      await AsyncStorage.removeItem('UserData');
+      await AsyncStorage.removeItem("UserData");
       navigation.navigate("UpdateUserName");
       // setName('')
     } catch (error) {
       console.log(error);
     }
   };
- 
-  const alertTest = ()=>{
-    Alert.alert('', '', [
-      {text: 'Ακυρωση', onPress: ()=>{}},
-      {text: 'Διαγραφη Δεδομενων', onPress: removeData},
+
+  const alertTest = () => {
+    Alert.alert("", "", [
+      { text: "Ακυρωση", onPress: () => {} },
+      { text: "Διαγραφη Δεδομενων", onPress: removeData },
       {
-        text: 'Αλλαγη ονοματος',
+        text: "Αλλαγη ονοματος",
         onPress: removeName,
-      }
+      },
     ]);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -145,9 +149,7 @@ const QuizScreen = () => {
       >
         <View style={styles.header}>
           <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>
-              Γεία σου {name}!!!{" "}
-            </Text>
+            <Text style={styles.headerText}>Γεία σου {name}!!! </Text>
           </View>
           <Pressable
             style={{ position: "absolute", top: 20, right: 0, padding: 30 }}
@@ -156,9 +158,7 @@ const QuizScreen = () => {
             <AntDesign name="edit" size={24} color="black" />
           </Pressable>
         </View>
-        <Text style={styles.title}>
-          Επέλεξε κατηγορία
-        </Text>
+        <Text style={styles.title}>Επέλεξε κατηγορία</Text>
         {/* Lakes/Rivers */}
         <Pressable
           onPressIn={() => setColor1("#00abff")}
@@ -171,13 +171,26 @@ const QuizScreen = () => {
         >
           <View style={[styles.button1, { backgroundColor: color1 }]} />
           <Text style={styles.buttonTxt1}>Λίμνες / Ποτάμια</Text>
-          <Text style={{position: 'absolute', right: 10, top: 15, color: 'white', fontSize: 10}}>{score}%</Text>
+          <Text
+            style={{
+              position: "absolute",
+              right: 10,
+              top: 15,
+              color: "white",
+              fontSize: 10,
+            }}
+          >
+            {score}%
+          </Text>
           {/* Progress Bar */}
           <View style={styles.progressBar}>
             <View
               style={[
                 styles.progressBarColor,
-                { width: `${Math.floor((score / 100) * 100)}%`, backgroundColor: 'darkblue' },
+                {
+                  width: `${Math.floor((score / 100) * 100)}%`,
+                  backgroundColor: "darkblue",
+                },
               ]}
             />
           </View>
@@ -193,13 +206,26 @@ const QuizScreen = () => {
         >
           <View style={[styles.button2, { backgroundColor: color2 }]} />
           <Text style={styles.buttonTxt1}>Βουνά</Text>
-          <Text style={{position: 'absolute', right: 10, top: 15, color: 'white', fontSize: 10}}>{scoreMountain}%</Text>
+          <Text
+            style={{
+              position: "absolute",
+              right: 10,
+              top: 15,
+              color: "white",
+              fontSize: 10,
+            }}
+          >
+            {scoreMountain}%
+          </Text>
           {/* Progress Bar */}
           <View style={styles.progressBar}>
             <View
               style={[
                 styles.progressBarColor,
-                { width: `${Math.floor((scoreMountain / 100) * 100)}%`, backgroundColor: 'darkgreen' },
+                {
+                  width: `${Math.floor((scoreMountain / 100) * 100)}%`,
+                  backgroundColor: "darkgreen",
+                },
               ]}
             />
           </View>
@@ -215,13 +241,26 @@ const QuizScreen = () => {
         >
           <View style={[styles.button3, { backgroundColor: color3 }]} />
           <Text style={styles.buttonTxt1}>Νομοί / Πόλεις</Text>
-          <Text style={{position: 'absolute', right: 10, top: 15, color: 'white', fontSize: 10}}>{scoreNomoi}%</Text>
+          <Text
+            style={{
+              position: "absolute",
+              right: 10,
+              top: 15,
+              color: "white",
+              fontSize: 10,
+            }}
+          >
+            {scoreNomoi}%
+          </Text>
           {/* Progress Bar */}
           <View style={styles.progressBar}>
             <View
               style={[
                 styles.progressBarColor,
-                { width: `${Math.floor((scoreNomoi / 100) * 100)}%`, backgroundColor: 'brown' },
+                {
+                  width: `${Math.floor((scoreNomoi / 100) * 100)}%`,
+                  backgroundColor: "brown",
+                },
               ]}
             />
           </View>
@@ -237,16 +276,70 @@ const QuizScreen = () => {
         >
           <View style={[styles.button4, { backgroundColor: color4 }]} />
           <Text style={styles.buttonTxt1}>Γενικές Ερωτήσεις</Text>
-          <Text style={{position: 'absolute', right: 10, top: 15, color: 'white', fontSize: 10}}>{scoreGeneral}%</Text>
+          <Text
+            style={{
+              position: "absolute",
+              right: 10,
+              top: 15,
+              color: "white",
+              fontSize: 10,
+            }}
+          >
+            {scoreGeneral}%
+          </Text>
           {/* Progress Bar */}
           <View style={styles.progressBar}>
             <View
               style={[
                 styles.progressBarColor,
-                { width: `${Math.floor((scoreGeneral / 100) * 100)}%`, backgroundColor: 'purple' },
+                {
+                  width: `${Math.floor((scoreGeneral / 100) * 100)}%`,
+                  backgroundColor: "purple",
+                },
               ]}
             />
           </View>
+        </Pressable>
+        {/* Rate Button */}
+        <Pressable
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: 50,
+            backgroundColor: "white",
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderRadius: 10
+          }}
+          onPress={() => {
+            Linking.openURL(
+              `market://details?id=${"com.greekgeographyquizapp.dion"}`
+            );
+          }}
+        >
+          <Text>Αξιολόγηση</Text>
+          <Image 
+            style={{width: '100%',height: 15}}
+            source={require('../assets/MorePhotos/rating.png')}
+            resizeMode="cover"
+          />
+        </Pressable>
+        {/* Share Button */}
+        <Pressable
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 20,
+            backgroundColor: "gray",
+            padding: 10,
+            borderRadius: 10
+          }}
+          onPress={() => {
+            Linking.openURL('https://sites.google.com/view/geografiatiselladas');
+          }}
+          // onPress={async()=>{await onShare()}}
+        >
+          <Text style={{color: 'white'}}>Privacy Policy</Text>
         </Pressable>
       </ImageBackground>
     </View>
@@ -332,7 +425,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
     fontSize: 16,
-    paddingTop: 20
+    paddingTop: 20,
   },
   buttonB: {
     position: "relative",
