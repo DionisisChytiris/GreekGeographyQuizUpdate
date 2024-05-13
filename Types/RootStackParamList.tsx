@@ -3,6 +3,7 @@ export type RootStackParamList = {
   SetUserName: undefined;
   UpdateUserName: undefined;
   Quiz: undefined;
+  Quiz1: undefined;
   Introduction: undefined;
   Instructions: undefined;
   LakeRiver: undefined;
@@ -52,10 +53,28 @@ export type RootStackParamList = {
   NomoiLoseScreen6R: undefined;
   GeneralQuestions1: undefined;
   GeneralQuestions1R: undefined;
+  GeneralQuestions2: undefined;
+  GeneralQuestions2R: undefined;
+  GeneralQuestions3: undefined;
+  GeneralQuestions3R: undefined;
+  GeneralQuestions4: undefined;
+  GeneralQuestions4R: undefined;
+  GeneralQuestions5: undefined;
+  GeneralQuestions5R: undefined;
   // GeneralQuestionsResult1: undefined;
   GeneralQuestionsResult1: { points: number, data: any };
+  GeneralQuestionsResult2: { points: number, data: any };
+  GeneralQuestionsResult3: { points: number, data: any };
+  GeneralQuestionsResult4: { points: number, data: any };
+  GeneralQuestionsResult5: { points: number, data: any };
   GeneralQuestionsResult1R: { points: number, data: any };
+  GeneralQuestionsResult2R: { points: number, data: any };
+  GeneralQuestionsResult3R: { points: number, data: any };
+  GeneralQuestionsResult4R: { points: number, data: any };
+  GeneralQuestionsResult5R: { points: number, data: any };
   GenQResLoseScreen: undefined;
   GenQResLoseScreenR: undefined;
   GenerQuestTemplate: { points: number, data: any }
+  GeneralQuizMenu: undefined
+  // GeneralQuizMenu: { points: number, data: any }
 };

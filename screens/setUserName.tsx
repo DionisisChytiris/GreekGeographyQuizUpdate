@@ -23,7 +23,7 @@ const SetUserName = () => {
               : name[0].toUpperCase() + name.slice(1),
         };
         await AsyncStorage.setItem("UserData", JSON.stringify(user));
-        navigation.navigate("Quiz");
+        navigation.navigate("Quiz1");
         setName(' ');
       } catch (e) {
         console.log(e);
@@ -75,7 +75,7 @@ const SetUserName = () => {
             shadowOpacity: 1.0,
             // borderRadius: 10,
           }}
-          onPress={() => navigation.navigate("Quiz")}
+          onPress={() => navigation.navigate("Quiz1")}
         >
           <Text style={{fontSize: 12, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>Είσοδος χωρίς όνομα</Text>
         </Pressable>

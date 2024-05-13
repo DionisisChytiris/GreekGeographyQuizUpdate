@@ -142,7 +142,7 @@ import {
             <View style={styles.buttonBox}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("Quiz")
+                  navigation.navigate("Quiz1")
                   setData()
                 }}
                 style={styles.button0}

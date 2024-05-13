@@ -145,7 +145,7 @@ const LakeRiverResults = () => {
               <Pressable
                 // onPress={() => navigation.navigate("Quiz")}
                 onPress={() => {
-                  navigation.navigate("Quiz");
+                  navigation.navigate("Quiz1");
                   setData();
                 }}
                 style={styles.button0}
@@ -160,7 +160,7 @@ const LakeRiverResults = () => {
             <View style={styles.buttonBox1}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("Quiz");
+                  navigation.navigate("Quiz1");
                   setData();
                 }}
                 style={styles.button0}

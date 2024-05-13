@@ -20,6 +20,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 type MountRepeatProp = StackNavigationProp<RootStackParamList, 'MountainRepeat'>
 
@@ -34,7 +35,7 @@ const MountainRepeat = () => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(styles.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
   const [btnBackground, setBtnBackground] = useState("#2E86C1");
   let interval:any = null;
   let index1 = index + 1;
@@ -97,7 +98,7 @@ const MountainRepeat = () => {
         setPoints((points) => points + 1);
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
-        setNextQueButton(styles.nextQueButton1);
+        setNextQueButton(stylesT.nextQueButton1);
         CorrectPlaySound();
         setCor((cor) => cor + 1);
         addHeart();
@@ -105,7 +106,7 @@ const MountainRepeat = () => {
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
-        setNextQueButton(styles.nextQueButton2);
+        setNextQueButton(stylesT.nextQueButton2);
         WrongPlaySound();
         removeHeart();
         Vibration.vibrate();
@@ -117,7 +118,7 @@ const MountainRepeat = () => {
   useEffect(() => {
     setSelectedAnswerIndex(null);
     setStyle(styles.quizContainer);
-    setNextQueButton(styles.nextQueButton);
+    setNextQueButton(stylesT.nextQueButton);
     setAnswerStatus(null);
   }, [index]);
 
@@ -159,23 +160,7 @@ const MountainRepeat = () => {
       <ScrollView>
         <ImageBackground
           source={require("../../assets/meteora.jpg")}
-          // resizeMode="cover"
-          style={answerStatus == null ? { height: "100%" } : { height: "180%" }}
         >
-          <View style={styles.containerInfo}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                color: "white",
-                textAlign: "center",
-                marginTop: 40,
-              }}
-            >
-              Βουνά
-            </Text>
-          </View>
-
           <View style={styles.progressContainerInfo}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
@@ -187,68 +172,51 @@ const MountainRepeat = () => {
               <Text style={{ color: "red", fontSize: 15 }}>{heart}</Text>
             </View>
 
-            <View
-              style={{
-                //  padding: 5,
-                alignItems: "center",
-                justifyContent: "center",
-                width: 34,
-                height: 34,
-                backgroundColor: "#00ff00",
-                borderRadius: 20,
-              }}
+            <Pressable
+              onPress={() =>
+                Alert.alert(
+                  "",
+                  "Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.",
+                  [{ text: "Ενταξει" }]
+                )
+              }
+              style={{ position: "absolute", top: 32, right: 90 }}
             >
-              <Pressable
-                onPress={() =>
-                  Alert.alert(
-                    "",
-                    "Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.",
-                    [{ text: "Ενταξει" }]
-                  )
-                }
-                style={styles.btnInfoHeart}
+              <Ionicons
+                name="information-circle-sharp"
+                size={24}
+                color="white"
+              />
+            </Pressable>
+            <View style={stylesT.timer}>
+              <Text
+                style={{
+                  ...styles.counterNumber,
+                  fontSize: 30,
+                  color: "#2E86C1",
+                }}
               >
-                <Ionicons
-                  name="information-circle-sharp"
-                  size={24}
-                  color="black"
-                />
-              </Pressable>
-              <Text style={styles.counterNumber}>{counter}</Text>
+                {counter}
+              </Text>
             </View>
           </View>
 
           {/* Progress Bar */}
           <View style={styles.progressBarBack}>
             <Text
-              style={{
-                // backgroundColor: "#ffc0cb",
-                backgroundColor: "#00ff00",
-                borderRadius: 12,
-                position: "absolute",
-                left: 0,
-                height: 8,
-                right: 0,
-                width: `${Math.floor((index1 / totalQuestions) * 100)}%`,
-              }}
+              style={[
+                stylesT.progressBar,
+                { width: `${Math.floor((index1 / totalQuestions) * 100)}%` },
+              ]}
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: 30 }}>
-            <View style={style}>
-              <Image
-                source={currentQuestion?.img}
-                // resizeMode="cover"
-                style={{
-                  borderRadius: 10,
-                  marginBottom: 5,
-                  width: "100%",
-                  height: 180,
-                }}
-              />
+          <View style={{ paddingVertical: 20, paddingHorizontal: 35 }}>
+          <View style={style}>
+              <Image source={currentQuestion?.img} style={stylesT.image} />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
               <View style={styles.answersContainer}>
-                {currentQuestion?.options.map((item:any, index:any) => (
+                {currentQuestion?.options.map((item: any, index: any) => (
                   <Pressable
                     key={index}
                     onPress={() => {
@@ -266,16 +234,7 @@ const MountainRepeat = () => {
                         : styles.borderAnswer
                     }
                   >
-                    <Text
-                      style={{
-                        marginHorizontal: "auto",
-                        fontWeight: "600",
-                        color: "white",
-                        fontSize: 14,
-                      }}
-                    >
-                      {item.answer}
-                    </Text>
+                    <Text style={stylesT.textAnswer}>{item.answer}</Text>
                   </Pressable>
                 ))}
               </View>
@@ -285,317 +244,159 @@ const MountainRepeat = () => {
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
               answerStatus === null ? (
-                <Pressable
-                  onPressIn={() => setBtnBackground("#62a9da")}
-                  onPressOut={() => {
-                    navigation.navigate("Quiz");
-                    setBtnBackground("#2E86C1");
-                  }}
-                  style={stylesT.button0}
-                >
-                  <View
-                    style={[
-                      stylesT.button1,
-                      { backgroundColor: btnBackground },
-                    ]}
-                  />
-                  <View style={stylesT.btnText}>
-                    <Ionicons name="home-outline" size={20} color="white" />
-                  </View>
-                </Pressable>
+                <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 25 }}>
+                <View style={{ marginBottom: 50 }}>
                   <Pressable
                     onPress={() =>
-                      navigation.navigate("MountainResultsRepeat", {
+                      navigation.navigate("MountainResults", {
                         points: points,
                         data: data,
                       })
                     }
-                    style={nextQueButton}
+                    style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 180 },
+                    ]}
                   >
-                    <Text style={{ color: "white" }}>Αποτελέσματα</Text>
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Αποτελέσματα
+                    </Text>
+                  </Pressable>
+                  <Pressable  style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 10 },
+                    ]} onPress={handleModal}>
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Απάντηση
+                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                    </Text>
                   </Pressable>
                 </View>
               )
             ) : answerStatus === null ? (
-              <View style={{ marginBottom: 25 }}>
-                <Pressable
-                  onPressIn={() => setBtnBackground("#62a9da")}
-                  onPressOut={() => {
-                    navigation.navigate("Quiz");
-                    setBtnBackground("#2E86C1");
-                  }}
-                  style={stylesT.button0}
-                >
-                  <View
-                    style={[
-                      stylesT.button1,
-                      { backgroundColor: btnBackground },
-                    ]}
-                  />
-                  <View style={stylesT.btnText}>
-                    <Ionicons name="home-outline" size={20} color="white" />
-                  </View>
-                </Pressable>
-              </View>
+              <View style={{ padding: 38 }} />
             ) : (
-              <View style={{ flexDirection: "row", marginBottom: 65 }}>
-                <Pressable
-                  onPress={() => setIndex(index + 1)}
-                  style={nextQueButton}
-                >
-                  <Text style={{ color: "white", fontSize: 12 }}>
-                    Επόμενη Ερώτηση
-                  </Text>
-                </Pressable>
-                <Pressable
-                  style={{
-                    position: "absolute",
-                    bottom: -15,
-                    right: -10,
-                    backgroundColor: "transparent",
-                    width: 80,
-                    height: 80,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onPress={handleModal}
-                >
-                  <Text>
-                    <Entypo name="info-with-circle" size={28} color="white" />
-                  </Text>
-                </Pressable>
+              <View>
+                <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                  <Pressable
+                    onPress={() => setIndex(index + 1)}
+                    // style={nextQueButton}
+                    style={{ position: "absolute", bottom: 260, right: -10 }}
+                  >
+                    <AntDesign name="rightcircle" size={50} color="white" />
+                  </Pressable>
+                  <Pressable
+                    style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 10 },
+                    ]}
+                    onPress={handleModal}
+                  >
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Απάντηση
+                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             )}
-            {/* 
-            {answerStatus === null ? null : (
-              <View
-                style={answerStatus === null ? null : { alignItems: "center" }}
-              >
-                {!!answerStatus ? (
+            <BottomSheetModal
+              ref={bottomSheetModalRef}
+              index={0}
+              snapPoints={snapPoints}
+              backgroundStyle={{ borderRadius: 30 }}
+            >
+              <View style={{ flex: 1, alignItems: "center" }}>
+                {answerStatus === null ? null : (
                   <View
-                    style={{
-                      margin: 40,
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                    }}
+                    style={
+                      answerStatus === null ? null : { alignItems: "center" }
+                    }
                   >
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginTop: 30,
-                        width: 250,
-                        height: 180,
-                      }}
-                    >
-                      <Text
-                        style={{ color: "green", fontSize: 20, padding: 10 }}
-                      >
-                        Σωστή Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/thumbUp.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                      <Text>Συνέχισε έτσι</Text>
-                    </View>
-                    <Text
-                      style={{
-                        color: "green",
-                        paddingBottom: 30,
-                        paddingHorizontal: 20,
-                      }}
-                    >
-                      {currentQuestion?.result}{" "}
-                    </Text>
-                  </View>
-                ) : (
-                  <View
-                    style={{
-                      margin: 40,
-                      alignItems: "center",
-                      backgroundColor: "white",
-                      borderRadius: 20,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginTop: 30,
-                        width: 250,
-                        height: 200,
-                      }}
-                    >
-                      <Text style={{ color: "red", fontSize: 20, padding: 10 }}>
-                        Λάθος Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/sadFace.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                    </View>
-                    <View
-                      style={{
-                        marginTop: -40,
-                        paddingBottom: 40,
-                        paddingHorizontal: 25,
-                      }}
-                    >
-                      <Text style={{ color: "green" }}>
-                        {currentQuestion?.result}
-                      </Text>
-                    </View>
+                    {!!answerStatus ? (
+                      <View style={[stylesT.BtmModalView, { width: "100%" }]}>
+                        <View style={stylesT.btmMdlText}>
+                          <Text
+                            style={{
+                              color: "green",
+                              fontSize: 20,
+                              padding: 10,
+                            }}
+                          >
+                            Σωστή Απάντηση
+                          </Text>
+                          <Image
+                            source={require("../../assets/thumbUp.jpg")}
+                            resizeMode="cover"
+                            style={{
+                              // marginBottom: 20,
+                              width: 50,
+                              height: 50,
+                            }}
+                          />
+                        </View>
+
+                        <View style={stylesT.btmMdlView}>
+                          <Text style={{ color: "#22c200" }}>
+                            {currentQuestion?.result1}{" "}
+                          </Text>
+                          <Text style={{ color: "black" }}>
+                            {currentQuestion?.result2}{" "}
+                          </Text>
+                          <Text style={{ color: "#014acf" }}>
+                            {currentQuestion?.result3}{" "}
+                          </Text>
+                          <Text style={{ color: "magenta" }}>
+                            {currentQuestion?.result4}{" "}
+                          </Text>
+                        </View>
+                      </View>
+                    ) : (
+                      <View style={stylesT.BtmModalView}>
+                        <View style={stylesT.btmMdlText}>
+                          <Text
+                            style={{ color: "red", fontSize: 20, padding: 10 }}
+                          >
+                            Λάθος Απάντηση
+                          </Text>
+                          <Image
+                            source={require("../../assets/sadFace.jpg")}
+                            resizeMode="cover"
+                            style={{
+                              marginVertical: 20,
+                              width: 50,
+                              height: 50,
+                            }}
+                          />
+                        </View>
+                        <View style={stylesT.btmMdlView}>
+                          <Text style={{ color: "#22c200" }}>
+                            {currentQuestion?.result1}{" "}
+                          </Text>
+                          <Text style={{ color: "black" }}>
+                            {currentQuestion?.result2}{" "}
+                          </Text>
+                          <Text style={{ color: "#014acf" }}>
+                            {currentQuestion?.result3}{" "}
+                          </Text>
+                          <Text style={{ color: "magenta" }}>
+                            {currentQuestion?.result4}{" "}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
                   </View>
                 )}
               </View>
-            )} */}
+            </BottomSheetModal>
           </View>
-          <BottomSheetModal
-            ref={bottomSheetModalRef}
-            index={0}
-            snapPoints={snapPoints}
-            backgroundStyle={{ borderRadius: 50 }}
-          >
-            <View>
-              {answerStatus === null ? null : (
-                <View
-                  style={
-                    answerStatus === null ? null : { alignItems: "center" }
-                  }
-                >
-                  {!!answerStatus ? (
-                    <View
-                      style={{
-                        alignItems: "center",
-                        backgroundColor: "white",
-                        borderRadius: 20,
-                        width: "100%",
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: 60,
-                        }}
-                      >
-                        <Text
-                          style={{ color: "green", fontSize: 20, padding: 10 }}
-                        >
-                          Σωστή Απάντηση
-                        </Text>
-                        <Image
-                          source={require("../../assets/thumbUp.jpg")}
-                          resizeMode="cover"
-                          style={{
-                            marginVertical: 20,
-                            width: 50,
-                            height: 50,
-                          }}
-                        />
-                      </View>
-                      <View
-                        style={{
-                          paddingBottom: 20,
-                          paddingHorizontal: 15,
-                          gap: 10,
-                          backgroundColor: "#f5f5f5",
-                          height: 300,
-                          borderRadius: 20,
-                          padding: 10,
-                        }}
-                      >
-                        <Text style={{ color: "#22c200" }}>
-                          {currentQuestion?.result1}{" "}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                          {currentQuestion?.result2}{" "}
-                        </Text>
-                        <Text style={{ color: "#014acf" }}>
-                          {currentQuestion?.result3}{" "}
-                        </Text>
-                        <Text style={{ color: "magenta" }}>
-                          {currentQuestion?.result4}{" "}
-                        </Text>
-                      </View>
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        flex: 1,
-                        alignItems: "center",
-                        backgroundColor: "white",
-                        width: "95%",
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: 60,
-                        }}
-                      >
-                        <Text
-                          style={{ color: "red", fontSize: 20, padding: 10 }}
-                        >
-                          Λάθος Απάντηση
-                        </Text>
-                        <Image
-                          source={require("../../assets/sadFace.jpg")}
-                          resizeMode="cover"
-                          style={{
-                            marginVertical: 20,
-                            width: 50,
-                            height: 50,
-                          }}
-                        />
-                      </View>
-                      <View
-                        style={{
-                          paddingBottom: 20,
-                          paddingHorizontal: 15,
-                          gap: 10,
-                          backgroundColor: "#f5f5f5",
-                          height: 300,
-                          borderRadius: 20,
-                          padding: 10,
-                        }}
-                      >
-                        <Text style={{ color: "#22c200" }}>
-                          {currentQuestion?.result1}{" "}
-                        </Text>
-                        <Text style={{ color: "black" }}>
-                          {currentQuestion?.result2}{" "}
-                        </Text>
-                        <Text style={{ color: "#014acf" }}>
-                          {currentQuestion?.result3}{" "}
-                        </Text>
-                        <Text style={{ color: "magenta" }}>
-                          {currentQuestion?.result4}{" "}
-                        </Text>
-                      </View>
-                    </View>
-                  )}
-                </View>
-              )}
-            </View>
-          </BottomSheetModal>
         </ImageBackground>
         {/* </View> */}
       </ScrollView>
@@ -606,15 +407,54 @@ const MountainRepeat = () => {
 export default MountainRepeat;
 
 const stylesT = StyleSheet.create({
+  textTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
+    paddingTop: 30,
+  },
+  timer: {
+    alignItems: "center",
+    justifyContent: "center",
+    // position: 'absolute',
+    // top: 0,
+    // right: 10,
+    marginTop: 15,
+    marginRight: -30,
+    width: 60,
+    height: 60,
+    backgroundColor: "#b8f5ef",
+    borderRadius: 20,
+  },
+  progressBar: {
+    backgroundColor: "#0059DF",
+    borderRadius: 12,
+    position: "absolute",
+    left: 0,
+    height: 8,
+    right: 0,
+  },
+  image: {
+    borderRadius: 10,
+    marginBottom: 5,
+    width: "100%",
+    height: 180,
+  },
+  textAnswer: {
+    marginHorizontal: "auto",
+    fontWeight: "600",
+    color: "white",
+    fontSize: 14,
+  },
   button0: {
     position: "relative",
     width: 180,
     height: 40,
-    borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 0,
+    marginBottom: 40,
   },
   button1: {
     position: "absolute",
@@ -631,5 +471,84 @@ const stylesT = StyleSheet.create({
     color: "white",
     fontWeight: "600",
     fontSize: 20,
+  },
+  progressContainerInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: "10%",
+  },
+  progressBarBack: {
+    backgroundColor: "white",
+    // backgroundColor: "green",
+    width: "80%",
+    flexDirection: "row",
+    alignItems: "center",
+    height: 7,
+    borderRadius: 20,
+    justifyContent: "center",
+    marginTop: "8%",
+    marginBottom: -10,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  BtmModalView: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "white",
+    width: "95%",
+  },
+  btmMdlView: {
+    paddingBottom: 20,
+    paddingHorizontal: 15,
+    gap: 10,
+    backgroundColor: "#f5f5f5",
+    height: 300,
+    borderRadius: 20,
+    padding: 10,
+  },
+  btmMdlText: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 60,
+  },
+  infoBtn: {
+    position: "absolute",
+    bottom: -15,
+    right: -10,
+    backgroundColor: "transparent",
+    // width: 80,
+    // height: 80,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  nextQueButton: {
+    position: "absolute",
+    bottom: -15,
+    right: 10,
+    backgroundColor: "magenta",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  nextQueButton1: {
+    // position: "absolute",
+    // bottom: -15,
+    // right: 10,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  nextQueButton2: {
+    backgroundColor: "#dd0530",
+    // position: "absolute",
+    // bottom: -15,
+    // right: 10,
+    // backgroundColor: "magenta",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
   },
 });

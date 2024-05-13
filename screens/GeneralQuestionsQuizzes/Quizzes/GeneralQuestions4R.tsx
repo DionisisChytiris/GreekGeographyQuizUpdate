@@ -1,17 +1,18 @@
 import {View,ScrollView,} from "react-native";
 import React from "react";
-import questions1 from "../../data/GeneralQuestions/questions1";
+import questions4 from "../../../data/GeneralQuestions/questions4";
 // import questions2 from "../../data/GeneralQuestions/questions2";
-import GenerQuestTemplate from "./GenerQuestTemplate";
+import { Entypo } from "@expo/vector-icons";
+import GenerQuestTemplate from "../GenerQuestTemplate";
 
-const GeneralQuestions1 = () => {
+const GeneralQuestions4R = () => {
   return (
     <ScrollView>
-      <View>
+      <View style={{ backgroundColor: "gray" }}>
         <GenerQuestTemplate
-          questions={questions1}
-          nomoiResults={"GeneralQuestionsResult1"}
-          losescr={"GenQResLoseScreen"}
+          questions={questions4}
+          nomoiResults={"GeneralQuestionsResult4R"}
+          losescr={"GenQResLoseScreenR"}
           // num={1}
           // star={
           //   <View style={{ flexDirection: "row" }}>
@@ -25,4 +26,4 @@ const GeneralQuestions1 = () => {
 
 };
 
-export default GeneralQuestions1;
+export default GeneralQuestions4R;

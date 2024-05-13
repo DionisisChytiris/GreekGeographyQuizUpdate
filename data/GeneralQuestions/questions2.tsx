@@ -1,275 +1,144 @@
 const questions2 =  [
     {
-        id: 1,
-        question: "Ποιo adfsdfadfsdaf;",
+        id: 6,
+        question: "Σε ποιο γεωγραφικό διαμέρισμα ανήκει η Πρέβεζα;",
         options:[
             {
                 id:"0",
-                answer:"Κέρκυρα",
+                answer:"Ήπειρος",
             },
             {
                 id:"1",
-                answer:"Παξοί",
+                answer:"Θεσσαλία",
             },
             {
                 id:"2",
-                answer:"Λευκάδα",
+                answer:"Μακεδονία",
             },
             {
                 id:"3",
-                answer:"Ηγουμενίτσα",
+                answer:"Στερεά Ελλάδα",
             },
         ],
         correctAnswerIndex: 0,
-        img: require('../../assets/capitals/kerkyra1.jpg'),
-        imgMap: require('../../assets/maps/N.Kerkyras.png'),
-        nomos: 'Κέρκυρα',
-        capital: 'Κέρκυρα'
+        img: require('../../assets/generalQuestions/preveza.jpg'),
+        result1: 'Τα γεωγραφικά διαμερίσματα της Ελλάδας είναι εννιά: ',
+        result2: 'Θράκη, Μακεδονία, Θεσσαλία, Ήπειρος, Στερεά Ελλάδα, Πελοπόννησος, Κρήτη, Νησιά Αιγαίου και Νησιά Ιονίου. ',
+        result3: '',
+        result4: 'Η Πρέβεζα ανήκει στην Ήπειρο.',
     },
     {
-        id: 2,
-        question: "Ποια είναι η πρωτεύουσα του Ν.Κιλκίς;",
+        id: 7,
+        question: "Ποιος από τους παρακάτω νομούς έχει μεγαλύτερο πληθυσμό;",
         options:[
             {
                 id:"0",
-                answer:"Σέρρες",
+                answer:"Ν.Μαγνησίας",
             },
             {
                 id:"1",
-                answer:"Κοζάνη",
+                answer:"Ν.Αιτωλ/νίας",
             },
             {
                 id:"2",
-                answer:"Κιλκίς",
+                answer:"Ν.Δωδεκανήσου",
             },
             {
                 id:"3",
-                answer:"Καστοριά",
+                answer:"Ν.Ηλείας",
             },
         ],
-        correctAnswerIndex: 2,
-        img: require('../../assets/capitals/kilkis.jpg'),
-        imgMap: require('../../assets/maps/N.Kilkis.png'),
-        nomos: 'Κιλκίς',
-        capital: 'Κιλκίς'
+        correctAnswerIndex: 1,
+        img: require('../../assets/generalQuestions/population.png'),
+        result1: 'Ο πληθυσμός του Ν.Αιτωλοακαρνανίας είναι περίπου 224.429 κάτοικοι.',
+        result2: 'Ο πληθυσμός του Ν.Μαγνησίας είναι περίπου 206.995 κάτοικοι. ',
+        result3: 'Ο πληθυσμός του Ν.Ηλείας είναι περίπου 193.288 κάτοικοι.',
+        result4: 'Ο πληθυσμός του Ν.Δωδεκανήσου είναι περίπου 190.071.',
     },
     {
-        id: 3,
-        question: "Ποια είναι η πρωτεύουσα του Ν.Ιωαννίνων;",
+        id: 8,
+        question: "Ποιο από τα παρακάτω νησιά ΔΕΝ ανήκει στις Κυκλάδες;",
         options:[
             {
                 id:"0",
-                answer:"Κόνιτσα",
+                answer:"Κάρπαθος",
             },
             {
                 id:"1",
-                answer:"Μέτσοβο",
+                answer:"Μήλος",
             },
             {
                 id:"2",
-                answer:"Ηγουμενίτσα",
+                answer:"Νάξος",
             },
             {
                 id:"3",
-                answer:"Ιωάννινα",
+                answer:"Τήνος",
             },
         ],
-        correctAnswerIndex: 3,
-        img: require('../../assets/capitals/ioannina.jpg'),
-        imgMap: require('../../assets/maps/N.Ioanninwn.png'),
-        nomos: 'Ιωαννίνων',
-        capital: 'Ιωάννινα'
+        correctAnswerIndex: 0,
+        img: require('../../assets/generalQuestions/cyclades.jpg'),
+        result1: 'Η Κάρπαθος ανήκει στο Νομό Δωδεκανήσου. \nΗ Μήλος, η Νάξος και η Τήνος ανήκουν στο Νομό Κυκλάδων.',
+        result2: "",
+        result3: "",
+        result4: "",
     },
-    // {
-    //     id: 4,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Λάρισας;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Καρδίτσα",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Λάρισα",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Λαμία",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Λιβαδειά",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 1,
-    //     img: require('../../assets/capitals/larissa.jpg'),
-    //     imgMap: require('../../assets/maps/N.Larissas.png'),
-    //     nomos: 'Λάρισας',
-    //     capital: 'Λάρισα'
-    // },
-    // {
-    //     id: 5,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Πρέβεζας;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Πάτρα",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Πρέβεζα",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Πάργα",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Πράγα",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 1,
-    //     img: require('../../assets/capitals/preveza.jpg'),
-    //     imgMap: require('../../assets/maps/N.Prevezas.png'),
-    //     nomos: 'Πρέβεζας',
-    //     capital: 'Πρέβεζα'
-    // },
-    // {
-    //     id: 6,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Θεσσαλονίκης;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Καλαμαριά",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Σέρρες",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Αλεξανδρούπολη",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Θεσσαλονίκη",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 3,
-    //     img: require('../../assets/capitals/thessaloniki.jpg'),
-    //     imgMap: require('../../assets/maps/N.Thessalonikis.png'),
-    //     nomos: 'Θεσσαλονίκης',
-    //     capital: 'Θεσσαλονίκη'
-    // },
-    
-    // {
-    //     id: 7,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Άρτας;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Άμφισσα",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Άρτα",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Αμφιλοχία",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Άρτεμη",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 1,
-    //     img: require('../../assets/capitals/arta.jpg'),
-    //     imgMap: require('../../assets/maps/N.Thessalonikis.png'),
-    //     nomos: 'Άρτας',
-    //     capital: 'Άρτα'
-    // },
-    // {
-    //     id: 8,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Χίου;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Λέσβος",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Σάμος",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Χίος",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Μυτιλήνη",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 2,
-    //     img: require('../../assets/capitals/xiosad1.jpg'),
-    //     imgMap: require('../../assets/maps/N.Xiou.png'),
-    //     nomos: 'Χίου',
-    //     capital: 'Χίος'
-    // },
-    // {
-    //     id: 9,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Χανίων;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Χανιά",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Ηράκλειο",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Άγιος Νικόλαος",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Ρέθυμνο",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 0,
-    //     img: require('../../assets/capitals/chania.jpg'),
-    //     imgMap: require('../../assets/maps/N.Xaniwn.png'),
-    //     nomos: 'Χανίων',
-    //     capital: 'Χανιά'
-    // },
-    // {
-    //     id: 10,
-    //     question: "Ποια είναι η πρωτεύουσα του Ν.Λευκάδας;",
-    //     options:[
-    //         {
-    //             id:"0",
-    //             answer:"Πρέβεζα",
-    //         },
-    //         {
-    //             id:"1",
-    //             answer:"Νυδρί",
-    //         },
-    //         {
-    //             id:"2",
-    //             answer:"Λευκάδα",
-    //         },
-    //         {
-    //             id:"3",
-    //             answer:"Λευκίμμη",
-    //         },
-    //     ],
-    //     correctAnswerIndex: 2,
-    //     img: require('../../assets/capitals/lefkada.jpg'),
-    //     imgMap: require('../../assets/maps/N.Lefkadas.png'),
-    //     nomos: 'Λευκάδας',
-    //     capital: 'Λευκάδα'
-    // },
+    {
+        id: 9,
+        question: "Πως ονομάζεται η μεγαλύτερη λίμνη της Ελλάδας;",
+        options:[
+            {
+                id:"0",
+                answer:"Βόλβη",
+            },
+            {
+                id:"1",
+                answer:"Τριχωνίδα",
+            },
+            {
+                id:"2",
+                answer:"Βιστωνίδα",
+            },
+            {
+                id:"3",
+                answer:"Βεγορίτιδα",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/lake2.jpg'),
+        result1: 'Η λίμνη Τριχωνίδα βρίσκεται στον Νομό Αιτωλοακαρνανίας και έχει έκταση 96,510 στρέμματα.',
+        result2: 'Η λίμνη Βόλβη βρίσκεται στον Νομό Θεσσαλονίκης και έχει έκταση 72,017 στρέμματα. ',
+        result3: 'Η λίμνη Βιστωνίδα βρίσκεται στους Νομούς Ξάνθης και Ροδόπης, και έχει έκταση 54,000 στρέμματα.',
+        result4: 'Η λίμνη Βεγορίτιδα βρίσκεται στον Νομό Φλώρινας και έχει έκταση 53,968 στρέμματα. ',
+    },
+    {
+        id: 10,
+        question: "Ποια είναι η μεγαλύτερη πόλη της Πελοποννήσου;",
+        options:[
+            {
+                id:"0",
+                answer:"Τρίπολη",
+            },
+            {
+                id:"1",
+                answer:"Καλαμάτα",
+            },
+            {
+                id:"2",
+                answer:"Κόρινθος",
+            },
+            {
+                id:"3",
+                answer:"Πύργος",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/generalQuestions/greece.jpg'),
+        result1: 'Η Καλαμάτα έχει πληθυσμό 54,100 κατοίκους. ',
+        result2: 'Η Τρίπολη έχει πληθυσμό 30,866 κατοίκους. ',
+        result3: 'Η Κόρινθος έχει πληθυσμό 30,176 κατοίκους. ',
+        result4: 'Ο Πύργος έχει πληθυσμό 24,359 κατοίκους. ',
+    }
 ]
 export default questions2
 

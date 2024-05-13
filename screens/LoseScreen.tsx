@@ -90,7 +90,7 @@ const LoseScreen = (props: any) => {
           <View style={styles.btnBox}>
             <Pressable
               onPress={() => {
-                navigation.navigate("Quiz");
+                navigation.navigate("Quiz1");
                 setShow(false);
               }}
               style={btn2 ? styles.opacity1 : styles.opacity0}
@@ -102,8 +102,11 @@ const LoseScreen = (props: any) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                navigation.navigate(props.loseScreen);
-                setShow(false);
+                {
+                  navigation.navigate(props.loseScreen);
+                  setShow(false);
+                  
+                }
               }}
               style={btn1 ? styles.opacity1 : styles.opacity0}
             >
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
     height: "58%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "35%",
+    marginTop: "30%",
     borderRadius: 20,
   },
   opacity1: {

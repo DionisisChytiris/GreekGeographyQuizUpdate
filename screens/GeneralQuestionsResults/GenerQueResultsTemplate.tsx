@@ -147,7 +147,7 @@ const GenerQueResultsTemplate = (props:any) => {
             <View style={stylesT.buttonBox2}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("Quiz");
+                  navigation.navigate("Quiz1");
                   setData();
                 }}
                 style={stylesT.button0}
@@ -162,7 +162,7 @@ const GenerQueResultsTemplate = (props:any) => {
             <View style={stylesT.buttonBox1}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("Quiz");
+                  navigation.navigate("GeneralQuizMenu");
                   setData();
                 }}
                 style={stylesT.button0}

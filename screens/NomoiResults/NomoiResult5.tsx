@@ -8,7 +8,7 @@ const NomoiResult5 = () => {
     <View style={{ flex: 1 }}>
       <NomoiResultTemplate
         dataQ={questions5}
-        repeatQ={"Nomoi5R"}
+        repeatQ={"Nomoi5"}
         nextQ={"Nomoi6"}
         img={require("../../assets/salonika.jpg")}
       />

@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 type NomoiTProp = StackNavigationProp<RootStackParamList,'NomoiResultTemplate'>
 
@@ -35,7 +36,7 @@ const NomoiTemplate = (props:any) => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(styles.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
   const [btnBackground, setBtnBackground] = useState("lightgrey");
   let interval:any = null;
   let index1 = index + 1;
@@ -96,7 +97,7 @@ const NomoiTemplate = (props:any) => {
         setPoints((points) => points + 1);
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
-        setNextQueButton(styles.nextQueButton1);
+        setNextQueButton(stylesT.nextQueButton1);
         CorrectPlaySound();
         setCor(cor=>cor + 1)
         addHeart()
@@ -104,7 +105,7 @@ const NomoiTemplate = (props:any) => {
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
-        setNextQueButton(styles.nextQueButton2);
+        setNextQueButton(stylesT.nextQueButton2);
         WrongPlaySound();
         removeHeart();
         Vibration.vibrate();
@@ -116,7 +117,7 @@ const NomoiTemplate = (props:any) => {
   useEffect(() => {
     setSelectedAnswerIndex(null);
     setStyle(styles.quizContainer);
-    setNextQueButton(styles.nextQueButton);
+    setNextQueButton(stylesT.nextQueButton);
     setAnswerStatus(null);
   }, [index]);
 
@@ -128,6 +129,10 @@ const NomoiTemplate = (props:any) => {
       }
       if (counter === 1) {
         navigation.navigate(props.nomoiLoseScreen);
+        setSelectedAnswerIndex(null);
+        setAnswerStatus(null);
+        setCounter(props.counter)
+        setIndex(0)
       }
     };
     interval = setTimeout(myInterval, 1000);
@@ -160,11 +165,11 @@ const NomoiTemplate = (props:any) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
-          <View style={{ marginTop: 20 }} />
-          <View style={styles.containerInfo}>
+          {/* <View style={{ marginTop: 20 }} /> */}
+          <View style={[styles.containerInfo,{marginTop: 15}]}>
             <View style={styles.levelBox}>
               <View>{props.star}</View>
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 18,
                   fontWeight: "600",
@@ -174,7 +179,7 @@ const NomoiTemplate = (props:any) => {
                 }}
               >
                 Νομοί / Πόλεις
-              </Text>
+              </Text> */}
               <Text style={{ color: "white", fontSize: 12 }}>
                 Επίπεδο {props.num}
               </Text>
@@ -199,8 +204,9 @@ const NomoiTemplate = (props:any) => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                width: 34,
-                height: 34,
+                marginRight: -20,
+                width: 64,
+                height: 64,
                 backgroundColor: "#ff8000",
                 borderRadius: 20,
               }}
@@ -211,9 +217,9 @@ const NomoiTemplate = (props:any) => {
                 }
                  style={{position: 'absolute', left: -40}}
                  >
-                <Ionicons name="information-circle-sharp" size={24} color="black" />
+                <Ionicons name="information-circle-sharp" size={24} color="white" />
               </Pressable>
-              <Text style={styles.counterNumber}>{counter}</Text>
+              <Text style={[styles.counterNumber,{fontSize: 24}]}>{counter}</Text>
             </View>
           </View>
 
@@ -235,7 +241,7 @@ const NomoiTemplate = (props:any) => {
             </View>
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: 30 }}>
+          <View style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
             <View style={style}>
               {/* <View style={style}> */}
               <Image
@@ -282,14 +288,190 @@ const NomoiTemplate = (props:any) => {
               </View>
             </View>
           </View>
-
+          
+          <View style={styles.feedBackArea}>
+            {index + 1 >= data.length ? (
+              answerStatus === null ? (
+                <View style={{ marginBottom: 40 }} />
+              ) : (
+                <View style={{ marginBottom: 50 }}>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate(nomoiR, {
+                        points: points,
+                        data: data,
+                      })
+                    }
+                    style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 180 },
+                    ]}
+                  >
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Αποτελέσματα
+                    </Text>
+                  </Pressable>
+                  <Pressable  style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 10 },
+                    ]} onPress={handleModal}>
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Απάντηση
+                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                    </Text>
+                  </Pressable>
+                </View>
+              )
+            ) : answerStatus === null ? (
+              <View style={{ padding: 38 }} />
+            ) : (
+              <View>
+                <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                  <Pressable
+                    onPress={() => setIndex(index + 1)}
+                    // style={nextQueButton}
+                    style={{ position: "absolute", bottom: 260, right: -10 }}
+                  >
+                    <AntDesign name="rightcircle" size={50} color="white" />
+                  </Pressable>
+                  <Pressable
+                    style={[
+                      nextQueButton,
+                      { position: "absolute", bottom: -15, right: 10 },
+                    ]}
+                    onPress={handleModal}
+                  >
+                    <Text
+                      style={{ color: "white", padding: 10, borderRadius: 10 }}
+                    >
+                      Απάντηση
+                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+           <BottomSheetModal
+              ref={bottomSheetModalRef}
+              index={0}
+              snapPoints={snapPoints}
+              backgroundStyle={{ borderRadius: 50 }}
+            >
+              {answerStatus === null ? null : (
+                <View
+                  style={
+                    answerStatus === null ? null : { alignItems: "center" }
+                  }
+                >
+                  {!!answerStatus ? (
+                    <View
+                      style={{
+                        alignItems: "center",
+                        backgroundColor: "white",
+                        borderRadius: 20,
+                        width: "100%",
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: 60,
+                          marginBottom: 20,
+                        }}
+                      >
+                        <Text
+                          style={{ color: "green", fontSize: 20, padding: 10 }}
+                        >
+                          Σωστή Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/thumbUp.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                      </View>
+                      <Image
+                        source={currentQuestion?.imgMap}
+                        resizeMode="cover"
+                        style={{
+                          borderRadius: 10,
+                          marginBottom: 10,
+                          marginHorizontal: 3,
+                          width: 300,
+                          height: 250,
+                        }}
+                      />
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        margin: 40,
+                        alignItems: "center",
+                        backgroundColor: "white",
+                        borderRadius: 20,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "column",
+                          alignItems: "center",
+                          marginTop: 30,
+                          marginBottom: 50,
+                          width: 250,
+                          height: 200,
+                        }}
+                      >
+                        <Text
+                          style={{ color: "red", fontSize: 20, padding: 10 }}
+                        >
+                          Λάθος Απάντηση
+                        </Text>
+                        <Image
+                          source={require("../../assets/sadFace.jpg")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 50,
+                            height: 50,
+                          }}
+                        />
+                        <View>
+                          <Text
+                            style={{
+                              color: "darkblue",
+                              textAlign: "center",
+                              fontSize: 12,
+                              padding: 20,
+                            }}
+                          >
+                            {currentQuestion?.answer}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                </View>
+              )}
+            </BottomSheetModal>
+          </View>
+{/* 
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
               answerStatus === null ? (
                 <Pressable
                   onPressIn={() => setBtnBackground("#62a9da")}
                   onPressOut={() => {
-                    navigation.navigate("Quiz");
+                    navigation.navigate("Quiz1");
                     setBtnBackground("#2E86C1");
                   }}
                   style={stylesT.button0}
@@ -308,10 +490,16 @@ const NomoiTemplate = (props:any) => {
                 <View style={{ marginBottom: 25 }}>
                   <Pressable
                     onPress={() =>
-                      navigation.navigate(nomoiR, {
-                        points: points,
-                        data: data,
-                      })
+                      {
+                        navigation.navigate(nomoiR, {
+                          points: points,
+                          data: data,
+                        })
+                        setSelectedAnswerIndex(null);
+                        setAnswerStatus(null);
+                        setCounter(15)
+                        setIndex(0)
+                      }
                     }
                     style={nextQueButton}
                   >
@@ -320,26 +508,7 @@ const NomoiTemplate = (props:any) => {
                 </View>
               )
             ) : answerStatus === null ? (
-              <View style={{ marginBottom: 25 }}>
-                <Pressable
-                  onPressIn={() => setBtnBackground("#62a9da")}
-                  onPressOut={() => {
-                    navigation.navigate("Quiz");
-                    setBtnBackground("#2E86C1");
-                  }}
-                  style={stylesT.button0}
-                >
-                  <View
-                    style={[
-                      stylesT.button1,
-                      { backgroundColor: btnBackground },
-                    ]}
-                  />
-                  <View style={stylesT.btnText}>
-                    <Ionicons name="home-outline" size={20} color="white" />
-                  </View>
-                </Pressable>
-              </View>
+              <View style={{padding: 28}}/>
             ) : (
               <View style={{ flexDirection: "row", marginBottom: 65 }}>
                 <Pressable
@@ -466,7 +635,7 @@ const NomoiTemplate = (props:any) => {
                 </View>
               )}
             </BottomSheetModal>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -495,6 +664,36 @@ const stylesT = StyleSheet.create({
     height: "100%",
     borderRadius: 25,
   },
+  BtmModalView: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "white",
+    width: "95%",
+  },
+  btmMdlView: {
+    paddingBottom: 20,
+    paddingHorizontal: 15,
+    gap: 10,
+    backgroundColor: "#f5f5f5",
+    height: 300,
+    borderRadius: 20,
+    padding: 10,
+  },
+  btmMdlText: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 60,
+  },
+  infoBtn: {
+    position: "absolute",
+    bottom: -15,
+    right: 10,
+    backgroundColor: "magenta",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
   btnText: {
     position: "absolute",
     bottom: 11,
@@ -502,5 +701,33 @@ const stylesT = StyleSheet.create({
     color: "white",
     fontWeight: "600",
     fontSize: 20,
+  },
+  nextQueButton: {
+    position: "absolute",
+    bottom: -15,
+    right: 10,
+    backgroundColor: "magenta",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  nextQueButton1: {
+    // position: "absolute",
+    // bottom: -15,
+    // right: 10,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  nextQueButton2: {
+    backgroundColor: "#dd0530",
+    // position: "absolute",
+    // bottom: -15,
+    // right: 10,
+    // backgroundColor: "magenta",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
   },
 });

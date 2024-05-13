@@ -147,7 +147,7 @@ import {
               <View style={styles.buttonBox2}>
                 <Pressable
                   onPress={() => {
-                    navigation.navigate("Quiz");
+                    navigation.navigate("Quiz1");
                     setData();
                   }}
                   style={styles.button0}
@@ -162,7 +162,7 @@ import {
               <View style={styles.buttonBox1}>
                 <Pressable
                   onPress={() => {
-                    navigation.navigate("Quiz");
+                    navigation.navigate("Quiz1");
                     setData();
                   }}
                   style={styles.button0}
@@ -178,7 +178,7 @@ import {
                     setData()
                   }}
                   style={styles.button0}
-                >
+                > 
                   <View style={styles.button1} />
                   <View style={styles.btnText}>
                     <MaterialIcons name="replay" size={24} color="white" />
@@ -186,27 +186,6 @@ import {
                 </Pressable>
               </View>
             )}
-            {/* <View style={styles.buttonBox}>
-              <Pressable
-                onPress={() => navigation.navigate("Quiz")}
-                style={styles.button0}
-              >
-                <View style={styles.button1} />
-                <View style={styles.btnText}>
-                  <AntDesign name="home" size={24} color="white" />
-                </View>
-              </Pressable>
-              <Pressable
-                onPress={() => navigation.navigate("MountainRepeat")}
-                style={styles.button0}
-              >
-                <View style={styles.button1} />
-                <View style={styles.btnText}>
-                 
-                  <MaterialIcons name="replay" size={24} color="white" />
-                </View>
-              </Pressable>
-            </View> */}
           </View>
         </ImageBackground>
       </SafeAreaView>

@@ -5,7 +5,7 @@ import LoseScreen from '../LoseScreen'
 const NomoiLoseScreen1 = () => {
   return (
     <View>
-      <LoseScreen loseScreen={'Nomoi1R'}/>
+      <LoseScreen loseScreen={'Nomoi1'} />
     </View>
   )
 }

@@ -185,7 +185,7 @@ import {
                   <Pressable
                     // onPress={() => navigation.navigate("Quiz")}
                     onPress={() => {
-                      navigation.navigate("Quiz");
+                      navigation.navigate("Quiz1");
                       setData();
                     }}
                     style={styles.button}

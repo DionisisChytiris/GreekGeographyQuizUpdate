@@ -7,7 +7,7 @@ import {
   ImageBackground,
   Alert,
   Linking,
-  Image
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -18,7 +18,8 @@ import { AntDesign } from "@expo/vector-icons";
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz">;
 
-const urlTest = 'https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion'
+const urlTest =
+  "https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion";
 
 const QuizScreen = () => {
   const navigation = useNavigation<QuizScreenProp>();
@@ -145,19 +146,14 @@ const QuizScreen = () => {
       <ImageBackground
         source={require("../assets/romaikiAgora.jpg")}
         resizeMode="cover"
-        style={{ flex: 1, justifyContent: "center" }}
+        style={{ flex: 1}}
       >
-        <View style={styles.header}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>Γεία σου {name}!!! </Text>
-          </View>
-          <Pressable
-            style={{ position: "absolute", top: 20, right: 0, padding: 30 }}
-            onPress={alertTest}
-          >
-            <AntDesign name="edit" size={24} color="black" />
-          </Pressable>
-        </View>
+        <Pressable
+          style={{ position: "absolute", top: -20, right: 0, padding: 30 }}
+          onPress={alertTest}
+        >
+          <AntDesign name="edit" size={24} color="white" />
+        </Pressable>
         <Text style={styles.title}>Επέλεξε κατηγορία</Text>
         {/* Lakes/Rivers */}
         <Pressable
@@ -269,7 +265,8 @@ const QuizScreen = () => {
         <Pressable
           onPressIn={() => setColor4("purple")}
           onPressOut={() => {
-            navigation.navigate("GeneralQuestions1");
+            navigation.navigate("GeneralQuizMenu");
+            // navigation.navigate("GeneralQuestions1");
             setColor4("magenta");
           }}
           style={styles.buttonA}
@@ -309,7 +306,7 @@ const QuizScreen = () => {
             backgroundColor: "white",
             paddingHorizontal: 20,
             paddingVertical: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
           onPress={() => {
             Linking.openURL(
@@ -318,9 +315,9 @@ const QuizScreen = () => {
           }}
         >
           <Text>Αξιολόγηση</Text>
-          <Image 
-            style={{width: '100%',height: 15}}
-            source={require('../assets/MorePhotos/rating.png')}
+          <Image
+            style={{ width: "100%", height: 15 }}
+            source={require("../assets/MorePhotos/rating.png")}
             resizeMode="cover"
           />
         </Pressable>
@@ -332,14 +329,16 @@ const QuizScreen = () => {
             right: 20,
             backgroundColor: "gray",
             padding: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
           onPress={() => {
-            Linking.openURL('https://sites.google.com/view/geografiatiselladas');
+            Linking.openURL(
+              "https://sites.google.com/view/geografiatiselladas"
+            );
           }}
           // onPress={async()=>{await onShare()}}
         >
-          <Text style={{color: 'white'}}>Privacy Policy</Text>
+          <Text style={{ color: "white" }}>Privacy Policy</Text>
         </Pressable>
       </ImageBackground>
     </View>
@@ -359,24 +358,24 @@ const styles = StyleSheet.create({
     height: 92,
     backgroundColor: "#f5f5f5",
   },
-  headerContainer: {
-    position: "absolute",
-    top: 50,
-    left: 20,
-    flexDirection: "row",
-  },
-  headerText: {
-    color: "#006f96",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
+  // headerContainer: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 20,
+  //   flexDirection: "row",
+  // },
+  // headerText: {
+  //   color: "#006f96",
+  //   fontSize: 16,
+  //   fontWeight: "bold",
+  // },
   title: {
     textAlign: "center",
     color: "white",
     fontSize: 24,
     fontWeight: "600",
     marginBottom: 30,
-    marginTop: 40,
+    marginTop: 60,
   },
   progressBar: {
     backgroundColor: "white",

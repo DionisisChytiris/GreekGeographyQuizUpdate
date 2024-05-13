@@ -151,7 +151,7 @@ const GeneralQuestionsResults1R = () => {
           <View style={stylesT.buttonBox}>
             <Pressable
               onPress={() => {
-                navigation.navigate("Quiz");
+                navigation.navigate("GeneralQuizMenu");
                 setData();
               }}
               style={stylesT.button0}

@@ -5,6 +5,7 @@ import {
   Text,
   Pressable,
   ImageBackground,
+  Linking
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -93,7 +94,7 @@ const Introduction = () => {
           onPressOut={() => {
               {
               name
-                ? navigation.navigate("Quiz")
+                ? navigation.navigate("Quiz1")
                 : navigation.navigate("SetUserName");
             }
             // navigation.navigate("SetUserName");
@@ -105,6 +106,25 @@ const Introduction = () => {
         >
           <View style={[styles.button1, {backgroundColor: color}]} />
           <Text style={styles.btnText}>Κατηγορίες</Text>
+        </Pressable>
+
+        <Pressable
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 20,
+            backgroundColor: "gray",
+            padding: 10,
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            Linking.openURL(
+              "https://sites.google.com/view/geografiatiselladas"
+            );
+          }}
+          // onPress={async()=>{await onShare()}}
+        >
+          <Text style={{ color: "white" }}>Privacy Policy</Text>
         </Pressable>
 
         

@@ -128,7 +128,7 @@ const GenQResLoseScreenR = () => {
           }}
         >
           <Pressable
-            onPress={() => navigation.navigate("Quiz")}
+            onPress={() => navigation.navigate("Quiz1")}
             style={{
               alignItems: "center",
               width: 90,
