@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Vibration,
   Alert,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -20,6 +21,8 @@ import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+
+const { height } = Dimensions.get('window');
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
@@ -588,8 +591,9 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: "100%",
-    height: 180,
+    width: height>900?"80%": '100%',
+    margin: 'auto',
+    height: height>900? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",

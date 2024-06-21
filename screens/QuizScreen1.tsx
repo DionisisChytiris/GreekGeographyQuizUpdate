@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View, Alert, Linking, ImageBackground } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View, Alert, Dimensions, Linking, ImageBackground } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -7,6 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
+
+const { height } = Dimensions.get('window');
 
 const QuizScreen1 = () => {
   const navigation = useNavigation<QuizScreenProp>();
@@ -60,7 +62,7 @@ const QuizScreen1 = () => {
           <AntDesign name="edit" size={24} color="white" />
         </Pressable>
       <View style={styles.title}>
-        <Text style={{ color: "white", fontSize: 22, fontWeight: "bold" }}>
+        <Text style={{ color: "white", fontSize: height>900? 32: 22, fontWeight: "bold" }}>
           Επέλεξε κατηγορία
         </Text>
       </View>
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: 50,
+    top: height>900? 90: 70,
   },
   text: {
     fontSize: 16,
@@ -199,7 +201,7 @@ btnBottom: {
   },
   buttonBox: {
     width: "95%",
-    height: 500,
+    height: height>900? 600 :500,
     paddingTop: 50,
     flexWrap: "wrap",
     // backgroundColor: "yellow",

@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   containerInfo: {
@@ -78,10 +79,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderRadius: 16,
-    // shadowColor: "green",
-    // shadowOffset: { width: 5, height: 8 },
-    // shadowOpacity: 0.4,
-    // shadowRadius: 10,
   },
   androidProp: {
     shadowColor: "green",
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     paddingHorizontal: 10,
-    fontSize: 16,
+    fontSize: height>900? 20: 16,
     fontWeight: "bold",
     height: 70
   },
@@ -121,39 +118,36 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: 10,
     paddingTop: 5,
-    // width: '100%',
-    // height: '40%'
   },
   correctAnswer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "green",
-    width: "48%",
-    // height: '40%',
+    width: "47%",
     height: 90,
     borderRadius: 6,
-    margin: "1%",
+    margin: "1.5%",
   },
   wrongAnswer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#dd0530",
-    width: "48%",
+    width: "47%",
     height: 90,
     borderRadius: 6,
-    margin: "1%",
+    margin: "1.5%",
   },
   borderAnswer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#006cfa",
-    width: "48%",
-    height: 80,
+    width: "47%",
+    height: height>900 ? 120:90,
     borderRadius: 6,
-    margin: "1%",
+    margin: "1.5%",
   },
   feedBackArea: {
     // backgroundColor: "darkblue",
