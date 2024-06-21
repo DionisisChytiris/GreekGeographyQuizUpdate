@@ -124,22 +124,23 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false }}
+          options={{ headerShown: false,headerBackTitleVisible: false, }}
         />
         <Stack.Screen
           name="SetUserName"
           component={SetUserName}
-          options={{ headerShown: false }}
+          options={{ headerShown: false,headerBackTitleVisible: false, }}
         />
         <Stack.Screen
           name="UpdateUserName"
           component={UpdateUserName}
-          options={{ headerShown: false }}
+          options={{ headerShown: false,headerBackTitleVisible: false,}}
         />
         <Stack.Screen
           name="Quiz"
           component={QuizScreen}
           options={{
+            headerBackTitleVisible: false,
             headerShown: true,
             title: `Γειά σου ${name}`,
             headerTitleStyle: {
@@ -153,6 +154,7 @@ const StackNavigator = () => {
           name="Quiz1"
           component={QuizScreen1}
           options={{
+            headerBackTitleVisible: false,
             headerShown: true,
             title: `Γειά σου ${name}`,
             headerTitleStyle: {
@@ -165,15 +167,16 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Introduction"
           component={Introduction}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="Instructions"
           component={NomoiInstructions}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
             title: "Ποτάμια / Λίμνες",
@@ -193,25 +196,26 @@ const StackNavigator = () => {
         <Stack.Screen
           name="LakeRiverResults"
           component={LakeRiverResults}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="LakeRiverResultsRepeat"
           component={LakeRiverResultsRepeat}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="LakeRiverLoseScreen"
           component={LakeRiverLoseScreen}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="LakeRiverLoseScreenR"
           component={LakeRiverLoseScreenR}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
             title: "Βουνά",
@@ -231,30 +235,31 @@ const StackNavigator = () => {
         <Stack.Screen
           name="MountainResults"
           component={MountainResults}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="MountainResultsRepeat"
           component={MountainResultsRepeat}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="MountainLoseScreen"
           component={MountainLoseScreen}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="MountainLoseScreenR"
           component={MountainLoseScreenR}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
           name="LoseScreen"
           component={LoseScreen}
-          options={{ headerShown: false, orientation: "portrait" }}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
             title: "Νομοί / Πόλεις",
@@ -284,6 +289,7 @@ const StackNavigator = () => {
         </Stack.Group>
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: false,
             orientation: "portrait",
           }}
@@ -331,6 +337,7 @@ const StackNavigator = () => {
         </Stack.Group>
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
             title: "Γενικές Ερωτήσεις",
@@ -388,6 +395,7 @@ const StackNavigator = () => {
         </Stack.Group>
         <Stack.Group
           screenOptions={{
+            headerBackTitleVisible: false,
             headerShown: false,
             orientation: "portrait",
           }}
