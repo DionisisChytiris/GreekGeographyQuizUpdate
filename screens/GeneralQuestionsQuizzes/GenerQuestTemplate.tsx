@@ -156,7 +156,7 @@ const GenerQuestTemplate = (props: any) => {
   }, [index]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1}}>
       <ScrollView>
         <ImageBackground source={require("../../assets/MorePhotos/ath.jpg")}>
           <View>
@@ -397,158 +397,7 @@ const GenerQuestTemplate = (props: any) => {
               </View>
             </BottomSheetModal>
           </View>
-{/* 
-            <View style={styles.feedBackArea}>
-              {index + 1 >= data.length ? (
-                answerStatus === null ? (
-                  <Pressable
-                    onPressIn={() => setBtnBackground("#62a9da")}
-                    onPressOut={() => {
-                      navigation.navigate("Quiz1");
-                      setBtnBackground("#2E86C1");
-                    }}
-                    style={stylesT.button0}
-                  >
-                    <View
-                      style={[
-                        stylesT.button1,
-                        { backgroundColor: btnBackground },
-                      ]}
-                    />
-                    <View style={stylesT.btnText}>
-                      <Ionicons name="home-outline" size={20} color="white" />
-                    </View>
-                  </Pressable>
-                ) : (
-                  <View style={{ marginBottom: 40 }}>
-                    <Pressable
-                      onPress={() =>
-                        {
-                          navigation.navigate(nomoiR, {
-                            points: points,
-                            data: data,
-                          })
-                          setSelectedAnswerIndex(null);
-                          setAnswerStatus(null);
-                          setCounter(15)
-                          setIndex(0)
-                        }
-                      }
-                      style={nextQueButton}
-                    >
-                      <Text style={{ color: "white" }}>Αποτελέσματα</Text>
-                    </Pressable>
-                  </View>
-                )
-              ) : answerStatus === null ? (
-                <View style={{ padding: 38 }} />
-              ) : (
-                <View style={{ flexDirection: "row", marginBottom: 65 }}>
-                  <Pressable
-                    onPressIn={() => setOpacityBtn(0.8)}
-                    onPressOut={() => {
-                      setIndex(index + 1);
-                      setOpacityBtn(1);
-                    }}
-                    style={[nextQueButton, { opacity: opacityBtn }]}
-                  >
-                    <Text style={{ color: "white", fontSize: 12 }}>
-                      Επόμενη Ερώτηση
-                    </Text>
-                  </Pressable>
-                  <Pressable style={stylesT.infoBtn} onPress={handleModal}>
-                    <Text>
-                      <Entypo name="info-with-circle" size={28} color="white" />
-                    </Text>
-                  </Pressable>
-                </View>
-              )}
 
-              <BottomSheetModal
-                ref={bottomSheetModalRef}
-                index={0}
-                snapPoints={snapPoints}
-                backgroundStyle={{ borderRadius: 30 }}
-              >
-                {answerStatus === null ? null : (
-                  <View
-                    style={
-                      answerStatus === null ? null : { alignItems: "center" }
-                    }
-                  >
-                    {!!answerStatus ? (
-                      <View style={[stylesT.BtmModalView, { width: "100%" }]}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{
-                              color: "green",
-                              fontSize: 20,
-                              padding: 10,
-                            }}
-                          >
-                            Σωστή Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/thumbUp.jpg")}
-                            style={{
-                              marginVertical: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    ) : (
-                      <View style={stylesT.BtmModalView}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{ color: "red", fontSize: 20, padding: 10 }}
-                          >
-                            Λάθος Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/sadFace.jpg")}
-                            style={{
-                              marginVertical: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                )}
-              </BottomSheetModal>
-            </View> */}
           </View>
         </ImageBackground>
       </ScrollView>
@@ -569,9 +418,6 @@ const stylesT = StyleSheet.create({
   timer: {
     alignItems: "center",
     justifyContent: "center",
-    // position: 'absolute',
-    // top: 0,
-    // right: 10,
     marginTop: 15,
     marginRight: -30,
     width: 60,
@@ -581,7 +427,6 @@ const stylesT = StyleSheet.create({
   },
   progressBar: {
     backgroundColor: "magenta",
-    // backgroundColor: "#0059DF",
     borderRadius: 12,
     position: "absolute",
     left: 0,
@@ -634,7 +479,6 @@ const stylesT = StyleSheet.create({
   },
   progressBarBack: {
     backgroundColor: "white",
-    // backgroundColor: "green",
     width: "80%",
     flexDirection: "row",
     alignItems: "center",
@@ -687,9 +531,6 @@ const stylesT = StyleSheet.create({
     borderRadius: 10,
   },
   nextQueButton1: {
-    // position: "absolute",
-    // bottom: -15,
-    // right: 10,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
@@ -697,10 +538,6 @@ const stylesT = StyleSheet.create({
   },
   nextQueButton2: {
     backgroundColor: "#dd0530",
-    // position: "absolute",
-    // bottom: -15,
-    // right: 10,
-    // backgroundColor: "magenta",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

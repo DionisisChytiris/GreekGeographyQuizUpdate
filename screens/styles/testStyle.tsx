@@ -4,7 +4,6 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   containerInfo: {
     textAlign: "center",
-    // marginHorizontal: 20,
     marginTop: "8%",
     marginBottom: "2%",
   },
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     marginTop: 10,
-    // marginHorizontal: 10,
     backgroundColor: "lightgray",
     paddingVertical: 12,
     paddingHorizontal: 12,
@@ -68,8 +66,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 5, height: 8 },
     shadowRadius: 20,
     elevation: 10,
-    // shadowOpacity: 0.5
-    // height: 600
   },
   quizContainer1: {
     flex: 1,
@@ -89,8 +85,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 10,
     backgroundColor: "lightgray",
-    paddingVertical: 20,
-    paddingHorizontal: 16,
+    // paddingVertical: 20,
+    // paddingHorizontal: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     borderRadius: 16,
     shadowColor: "#dd0530",
     shadowOffset: { width: 5, height: 8 },
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
     height: 70
   },
   answersContainer: {
-    // flex: 1,
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 10,
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "green",
     width: "47%",
-    height: 90,
+    height: height>900 ? 120:90,
     borderRadius: 6,
     margin: "1.5%",
   },
@@ -135,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#dd0530",
     width: "47%",
-    height: 90,
+    height: height>900 ? 120:90,
     borderRadius: 6,
     margin: "1.5%",
   },
