@@ -157,7 +157,7 @@ const MountainRepeat = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <ImageBackground
           source={require("../../assets/meteora.jpg")}
         >

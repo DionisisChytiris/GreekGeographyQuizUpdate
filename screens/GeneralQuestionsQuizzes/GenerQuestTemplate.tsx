@@ -157,7 +157,7 @@ const GenerQuestTemplate = (props: any) => {
 
   return (
     <SafeAreaView style={{ flex: 1}}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <ImageBackground source={require("../../assets/MorePhotos/ath.jpg")}>
           <View>
             <View style={styles.progressContainerInfo}>

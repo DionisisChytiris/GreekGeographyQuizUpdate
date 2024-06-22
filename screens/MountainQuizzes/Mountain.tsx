@@ -164,7 +164,7 @@ const Mountain = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <ImageBackground source={require("../../assets/meteora.jpg")}>
           <View style={styles.progressContainerInfo}>
             <View>

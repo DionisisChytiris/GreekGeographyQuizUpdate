@@ -164,7 +164,7 @@ const LakeRiverRepeat = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <ImageBackground source={require("../../assets/MorePhotos/lake2.jpg")}>
           <View style={styles.progressContainerInfo}>
             <View>

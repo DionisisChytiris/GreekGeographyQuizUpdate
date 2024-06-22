@@ -6,7 +6,7 @@ import GenerQuestTemplate from "../GenerQuestTemplate";
 
 const GeneralQuestions1 = () => {
   return (
-    <ScrollView>
+    <ScrollView bounces={false}>
       <View>
         <GenerQuestTemplate
           questions={questions1}

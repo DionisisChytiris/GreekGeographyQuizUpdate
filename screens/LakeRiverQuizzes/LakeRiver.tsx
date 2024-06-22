@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Vibration,
   Alert,
+  Platform
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -152,7 +153,7 @@ const LakeRiver = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <ImageBackground source={require("../../assets/MorePhotos/lake2.jpg")}>
 
           <View style={styles.progressContainerInfo}>
