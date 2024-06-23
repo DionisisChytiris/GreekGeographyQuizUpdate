@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   },
   quizContainer: {
     flex: 1,
+    // flexDirection: 'row',
     justifyContent: "space-between",
     marginTop: 10,
     backgroundColor: "lightgray",

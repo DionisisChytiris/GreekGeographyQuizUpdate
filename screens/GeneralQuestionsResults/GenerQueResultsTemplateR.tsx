@@ -6,6 +6,7 @@ import {
     Pressable,
     ImageBackground,
     Image,
+    Dimensions
   } from "react-native";
   import React from "react";
   import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,8 @@ import {
   import { RootStackParamList } from "../../Types/RootStackParamList";
   import { AntDesign} from "@expo/vector-icons";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+
+  const { height } = Dimensions.get("window");
   
   type GenQRProp = StackNavigationProp<
     RootStackParamList,
@@ -43,7 +46,7 @@ import {
     };
   
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "blue" }}>
+      <View style={{ flex: 1, backgroundColor: "blue" }}>
         <ImageBackground
           source={require("../../assets/MorePhotos/Acropolis.jpg")}
           // resizeMode="cover"
@@ -54,7 +57,7 @@ import {
               <Text
                 style={{
                   fontWeight: "600",
-                  fontSize: 20,
+                  fontSize: height>900? 30:20,
                   color: "white",
                   marginTop: 100,
                   marginLeft: "auto",
@@ -82,7 +85,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize:height>900? 18: 14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -108,7 +111,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize: height>900? 18:14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -135,7 +138,7 @@ import {
                     <Text
                       style={{
                         textAlign: "center",
-                        fontSize: 14,
+                        fontSize:height>900? 18: 14,
                         color: "red",
                         marginTop: 20,
                       }}
@@ -164,7 +167,7 @@ import {
             </View>
           </View>
         </ImageBackground>
-      </SafeAreaView>
+      </View>
     );
   };
   

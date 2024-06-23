@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Pressable,
     ImageBackground,
-    Image
+    Image,
+    Dimensions
   } from "react-native";
   import React from "react";
   import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,9 @@ import {
   import { RootStackParamList } from "../../Types/RootStackParamList";
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+
+  
+const { height } = Dimensions.get("window");
 
   type MountainResultsProp = StackNavigationProp<RootStackParamList,'MountainResults'>
   type MountainRouteProp<RouteName extends keyof RootStackParamList> = RouteProp<RootStackParamList, RouteName>
@@ -49,7 +53,7 @@ import {
                 style={{ 
                   color: "darkgreen", 
                   fontWeight: "600", 
-                  fontSize: 25,
+                  fontSize: height>900? 30:25,
                   marginTop: 100,
                   marginLeft: "auto",
                   marginRight: "auto",
@@ -76,7 +80,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize:height>900? 18: 14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -102,7 +106,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize:height>900? 18:14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -130,7 +134,7 @@ import {
                     <Text
                       style={{
                         textAlign: "center",
-                        fontSize: 14,
+                        fontSize: height>900? 18:14,
                         color: "red",
                         marginTop: 20,
                       }}

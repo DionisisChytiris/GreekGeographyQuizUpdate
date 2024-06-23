@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Pressable,
     ImageBackground,
+    Dimensions
   } from "react-native";
   import React from "react";
   import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -12,6 +13,9 @@ import {
   import { RootStackParamList } from "../../Types/RootStackParamList";
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+
+  const { height } = Dimensions.get("window");
+
 
   type NomoiResultTemplate = StackNavigationProp<RootStackParamList,'Quiz'>
 
@@ -43,7 +47,7 @@ import {
   };
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "blue" }}>
+      <View style={{ flex: 1, backgroundColor: "blue" }}>
         <ImageBackground
           source={img}
           // resizeMode="cover"
@@ -55,7 +59,7 @@ import {
                 style={{
                   color: "white",
                   fontWeight: "600",
-                  fontSize: 22,
+                  fontSize: height>900? 30:22,
                   marginTop: 80,
                   marginLeft: "auto",
                   marginRight: "auto",
@@ -86,7 +90,7 @@ import {
                       <Text
                         style={{
                           color: "green",
-                          fontSize: 20,
+                          fontSize: height>900? 22:20,
                           fontWeight: "bold",
                           marginTop: 30,
                           textAlign: 'center'
@@ -97,7 +101,7 @@ import {
                       <Text
                          style={{
                           color: "green",
-                          fontSize: 14,
+                          fontSize: height>900? 18:14,
                           fontWeight: "bold",
                           marginTop: 30,
                           margin: 20,
@@ -123,7 +127,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: 15,
+                          fontSize: height>900? 18:15,
                           fontWeight: "bold",
                           textAlign: "center",
                           margin: 20,
@@ -143,7 +147,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: 12,
+                          fontSize: height>900? 16:12,
                           fontWeight: "bold",
                           marginVertical: 20,
                         }}
@@ -165,7 +169,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: 12,
+                          fontSize: height>900? 16:12,
                           fontWeight: "bold",
                           marginHorizontal: 20,
                         }}
@@ -220,7 +224,7 @@ import {
             )}
           </View>
         </ImageBackground>
-      </SafeAreaView>
+      </View>
     );
   };
   

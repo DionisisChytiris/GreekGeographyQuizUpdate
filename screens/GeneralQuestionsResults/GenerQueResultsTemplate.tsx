@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Pressable,
   ImageBackground,
-  Image
+  Image,
+  Dimensions
 } from "react-native";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import {RootStackParamList} from '../../Types/RootStackParamList'
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const { height } = Dimensions.get("window");
 
 type GenerQResultsTProp = StackNavigationProp<RootStackParamList,'GeneralQuestionsResult1'>
 type GenerQResultsTRouteProp<RouteName extends keyof RootStackParamList>= RouteProp<RootStackParamList,RouteName>
@@ -36,18 +39,18 @@ const GenerQueResultsTemplate = (props:any) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "blue" }}>
+    <View style={{ flex: 1, backgroundColor: "darkblue",  }}>
       <ImageBackground
         source={require("../../assets/MorePhotos/Acropolis.jpg")}
-        // resizeMode="cover"
-        style={{ height: "100%" }}
+        resizeMode="cover"
+        style={{ height: '100%' }}
       >
         <View>
           <View style={stylesT.title}>
             <Text
               style={{
                 fontWeight: "600",
-                fontSize: 20,
+                fontSize: height>900? 30: 20,
                 color: "white",
                 marginTop: 100,
                 marginLeft: "auto",
@@ -75,7 +78,7 @@ const GenerQueResultsTemplate = (props:any) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: height>900? 18: 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -101,7 +104,7 @@ const GenerQueResultsTemplate = (props:any) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: height>900? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -129,7 +132,7 @@ const GenerQueResultsTemplate = (props:any) => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: 14,
+                      fontSize: height>900? 18:14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -189,7 +192,7 @@ const GenerQueResultsTemplate = (props:any) => {
 
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -203,13 +206,18 @@ const stylesT = StyleSheet.create({
   },
   container: {
     width: "70%",
+    // height: 400,
     backgroundColor: "#ccc",
     borderRadius: 20,
     marginVertical: 30,
     marginLeft: "auto",
     marginRight: "auto",
-    padding: 10,
-    paddingVertical: 60,
+    paddingHorizontal: 10,
+    paddingTop: 60,
+    paddingBottom: 90,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   score: {
     flexDirection: "row",

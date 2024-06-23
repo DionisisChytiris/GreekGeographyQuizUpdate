@@ -6,6 +6,7 @@ import {
   Pressable,
   ImageBackground,
   Image,
+  Dimensions
 } from "react-native";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const { height } = Dimensions.get("window");
 
 type LakeRiverRepeatProp = StackNavigationProp<
   RootStackParamList,
@@ -52,7 +55,7 @@ const LakeRiverResultsRepeat = () => {
               style={{
                 color: "white",
                 fontWeight: "600",
-                fontSize: 25,
+                fontSize: height>900? 30:25,
                 marginTop: 120,
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -78,7 +81,7 @@ const LakeRiverResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: height>900? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -104,7 +107,7 @@ const LakeRiverResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: height>900? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -131,7 +134,7 @@ const LakeRiverResultsRepeat = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: 16,
+                      fontSize: height>900? 18:16,
                       color: "red",
                       marginTop: 20,
                     }}

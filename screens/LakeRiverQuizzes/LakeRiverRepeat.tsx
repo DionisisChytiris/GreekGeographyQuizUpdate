@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Vibration,
   Alert,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -19,8 +20,9 @@ import questions from "../../data/LakeRiver/questions";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+
+const { height } = Dimensions.get('window');
 
 type LakeRiverRepeatProp = StackNavigationProp<
   RootStackParamList,
@@ -185,7 +187,7 @@ const LakeRiverRepeat = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: 90 }}
+              style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
               // style={styles.btnInfoHeart}
             >
               <Ionicons
@@ -217,7 +219,7 @@ const LakeRiverRepeat = () => {
               ]}
             />
           </View>
-          <View style={{ paddingVertical: 20, paddingHorizontal: 35 }}>
+          <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35 }}>
             {/* <View style={[style, {opacity: 0.5}]}> */}
             <View style={style}>
               <View>
@@ -295,7 +297,7 @@ const LakeRiverRepeat = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: 260, right: -10 }}
+                    style={{ position: "absolute", bottom: height>900? 350:260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -531,8 +533,9 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: "100%",
-    height: 180,
+    width: height>900?"90%": '100%',
+    margin: 'auto',
+    height: height>900? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",

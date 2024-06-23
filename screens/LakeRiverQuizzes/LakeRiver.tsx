@@ -286,7 +286,7 @@ const LakeRiver = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: 260, right: -10 }}
+                    style={{ position: "absolute", bottom:height>900? 350: 260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>

@@ -294,7 +294,7 @@ const Mountain = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: 260, right: -10 }}
+                    style={{ position: "absolute", bottom: height>900? 350:260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -441,9 +441,10 @@ const stylesT = StyleSheet.create({
   },
   image: {
     borderRadius: 10,
-    marginBottom: 5,
-    width: "100%",
-    height: 180,
+    marginBottom: 20,
+    width: height>900?"90%": '100%',
+    margin: 'auto',
+    height: height>900? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",

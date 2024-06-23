@@ -15,6 +15,7 @@ import LoseScreenAiMsg from "./LoseScreenAi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 type LoseScreenProp = StackNavigationProp<RootStackParamList, "LoseScreen">;
 
@@ -27,8 +28,11 @@ const LoseScreen = (props: any) => {
   const hide1 = () => setBtn1(true);
   const hide2 = () => setBtn2(true);
 
-  setTimeout(hide1, 6500);
-  setTimeout(hide2, 9500);
+  setTimeout(hide1, 1500);
+  setTimeout(hide2, 2500);
+
+  // setTimeout(hide1, 6500);
+  // setTimeout(hide2, 9500);
 
   const [name, setName] = useState("");
 
@@ -60,7 +64,8 @@ const LoseScreen = (props: any) => {
           <View
             style={{
               width: "100%",
-              height: "100%",
+              // height: "100%",
+              height: height>900? 600 : 480,
               backgroundColor: "#ccc",
               borderRadius: 20,
               opacity: 0.5,
@@ -69,21 +74,20 @@ const LoseScreen = (props: any) => {
           <View
             style={{
               position: "absolute",
-              // backgroundColor: 'lightgreen',
-              top: "15%",
+              // top: "10%",
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              left: "20%",
-              right: "20%",
+              justifyContent: 'center',
+              left: "1%",
+              right: "1%",
             }}
           >
             <View>
               <Text style={styles.text1}>
-                Λυπάμαι  {name ? name : " 'Εχασες"}
+                Λυπάμαι {name ? name : " 'Εχασες"}
               </Text>
               <Text style={styles.text2}>Τέλος χρόνου</Text>
-              {/* <View style={{width: '95%'}}> */}
             </View>
             <View
               style={{
@@ -97,7 +101,7 @@ const LoseScreen = (props: any) => {
           </View>
         </View>
 
-        <View style={{ marginHorizontal: 40 }}>
+        <View style={{ marginHorizontal: 40, paddingBottom: 80, marginTop: -100 }}>
           <View style={styles.btnBox}>
             <Pressable
               onPress={() => {
@@ -139,9 +143,10 @@ const styles = StyleSheet.create({
   container: {
     width: "75%",
     height: "58%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: height>900?"20%": "30%",
+    margin:'auto',
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    // marginTop: height>900?"20%": "30%",
     borderRadius: 20,
     display: "flex",
     alignContent: "center",

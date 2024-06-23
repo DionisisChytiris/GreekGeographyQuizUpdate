@@ -6,6 +6,7 @@ import {
   Pressable,
   ImageBackground,
   Image,
+  Dimensions
 } from "react-native";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,9 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import {RootStackParamList} from '../../Types/RootStackParamList'
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+const { height } = Dimensions.get("window");
 
 type LakeRiverResultsProp = StackNavigationProp<RootStackParamList, 'LakeRiverResults'>
 type LakeRiverRouteProp<RouteName extends keyof RootStackParamList>= RouteProp<RootStackParamList, RouteName>
@@ -47,8 +51,8 @@ const LakeRiverResults = () => {
             <Text
               style={{
                 color: "white",
-                fontWeight: "600",
-                fontSize: 25,
+                fontWeight: "600", 
+                fontSize: height>900? 30:25,
                 marginTop: 100,
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -74,7 +78,7 @@ const LakeRiverResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize: height>900? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -100,7 +104,7 @@ const LakeRiverResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: 14,
+                          fontSize:height>900? 18: 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -128,7 +132,7 @@ const LakeRiverResults = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: 14,
+                      fontSize: height>900? 18:14,
                       color: "red",
                       marginTop: 20,
                     }}

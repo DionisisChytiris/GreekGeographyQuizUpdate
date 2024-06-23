@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Pressable,
     ImageBackground,
-    Image
+    Image,
+    Dimensions
   } from "react-native";
   import React from "react";
   import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -13,6 +14,9 @@ import {
   import { RootStackParamList } from "../../Types/RootStackParamList";
   import { AntDesign, MaterialIcons } from "@expo/vector-icons";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+
+  
+const { height } = Dimensions.get("window");
 
   
   type MountainResultsRepeatProp = StackNavigationProp<RootStackParamList,'MountainResults'>
@@ -48,7 +52,7 @@ import {
                 style={{
                   color: "darkgreen",
                   fontWeight: "600",
-                  fontSize: 25,
+                  fontSize: height>900? 30:25,
                   marginTop: 110,
                   marginLeft: "auto",
                   marginRight: "auto",
@@ -74,7 +78,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize: height>900? 18:14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -100,7 +104,7 @@ import {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: 14,
+                            fontSize: height>900? 18:14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -127,7 +131,7 @@ import {
                     <Text
                       style={{
                         textAlign: "center",
-                        fontSize: 14,
+                        fontSize:height>900? 18: 14,
                         color: "red",
                         marginTop: 20,
                       }}
