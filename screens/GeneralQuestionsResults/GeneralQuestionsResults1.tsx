@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import GenerQueResultsTemplate from './GenerQueResultsTemplate'
-// import questions1 from '../../data/GeneralQuestions/questions1'
 
 const GeneralQuestionsResults1 = () => {
   return (
@@ -9,7 +8,6 @@ const GeneralQuestionsResults1 = () => {
       <GenerQueResultsTemplate 
         repeat={'GeneralQuestions1R'}
       /> 
-       {/* <Text>hello</Text> */}
     </View>
   )
 }

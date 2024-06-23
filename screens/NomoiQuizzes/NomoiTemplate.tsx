@@ -7,7 +7,8 @@ import {
   ScrollView,
   StyleSheet,
   Vibration,
-  Alert
+  Alert,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,13 +18,16 @@ import styles from "../styles/testStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
-type NomoiTProp = StackNavigationProp<RootStackParamList,'NomoiResultTemplate'>
+const { height } = Dimensions.get("window");
 
+type NomoiTProp = StackNavigationProp<
+  RootStackParamList,
+  "NomoiResultTemplate"
+>;
 
-const NomoiTemplate = (props:any) => {
+const NomoiTemplate = (props: any) => {
   const navigation = useNavigation<NomoiTProp>();
   const data = props.questions;
   const nomoiR = props.nomoiResults;
@@ -31,35 +35,39 @@ const NomoiTemplate = (props:any) => {
   const [points, setPoints] = useState(0);
   const [index, setIndex] = useState(0);
   const currentQuestion = data[index];
-  const [answerStatus, setAnswerStatus] = useState<boolean|null>(null);
+  const [answerStatus, setAnswerStatus] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<any>([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(
+    stylesT.nextQueButton
+  );
   const [btnBackground, setBtnBackground] = useState("lightgrey");
-  let interval:any = null;
+  let interval: any = null;
   let index1 = index + 1;
   const bottomSheetModalRef = useRef<any>(null);
   const snapPoints = ["50%"];
   const [heart, setHeart] = useState<any>(["❤️", "❤️", "❤️"]);
-  const [cor, setCor] = useState(0)
+  const [cor, setCor] = useState(0);
   // const [tr, setTr] = useState<boolean>(true)
 
-  const removeHeart =() => {
-    const newArray= heart.length -1;
+  const removeHeart = () => {
+    const newArray = heart.length - 1;
     heart.pop(newArray);
     setHeart(heart);
-    {newArray === 0 && navigation.navigate("LakeRiverLoseScreenR")}
+    {
+      newArray === 0 && navigation.navigate(props.nomoiLoseScreen);
+    }
   };
 
-  const addHeart = ()=> {
-    if(cor === 2 &&  heart.length < 5) {
-      heart.push("❤️")
-      setCor(0)
-      setHeart(heart)
+  const addHeart = () => {
+    if (cor === 2 && heart.length < 5) {
+      heart.push("❤️");
+      setCor(0);
+      setHeart(heart);
     }
-  }
+  };
 
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
@@ -99,8 +107,8 @@ const NomoiTemplate = (props:any) => {
         setStyle(styles.quizContainer1);
         setNextQueButton(stylesT.nextQueButton1);
         CorrectPlaySound();
-        setCor(cor=>cor + 1)
-        addHeart()
+        setCor((cor) => cor + 1);
+        addHeart();
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
@@ -124,15 +132,15 @@ const NomoiTemplate = (props:any) => {
   useEffect(() => {
     const myInterval = () => {
       if (counter >= 1) {
-        setCounter((counter:number) => counter - 1);
+        setCounter((counter: number) => counter - 1);
         // console.log(counter);
       }
       if (counter === 1) {
         navigation.navigate(props.nomoiLoseScreen);
         setSelectedAnswerIndex(null);
         setAnswerStatus(null);
-        setCounter(props.counter)
-        setIndex(0)
+        setCounter(props.counter);
+        setIndex(0);
       }
     };
     interval = setTimeout(myInterval, 1000);
@@ -159,27 +167,14 @@ const NomoiTemplate = (props:any) => {
     }
   }, [index]);
 
- 
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
-          {/* <View style={{ marginTop: 20 }} /> */}
-          <View style={[styles.containerInfo,{marginTop: 15}]}>
+          <View style={[styles.containerInfo, { marginTop: 15 }]}>
             <View style={styles.levelBox}>
               <View>{props.star}</View>
-              {/* <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "600",
-                  color: "white",
-                  paddingTop: 20,
-                  paddingLeft: 35
-                }}
-              >
-                Νομοί / Πόλεις
-              </Text> */}
+
               <Text style={{ color: "white", fontSize: 12 }}>
                 Επίπεδο {props.num}
               </Text>
@@ -187,7 +182,7 @@ const NomoiTemplate = (props:any) => {
           </View>
           <View></View>
 
-          <View style={[styles.progressContainerInfo, {marginBottom: 25}]}>
+          <View style={[styles.progressContainerInfo, { marginBottom: 25 }]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
@@ -195,9 +190,7 @@ const NomoiTemplate = (props:any) => {
             </View>
 
             <View>
-              <Text style={{ color: "red", fontSize: 15 }}>
-                {heart}
-              </Text>
+              <Text style={{ color: "red", fontSize: 15 }}>{heart}</Text>
             </View>
 
             <View
@@ -212,14 +205,24 @@ const NomoiTemplate = (props:any) => {
               }}
             >
               <Pressable
-                onPress={()=>
-                  Alert.alert('','Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.', [{text: 'Ενταξει'}])
+                onPress={() =>
+                  Alert.alert(
+                    "",
+                    "Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.",
+                    [{ text: "Ενταξει" }]
+                  )
                 }
-                 style={{position: 'absolute', left: -40}}
-                 >
-                <Ionicons name="information-circle-sharp" size={24} color="white" />
+                style={{ position: "absolute", left: -40 }}
+              >
+                <Ionicons
+                  name="information-circle-sharp"
+                  size={24}
+                  color="white"
+                />
               </Pressable>
-              <Text style={[styles.counterNumber,{fontSize: 24}]}>{counter}</Text>
+              <Text style={[styles.counterNumber, { fontSize: 24 }]}>
+                {counter}
+              </Text>
             </View>
           </View>
 
@@ -241,7 +244,12 @@ const NomoiTemplate = (props:any) => {
             </View>
           </View>
 
-          <View style={{ paddingVertical: 10, paddingHorizontal: 35 }}>
+          <View
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: height > 900 ? 120 : 35,
+            }}
+          >
             <View style={style}>
               {/* <View style={style}> */}
               <Image
@@ -249,13 +257,14 @@ const NomoiTemplate = (props:any) => {
                 style={{
                   borderRadius: 10,
                   marginBottom: 5,
-                  width: "100%",
-                  height: 180,
+                  width: height > 900 ? "90%" : "100%",
+                  margin: "auto",
+                  height: height > 900 ? 300 : 180,
                 }}
               />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
               <View style={styles.answersContainer}>
-                {currentQuestion?.options.map((item:any, index:any) => (
+                {currentQuestion?.options.map((item: any, index: any) => (
                   <Pressable
                     key={index}
                     onPress={() => {
@@ -288,7 +297,7 @@ const NomoiTemplate = (props:any) => {
               </View>
             </View>
           </View>
-          
+
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
               answerStatus === null ? (
@@ -313,10 +322,13 @@ const NomoiTemplate = (props:any) => {
                       Αποτελέσματα
                     </Text>
                   </Pressable>
-                  <Pressable  style={[
+                  <Pressable
+                    style={[
                       nextQueButton,
                       { position: "absolute", bottom: -15, right: 10 },
-                    ]} onPress={handleModal}>
+                    ]}
+                    onPress={handleModal}
+                  >
                     <Text
                       style={{ color: "white", padding: 10, borderRadius: 10 }}
                     >
@@ -355,7 +367,7 @@ const NomoiTemplate = (props:any) => {
                 </View>
               </View>
             )}
-           <BottomSheetModal
+            <BottomSheetModal
               ref={bottomSheetModalRef}
               index={0}
               snapPoints={snapPoints}
@@ -464,7 +476,7 @@ const NomoiTemplate = (props:any) => {
               )}
             </BottomSheetModal>
           </View>
-{/* 
+          {/* 
           <View style={styles.feedBackArea}>
             {index + 1 >= data.length ? (
               answerStatus === null ? (

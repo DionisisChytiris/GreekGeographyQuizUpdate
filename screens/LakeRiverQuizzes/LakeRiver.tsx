@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Vibration,
   Alert,
-  Platform
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -20,8 +20,9 @@ import questions from "../../data/LakeRiver/questions";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+
+const { height } = Dimensions.get('window');
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -51,7 +52,7 @@ const LakeRiver = () => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate("LakeRiverLoseScreenR");
+      newArray === 0 && navigation.navigate("LakeRiverLoseScreen");
     }
   };
 
@@ -175,7 +176,7 @@ const LakeRiver = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: 90 }}
+              style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
               // style={styles.btnInfoHeart}
             >
               <Ionicons
@@ -208,7 +209,7 @@ const LakeRiver = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: 35 }}>
+          <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35}}>
             <View style={style}>
               <View>
                 <Image source={currentQuestion?.img} style={stylesT.image} />
@@ -496,9 +497,6 @@ const stylesT = StyleSheet.create({
   timer: {
     alignItems: "center",
     justifyContent: "center",
-    // position: 'absolute',
-    // top: 0,
-    // right: 10,
     marginTop: 15,
     marginRight: -30,
     width: 60,
@@ -517,14 +515,15 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: "100%",
-    height: 180,
+    width: height>900?"90%": '100%',
+    margin: 'auto',
+    height: height>900? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",
     fontWeight: "600",
     color: "white",
-    fontSize: 14,
+    fontSize: height>900? 20: 14,
   },
   button0: {
     position: "relative",
@@ -560,7 +559,7 @@ const stylesT = StyleSheet.create({
   progressBarBack: {
     backgroundColor: "white",
     // backgroundColor: "green",
-    width: "80%",
+    width: 900?"60%": '80%',
     flexDirection: "row",
     alignItems: "center",
     height: 7,

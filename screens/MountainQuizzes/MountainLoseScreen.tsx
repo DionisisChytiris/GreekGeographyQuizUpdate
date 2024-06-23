@@ -4,9 +4,9 @@ import LoseScreen from '../LoseScreen'
 
 const MountainLoseScreen = () => {
   return (
-    <View>
       <LoseScreen loseScreen={'MountainRepeat'}/>
-    </View>
+    // <View>
+    // </View>
   )
 }
 

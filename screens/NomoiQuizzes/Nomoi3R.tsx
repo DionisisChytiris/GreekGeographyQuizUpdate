@@ -6,7 +6,7 @@ import { Entypo } from "@expo/vector-icons";
 
 const Nomoi3R = () => {
   return (
-    <ScrollView>
+    <ScrollView bounces={false}>
       <View style={{ backgroundColor: "darkblue" }}>
         <NomoiTemplate
           questions={questions3}

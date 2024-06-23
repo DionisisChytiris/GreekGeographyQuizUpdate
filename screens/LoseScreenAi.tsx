@@ -9,14 +9,12 @@ const LoseScreenAiMsg = (props:any) => {
       <View>
         <View
           style={{
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "transparent",
-            width: '100%',
-            height: '120%',
-            marginLeft: "auto",
-            marginRight: "auto",
+            // flexDirection: "column",
+            // alignItems: "center",
+            // justifyContent: "center",
+            // backgroundColor: "transparent",
+            // width: '100%',
+            // height: '100%',
           }}
         >
           <Video

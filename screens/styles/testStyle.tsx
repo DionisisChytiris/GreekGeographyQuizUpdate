@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   progressBarBack: {
     backgroundColor: "white",
     // backgroundColor: "green",
-    width: "80%",
+    width: height>900? "60%":"80%",
     flexDirection: "row",
     alignItems: "center",
     height: 7,

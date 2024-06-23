@@ -187,26 +187,6 @@ const GenerQueResultsTemplate = (props:any) => {
             </View>
           )}
 
-          {/* <View style={stylesT.buttonBox}>
-              <Pressable
-                onPress={() => navigation.navigate("Quiz")}
-                style={stylesT.button0}
-              >
-                <View style={stylesT.button1} />
-                <View style={stylesT.btnText}>
-                  <AntDesign name="home" size={24} color="white" />
-                </View>
-              </Pressable>
-              <Pressable
-                onPress={() => navigation.navigate(props.repeat)}
-                style={stylesT.button0}
-              >
-                <View style={stylesT.button1} />
-                <View style={stylesT.btnText}>
-                  <MaterialIcons name="replay" size={24} color="white" />
-                </View>
-              </Pressable>
-            </View> */}
         </View>
       </ImageBackground>
     </SafeAreaView>

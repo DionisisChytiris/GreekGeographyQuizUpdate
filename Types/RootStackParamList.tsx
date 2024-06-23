@@ -19,6 +19,7 @@ export type RootStackParamList = {
   MountainLoseScreen: undefined;
   MountainLoseScreenR: undefined;
   LoseScreen: undefined;
+  LoseScreenR: undefined;
   Nomoi1: undefined;
   Nomoi1R: undefined;
   Nomoi2: undefined;
@@ -72,6 +73,16 @@ export type RootStackParamList = {
   GeneralQuestionsResult3R: { points: number, data: any };
   GeneralQuestionsResult4R: { points: number, data: any };
   GeneralQuestionsResult5R: { points: number, data: any };
+  GQLoseScreen1: undefined;
+  GQLoseScreen2: undefined;
+  GQLoseScreen3: undefined;
+  GQLoseScreen4: undefined;
+  GQLoseScreen5: undefined;
+  GQLoseScreenR1: undefined;
+  GQLoseScreenR2: undefined;
+  GQLoseScreenR3: undefined;
+  GQLoseScreenR4: undefined;
+  GQLoseScreenR5: undefined;
   GenQResLoseScreen: undefined;
   GenQResLoseScreenR: undefined;
   GenerQuestTemplate: { points: number, data: any }

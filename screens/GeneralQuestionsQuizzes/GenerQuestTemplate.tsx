@@ -57,7 +57,7 @@ const GenerQuestTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate("LakeRiverLoseScreenR");
+      newArray === 0 && navigation.navigate(props.losescr);
     }
   };
 
@@ -179,7 +179,7 @@ const GenerQuestTemplate = (props: any) => {
                     [{ text: "Ενταξει" }]
                   )
                 }
-                style={{ position: "absolute", top: 32, right: 90 }}
+                style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
               >
                 <Ionicons
                   name="information-circle-sharp"
@@ -211,7 +211,7 @@ const GenerQuestTemplate = (props: any) => {
               />
             </View>
 
-            <View style={{ paddingVertical: 20, paddingHorizontal: 35 }}>
+            <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35 }}>
               <View style={style}>
                 <Image source={currentQuestion?.img} style={stylesT.image} />
                 <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -436,7 +436,7 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: height>900?"80%": '100%',
+    width: height>900?"90%": '100%',
     margin: 'auto',
     height: height>900? 300:180,
   },
@@ -444,7 +444,7 @@ const stylesT = StyleSheet.create({
     marginHorizontal: "auto",
     fontWeight: "600",
     color: "white",
-    fontSize: 14,
+    fontSize: height>900? 20: 14,
   },
   button0: {
     position: "relative",
@@ -479,7 +479,7 @@ const stylesT = StyleSheet.create({
   },
   progressBarBack: {
     backgroundColor: "white",
-    width: "80%",
+    width: height>900? "60%":"80%",
     flexDirection: "row",
     alignItems: "center",
     height: 7,

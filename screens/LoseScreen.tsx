@@ -4,17 +4,19 @@ import {
   Pressable,
   ImageBackground,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import LoseScreenAiMsg from "./LoseScreenAi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type LoseScreenProp = StackNavigationProp<RootStackParamList, 'LoseScreen'>
+const { height } = Dimensions.get("window");
 
+type LoseScreenProp = StackNavigationProp<RootStackParamList, "LoseScreen">;
 
 const LoseScreen = (props: any) => {
   const navigation = useNavigation<LoseScreenProp>();
@@ -51,7 +53,7 @@ const LoseScreen = (props: any) => {
     <View style={{ height: "100%", backgroundColor: "darkblue" }}>
       <ImageBackground
         source={require("../assets/generalQuestions/river.jpg")}
-        // resizeMode="cover"
+        resizeMode="cover"
         style={{ height: "100%" }}
       >
         <View style={styles.container}>
@@ -67,21 +69,30 @@ const LoseScreen = (props: any) => {
           <View
             style={{
               position: "absolute",
-              top: "10%",
-              left: "13.5%",
+              // backgroundColor: 'lightgreen',
+              top: "15%",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              left: "20%",
+              right: "20%",
             }}
           >
             <View>
               <Text style={styles.text1}>
-                Λυπάμαι {name ? name : " 'Εχασες"}
+                Λυπάμαι  {name ? name : " 'Εχασες"}
               </Text>
-              <Text style={styles.text2}>
-                Τέλος χρόνου
-              </Text>
+              <Text style={styles.text2}>Τέλος χρόνου</Text>
               {/* <View style={{width: '95%'}}> */}
-              <View style={{ width: 220, paddingRight: 10 }}>
-                <LoseScreenAiMsg showT={show} />
-              </View>
+            </View>
+            <View
+              style={{
+                width: height > 900 ? 300 : 200,
+                height: height > 900 ? 300 : 200,
+                marginTop: 30,
+              }}
+            >
+              <LoseScreenAiMsg showT={show} />
             </View>
           </View>
         </View>
@@ -100,12 +111,12 @@ const LoseScreen = (props: any) => {
                 <AntDesign name="home" size={24} color="white" />
               </View>
             </Pressable>
+            {/* <Text>helo</Text> */}
             <Pressable
               onPress={() => {
                 {
                   navigation.navigate(props.loseScreen);
                   setShow(false);
-                  
                 }
               }}
               style={btn1 ? styles.opacity1 : styles.opacity0}
@@ -130,8 +141,11 @@ const styles = StyleSheet.create({
     height: "58%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "30%",
+    marginTop: height>900?"20%": "30%",
     borderRadius: 20,
+    display: "flex",
+    alignContent: "center",
+    justifyContent: "center",
   },
   opacity1: {
     opacity: 1,
@@ -147,13 +161,13 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "white",
-    fontSize: 22,
+    fontSize: height > 900 ? 32 : 22,
     fontWeight: "600",
     textAlign: "center",
   },
   text2: {
     color: "white",
-    fontSize: 20,
+    fontSize: height > 900 ? 30 : 20,
     fontWeight: "600",
     textAlign: "center",
     marginTop: 20,

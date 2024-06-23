@@ -55,6 +55,16 @@ import {
   GeneralQuestions3R,
   GeneralQuestions4R,
   GeneralQuestions5R,
+  GQLoseScreen1,
+  GQLoseScreen2,
+  GQLoseScreen3,
+  GQLoseScreen4,
+  GQLoseScreen5,
+  GQLoseScreenR1,
+  GQLoseScreenR2,
+  GQLoseScreenR3,
+  GQLoseScreenR4,
+  GQLoseScreenR5,
 } from "./screens/GeneralQuestionsQuizzes";
 import {
   LakeRiver,
@@ -93,6 +103,7 @@ import GenerQuestTemplate from "./screens/GeneralQuestionsQuizzes/GenerQuestTemp
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import GeneralQuizMenu from "./screens/GeneralQuestionsQuizzes/QuizMenu";
 import QuizScreen1 from "./screens/QuizScreen1";
+import LoseScreenR from "./screens/LoseScreenR";
 // import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
 
@@ -120,21 +131,21 @@ const StackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Home" component={Nomoi6} options={{headerShown: false, orientation: 'portrait'}}/>  */}
+        {/* <Stack.Screen name="LoseScreen" component={LoseScreen} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false,headerBackTitleVisible: false, }}
+          options={{ headerShown: false,headerBackTitleVisible: false, orientation: "portrait"}}
         />
         <Stack.Screen
           name="SetUserName"
           component={SetUserName}
-          options={{ headerShown: false,headerBackTitleVisible: false, }}
+          options={{ headerShown: false,headerBackTitleVisible: false, orientation: "portrait"}}
         />
         <Stack.Screen
           name="UpdateUserName"
           component={UpdateUserName}
-          options={{ headerShown: false,headerBackTitleVisible: false,}}
+          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
         />
         <Stack.Screen
           name="Quiz"
@@ -142,6 +153,7 @@ const StackNavigator = () => {
           options={{
             headerBackTitleVisible: false,
             headerShown: true,
+            orientation: "portrait",
             title: `Γειά σου ${name}`,
             headerTitleStyle: {
               fontWeight: "bold",
@@ -154,6 +166,7 @@ const StackNavigator = () => {
           name="Quiz1"
           component={QuizScreen1}
           options={{
+            orientation: "portrait",
             headerBackTitleVisible: false,
             headerShown: true,
             title: `Γειά σου ${name}`,
@@ -255,6 +268,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="LoseScreen"
           component={LoseScreen}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+        />
+        <Stack.Screen
+          name="LoseScreenR"
+          component={LoseScreenR}
           options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Group
@@ -392,6 +410,46 @@ const StackNavigator = () => {
             name="GeneralQuestions5R"
             component={GeneralQuestions5R}
           />
+          <Stack.Screen
+            name="GQLoseScreen1"
+            component={GQLoseScreen1}
+          />
+          <Stack.Screen
+            name="GQLoseScreen2"
+            component={GQLoseScreen2}
+          />
+          <Stack.Screen
+            name="GQLoseScreen3"
+            component={GQLoseScreen3}
+          />
+          <Stack.Screen
+            name="GQLoseScreen4"
+            component={GQLoseScreen4}
+          />
+          <Stack.Screen
+            name="GQLoseScreen5"
+            component={GQLoseScreen5}
+          />
+          <Stack.Screen
+            name="GQLoseScreenR1"
+            component={GQLoseScreenR1}
+          />
+          <Stack.Screen
+            name="GQLoseScreenR2"
+            component={GQLoseScreenR2}
+          />
+          <Stack.Screen
+            name="GQLoseScreenR3"
+            component={GQLoseScreenR3}
+          />
+          <Stack.Screen
+            name="GQLoseScreenR4"
+            component={GQLoseScreenR4}
+          />
+          <Stack.Screen
+            name="GQLoseScreenR5"
+            component={GQLoseScreenR5}
+          />
         </Stack.Group>
         <Stack.Group
           screenOptions={{
@@ -448,10 +506,10 @@ const StackNavigator = () => {
             name="GenQResLoseScreenR"
             component={GenQResLoseScreenR}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="GenerQuestTemplate"
             component={GenerQuestTemplate}
-          />
+          /> */}
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

@@ -201,7 +201,7 @@ btnBottom: {
   },
   buttonBox: {
     width: "95%",
-    height: height>900? 600 :500,
+    height: height>900? 650 :500,
     paddingTop: 50,
     flexWrap: "wrap",
     // backgroundColor: "yellow",

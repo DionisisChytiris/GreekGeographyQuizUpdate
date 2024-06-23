@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Vibration,
   Alert,
+  Dimensions
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -19,8 +20,9 @@ import questions from "../../data/Mountain/questions";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+
+const { height } = Dimensions.get('window');
 
 type MountainProp = StackNavigationProp<RootStackParamList, "Mountain">;
 
@@ -54,7 +56,8 @@ const Mountain = () => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate("LakeRiverLoseScreenR");
+      newArray === 0 && navigation.navigate("MountainLoseScreen");
+      // newArray === 0 && navigation.navigate("Home");
     }
   };
 
@@ -185,7 +188,7 @@ const Mountain = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: 90 }}
+              style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
             >
               <Ionicons
                 name="information-circle-sharp"
@@ -216,7 +219,7 @@ const Mountain = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: 35 }}>
+          <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35 }}>
             <View style={style}>
               <Image source={currentQuestion?.img} style={stylesT.image} />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
