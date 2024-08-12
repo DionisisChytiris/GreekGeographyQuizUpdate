@@ -216,6 +216,7 @@ const StackNavigator = () => {
           component={LakeRiverResultsRepeat}
           options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
         />
+
         <Stack.Screen
           name="LakeRiverLoseScreen"
           component={LakeRiverLoseScreen}

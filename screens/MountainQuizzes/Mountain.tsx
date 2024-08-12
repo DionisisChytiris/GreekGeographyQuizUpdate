@@ -56,7 +56,7 @@ const Mountain = () => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate("MountainLoseScreen");
+      newArray === 0 && navigation.navigate("MountainLoseScreenR");
       // newArray === 0 && navigation.navigate("Home");
     }
   };

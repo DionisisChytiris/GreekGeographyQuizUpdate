@@ -11,7 +11,7 @@ const GeneralQuestions2 = () => {
         <GenerQuestTemplate
           questions={questions2}
           nomoiResults={"GeneralQuestionsResult2"}
-          losescr={"GQLoseScreen2"}
+          losescr={"GQLoseScreenR1"}
         />
       </View>
     </ScrollView>

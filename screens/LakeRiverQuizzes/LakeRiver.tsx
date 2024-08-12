@@ -52,7 +52,7 @@ const LakeRiver = () => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate("LakeRiverLoseScreen");
+      newArray === 0 && navigation.navigate("LakeRiverLoseScreenR");
     }
   };
 

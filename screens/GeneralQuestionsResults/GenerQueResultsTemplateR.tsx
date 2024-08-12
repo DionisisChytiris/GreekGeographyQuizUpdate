@@ -14,6 +14,7 @@ import {
   import { RootStackParamList } from "../../Types/RootStackParamList";
   import { AntDesign} from "@expo/vector-icons";
   import AsyncStorage from "@react-native-async-storage/async-storage";
+  import LottieView from "lottie-react-native";
 
   const { height } = Dimensions.get("window");
   
@@ -166,6 +167,26 @@ import {
               </Pressable>
             </View>
           </View>
+          <View
+          style={{     
+            flex: 1,
+            margin: 0,
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <LottieView
+            style={{
+              position: "absolute",
+              bottom: 150,
+              width: "100%",
+              height: '500%',
+            }}
+            source={require("../../assets/LottieAnimations/confeti.json")}
+            autoPlay
+            loop={false}
+          />
+        </View>
         </ImageBackground>
       </View>
     );

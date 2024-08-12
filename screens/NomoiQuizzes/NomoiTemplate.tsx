@@ -57,7 +57,7 @@ const NomoiTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate(props.nomoiLoseScreen);
+      newArray === 0 && navigation.navigate('NomoiLoseScreen1R');
     }
   };
 

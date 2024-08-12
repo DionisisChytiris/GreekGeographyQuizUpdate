@@ -40,12 +40,12 @@ const Home = () => {
 
   const hide = () => setShowBtn(true);
 
-  setTimeout(hide, 900);
+  setTimeout(hide, 1400);
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 800,
+      duration: 1300,
       useNativeDriver: true,
     }).start();
   }, []);

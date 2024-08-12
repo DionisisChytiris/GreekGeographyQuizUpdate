@@ -6,23 +6,29 @@ import {
   Pressable,
   ImageBackground,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import {RootStackParamList} from '../../Types/RootStackParamList'
+import { RootStackParamList } from "../../Types/RootStackParamList";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import LottieView from "lottie-react-native";
 
 const { height } = Dimensions.get("window");
 
-type LakeRiverResultsProp = StackNavigationProp<RootStackParamList, 'LakeRiverResults'>
-type LakeRiverRouteProp<RouteName extends keyof RootStackParamList>= RouteProp<RootStackParamList, RouteName>
+type LakeRiverResultsProp = StackNavigationProp<
+  RootStackParamList,
+  "LakeRiverResults"
+>;
+type LakeRiverRouteProp<RouteName extends keyof RootStackParamList> = RouteProp<
+  RootStackParamList,
+  RouteName
+>;
 
 const LakeRiverResults = () => {
-  const route = useRoute<LakeRiverRouteProp<'LakeRiverResults'>>();
+  const route = useRoute<LakeRiverRouteProp<"LakeRiverResults">>();
   const navigation = useNavigation<LakeRiverResultsProp>();
 
   const scores = route.params.points;
@@ -51,8 +57,8 @@ const LakeRiverResults = () => {
             <Text
               style={{
                 color: "white",
-                fontWeight: "600", 
-                fontSize: height>900? 30:25,
+                fontWeight: "600",
+                fontSize: height > 900 ? 30 : 25,
                 marginTop: 100,
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -78,7 +84,7 @@ const LakeRiverResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height>900? 18:14,
+                          fontSize: height > 900 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -104,7 +110,7 @@ const LakeRiverResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize:height>900? 18: 14,
+                          fontSize: height > 900 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -132,12 +138,13 @@ const LakeRiverResults = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height>900? 18:14,
+                      fontSize: height > 900 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
                   >
-                    Δεν ήταν άσχημη προσπάθεια, αλλά χρείαζεται μεγαλύτερη προσπάθεια για να βρεις τις σωστές απαντήσεις. Επανέλαβε το
+                    Δεν ήταν άσχημη προσπάθεια, αλλά χρείαζεται μεγαλύτερη
+                    προσπάθεια για να βρεις τις σωστές απαντήσεις. Επανέλαβε το
                     κουίζ για να βελτιώσεις τις γνώσεις σου.
                   </Text>
                 </View>
@@ -176,8 +183,8 @@ const LakeRiverResults = () => {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("LakeRiverRepeat")
-                  setData()
+                  navigation.navigate("LakeRiverRepeat");
+                  setData();
                 }}
                 style={styles.button0}
               >
@@ -188,6 +195,19 @@ const LakeRiverResults = () => {
               </Pressable>
             </View>
           )}
+        </View>
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          <LottieView
+            style={{ width: "100%", height: "100%" }}
+            source={require("../../assets/LottieAnimations/confeti.json")}
+            autoPlay
+            loop={false}
+            // onAnimationFinish={()=>setIsLoading(false)}
+          />
         </View>
       </ImageBackground>
     </SafeAreaView>

@@ -6,24 +6,28 @@ import {
   Pressable,
   ImageBackground,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import {RootStackParamList} from '../../Types/RootStackParamList'
+import { RootStackParamList } from "../../Types/RootStackParamList";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LottieView from "lottie-react-native";
 
 const { height } = Dimensions.get("window");
 
-type GenerQResultsTProp = StackNavigationProp<RootStackParamList,'GeneralQuestionsResult1'>
-type GenerQResultsTRouteProp<RouteName extends keyof RootStackParamList>= RouteProp<RootStackParamList,RouteName>
+type GenerQResultsTProp = StackNavigationProp<
+  RootStackParamList,
+  "GeneralQuestionsResult1"
+>;
+type GenerQResultsTRouteProp<RouteName extends keyof RootStackParamList> =
+  RouteProp<RootStackParamList, RouteName>;
 
-const GenerQueResultsTemplate = (props:any) => {
-  const route = useRoute<GenerQResultsTRouteProp<'GeneralQuestionsResult1'>>();
+const GenerQueResultsTemplate = (props: any) => {
+  const route = useRoute<GenerQResultsTRouteProp<"GeneralQuestionsResult1">>();
   const navigation = useNavigation<GenerQResultsTProp>();
-
   const scores = route.params.points;
   const data = route.params.data;
   const scoreGeneral = Math.floor((scores * 100) / data.length);
@@ -39,18 +43,18 @@ const GenerQueResultsTemplate = (props:any) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "darkblue",  }}>
+    <View style={{ flex: 1, backgroundColor: "darkblue" }}>
       <ImageBackground
         source={require("../../assets/MorePhotos/Acropolis.jpg")}
         resizeMode="cover"
-        style={{ height: '100%' }}
+        style={{ height: "100%" }}
       >
         <View>
           <View style={stylesT.title}>
             <Text
               style={{
                 fontWeight: "600",
-                fontSize: height>900? 30: 20,
+                fontSize: height > 900 ? 30 : 20,
                 color: "white",
                 marginTop: 100,
                 marginLeft: "auto",
@@ -62,6 +66,7 @@ const GenerQueResultsTemplate = (props:any) => {
           </View>
 
           <View style={stylesT.container}>
+          
             {scoreGeneral > 49 ? (
               <View>
                 <View style={stylesT.score}>
@@ -75,36 +80,38 @@ const GenerQueResultsTemplate = (props:any) => {
                 <View style={{ alignItems: "center", marginHorizontal: 20 }}>
                   {scoreGeneral === 100 ? (
                     <View>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          fontSize: height>900? 18: 14,
-                          color: "green",
-                          marginTop: 20,
-                        }}
-                      >
-                        Συγχαρητήρια!!! Οι γνώσεις σου στην γεωγραφία είναι
-                        φανταστικές!!!
-                      </Text>
-                      <Image
-                        source={require("../../assets/trophy.png")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 80,
-                          height: 80,
-                          borderRadius: 50,
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                        }}
-                      />
+                      <View>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            fontSize: height > 900 ? 18 : 14,
+                            color: "green",
+                            marginTop: 20,
+                          }}
+                        >
+                          Συγχαρητήρια!!! Οι γνώσεις σου στην γεωγραφία είναι
+                          φανταστικές!!!
+                        </Text>
+                        <Image
+                          source={require("../../assets/trophy.png")}
+                          resizeMode="cover"
+                          style={{
+                            marginVertical: 20,
+                            width: 80,
+                            height: 80,
+                            borderRadius: 50,
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                          }}
+                        />
+                      </View>
                     </View>
                   ) : (
                     <View>
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height>900? 18:14,
+                          fontSize: height > 900 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -132,7 +139,7 @@ const GenerQueResultsTemplate = (props:any) => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height>900? 18:14,
+                      fontSize: height > 900 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -177,8 +184,8 @@ const GenerQueResultsTemplate = (props:any) => {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  navigation.navigate(props.repeat)
-                  setData()
+                  navigation.navigate(props.repeat);
+                  setData();
                 }}
                 style={stylesT.button0}
               >
@@ -189,7 +196,28 @@ const GenerQueResultsTemplate = (props:any) => {
               </Pressable>
             </View>
           )}
+        </View>
 
+
+        <View
+          style={{     
+            flex: 1,
+            margin: 0,
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <LottieView
+            style={{
+              position: "absolute",
+              bottom: 100,
+              width: "100%",
+              height: '1000%',
+            }}
+            source={require("../../assets/LottieAnimations/confeti.json")}
+            autoPlay
+            loop={false}
+          />
         </View>
       </ImageBackground>
     </View>
@@ -215,9 +243,9 @@ const stylesT = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 60,
     paddingBottom: 90,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   score: {
     flexDirection: "row",

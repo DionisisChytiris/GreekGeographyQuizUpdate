@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import { AntDesign } from "@expo/vector-icons";
+import LottieView from "lottie-react-native";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -23,7 +24,7 @@ const LoseScreenR = () => {
   const navigation = useNavigation<NomoiLoseScr1RProp>();
 
   return (
-    <View style={{ height: "100%", backgroundColor: "darkblue"}}>
+    <View style={{ height: "100%", backgroundColor: "darkblue" }}>
       <ImageBackground
         source={require("../assets/generalQuestions/river.jpg")}
         // resizeMode="cover"
@@ -63,6 +64,27 @@ const LoseScreenR = () => {
               right: "1%",
             }}
           >
+            <View
+              style={{
+                flex: 1,
+                margin: 0,
+                alignItems: "center",
+                backgroundColor: "transparent",
+              }}
+            >
+              <Text></Text>
+              <LottieView
+                style={{
+                  position: "absolute",
+                  bottom: -20,
+                  width: "100%",
+                  height: "1000%",
+                }}
+                source={require("../assets/LottieAnimations/BrokenHeart.json")}
+                autoPlay
+                loop={true}
+              />
+            </View>
             <View>
               <Text
                 style={{
@@ -83,7 +105,7 @@ const LoseScreenR = () => {
                   marginTop: 30,
                 }}
               >
-                Τέλος χρόνου
+                3 Λάθος Απαντήσεις
               </Text>
 
               <View
@@ -112,7 +134,7 @@ const LoseScreenR = () => {
         </View>
 
         {/* <View style={{ marginHorizontal: 40 }}> */}
-        <View style={{ paddingBottom: 100, marginTop: -50}}>
+        <View style={{ paddingBottom: 100, marginTop: -50 }}>
           <View
             style={{
               flexDirection: "row",

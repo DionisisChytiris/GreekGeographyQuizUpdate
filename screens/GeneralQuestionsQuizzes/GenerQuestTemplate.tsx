@@ -57,7 +57,7 @@ const GenerQuestTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate(props.losescr);
+      newArray === 0 && navigation.navigate('GQLoseScreenR1');
     }
   };
 
