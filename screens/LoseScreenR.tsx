@@ -34,10 +34,10 @@ const LoseScreenR = () => {
           style={{
             width: width > 900 ? "40%" : "75%",
             height: "45%",
-            margin: "auto",
-            // marginLeft: "auto",
-            // marginRight: "auto",
-            // marginTop: height>900 ?"35%": height<850? "45%": '50%',
+            // margin: "auto",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: height>900 ?"35%": height<850? "45%": '50%',
             borderRadius: 20,
             display: "flex",
             alignContent: "center",
@@ -134,7 +134,7 @@ const LoseScreenR = () => {
         </View>
 
         {/* <View style={{ marginHorizontal: 40 }}> */}
-        <View style={{ paddingBottom: 100, marginTop: -50 }}>
+        <View style={{ paddingBottom: 100, marginTop: 80 }}>
           <View
             style={{
               flexDirection: "row",

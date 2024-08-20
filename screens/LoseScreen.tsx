@@ -60,12 +60,25 @@ const LoseScreen = (props: any) => {
         resizeMode="cover"
         style={{ height: "100%" }}
       >
-        <View style={styles.container}>
+        <View
+          style={{
+            width: width > 900 ? "40%" : "75%",
+            height: "45%",
+            // margin: "auto",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: height > 900 ? "35%" : height < 850 ? "45%" : "50%",
+            borderRadius: 20,
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
           <View
             style={{
               width: "100%",
               // height: "100%",
-              height: height>900? 600 : 480,
+              height: height > 900 ? 600 : 480,
               backgroundColor: "#ccc",
               borderRadius: 20,
               opacity: 0.5,
@@ -75,10 +88,10 @@ const LoseScreen = (props: any) => {
             style={{
               position: "absolute",
               // top: "10%",
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               left: "1%",
               right: "1%",
             }}
@@ -101,7 +114,9 @@ const LoseScreen = (props: any) => {
           </View>
         </View>
 
-        <View style={{ marginHorizontal: 40, paddingBottom: 80, marginTop: -100 }}>
+        <View
+          style={{ marginHorizontal: 40, paddingBottom: 80, marginTop: 70 }}
+        >
           <View style={styles.btnBox}>
             <Pressable
               onPress={() => {
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
   container: {
     width: "75%",
     height: "58%",
-    margin:'auto',
+    margin: "auto",
     // marginLeft: "auto",
     // marginRight: "auto",
     // marginTop: height>900?"20%": "30%",

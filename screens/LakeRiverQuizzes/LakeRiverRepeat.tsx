@@ -21,6 +21,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
+import LottieView from "lottie-react-native";
 
 const { height } = Dimensions.get('window');
 
@@ -245,6 +246,48 @@ const LakeRiverRepeat = () => {
                       }
                     >
                       <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                      {selectedAnswerIndex === index &&
+                       index === currentQuestion.correctAnswerIndex ? (
+                         <View
+                           style={{
+                             position: "absolute",
+                             width: "100%",
+                             height: "70%",
+                             top: 0,
+                             right: -30,
+                           }}
+                         >
+                           <LottieView
+                             style={{ width: "100%", height: "100%" }}
+                             source={require("../../assets/LottieAnimations/Success.json")}
+                             autoPlay
+                             loop={false}
+                           />
+                         </View>
+                      
+                       ) : 
+                       null}
+                        {selectedAnswerIndex === index &&
+                    index !== currentQuestion.correctAnswerIndex ? (
+                      <View
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "70%",
+                          top: 0,
+                          right: -30,
+                        }}
+                      >
+                        <LottieView
+                          style={{ width: "100%", height: "100%" }}
+                          source={require("../../assets/LottieAnimations/Fail.json")}
+                          autoPlay
+                          loop={false}
+                        />
+                      </View>
+                     
+                    ) : 
+                    null}
                     </Pressable>
                   ))}
                 </View>

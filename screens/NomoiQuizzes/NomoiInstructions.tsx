@@ -1,14 +1,18 @@
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Pressable, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
-type NomoiInstructionsProp = StackNavigationProp<RootStackParamList, 'Instructions'>
+type NomoiInstructionsProp = StackNavigationProp<
+  RootStackParamList,
+  "Instructions"
+>;
 
 const NomoiInstructions = () => {
   const navigation = useNavigation<NomoiInstructionsProp>();
-  const [color, setColor] = useState('#ff8000')
+  const [color, setColor] = useState("#ff8000");
 
   return (
     <View style={{ flex: 1, backgroundColor: "lightblue" }}>
@@ -28,8 +32,18 @@ const NomoiInstructions = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "transparent",
+          // marginTop: "-20%",
         }}
       >
+        <Pressable
+           onPress={
+             // () => Alert.alert("hey")
+             ()=>{navigation.navigate("Quiz1");}
+           }
+           style={{ position: 'absolute', top: 40, left: 40 }}
+         >
+           <AntDesign name="arrowleft" size={24} color="white" />
+         </Pressable>
         <Text
           style={{
             fontSize: 22,
@@ -48,12 +62,14 @@ const NomoiInstructions = () => {
           - Για να ανέβεις κατηγορία πρέπει
         </Text>
         <Text style={{ fontSize: 16 }}>να απαντήσεις τουλάχιστον</Text>
-        <Text style={{ fontSize: 16, marginBottom: -10 }}>5 ερωτήσεις σωστά.</Text>
+        <Text style={{ fontSize: 16, marginBottom: -10 }}>
+          5 ερωτήσεις σωστά.
+        </Text>
         <Pressable
-          onPressIn={() => setColor('#ffb266')}
+          onPressIn={() => setColor("#ffb266")}
           onPressOut={() => {
-            navigation.navigate("Nomoi1")
-            setColor('#ff8000')
+            navigation.navigate("Nomoi1");
+            setColor("#ff8000");
           }}
           style={{
             width: 120,
@@ -62,15 +78,21 @@ const NomoiInstructions = () => {
             paddingBottom: 15,
             marginVertical: "8%",
             alignItems: "center",
-            justifyContent: 'center',
+            justifyContent: "center",
             borderRadius: 20,
           }}
         >
-          <Text style={{ color: "white", fontWeight: '600' }}>Ερωτήσεις </Text>
+          <Text style={{ color: "white", fontWeight: "600" }}>Ερωτήσεις </Text>
         </Pressable>
-        <View style={{marginBottom: 10, marginTop: -15,marginHorizontal: 15}}>
-          <Text style={{ fontSize: 10 }}>Ο διοικητικός διαχωρισμός σε νομούς δεν ισχύει πλέον (από το 2011), αλλά έχει ιστορική αξία και είναι ακόμα χρήσιμος.</Text>
+        <View
+          style={{ marginBottom: 10, marginTop: -15, marginHorizontal: 15 }}
+        >
+          <Text style={{ fontSize: 10 }}>
+            Ο διοικητικός διαχωρισμός σε νομούς δεν ισχύει πλέον (από το 2011),
+            αλλά έχει ιστορική αξία και είναι ακόμα χρήσιμος.
+          </Text>
         </View>
+        
       </View>
 
       <Image

@@ -131,7 +131,7 @@ const StackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="LoseScreen" component={LoseScreen} options={{headerShown: false, orientation: 'portrait'}}/>  */}
+        {/* <Stack.Screen name="Nomoi4R" component={Nomoi4R} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen
           name="Home"
           component={Home}
@@ -279,7 +279,7 @@ const StackNavigator = () => {
         <Stack.Group
           screenOptions={{
             headerBackTitleVisible: false,
-            headerShown: true,
+            headerShown: false,
             orientation: "portrait",
             title: "Νομοί / Πόλεις",
             headerStyle: {
@@ -292,8 +292,8 @@ const StackNavigator = () => {
             },
           }}
         >
-          <Stack.Screen name="Nomoi1" component={Nomoi1} />
-          <Stack.Screen name="Nomoi1R" component={Nomoi1R} />
+          <Stack.Screen name="Nomoi1" component={Nomoi1} options={{headerShown: true}}/>
+          <Stack.Screen name="Nomoi1R" component={Nomoi1R} options={{headerShown: true}} />
           <Stack.Screen name="Nomoi2" component={Nomoi2} />
           <Stack.Screen name="Nomoi2R" component={Nomoi2R} />
           <Stack.Screen name="Nomoi3" component={Nomoi3} />
@@ -414,42 +414,52 @@ const StackNavigator = () => {
           <Stack.Screen
             name="GQLoseScreen1"
             component={GQLoseScreen1}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreen2"
             component={GQLoseScreen2}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreen3"
             component={GQLoseScreen3}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreen4"
             component={GQLoseScreen4}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreen5"
             component={GQLoseScreen5}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreenR1"
             component={GQLoseScreenR1}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreenR2"
             component={GQLoseScreenR2}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreenR3"
             component={GQLoseScreenR3}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreenR4"
             component={GQLoseScreenR4}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="GQLoseScreenR5"
             component={GQLoseScreenR5}
+            options={{headerShown: false}}
           />
         </Stack.Group>
         <Stack.Group
