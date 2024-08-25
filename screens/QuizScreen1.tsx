@@ -29,8 +29,7 @@ const QuizScreen1 = () => {
   const removeName = async () => {
     try {
       await AsyncStorage.removeItem("UserData");
-      navigation.navigate("UpdateUserName");
-      // setName('')
+      navigation.navigate("SetUserName");
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +64,7 @@ const QuizScreen1 = () => {
         <Text style={{ color: "white", fontSize: height>900? 32: 22, fontWeight: "bold" }}>
           Επέλεξε κατηγορία
         </Text>
+        {/* <Text>{name}</Text> */}
       </View>
       <View style={styles.buttonBox}>
         <Pressable

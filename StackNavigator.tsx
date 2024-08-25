@@ -106,28 +106,31 @@ import QuizScreen1 from "./screens/QuizScreen1";
 import LoseScreenR from "./screens/LoseScreenR";
 // import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
+import { useSelector } from 'react-redux';
+import { useAppSelector } from "./ReduxToolkit/store";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
-  const [name, setName] = React.useState("");
+  // const [name, setName] = React.useState("");
+  const name = useAppSelector((state) => state.user.name);
 
-  React.useEffect(() => {
-    getData();
-  }, []);
+  // React.useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = () => {
-    try {
-      AsyncStorage.getItem("UserData").then((value) => {
-        if (value != null) {
-          let user = JSON.parse(value);
-          setName(user.Name);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getData = () => {
+  //   try {
+  //     AsyncStorage.getItem("UserData").then((value) => {
+  //       if (value != null) {
+  //         let user = JSON.parse(value);
+  //         setName(user.Name);
+  //       }
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -154,7 +157,7 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
-            title: `Γειά σου ${name}`,
+            title: `Γειά σου ${ name }`,
             headerTitleStyle: {
               fontWeight: "bold",
               color: "#006f96",

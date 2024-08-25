@@ -4,12 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { setNameInput } from "../ReduxToolkit/setUserNameSlice";
 
 type UpdateNameProp = StackNavigationProp<RootStackParamList, 'UpdateUserName'>
 
 const UpdateUserName = () => {
   const navigation = useNavigation<UpdateNameProp>();
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     UpDateName()
@@ -29,6 +32,7 @@ const UpdateUserName = () => {
       };
       await AsyncStorage.setItem("UserData", JSON.stringify(user));
       navigation.navigate("Home");
+      dispatch(setNameInput(name))
       // setName(' ');
     } catch (e) {
       console.log(e);

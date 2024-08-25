@@ -4,12 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { setNameInput } from "../ReduxToolkit/setUserNameSlice";
 
 type SetUserProp = StackNavigationProp<RootStackParamList, 'SetUserName'>
 
 const SetUserName = () => {
   const navigation = useNavigation<SetUserProp>()
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
   const setData = async () => {
     if (name.length == 0) {
@@ -24,7 +27,8 @@ const SetUserName = () => {
         };
         await AsyncStorage.setItem("UserData", JSON.stringify(user));
         navigation.navigate("Quiz1");
-        setName(' ');
+        dispatch(setNameInput(name))
+        // setName(' ');
       } catch (e) {
         console.log(e);
       }

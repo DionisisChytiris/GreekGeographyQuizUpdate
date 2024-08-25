@@ -102,7 +102,7 @@ const Home = () => {
         </Pressable>
         {name ? (
           <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 100, left: '15%', right: '15%', padding: 10, backgroundColor: '#f5f5f5', borderRadius: 20}}>
-            <Text style={{ color: "#006f96", fontSize: 16, fontWeight: 'bold' }}>Καλώς ήλθες!!!</Text>
+            <Text style={{ color: "#006f96", fontSize: 16, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
           </View>
         ) : null}
       </ImageBackground>
