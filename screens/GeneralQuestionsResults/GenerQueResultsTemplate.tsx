@@ -54,14 +54,14 @@ const GenerQueResultsTemplate = (props: any) => {
             <Text
               style={{
                 fontWeight: "600",
-                fontSize: height > 900 ? 30 : 20,
+                fontSize: height > 960 ? 30 : 20,
                 color: "white",
-                marginTop: 100,
+                marginTop: height  ? 160 : 100,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
             >
-              Βαθμολογία
+              Βαθμολογία 
             </Text>
           </View>
 
@@ -84,7 +84,7 @@ const GenerQueResultsTemplate = (props: any) => {
                         <Text
                           style={{
                             textAlign: "center",
-                            fontSize: height > 900 ? 18 : 14,
+                            fontSize: height > 960 ? 18 : 14,
                             color: "green",
                             marginTop: 20,
                           }}
@@ -111,7 +111,7 @@ const GenerQueResultsTemplate = (props: any) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -119,7 +119,7 @@ const GenerQueResultsTemplate = (props: any) => {
                         Καλή προσπάθεια, αλλά πάντα υπάρχει περιθώριο βελτίωσης.
                         Επανέλαβε το κουίζ για να τελειωποιήσεις τις γνώσεις σου
                         ή πήγαινε στην αρχική σελίδα για να επιλέξεις άλλη
-                        κατηγορία.
+                        κατηγορία. 
                       </Text>
                     </View>
                   )}
@@ -139,7 +139,7 @@ const GenerQueResultsTemplate = (props: any) => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height > 900 ? 18 : 14,
+                      fontSize: height > 960 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -198,7 +198,7 @@ const GenerQueResultsTemplate = (props: any) => {
           )}
         </View>
 
-
+{/* 
         <View
           style={{     
             flex: 1,
@@ -210,7 +210,7 @@ const GenerQueResultsTemplate = (props: any) => {
           <LottieView
             style={{
               position: "absolute",
-              bottom: 100,
+              bottom: 0,
               width: "100%",
               height: '1000%',
             }}
@@ -218,7 +218,7 @@ const GenerQueResultsTemplate = (props: any) => {
             autoPlay
             loop={false}
           />
-        </View>
+        </View> */}
       </ImageBackground>
     </View>
   );
@@ -270,8 +270,11 @@ const stylesT = StyleSheet.create({
   },
   buttonBox2: {
     // marginTop: 40,
+    // position: 'relative',
+    // zIndex: 9999999,
     flexDirection: "row",
     marginHorizontal: 40,
+    // marginBottom: 100
   },
   button0: {
     position: "relative",
@@ -281,6 +284,7 @@ const stylesT = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 20,
+    // marginBottom: 100
   },
   button1: {
     position: "absolute",
@@ -289,6 +293,7 @@ const stylesT = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 25,
+    // marginBottom: 100
   },
   btnText: {
     position: "absolute",

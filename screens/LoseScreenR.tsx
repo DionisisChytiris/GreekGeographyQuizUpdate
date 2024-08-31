@@ -32,12 +32,12 @@ const LoseScreenR = () => {
       >
         <View
           style={{
-            width: width > 900 ? "40%" : "75%",
+            width: width > 960 ? "40%" : "75%",
             height: "45%",
             // margin: "auto",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: height>900 ?"35%": height<850? "45%": '50%',
+            marginTop: height>960 ?"35%": height<850? "45%": '50%',
             borderRadius: 20,
             display: "flex",
             alignContent: "center",
@@ -89,7 +89,7 @@ const LoseScreenR = () => {
               <Text
                 style={{
                   color: "magenta",
-                  fontSize: height > 900 ? 32 : 25,
+                  fontSize: height > 960 ? 32 : 25,
                   fontWeight: "600",
                   textAlign: "center",
                 }}
@@ -99,7 +99,7 @@ const LoseScreenR = () => {
               <Text
                 style={{
                   color: "white",
-                  fontSize: height > 900 ? 30 : 20,
+                  fontSize: height > 960 ? 30 : 20,
                   fontWeight: "600",
                   textAlign: "center",
                   marginTop: 30,
@@ -122,7 +122,7 @@ const LoseScreenR = () => {
                     fontWeight: "bold",
                     marginHorizontal: 30,
                     textAlign: "center",
-                    marginTop: height > 900 ? 80 : 50,
+                    marginTop: height > 960 ? 80 : 50,
                   }}
                 >
                   Επιστροφή στην αρχική σελίδα{" "}

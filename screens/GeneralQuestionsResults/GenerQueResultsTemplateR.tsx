@@ -58,14 +58,14 @@ const GenerQueResultsTemplateR = (props: any) => {
             <Text
               style={{
                 fontWeight: "600",
-                fontSize: height > 900 ? 30 : 20,
+                fontSize: height > 960 ? 30 : 20,
                 color: "white",
-                marginTop: 100,
+                marginTop: height> 960? 100: 200,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
             >
-              Βαθμολογία
+              Βαθμολογία 
             </Text>
           </View>
 
@@ -86,13 +86,13 @@ const GenerQueResultsTemplateR = (props: any) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
                       >
                         Συγχαρητήρια!!! Οι γνώσεις σου στην γεωγραφία είναι
-                        φανταστικές!!!
+                        φανταστικές!!! 
                       </Text>
                       <Image
                         source={require("../../assets/trophy.png")}
@@ -112,7 +112,7 @@ const GenerQueResultsTemplateR = (props: any) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -139,7 +139,7 @@ const GenerQueResultsTemplateR = (props: any) => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height > 900 ? 18 : 14,
+                      fontSize: height > 960 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -167,7 +167,7 @@ const GenerQueResultsTemplateR = (props: any) => {
             </Pressable>
           </View>
         </View>
-        <View
+        {/* <View
           style={{
             flex: 1,
             margin: 0,
@@ -178,7 +178,7 @@ const GenerQueResultsTemplateR = (props: any) => {
           <LottieView
             style={{
               position: "absolute",
-              bottom: 150,
+              bottom: 200,
               width: "100%",
               height: "500%",
             }}
@@ -187,6 +187,7 @@ const GenerQueResultsTemplateR = (props: any) => {
             loop={false}
           />
         </View>
+        */}
       </ImageBackground>
     </View>
   );
@@ -229,9 +230,10 @@ const stylesT = StyleSheet.create({
   buttonBox: {
     marginTop: 40,
     flexDirection: "row",
+    // position: "relative",
+    // zIndex:99999
   },
   button0: {
-    position: "relative",
     width: 100,
     height: 50,
     borderRadius: 25,

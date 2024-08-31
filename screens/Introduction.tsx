@@ -25,7 +25,7 @@ const Introduction = () => {
 
   const hide = () => setShowBtn(true);
 
-  setTimeout(hide, 9000);
+  setTimeout(hide, 9600);
 
   const [name, setName] = useState("");
 

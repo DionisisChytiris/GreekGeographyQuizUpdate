@@ -250,7 +250,7 @@ const NomoiTemplate = (props: any) => {
           <View
             style={{
               paddingVertical: 10,
-              paddingHorizontal: height > 900 ? 120 : 35,
+              paddingHorizontal: height > 960 ? 120 : 35,
             }}
           >
             <View style={style}>
@@ -260,9 +260,9 @@ const NomoiTemplate = (props: any) => {
                 style={{
                   borderRadius: 10,
                   marginBottom: 5,
-                  width: height > 900 ? "90%" : "100%",
+                  width: height > 960 ? "90%" : "100%",
                   margin: "auto",
-                  height: height > 900 ? 300 : 180,
+                  height: height > 960 ? 300 : 180,
                 }}
               />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -391,7 +391,7 @@ const NomoiTemplate = (props: any) => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: height>900? 350:260, right: -10 }}
+                    style={{ position: "absolute", bottom: height>960? 350:260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>

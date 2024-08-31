@@ -60,8 +60,8 @@ import {
                 style={{
                   color: "white",
                   fontWeight: "600",
-                  fontSize: height>900? 30:22,
-                  marginTop: 80,
+                  fontSize: height>960? 30:22,
+                  marginTop: height> 960? 80: 140,
                   marginLeft: "auto",
                   marginRight: "auto",
                 }}
@@ -91,7 +91,7 @@ import {
                       <Text
                         style={{
                           color: "green",
-                          fontSize: height>900? 22:20,
+                          fontSize: height>960? 22:20,
                           fontWeight: "bold",
                           marginTop: 30,
                           textAlign: 'center'
@@ -102,7 +102,7 @@ import {
                       <Text
                          style={{
                           color: "green",
-                          fontSize: height>900? 18:14,
+                          fontSize: height>960? 18:14,
                           fontWeight: "bold",
                           marginTop: 30,
                           margin: 20,
@@ -128,7 +128,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: height>900? 18:15,
+                          fontSize: height>960? 18:15,
                           fontWeight: "bold",
                           textAlign: "center",
                           margin: 20,
@@ -148,7 +148,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: height>900? 16:12,
+                          fontSize: height>960? 16:12,
                           fontWeight: "bold",
                           marginVertical: 20,
                         }}
@@ -170,7 +170,7 @@ import {
                       <Text
                         style={{
                           color: "red",
-                          fontSize: height>900? 16:12,
+                          fontSize: height>960? 16:12,
                           fontWeight: "bold",
                           marginHorizontal: 20,
                         }}
@@ -224,7 +224,7 @@ import {
               </View>
             )}
           </View>
-          <View
+          {/* <View
           style={{
             flex: 1,
             margin: 0,
@@ -243,7 +243,7 @@ import {
             autoPlay
             loop={false}
           />
-        </View>
+        </View> */}
         </ImageBackground>
       </View>
     );
@@ -286,12 +286,12 @@ import {
       marginTop: 60,
       marginHorizontal: 20,
       flexDirection: "row",
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
     },
     buttonBox1: {
       marginTop: 20,
       flexDirection: "row",
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
     },
     button: {
       backgroundColor: "magenta",
