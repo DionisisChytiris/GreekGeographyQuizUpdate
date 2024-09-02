@@ -2,7 +2,7 @@
   "expo": {
     "name": "Γεωγραφία της Ελλάδας",
     "slug": "GreekGeographyQuizApp",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "./assets/geography.png",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -17,7 +17,8 @@
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.greekgeographyquizapp.dion"
+      "bundleIdentifier": "com.greekgeographyquizapp.dion",
+      "buildNumber":"2"
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",

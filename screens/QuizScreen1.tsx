@@ -62,7 +62,7 @@ const QuizScreen1 = () => {
         </Pressable>
       <View style={styles.title}>
         <Text style={{ color: "white", fontSize: height>960? 32: 22, fontWeight: "bold" }}>
-          Επέλεξε κατηγορία
+          Επέλεξε κατηγορία 
         </Text>
         {/* <Text>{name}</Text> */}
       </View>
@@ -169,7 +169,8 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: height>960? 90: 70,
+    // top: height>960? 90: 70
+    top: 90
   },
   text: {
     fontSize: 16,
