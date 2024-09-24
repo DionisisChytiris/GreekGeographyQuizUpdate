@@ -65,8 +65,8 @@ const QuizScreen1 = () => {
           <AntDesign name="setting" size={24} color="white" />
         </Pressable>
       <View style={styles.title}>
-        <Text style={{ color: "white", fontSize: height>900? 32: 22, fontWeight: "bold" }}>
-          Επέλεξε κατηγορία
+        <Text style={{ color: "white", fontSize: height>960? 32: 22, fontWeight: "bold" }}>
+          Επέλεξε κατηγορία 
         </Text>
         {/* <Text>{name}</Text> */}
       </View>
@@ -173,7 +173,8 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: height>900? 90: 70,
+    // top: height>960? 90: 70
+    top: 90
   },
   text: {
     fontSize: 16,
@@ -205,7 +206,7 @@ btnBottom: {
   },
   buttonBox: {
     width: "95%",
-    height: height>900? 650 :500,
+    height: height>960? 650 :500,
     paddingTop: 50,
     flexWrap: "wrap",
     // backgroundColor: "yellow",

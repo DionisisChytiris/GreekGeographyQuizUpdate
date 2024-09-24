@@ -180,7 +180,7 @@ const GenerQuestTemplate = (props: any) => {
                     [{ text: "Ενταξει" }]
                   )
                 }
-                style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
+                style={{ position: "absolute", top: 32, right: height>960? 130:90 }}
               >
                 <Ionicons
                   name="information-circle-sharp"
@@ -212,7 +212,8 @@ const GenerQuestTemplate = (props: any) => {
               />
             </View>
 
-            <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35 }}>
+            <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 120: 35 }}>
+            {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
               <View style={style}>
                 <Image source={currentQuestion?.img} style={stylesT.image} />
                 <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -329,7 +330,7 @@ const GenerQuestTemplate = (props: any) => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom:height>900? 350: 260, right: -10 }}
+                    style={{ position: "absolute", bottom:height>960? 350: 260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -479,15 +480,15 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: height>900?"90%": '100%',
+    width: height>960?"90%": '100%',
     margin: 'auto',
-    height: height>900? 300:180,
+    height: height>960? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",
     fontWeight: "600",
     color: "white",
-    fontSize: height>900? 20: 14,
+    fontSize: height>960? 20: 14,
   },
   button0: {
     position: "relative",
@@ -522,7 +523,7 @@ const stylesT = StyleSheet.create({
   },
   progressBarBack: {
     backgroundColor: "white",
-    width: height>900? "60%":"80%",
+    width: height>960? "60%":"80%",
     flexDirection: "row",
     alignItems: "center",
     height: 7,

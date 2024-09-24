@@ -183,7 +183,7 @@ const MountainRepeat = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: height>900? 130:90 }}
+              style={{ position: "absolute", top: 32, right: height>960? 130:90 }}
             >
               <Ionicons
                 name="information-circle-sharp"
@@ -214,7 +214,7 @@ const MountainRepeat = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: height>900? 120: 35 }}>
+          <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 120: 35 }}>
           <View style={style}>
               <Image source={currentQuestion?.img} style={stylesT.image} />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -331,7 +331,7 @@ const MountainRepeat = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: height>900? 350:260, right: -10 }}
+                    style={{ position: "absolute", bottom: height>960? 350:260, right: -10 }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -483,9 +483,9 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 20,
-    width: height>900?"90%": '100%',
+    width: height>960?"90%": '100%',
     margin: 'auto',
-    height: height>900? 300:180,
+    height: height>960? 300:180,
   },
   textAnswer: {
     marginHorizontal: "auto",

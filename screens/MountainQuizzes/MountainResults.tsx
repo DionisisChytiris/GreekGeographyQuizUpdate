@@ -46,7 +46,7 @@ const MountainResults = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
+    <>
       <ImageBackground
         source={require("../../assets/MorePhotos/mountain1vikos.jpg")}
         // resizeMode="cover"
@@ -58,8 +58,8 @@ const MountainResults = () => {
               style={{
                 color: "darkgreen",
                 fontWeight: "600",
-                fontSize: height > 900 ? 30 : 25,
-                marginTop: 100,
+                fontSize: height > 960 ? 30 : 25,
+                marginTop: height> 960?100:200,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
@@ -85,7 +85,7 @@ const MountainResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -111,7 +111,7 @@ const MountainResults = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -139,7 +139,7 @@ const MountainResults = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height > 900 ? 18 : 14,
+                      fontSize: height > 960 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -196,7 +196,7 @@ const MountainResults = () => {
             </View>
           )}
         </View>
-        <View
+        {/* <View
           style={{
             flex: 1,
             margin: 0,
@@ -215,9 +215,9 @@ const MountainResults = () => {
             autoPlay
             loop={false}
           />
-        </View>
+        </View> */}
       </ImageBackground>
-    </SafeAreaView>
+    </>
   );
 };
 

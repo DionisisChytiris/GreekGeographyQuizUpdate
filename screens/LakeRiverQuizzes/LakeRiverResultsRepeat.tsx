@@ -44,7 +44,7 @@ const LakeRiverResultsRepeat = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
+    <>
       <ImageBackground
         source={require("../../assets/MorePhotos/lake2.jpg")}
         style={{ height: "100%" }}
@@ -55,8 +55,8 @@ const LakeRiverResultsRepeat = () => {
               style={{
                 color: "white",
                 fontWeight: "600",
-                fontSize: height>900? 30:25,
-                marginTop: 120,
+                fontSize: height>960? 30:25,
+                marginTop: height>960? 100:160,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
@@ -81,7 +81,7 @@ const LakeRiverResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height>900? 18:14,
+                          fontSize: height>960? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -107,7 +107,7 @@ const LakeRiverResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height>900? 18:14,
+                          fontSize: height>960? 18:14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -134,7 +134,7 @@ const LakeRiverResultsRepeat = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height>900? 18:16,
+                      fontSize: height>960? 18:16,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -172,7 +172,7 @@ const LakeRiverResultsRepeat = () => {
           </View>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </>
   );
 };
 

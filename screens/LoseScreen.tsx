@@ -62,12 +62,13 @@ const LoseScreen = (props: any) => {
       >
         <View
           style={{
-            width: width > 900 ? "40%" : "75%",
+            width: width > 960 ? "40%" : "75%",
             height: "45%",
             // margin: "auto",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: height > 900 ? "35%" : height < 850 ? "45%" : "50%",
+            marginTop: height > 960 ? "50%" : height < 850 ? "45%" : "50%",
+            // marginTop: height > 960 ? "35%" : height < 850 ? "45%" : "50%",
             borderRadius: 20,
             display: "flex",
             alignContent: "center",
@@ -78,7 +79,7 @@ const LoseScreen = (props: any) => {
             style={{
               width: "100%",
               // height: "100%",
-              height: height > 900 ? 600 : 480,
+              height: height > 960 ? 600 : 480,
               backgroundColor: "#ccc",
               borderRadius: 20,
               opacity: 0.5,
@@ -104,8 +105,10 @@ const LoseScreen = (props: any) => {
             </View>
             <View
               style={{
-                width: height > 900 ? 300 : 200,
-                height: height > 900 ? 300 : 200,
+                width: height > 960 ? 250 : 200,
+                // width: height > 960 ? 300 : 200,
+                height: height > 960 ? 250 : 200,
+                // height: height > 960 ? 300 : 200,
                 marginTop: 30,
               }}
             >
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     // marginLeft: "auto",
     // marginRight: "auto",
-    // marginTop: height>900?"20%": "30%",
+    // marginTop: height>960?"20%": "30%",
     borderRadius: 20,
     display: "flex",
     alignContent: "center",
@@ -181,13 +184,13 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "white",
-    fontSize: height > 900 ? 32 : 22,
+    fontSize: height > 960 ? 32 : 22,
     fontWeight: "600",
     textAlign: "center",
   },
   text2: {
     color: "white",
-    fontSize: height > 900 ? 30 : 20,
+    fontSize: height > 960 ? 30 : 20,
     fontWeight: "600",
     textAlign: "center",
     marginTop: 20,

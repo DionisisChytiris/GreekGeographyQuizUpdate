@@ -45,7 +45,7 @@ const MountainResultsRepeat = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
+    <>
       <ImageBackground
         source={require("../../assets/MorePhotos/mountain1vikos.jpg")}
         // resizeMode="cover"
@@ -57,8 +57,8 @@ const MountainResultsRepeat = () => {
               style={{
                 color: "darkgreen",
                 fontWeight: "600",
-                fontSize: height > 900 ? 30 : 25,
-                marginTop: 110,
+                fontSize: height > 960 ? 30 : 25,
+                marginTop: height>960? 110:160,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
@@ -83,7 +83,7 @@ const MountainResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -109,7 +109,7 @@ const MountainResultsRepeat = () => {
                       <Text
                         style={{
                           textAlign: "center",
-                          fontSize: height > 900 ? 18 : 14,
+                          fontSize: height > 960 ? 18 : 14,
                           color: "green",
                           marginTop: 20,
                         }}
@@ -136,7 +136,7 @@ const MountainResultsRepeat = () => {
                   <Text
                     style={{
                       textAlign: "center",
-                      fontSize: height > 900 ? 18 : 14,
+                      fontSize: height > 960 ? 18 : 14,
                       color: "red",
                       marginTop: 20,
                     }}
@@ -193,7 +193,7 @@ const MountainResultsRepeat = () => {
           />
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </>
   );
 };
 
