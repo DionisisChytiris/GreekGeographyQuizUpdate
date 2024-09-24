@@ -6,6 +6,7 @@ import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 
+
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
 const { height } = Dimensions.get('window');
@@ -56,9 +57,12 @@ const QuizScreen1 = () => {
       > */}
        <Pressable
           style={{ position: "absolute", top: -20, right: -10, padding: 30 }}
-          onPress={alertTest}
+          // onPress={alertTest}
+          onPress={() => {
+            navigation.navigate("Settings");
+          }}
         >
-          <AntDesign name="edit" size={24} color="white" />
+          <AntDesign name="setting" size={24} color="white" />
         </Pressable>
       <View style={styles.title}>
         <Text style={{ color: "white", fontSize: height>900? 32: 22, fontWeight: "bold" }}>

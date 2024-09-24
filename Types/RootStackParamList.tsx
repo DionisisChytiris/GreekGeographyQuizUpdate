@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Quiz1: undefined;
   Introduction: undefined;
   Instructions: undefined;
+  Settings: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;
   LakeRiverResults: { points: number, data: any };

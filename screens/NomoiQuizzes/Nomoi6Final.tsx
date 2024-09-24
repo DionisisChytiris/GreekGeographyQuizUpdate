@@ -20,7 +20,7 @@ import {
     const route = useRoute<Nomoi6FinalRouteProps<'Nomoi6Final'>>();
     const navigation = useNavigation<Nomoi6FinalProp>();
   
-    // const score = 100;
+    // const score = 50;
     const score = Math.floor((route.params.points * 100) / route.params.data.length);
   
     return (
@@ -134,7 +134,7 @@ import {
             { score === 100 ? (
               <View style={styles.buttonBox2}>
                 <Pressable
-                  onPress={() => navigation.navigate("Quiz")}
+                  onPress={() => navigation.navigate("Quiz1")}
                   style={styles.button0}
                 >
                   <View style={styles.button1} />
@@ -146,7 +146,7 @@ import {
             ): (
               <View style={styles.buttonBox1}>
                 <Pressable
-                  onPress={() => navigation.navigate("Quiz")}
+                  onPress={() => navigation.navigate("Quiz1")}
                   style={styles.button0}
                 >
                   <View style={styles.button1} />

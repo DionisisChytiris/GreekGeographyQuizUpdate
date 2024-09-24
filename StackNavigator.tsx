@@ -104,6 +104,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GeneralQuizMenu from "./screens/GeneralQuestionsQuizzes/QuizMenu";
 import QuizScreen1 from "./screens/QuizScreen1";
 import LoseScreenR from "./screens/LoseScreenR";
+import Settings from "./screens/Settings";
 // import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
 import { useSelector } from 'react-redux';
@@ -134,7 +135,7 @@ const StackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Nomoi4R" component={Nomoi4R} options={{headerShown: false, orientation: 'portrait'}}/>  */}
+        {/* <Stack.Screen name="Nomoi6Final" component={Nomoi6Final} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen
           name="Home"
           component={Home}
@@ -148,6 +149,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="UpdateUserName"
           component={UpdateUserName}
+          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
           options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
         />
         <Stack.Screen
