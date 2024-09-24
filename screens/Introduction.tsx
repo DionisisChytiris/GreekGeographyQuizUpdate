@@ -108,7 +108,7 @@ const Introduction = () => {
           <Text style={styles.btnText}>Κατηγορίες</Text>
         </Pressable>
 
-        <Pressable
+        {/* <Pressable
           style={{
             position: "absolute",
             bottom: 0,
@@ -122,10 +122,9 @@ const Introduction = () => {
               "https://sites.google.com/view/geografiatiselladas"
             );
           }}
-          // onPress={async()=>{await onShare()}}
         >
           <Text style={{ color: "white" }}>Privacy Policy</Text>
-        </Pressable>
+        </Pressable> */}
 
         
       </ImageBackground>

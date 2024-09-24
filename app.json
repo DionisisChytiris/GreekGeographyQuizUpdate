@@ -3,7 +3,7 @@
     "name": "Γεωγραφία της Ελλάδας",
     "slug": "GreekGeographyQuizApp",
     "version": "1.0.1",
-    "icon": "./assets/geography.png",
+    "icon": "./assets/adaptive-icon-test.png",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "splash": {
@@ -37,7 +37,7 @@
       ]
     ],
     "web": {
-      "favicon": "./assets/AppIcon.png"
+      "favicon": "./assets/adaptive-icon-test.png"
     },
     "extra": {
       "eas": {
