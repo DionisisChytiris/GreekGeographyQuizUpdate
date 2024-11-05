@@ -52,14 +52,14 @@ const LakeRiverResults = () => {
         source={require("../../assets/MorePhotos/lake2.jpg")}
         style={{ height: "100%" }}
       >
-        <View>
+        <View >
           <View style={styles.title}>
             <Text
               style={{
                 color: "white",
                 fontWeight: "600",
                 fontSize: height > 960 ? 30 : 25,
-                marginTop: height>960? 100:160,
+                marginTop: height>960? 100:100,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}

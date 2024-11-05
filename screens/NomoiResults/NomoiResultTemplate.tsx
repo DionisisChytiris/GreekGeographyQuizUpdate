@@ -54,16 +54,16 @@ import {
           // resizeMode="cover"
           style={{ height: "100%" }}
         >
-          <View>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <View style={styles.title}>
               <Text
                 style={{
                   color: "white",
                   fontWeight: "600",
-                  fontSize: height>960? 30:22,
-                  marginTop: height> 960? 80: 140,
-                  marginLeft: "auto",
-                  marginRight: "auto",
+                  fontSize: height>960? 26:20,
+                  // marginTop: height> 960? 80: 140,
+                  // marginLeft: "auto",
+                  // marginRight: "auto",
                 }}
               >
                 Βαθμολογία
@@ -78,7 +78,7 @@ import {
                       <Text
                         style={{
                           marginTop: 20,
-                          fontSize: 50,
+                          fontSize: 44,
                           fontWeight: "bold",
                           color: "green",
                         }}
@@ -91,7 +91,7 @@ import {
                       <Text
                         style={{
                           color: "green",
-                          fontSize: height>960? 22:20,
+                          fontSize: height>960? 20: 18,
                           fontWeight: "bold",
                           marginTop: 30,
                           textAlign: 'center'
@@ -102,7 +102,7 @@ import {
                       <Text
                          style={{
                           color: "green",
-                          fontSize: height>960? 18:14,
+                          fontSize: height>960? 16:12,
                           fontWeight: "bold",
                           marginTop: 30,
                           margin: 20,

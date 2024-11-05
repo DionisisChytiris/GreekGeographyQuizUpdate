@@ -58,7 +58,7 @@ const MountainResultsRepeat = () => {
                 color: "darkgreen",
                 fontWeight: "600",
                 fontSize: height > 960 ? 30 : 25,
-                marginTop: height>960? 110:160,
+                marginTop: height>960? 110:110,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}

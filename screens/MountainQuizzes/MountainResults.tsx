@@ -59,7 +59,7 @@ const MountainResults = () => {
                 color: "darkgreen",
                 fontWeight: "600",
                 fontSize: height > 960 ? 30 : 25,
-                marginTop: height> 960?100:200,
+                marginTop: height> 960?100:100,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}

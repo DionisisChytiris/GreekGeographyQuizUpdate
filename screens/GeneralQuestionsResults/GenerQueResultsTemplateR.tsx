@@ -53,14 +53,14 @@ const GenerQueResultsTemplateR = (props: any) => {
         // resizeMode="cover"
         style={{ height: "100%" }}
       >
-        <View>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={stylesT.title}>
             <Text
               style={{
                 fontWeight: "600",
                 fontSize: height > 960 ? 30 : 20,
                 color: "white",
-                marginTop: height> 960? 100: 200,
+                // marginTop: height> 960? 100: 200,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}

@@ -79,7 +79,10 @@ const SetUserName = () => {
             shadowOpacity: 1.0,
             // borderRadius: 10,
           }}
-          onPress={() => navigation.navigate("Quiz1")}
+          onPress={() => {
+            navigation.navigate("Quiz1")
+            dispatch(setNameInput(''))
+          }}
         >
           <Text style={{fontSize: 12, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>Είσοδος χωρίς όνομα</Text>
         </Pressable>

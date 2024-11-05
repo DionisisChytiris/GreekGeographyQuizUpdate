@@ -49,14 +49,14 @@ const GenerQueResultsTemplate = (props: any) => {
         resizeMode="cover"
         style={{ height: "100%" }}
       >
-        <View>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={stylesT.title}>
             <Text
               style={{
                 fontWeight: "600",
                 fontSize: height > 960 ? 30 : 20,
                 color: "white",
-                marginTop: height  ? 160 : 100,
+                // marginTop: height  ? 90 : 100,
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
@@ -267,6 +267,7 @@ const stylesT = StyleSheet.create({
     marginTop: 40,
     flexDirection: "row",
     marginHorizontal: 40,
+    gap: 20
   },
   buttonBox2: {
     // marginTop: 40,
@@ -274,6 +275,7 @@ const stylesT = StyleSheet.create({
     // zIndex: 9999999,
     flexDirection: "row",
     marginHorizontal: 40,
+    gap: 20
     // marginBottom: 100
   },
   button0: {

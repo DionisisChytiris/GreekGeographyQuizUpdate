@@ -18,11 +18,11 @@
       "supportsTablet": true,
       "requireFullScreen": true,
       "bundleIdentifier": "com.greekgeographyquizapp.dion",
-      "buildNumber":"2"
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
-      "versionCode": 26,
+      "versionCode": 30,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",
         "backgroundColor": "#ffffff"
@@ -47,6 +47,12 @@
     "androidStatusBar": {
       "backgroundColor": "#00000000",
       "translucent": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8e57705c-5ea4-459b-8705-25056f4c466f"
     }
   }
 }

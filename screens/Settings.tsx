@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Pressable,
   Linking,
-  Image
+  Image,
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +15,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
@@ -65,15 +67,28 @@ const Settings = () => {
           >
             <AntDesign name="closecircle" size={34} color="white" />
           </Pressable>
-          <View style={{ marginTop: 150, gap: 20 }}>
+          <View style={{ marginTop: 180, gap: 20 }}>
             <Pressable
+          
               onPressIn={() => setScale1(1.1)}
               onPressOut={() => {
                 removeName(), setScale1(1);
               }}
               style={[styles.button, { transform: [{ scale: scale1 }] }]}
             >
-              <Text style={styles.text1}>Αλλαγή Ονόματος</Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                }}
+              >
+                <EvilIcons name="user" size={32} color="white" />
+                {/* <AntDesign name="user" size={20} color="white" /> */}
+                <Text style={styles.text1}>Αλλαγη Ονόματος</Text>
+              </View>
             </Pressable>
 
             <Pressable
@@ -86,7 +101,18 @@ const Settings = () => {
               }}
               style={[styles.button, { transform: [{ scale: scale2 }] }]}
             >
-              <Text style={styles.text}>Πολιτική Απορρήτου</Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                }}
+              >
+                <MaterialIcons name="policy" size={24} color="white" />
+                <Text style={styles.text}>Πολιτική Απορρήτου</Text>
+              </View>
             </Pressable>
             <Pressable
               onPressIn={() => setScale3(1.1)}
@@ -96,9 +122,24 @@ const Settings = () => {
                 ),
                   setScale3(1);
               }}
-              style={[styles.button, { transform: [{ scale: scale3 }] }]}
+              style={[
+                styles.button,
+                { transform: [{ scale: scale3 }], paddingVertical: 5 },
+              ]}
             >
               <Text style={styles.text1}>Αξιολογήστε μας</Text>
+              <Image
+                source={require("../assets/MorePhotos/rating.png")}
+                resizeMode="cover"
+                // blurRadius={3}
+                style={{
+                  flex: 1,
+                  // justifyContent: "center",
+                  alignItems: "center",
+                  width: "40%",
+                  marginTop: -5,
+                }}
+              />
             </Pressable>
             <View
               style={{
@@ -119,9 +160,15 @@ const Settings = () => {
                 }}
               >
                 <Image
-                    source={require("../assets/WorldTrivia.png")}
-                        resizeMode="cover"
-                    style={{width: 100, height: 100, borderRadius: 20, marginTop: 30,  transform: [{ scale: scale4 }] }}
+                  source={require("../assets/WorldTrivia.png")}
+                  resizeMode="cover"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 20,
+                    marginTop: 30,
+                    transform: [{ scale: scale4 }],
+                  }}
                 />
               </Pressable>
               <Text style={styles.text3}>World Wise Trivia</Text>
@@ -137,16 +184,16 @@ export default Settings;
 
 const styles = StyleSheet.create({
   button: {
-    width: 250,
-    height: 65,
+    width: 240,
+    height: 60,
     borderRadius: 20,
     backgroundColor: "#738297",
     justifyContent: "center",
     alignItems: "center",
   },
   button1: {
-    width: 250,
-    height: 65,
+    width: 240,
+    height: 60,
     borderRadius: 30,
     //   backgroundColor: "#f5f5f5",
     justifyContent: "center",
@@ -154,23 +201,23 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
   text1: {
     color: "white",
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: "bold",
   },
   text2: {
     color: "#dfebf7",
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   text3: {
     color: "white",
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
-    marginTop: 20
+    marginTop: 20,
   },
 });

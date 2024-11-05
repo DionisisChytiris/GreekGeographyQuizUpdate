@@ -8,11 +8,11 @@ import {
   Animated,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type HomeProp = StackNavigationProp<RootStackParamList, 'Home'>
+type HomeProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const Home = () => {
   const navigation = useNavigation<HomeProp>();
@@ -73,7 +73,7 @@ const Home = () => {
             <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
             <Text style={{ color: "white", fontSize: 26 }}>της</Text>
             <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text>
-
+            {/* <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text> */}
           </View>
         </Animated.View>
 
@@ -86,7 +86,7 @@ const Home = () => {
             //     ? navigation.navigate("Quiz")
             //     : navigation.navigate("Introduction");
             // }
-            navigation.navigate('Introduction')
+            navigation.navigate("Introduction");
             setColor("magenta");
           }}
           style={styles.button}
@@ -101,8 +101,24 @@ const Home = () => {
           </Text>
         </Pressable>
         {name ? (
-          <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 100, left: '15%', right: '15%', padding: 10, backgroundColor: '#f5f5f5', borderRadius: 20}}>
-            <Text style={{ color: "#006f96", fontSize: 16, fontWeight: 'bold' }}>Καλώς ήλθες {name}!!!</Text>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              position: "absolute",
+              top: 100,
+              left: "15%",
+              right: "15%",
+              padding: 10,
+              backgroundColor: "#f5f5f5",
+              borderRadius: 20,
+            }}
+          >
+            <Text
+              style={{ color: "#006f96", fontSize: 16, fontWeight: "bold" }}
+            >
+              Καλώς ήλθες {name}!!!
+            </Text>
           </View>
         ) : null}
       </ImageBackground>
