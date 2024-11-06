@@ -9,7 +9,7 @@ import {
   ImageBackground,
   Vibration,
   Alert,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -23,7 +23,7 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
@@ -42,7 +42,9 @@ const GenerQuestTemplate = (props: any) => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(
+    stylesT.nextQueButton
+  );
   const [btnBackground, setBtnBackground] = useState("magenta");
   const [opacityBtn, setOpacityBtn] = useState(1);
   let interval: any = null;
@@ -58,7 +60,7 @@ const GenerQuestTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate('GQLoseScreenR1');
+      newArray === 0 && navigation.navigate("GQLoseScreenR1");
     }
   };
 
@@ -132,7 +134,7 @@ const GenerQuestTemplate = (props: any) => {
   useEffect(() => {
     const myInterval = () => {
       if (counter >= 1) {
-        setCounter((counter:number) => counter - 1);
+        setCounter((counter: number) => counter - 1);
       }
       if (counter === 1) {
         navigation.navigate(props.losescr);
@@ -143,7 +145,7 @@ const GenerQuestTemplate = (props: any) => {
       clearTimeout(interval);
     };
   }, [counter]);
-  
+
   useEffect(() => {
     if (index + 1 > data.length) {
       navigation.navigate("GeneralQuestionsResult1", { points, data });
@@ -157,9 +159,13 @@ const GenerQuestTemplate = (props: any) => {
   }, [index]);
 
   return (
-    <SafeAreaView style={{ flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
-        <ImageBackground source={require("../../assets/MorePhotos/ath.jpg")}>
+        <ImageBackground
+          source={require("../../assets/MorePhotos/ath.jpg")}
+          resizeMode="cover"
+          style={{ height: '100%' }}
+        >
           <View>
             <View style={styles.progressContainerInfo}>
               <View>
@@ -180,7 +186,11 @@ const GenerQuestTemplate = (props: any) => {
                     [{ text: "Ενταξει" }]
                   )
                 }
-                style={{ position: "absolute", top: 32, right: height>960? 130:90 }}
+                style={{
+                  position: "absolute",
+                  top: 32,
+                  right: height > 960 ? 130 : 90,
+                }}
               >
                 <Ionicons
                   name="information-circle-sharp"
@@ -212,8 +222,13 @@ const GenerQuestTemplate = (props: any) => {
               />
             </View>
 
-            <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 120: 35 }}>
-            {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
+            <View
+              style={{
+                paddingVertical: 20,
+                paddingHorizontal: height > 960 ? 120 : 35,
+              }}
+            >
+              {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
               <View style={style}>
                 <Image source={currentQuestion?.img} style={stylesT.image} />
                 <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -238,210 +253,228 @@ const GenerQuestTemplate = (props: any) => {
                     >
                       <Text style={stylesT.textAnswer}>{item.answer}</Text>
                       {selectedAnswerIndex === index &&
-                       index === currentQuestion.correctAnswerIndex ? (
-                         <View
-                           style={{
-                             position: "absolute",
-                             width: "100%",
-                             height: "70%",
-                             top: 0,
-                             right: -30,
-                           }}
-                         >
-                           <LottieView
-                             style={{ width: "100%", height: "100%" }}
-                             source={require("../../assets/LottieAnimations/Success.json")}
-                             autoPlay
-                             loop={false}
-                           />
-                         </View>
-                      
-                       ) : 
-                       null}
-                        {selectedAnswerIndex === index &&
-                    index !== currentQuestion.correctAnswerIndex ? (
-                      <View
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "70%",
-                          top: 0,
-                          right: -30,
-                        }}
-                      >
-                        <LottieView
-                          style={{ width: "100%", height: "100%" }}
-                          source={require("../../assets/LottieAnimations/Fail.json")}
-                          autoPlay
-                          loop={false}
-                        />
-                      </View>
-                     
-                    ) : 
-                    null}
+                      index === currentQuestion.correctAnswerIndex ? (
+                        <View
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "70%",
+                            top: 0,
+                            right: -30,
+                          }}
+                        >
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Success.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
+                      {selectedAnswerIndex === index &&
+                      index !== currentQuestion.correctAnswerIndex ? (
+                        <View
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "70%",
+                            top: 0,
+                            right: -30,
+                          }}
+                        >
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Fail.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
                     </Pressable>
                   ))}
                 </View>
               </View>
             </View>
-            
-          <View style={styles.feedBackArea}>
-            {index + 1 >= data.length ? (
-              answerStatus === null ? (
-                <View style={{ marginBottom: 40 }} />
-              ) : (
-                <View style={{ marginBottom: 50 }}>
-                  <Pressable
-                    onPress={() =>
-                      navigation.navigate(nomoiR, {
-                        points: points,
-                        data: data,
-                      })
-                    }
-                    style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
-                    ]}
-                  >
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Αποτελέσματα
-                    </Text>
-                  </Pressable>
-                  <Pressable  style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
-                    ]} onPress={handleModal}>
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Απάντηση
-                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
-                    </Text>
-                  </Pressable>
-                </View>
-              )
-            ) : answerStatus === null ? (
-              <View style={{ padding: 38 }} />
-            ) : (
-              <View>
-                <View style={{ flexDirection: "row", marginBottom: 65 }}>
-                  <Pressable
-                    onPress={() => setIndex(index + 1)}
-                    // style={nextQueButton}
-                    style={{ position: "absolute", bottom:height>960? 350: 260, right: -10 }}
-                  >
-                    <AntDesign name="rightcircle" size={50} color="white" />
-                  </Pressable>
-                  <Pressable
-                    style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
-                    ]}
-                    onPress={handleModal}
-                  >
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Απάντηση
-                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
-                    </Text>
-                  </Pressable>
-                </View>
-              </View>
-            )}
-            <BottomSheetModal
-              ref={bottomSheetModalRef}
-              index={0}
-              snapPoints={snapPoints}
-              backgroundStyle={{ borderRadius: 30 }}
-            >
-              <View style={{ flex: 1, alignItems: "center" }}>
-                {answerStatus === null ? null : (
-                  <View
-                    style={
-                      answerStatus === null ? null : { alignItems: "center" }
-                    }
-                  >
-                    {!!answerStatus ? (
-                      <View style={[stylesT.BtmModalView, { width: "100%" }]}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{
-                              color: "green",
-                              fontSize: 20,
-                              padding: 10,
-                            }}
-                          >
-                            Σωστή Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/thumbUp.jpg")}
-                            resizeMode="cover"
-                            style={{
-                              // marginBottom: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
 
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    ) : (
-                      <View style={stylesT.BtmModalView}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{ color: "red", fontSize: 20, padding: 10 }}
-                          >
-                            Λάθος Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/sadFace.jpg")}
-                            resizeMode="cover"
-                            style={{
-                              marginVertical: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    )}
+            <View style={styles.feedBackArea}>
+              {index + 1 >= data.length ? (
+                answerStatus === null ? (
+                  <View style={{ marginBottom: 40 }} />
+                ) : (
+                  <View style={{ marginBottom: 50 }}>
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate(nomoiR, {
+                          points: points,
+                          data: data,
+                        })
+                      }
+                      style={[
+                        nextQueButton,
+                        { position: "absolute", bottom: -15, right: 180 },
+                      ]}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        Αποτελέσματα
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      style={[
+                        nextQueButton,
+                        { position: "absolute", bottom: -15, right: 10 },
+                      ]}
+                      onPress={handleModal}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        Απάντηση
+                        {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                      </Text>
+                    </Pressable>
                   </View>
-                )}
-              </View>
-            </BottomSheetModal>
-          </View>
+                )
+              ) : answerStatus === null ? (
+                <View style={{ padding: 38 }} />
+              ) : (
+                <View>
+                  <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                    <Pressable
+                      onPress={() => setIndex(index + 1)}
+                      // style={nextQueButton}
+                      style={{
+                        position: "absolute",
+                        bottom: height > 960 ? 350 : 260,
+                        right: -10,
+                      }}
+                    >
+                      <AntDesign name="rightcircle" size={50} color="white" />
+                    </Pressable>
+                    <Pressable
+                      style={[
+                        nextQueButton,
+                        { position: "absolute", bottom: -15, right: 10 },
+                      ]}
+                      onPress={handleModal}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        Απάντηση
+                        {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              )}
+              <BottomSheetModal
+                ref={bottomSheetModalRef}
+                index={0}
+                snapPoints={snapPoints}
+                backgroundStyle={{ borderRadius: 30 }}
+              >
+                <View style={{ flex: 1, alignItems: "center" }}>
+                  {answerStatus === null ? null : (
+                    <View
+                      style={
+                        answerStatus === null ? null : { alignItems: "center" }
+                      }
+                    >
+                      {!!answerStatus ? (
+                        <View style={[stylesT.BtmModalView, { width: "100%" }]}>
+                          <View style={stylesT.btmMdlText}>
+                            <Text
+                              style={{
+                                color: "green",
+                                fontSize: 20,
+                                padding: 10,
+                              }}
+                            >
+                              Σωστή Απάντηση
+                            </Text>
+                            <Image
+                              source={require("../../assets/thumbUp.jpg")}
+                              resizeMode="cover"
+                              style={{
+                                // marginBottom: 20,
+                                width: 50,
+                                height: 50,
+                              }}
+                            />
+                          </View>
 
+                          <View style={stylesT.btmMdlView}>
+                            <Text style={{ color: "#22c200" }}>
+                              {currentQuestion?.result1}{" "}
+                            </Text>
+                            <Text style={{ color: "black" }}>
+                              {currentQuestion?.result2}{" "}
+                            </Text>
+                            <Text style={{ color: "#014acf" }}>
+                              {currentQuestion?.result3}{" "}
+                            </Text>
+                            <Text style={{ color: "magenta" }}>
+                              {currentQuestion?.result4}{" "}
+                            </Text>
+                          </View>
+                        </View>
+                      ) : (
+                        <View style={stylesT.BtmModalView}>
+                          <View style={stylesT.btmMdlText}>
+                            <Text
+                              style={{
+                                color: "red",
+                                fontSize: 20,
+                                padding: 10,
+                              }}
+                            >
+                              Λάθος Απάντηση
+                            </Text>
+                            <Image
+                              source={require("../../assets/sadFace.jpg")}
+                              resizeMode="cover"
+                              style={{
+                                marginVertical: 20,
+                                width: 50,
+                                height: 50,
+                              }}
+                            />
+                          </View>
+                          <View style={stylesT.btmMdlView}>
+                            <Text style={{ color: "#22c200" }}>
+                              {currentQuestion?.result1}{" "}
+                            </Text>
+                            <Text style={{ color: "black" }}>
+                              {currentQuestion?.result2}{" "}
+                            </Text>
+                            <Text style={{ color: "#014acf" }}>
+                              {currentQuestion?.result3}{" "}
+                            </Text>
+                            <Text style={{ color: "magenta" }}>
+                              {currentQuestion?.result4}{" "}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </View>
+                  )}
+                </View>
+              </BottomSheetModal>
+            </View>
           </View>
         </ImageBackground>
       </ScrollView>
@@ -452,6 +485,10 @@ const GenerQuestTemplate = (props: any) => {
 export default GenerQuestTemplate;
 
 const stylesT = StyleSheet.create({
+  background1: {
+    flex: 1,
+    // ...StyleSheet.absoluteFillObject,
+  },
   textTitle: {
     fontSize: 18,
     fontWeight: "600",
@@ -480,15 +517,15 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: height>960?"90%": '100%',
-    margin: 'auto',
-    height: height>960? 300:180,
+    width: height > 960 ? "90%" : "100%",
+    margin: "auto",
+    height: height > 960 ? 300 : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",
     fontWeight: "600",
     color: "white",
-    fontSize: height>960? 20: 14,
+    fontSize: height > 960 ? 20 : 14,
   },
   button0: {
     position: "relative",
@@ -523,7 +560,7 @@ const stylesT = StyleSheet.create({
   },
   progressBarBack: {
     backgroundColor: "white",
-    width: height>960? "60%":"80%",
+    width: height > 960 ? "60%" : "80%",
     flexDirection: "row",
     alignItems: "center",
     height: 7,

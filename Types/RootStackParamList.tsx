@@ -2,6 +2,7 @@ export type RootStackParamList = {
   Home: undefined;
   SetUserName: undefined;
   UpdateUserName: undefined;
+  LoseScreenREndTime:undefined;
   Quiz: undefined;
   Quiz1: undefined;
   Introduction: undefined;

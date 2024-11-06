@@ -8,6 +8,7 @@ import {
   Pressable,
   Linking,
   Image,
+  Platform
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -38,6 +39,15 @@ const Settings = () => {
       console.log(error);
     }
   };
+
+  const url = Platform.OS === 'ios'
+  ? 'https://apps.apple.com/app/id6504780092'  // Replace with your iOS App Store link
+  : 'https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion';
+
+  const urlNewApp= Platform.OS === 'ios'
+  ? 'https://apps.apple.com/app/id6670754535'  // Replace with your iOS App Store link
+  : 'https://play.google.com/store/apps/details?id=com.worldwisetrivia.app';
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -117,9 +127,7 @@ const Settings = () => {
             <Pressable
               onPressIn={() => setScale3(1.1)}
               onPressOut={() => {
-                Linking.openURL(
-                  "https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion"
-                ),
+                Linking.openURL(url),
                   setScale3(1);
               }}
               style={[
@@ -153,8 +161,8 @@ const Settings = () => {
               <Pressable
                 onPressIn={() => setScale4(1.1)}
                 onPressOut={() => {
-                  Linking.openURL(
-                    "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app"
+                  Linking.openURL(urlNewApp
+                    // "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app"
                   ),
                     setScale4(1);
                 }}

@@ -109,6 +109,7 @@ import Settings from "./screens/Settings";
 // import Introduction from './screens/Introduction';
 import { useSelector } from 'react-redux';
 import { useAppSelector } from "./ReduxToolkit/store";
+import LoseScreenREndTime from "./screens/LoseScreenREndTime";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -154,6 +155,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+        />
+        <Stack.Screen
+          name="LoseScreenREndTime"
+          component={LoseScreenREndTime}
           options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
         />
         <Stack.Screen

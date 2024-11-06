@@ -253,8 +253,8 @@ import {
   
   const styles = StyleSheet.create({
     title: {
-      marginTop: "10%",
-      marginBottom: "10%",
+      // marginTop: "10%",
+      paddingBottom: "10%",
     },
     container: {
       width: "90%",
