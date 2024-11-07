@@ -138,7 +138,8 @@ const LakeRiverRepeat = () => {
         setCounter((counter: number) => counter - 1);
       }
       if (counter === 1) {
-        navigation.navigate("LakeRiverLoseScreenR");
+        // navigation.navigate("LakeRiverLoseScreenR");
+        navigation.navigate("LoseScreenREndTime");
       }
     };
     interval = setTimeout(myInterval, 1000);

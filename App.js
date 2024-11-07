@@ -41,7 +41,7 @@ const AppContent = () => {
 
   useEffect(() => {
     checkForUpdates();
-  }, []);
+  }, []); 
 
   const checkVersion = async () => {
     // const appStoreLink = "market://details?id=com.greekgeographyquizapp.dion";

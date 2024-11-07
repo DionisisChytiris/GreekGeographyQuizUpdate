@@ -456,7 +456,7 @@ const StackNavigator = () => {
             component={GQLoseScreenR1}
             options={{headerShown: false}}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="GQLoseScreenR2"
             component={GQLoseScreenR2}
             options={{headerShown: false}}
@@ -475,7 +475,7 @@ const StackNavigator = () => {
             name="GQLoseScreenR5"
             component={GQLoseScreenR5}
             options={{headerShown: false}}
-          />
+          /> */}
         </Stack.Group>
         <Stack.Group
           screenOptions={{

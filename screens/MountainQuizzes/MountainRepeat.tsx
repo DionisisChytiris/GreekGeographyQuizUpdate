@@ -131,7 +131,7 @@ const MountainRepeat = () => {
         setCounter((counter:number) => counter - 1);
       }
       if (counter === 1) {
-        navigation.navigate("MountainLoseScreenR");
+        navigation.navigate("LoseScreenREndTime");
       }
     };
     interval = setTimeout(myInterval, 1000);
