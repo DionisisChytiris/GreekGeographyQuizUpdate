@@ -1,5 +1,5 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import React, { useState, useEffect, Linking, Alert, Platform } from "react";
+import React, { useState, useEffect } from "react";
 import StackNavigator from "./StackNavigator";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import Splash from "./Splash";
@@ -7,7 +7,7 @@ import { Provider, useDispatch } from "react-redux";
 import { store } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
 import * as Updates from 'expo-updates';
-// import { Alert } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const AppContent = () => {
         Alert.alert(
           'Διαθέσιμη Ενημέρωση',
           'Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.',
+          // '"Μικρές διορθώσεις."',
           [
             { text: 'Ακύρωση', style: 'cancel' },
             {
@@ -56,6 +57,7 @@ const AppContent = () => {
 
     Alert.alert(
       "Διαθέσιμη Ενημέρωση",
+      // '"Test2: Μικρές διορθώσεις."',
       "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
       [
         { text: "Ακύρωση", style: "cancel" },
