@@ -22,6 +22,7 @@ export type RootStackParamList = {
   MountainLoseScreenR: undefined;
   LoseScreen: undefined;
   LoseScreenR: undefined;
+  LoseScreenNomoi: undefined;
   Nomoi1: undefined;
   Nomoi1R: undefined;
   Nomoi2: undefined;
@@ -44,14 +45,19 @@ export type RootStackParamList = {
   NomoiResult6: { points: number, data: any };
   NomoiLoseScreen1: undefined;
   NomoiLoseScreen1R: undefined;
+  NomoiLoseScreen1Time: undefined;
   NomoiLoseScreen2: undefined;
   NomoiLoseScreen2R: undefined;
+  NomoiLoseScreen2Time: undefined;
   NomoiLoseScreen3: undefined;
   NomoiLoseScreen3R: undefined;
+  NomoiLoseScreen3Time: undefined;
   NomoiLoseScreen4: undefined;
   NomoiLoseScreen4R: undefined;
+  NomoiLoseScreen4Time: undefined;
   NomoiLoseScreen5: undefined;
   NomoiLoseScreen5R: undefined;
+  NomoiLoseScreen5Time: undefined;
   NomoiLoseScreen6: undefined;
   NomoiLoseScreen6R: undefined;
   GeneralQuestions1: undefined;

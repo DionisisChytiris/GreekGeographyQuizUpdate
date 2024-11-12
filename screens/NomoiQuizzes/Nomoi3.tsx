@@ -25,6 +25,7 @@ const Nomoi3 = () => {
           questions={questions3}
           nomoiResults={"NomoiResult3"}
           nomoiLoseScreen={'NomoiLoseScreen3'}
+          nomoiLoseScreenTime={'NomoiLoseScreen3Time'}
           num={3}
           goBack={
             <View

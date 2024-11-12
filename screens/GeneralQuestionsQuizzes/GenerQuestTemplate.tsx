@@ -163,8 +163,7 @@ const GenerQuestTemplate = (props: any) => {
       <ScrollView bounces={false}>
         <ImageBackground
           source={require("../../assets/MorePhotos/ath.jpg")}
-          resizeMode="cover"
-          style={{ height: '100%' }}
+          style={{ marginTop: height>1100? 100: null }}
         >
           <View>
             <View style={styles.progressContainerInfo}>
@@ -519,7 +518,8 @@ const stylesT = StyleSheet.create({
     marginBottom: 5,
     width: height > 960 ? "90%" : "100%",
     margin: "auto",
-    height: height > 960 ? 300 : 180,
+    marginLeft: height>960? height>1100?30:20: null,
+    height: height > 960 ? height>1100? 400:300 : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",

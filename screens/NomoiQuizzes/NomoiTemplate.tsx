@@ -58,7 +58,8 @@ const NomoiTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate('NomoiLoseScreen1R');
+      newArray === 0 && navigation.navigate(props.nomoiLoseScreen);
+      // newArray === 0 && navigation.navigate('NomoiLoseScreen1R');
     }
   };
 
@@ -137,7 +138,7 @@ const NomoiTemplate = (props: any) => {
         // console.log(counter);
       }
       if (counter === 1) {
-        navigation.navigate(props.nomoiLoseScreen);
+        navigation.navigate(props.nomoiLoseScreenTime);
         setSelectedAnswerIndex(null);
         setAnswerStatus(null);
         setCounter(props.counter);
@@ -171,7 +172,7 @@ const NomoiTemplate = (props: any) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
-        <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
+        <View style={{ height: "100%", backgroundColor: "#005ce6", marginTop: height>1100? 100: null}}>
           <View style={[styles.containerInfo, { marginTop: 15 }]}>
               <View>{props.goBack}</View>
             <View style={styles.levelBox}>
@@ -262,7 +263,8 @@ const NomoiTemplate = (props: any) => {
                   marginBottom: 5,
                   width: height > 960 ? "90%" : "100%",
                   margin: "auto",
-                  height: height > 960 ? 300 : 180,
+                  marginLeft: height>960? height>1100?30:20: null,
+    height: height > 960 ? height>1100? 400:300 : 180,
                 }}
               />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -290,7 +292,7 @@ const NomoiTemplate = (props: any) => {
                         marginHorizontal: "auto",
                         fontWeight: "600",
                         color: "white",
-                        fontSize: 14,
+                        fontSize: height>960? 20:14,
                       }}
                     >
                       {item.answer}

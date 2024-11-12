@@ -87,7 +87,7 @@ export default function App() {
   ) : (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <AppContent />
+        <AppContent/>
       </Provider>
     </GestureHandlerRootView>
   );
