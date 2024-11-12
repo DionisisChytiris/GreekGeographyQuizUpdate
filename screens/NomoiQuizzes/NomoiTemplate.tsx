@@ -264,7 +264,7 @@ const NomoiTemplate = (props: any) => {
                   width: height > 960 ? "90%" : "100%",
                   margin: "auto",
                   marginLeft: height>960? height>1100?30:20: null,
-    height: height > 960 ? height>1100? 400:300 : 180,
+                  height: height > 960 ? height>1100? 400:300 : 180,
                 }}
               />
               <Text style={styles.question}>{currentQuestion?.question}</Text>

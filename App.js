@@ -44,33 +44,28 @@ const AppContent = () => {
     checkForUpdates();
   }, []); 
 
-  const checkVersion = async () => {
-    // const appStoreLink = "market://details?id=com.greekgeographyquizapp.dion";
+  // const checkVersion = async () => {
 
-    // const appStoreLink = Platform.OS === 'ios'
-    //   ? 'itms-apps://itunes.apple.com/us/app/apple-store-id'   replace with your app's ID
-    //   : 'market://details?id=com.greekgeographyquizapp.dion';  replace with your package name
 
-    const appStoreLink = Platform.OS === 'ios'
-      ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
-      : 'market://details?id=com.greekgeographyquizapp.dion';  
+  //   const appStoreLink = Platform.OS === 'ios'
+  //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
+  //     : 'market://details?id=com.greekgeographyquizapp.dion';  
 
-    Alert.alert(
-      "Διαθέσιμη Ενημέρωση",
-      // '"Test2: Μικρές διορθώσεις."',
-      "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
-      [
-        { text: "Ακύρωση", style: "cancel" },
-        {
-          text: "Ενημέρωση",
-          onPress: () => Linking.openURL(appStoreLink),
-        },
-      ]
-    );
-  };
-  useEffect(() => {
-    checkVersion();
-  }, []);
+  //   Alert.alert(
+  //     "Διαθέσιμη Ενημέρωση",
+  //     "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
+  //     [
+  //       { text: "Ακύρωση", style: "cancel" },
+  //       {
+  //         text: "Ενημέρωση",
+  //         onPress: () => Linking.openURL(appStoreLink),
+  //       },
+  //     ]
+  //   );
+  // };
+  // useEffect(() => {
+  //   checkVersion();
+  // }, []);
 
 
   return (
