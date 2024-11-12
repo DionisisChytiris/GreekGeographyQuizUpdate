@@ -113,7 +113,7 @@ import {
                 <Text
                   style={{
                     color: "black",
-                    fontSize: 22,
+                    fontSize: height > 960 ? 20 : 18,
                     fontWeight: "bold",
                     marginHorizontal: 30,
                     textAlign: "center",
@@ -137,7 +137,7 @@ import {
                 <Text
                   style={{
                     color: "black",
-                    fontSize: 22,
+                    fontSize: height > 960 ? 20 : 18,
                     fontWeight: "bold",
                     marginHorizontal: 30,
                     textAlign: "center",
@@ -234,7 +234,7 @@ import {
       textAlign: "center",
     },
     text2: {
-      color: "white",
+      color: "magenta",
       fontSize: height > 960 ? 30 : 20,
       fontWeight: "600",
       textAlign: "center",
