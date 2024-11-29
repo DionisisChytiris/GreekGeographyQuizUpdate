@@ -58,7 +58,7 @@ const NomoiTemplate = (props: any) => {
     heart.pop(newArray);
     setHeart(heart);
     {
-      newArray === 0 && navigation.navigate('NomoiLoseScreen1R');
+      newArray === 0 && navigation.navigate("NomoiLoseScreen1R");
     }
   };
 
@@ -119,6 +119,7 @@ const NomoiTemplate = (props: any) => {
         removeHeart();
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
+        setFifty([])
       }
     }
   }, [selectedAnswerIndex]);
@@ -168,15 +169,41 @@ const NomoiTemplate = (props: any) => {
     }
   }, [index]);
 
+  const [fifty, setFifty] = useState([]);
+
+  const fiftyfifty = () => {
+    // Alert.alert("hello world");
+    const wrongAnswers = currentQuestion.options
+      .map((option, index) => index)
+      .filter((index) => index !== currentQuestion.correctAnswerIndex);
+
+    const randomWrongAnswers = wrongAnswers
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 2);
+
+      // console.log(randomWrongAnswers)
+    setFifty(randomWrongAnswers);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
         <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
           <View style={[styles.containerInfo, { marginTop: 15 }]}>
-              <View>{props.goBack}</View>
+            <View>{props.goBack}</View>
             <View style={styles.levelBox}>
-              
               <View>{props.star}</View>
+              <Pressable
+                onPress={fiftyfifty}
+                style={{
+                  borderColor: "white",
+                  borderWidth: 1,
+                  padding: 3,
+                  borderRadius: 6,
+                }}
+              >
+                <Text style={{ color: "white" }}>50%</Text>
+              </Pressable>
 
               <Text style={{ color: "white", fontSize: 12 }}>
                 Επίπεδο {props.num}
@@ -275,14 +302,17 @@ const NomoiTemplate = (props: any) => {
                         setSelectedAnswerIndex(index);
                       setCounter(false);
                     }}
-                    style={
-                      selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex
+                    style={[
+                      fifty.includes(index)? { opacity: 0.4 }
+                      : { opacity: 1 } ,
+                     ( selectedAnswerIndex === index &&
+                      index === currentQuestion.correctAnswerIndex)
                         ? styles.correctAnswer
                         : selectedAnswerIndex !== null &&
                           selectedAnswerIndex === index
                         ? styles.wrongAnswer
                         : styles.borderAnswer
+                      ]
                     }
                   >
                     <Text
@@ -296,27 +326,25 @@ const NomoiTemplate = (props: any) => {
                       {item.answer}
                     </Text>
                     {selectedAnswerIndex === index &&
-                       index === currentQuestion.correctAnswerIndex ? (
-                         <View
-                           style={{
-                             position: "absolute",
-                             width: "100%",
-                             height: "70%",
-                             top: 0,
-                             right: -30,
-                           }}
-                         >
-                           <LottieView
-                             style={{ width: "100%", height: "100%" }}
-                             source={require("../../assets/LottieAnimations/Success.json")}
-                             autoPlay
-                             loop={false}
-                           />
-                         </View>
-                      
-                       ) : 
-                       null}
-                        {selectedAnswerIndex === index &&
+                    index === currentQuestion.correctAnswerIndex ? (
+                      <View
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "70%",
+                          top: 0,
+                          right: -30,
+                        }}
+                      >
+                        <LottieView
+                          style={{ width: "100%", height: "100%" }}
+                          source={require("../../assets/LottieAnimations/Success.json")}
+                          autoPlay
+                          loop={false}
+                        />
+                      </View>
+                    ) : null}
+                    {selectedAnswerIndex === index &&
                     index !== currentQuestion.correctAnswerIndex ? (
                       <View
                         style={{
@@ -334,9 +362,7 @@ const NomoiTemplate = (props: any) => {
                           loop={false}
                         />
                       </View>
-                     
-                    ) : 
-                    null}
+                    ) : null}
                   </Pressable>
                 ))}
               </View>
@@ -389,9 +415,13 @@ const NomoiTemplate = (props: any) => {
               <View>
                 <View style={{ flexDirection: "row", marginBottom: 65 }}>
                   <Pressable
-                    onPress={() => setIndex(index + 1)}
+                    onPress={() => {setIndex(index + 1), setFifty([])}}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: height>960? 350:260, right: -10 }}
+                    style={{
+                      position: "absolute",
+                      bottom: height > 960 ? 350 : 260,
+                      right: -10,
+                    }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>

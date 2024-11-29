@@ -5,7 +5,7 @@ import {
   Text,
   Pressable,
   ImageBackground,
-  Animated,
+  Animated
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -50,6 +50,7 @@ const Home = () => {
     }).start();
   }, []);
 
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -86,7 +87,11 @@ const Home = () => {
             //     ? navigation.navigate("Quiz")
             //     : navigation.navigate("Introduction");
             // }
-            navigation.navigate("Introduction");
+            {
+              name
+                ? navigation.navigate("Quiz1")
+                : navigation.navigate("Introduction");
+            }
             setColor("magenta");
           }}
           style={styles.button}
@@ -160,6 +165,10 @@ const styles = StyleSheet.create({
     bottom: 14,
     left: 36,
     opacity: 0,
+  },
+  slider: {
+    width: '80%',
+    marginBottom: 20,
   },
 });
 
