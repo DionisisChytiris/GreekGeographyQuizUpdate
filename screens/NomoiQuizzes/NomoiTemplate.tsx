@@ -59,6 +59,8 @@ const NomoiTemplate = (props: any) => {
     setHeart(heart);
     {
       newArray === 0 && navigation.navigate("NomoiLoseScreen1R");
+      newArray === 0 && navigation.navigate(props.nomoiLoseScreen);
+      // newArray === 0 && navigation.navigate('NomoiLoseScreen1R');
     }
   };
 
@@ -119,7 +121,7 @@ const NomoiTemplate = (props: any) => {
         removeHeart();
         Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
-        setFifty([])
+        setFifty([]);
       }
     }
   }, [selectedAnswerIndex]);
@@ -138,7 +140,7 @@ const NomoiTemplate = (props: any) => {
         // console.log(counter);
       }
       if (counter === 1) {
-        navigation.navigate(props.nomoiLoseScreen);
+        navigation.navigate(props.nomoiLoseScreenTime);
         setSelectedAnswerIndex(null);
         setAnswerStatus(null);
         setCounter(props.counter);
@@ -181,14 +183,20 @@ const NomoiTemplate = (props: any) => {
       .sort(() => 0.5 - Math.random())
       .slice(0, 2);
 
-      // console.log(randomWrongAnswers)
+    // console.log(randomWrongAnswers)
     setFifty(randomWrongAnswers);
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
-        <View style={{ height: "100%", backgroundColor: "#005ce6" }}>
+        <View
+          style={{
+            height: "100%",
+            backgroundColor: "#005ce6",
+            marginTop: height > 1100 ? 100 : null,
+          }}
+        >
           <View style={[styles.containerInfo, { marginTop: 15 }]}>
             <View>{props.goBack}</View>
             <View style={styles.levelBox}>
@@ -289,7 +297,8 @@ const NomoiTemplate = (props: any) => {
                   marginBottom: 5,
                   width: height > 960 ? "90%" : "100%",
                   margin: "auto",
-                  height: height > 960 ? 300 : 180,
+                  marginLeft: height > 960 ? (height > 1100 ? 30 : 20) : null,
+                  height: height > 960 ? (height > 1100 ? 400 : 300) : 180,
                 }}
               />
               <Text style={styles.question}>{currentQuestion?.question}</Text>
@@ -303,24 +312,22 @@ const NomoiTemplate = (props: any) => {
                       setCounter(false);
                     }}
                     style={[
-                      fifty.includes(index)? { opacity: 0.4 }
-                      : { opacity: 1 } ,
-                     ( selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex)
+                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
+                      selectedAnswerIndex === index &&
+                      index === currentQuestion.correctAnswerIndex
                         ? styles.correctAnswer
                         : selectedAnswerIndex !== null &&
                           selectedAnswerIndex === index
                         ? styles.wrongAnswer
-                        : styles.borderAnswer
-                      ]
-                    }
+                        : styles.borderAnswer,
+                    ]}
                   >
                     <Text
                       style={{
                         marginHorizontal: "auto",
                         fontWeight: "600",
                         color: "white",
-                        fontSize: 14,
+                        fontSize: height > 960 ? 20 : 14,
                       }}
                     >
                       {item.answer}
@@ -415,7 +422,9 @@ const NomoiTemplate = (props: any) => {
               <View>
                 <View style={{ flexDirection: "row", marginBottom: 65 }}>
                   <Pressable
-                    onPress={() => {setIndex(index + 1), setFifty([])}}
+                    onPress={() => {
+                      setIndex(index + 1), setFifty([]);
+                    }}
                     // style={nextQueButton}
                     style={{
                       position: "absolute",

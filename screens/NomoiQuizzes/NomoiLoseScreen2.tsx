@@ -1,11 +1,12 @@
 import { View} from 'react-native'
 import React from 'react'
 import LoseScreen from '../LoseScreen'
+import LoseScreenNomoi from '../LoseScreenNomoi'
 
 const NomoiLoseScreen2 = () => {
   return (
     <View>
-      <LoseScreen loseScreen={'Nomoi2R'}/>
+      <LoseScreenNomoi loseScreen={'Nomoi2R'}/>
     </View>
   )
 }

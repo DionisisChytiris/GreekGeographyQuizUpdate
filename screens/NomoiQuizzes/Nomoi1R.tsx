@@ -3,12 +3,13 @@ import React from "react";
 import NomoiTemplate from "./NomoiTemplate";
 import questions1 from "../../data/NomoiPoleis/questions1";
 import { Entypo } from "@expo/vector-icons";
+import NomoiTemplateNoTime from "./NomoiTemplateNoTime";
 
 const Nomoi1R = () => {
   return (
     <ScrollView bounces={false}>
-      <View style={{ backgroundColor: "darkblue" }}>
-        <NomoiTemplate
+      <View >
+        <NomoiTemplateNoTime
           questions={questions1}
           nomoiResults={"NomoiResult1"}
           nomoiLoseScreen={'NomoiLoseScreen1R'}

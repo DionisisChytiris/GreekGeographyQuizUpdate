@@ -110,6 +110,12 @@ import Settings from "./screens/Settings";
 import { useSelector } from 'react-redux';
 import { useAppSelector } from "./ReduxToolkit/store";
 import LoseScreenREndTime from "./screens/LoseScreenREndTime";
+import LoseScreenNomoi from "./screens/LoseScreenNomoi";
+import NomoiLoseScreen1Time from "./screens/NomoiQuizzes/NomoiLoseScreen1Time";
+import NomoiLoseScreen2Time from "./screens/NomoiQuizzes/NomoiLoseScreen2Time";
+import NomoiLoseScreen3Time from "./screens/NomoiQuizzes/NomoiLoseScreen3Time";
+import NomoiLoseScreen4Time from "./screens/NomoiQuizzes/NomoiLoseScreen4Time";
+import NomoiLoseScreen5Time from "./screens/NomoiQuizzes/NomoiLoseScreen5Time";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -135,7 +141,9 @@ const StackNavigator = () => {
   // };
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+                    contentStyle: { backgroundColor: "#76b5c5" },
+                }}>
         {/* <Stack.Screen name="Nomoi6Final" component={Nomoi6Final} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen
           name="Home"
@@ -287,6 +295,11 @@ const StackNavigator = () => {
           options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
         />
         <Stack.Screen
+          name="LoseScreenNomoi"
+          component={LoseScreenNomoi}
+          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+        />
+        <Stack.Screen
           name="LoseScreenR"
           component={LoseScreenR}
           options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
@@ -339,6 +352,11 @@ const StackNavigator = () => {
           <Stack.Screen name="NomoiResult5" component={NomoiResult5} />
           <Stack.Screen name="NomoiResult6" component={NomoiResult6} />
           <Stack.Screen name="NomoiLoseScreen1" component={NomoiLoseScreen1} />
+          <Stack.Screen name="NomoiLoseScreen1Time" component={NomoiLoseScreen1Time} />
+          <Stack.Screen name="NomoiLoseScreen2Time" component={NomoiLoseScreen2Time} />
+          <Stack.Screen name="NomoiLoseScreen3Time" component={NomoiLoseScreen3Time} />
+          <Stack.Screen name="NomoiLoseScreen4Time" component={NomoiLoseScreen4Time} />
+          <Stack.Screen name="NomoiLoseScreen5Time" component={NomoiLoseScreen5Time} />
           <Stack.Screen
             name="NomoiLoseScreen1R"
             component={NomoiLoseScreen1R}

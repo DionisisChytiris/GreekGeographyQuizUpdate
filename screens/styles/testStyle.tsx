@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     paddingHorizontal: 10,
-    fontSize: height>960? 20: 16,
+    fontSize: height>960? height>1100? 24:20: 16,
     fontWeight: "bold",
     height: 70
   },

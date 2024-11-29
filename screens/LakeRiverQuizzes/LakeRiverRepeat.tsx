@@ -169,7 +169,7 @@ const LakeRiverRepeat = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
-        <ImageBackground source={require("../../assets/MorePhotos/lake2.jpg")}>
+        <ImageBackground source={require("../../assets/MorePhotos/lake2.jpg")} style={{ marginTop: height>1100? 100: null }}>
           <View style={styles.progressContainerInfo}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
@@ -579,7 +579,8 @@ const stylesT = StyleSheet.create({
     marginBottom: 5,
     width: height>960?"90%": '100%',
     margin: 'auto',
-    height: height>960? 300:180,
+    marginLeft: height>960? height>1100?30:20: null,
+    height: height > 960 ? height>1100? 400:300 : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",

@@ -37,7 +37,8 @@ const LoseScreenR = () => {
             // margin: "auto",
             marginLeft: "auto",
             marginRight: "auto",
-            marginTop: height>960 ?"35%": height<850? "45%": '50%',
+            marginTop: height>960 ? height>1100? "30%":
+            "30%": height<850? "45%": '50%',
             borderRadius: 20,
             display: "flex",
             alignContent: "center",

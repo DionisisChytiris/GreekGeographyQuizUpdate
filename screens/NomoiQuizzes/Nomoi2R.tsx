@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import { SafeAreaView } from "react-native-safe-area-context";
+import NomoiTemplateNoTime from "./NomoiTemplateNoTime";
 
 type NomoiInstructionsProp = StackNavigationProp<
   RootStackParamList,
@@ -20,11 +21,11 @@ const Nomoi2R = () => {
   return (
     <SafeAreaView>
     <ScrollView bounces={false}>
-      <View style={{ backgroundColor: "#005ce6" }}>
-        <NomoiTemplate
+      <View>
+        <NomoiTemplateNoTime
           questions={questions2}
           nomoiResults={"NomoiResult2"}
-          nomoiLoseScreen={'NomoiLoseScreen2R'}
+          nomoiLoseScreen={'LoseScreenREndTime'}
           num={2}
           goBack={
             <View

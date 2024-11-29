@@ -45,12 +45,22 @@ const AppContent = () => {
     checkForUpdates();
   }, []); 
 
-  // use only when create a new build
-  // const checkVersion = async () => {
-  //   const appStoreLink = Platform.OS === 'ios'
-  //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
-  //     : 'market://details?id=com.greekgeographyquizapp.dion';  
+// <<<<<<< HEAD
+//   // use only when create a new build
+//   // const checkVersion = async () => {
+//   //   const appStoreLink = Platform.OS === 'ios'
+//   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
+//   //     : 'market://details?id=com.greekgeographyquizapp.dion';  
 
+// =======
+//   // const checkVersion = async () => {
+
+
+//   //   const appStoreLink = Platform.OS === 'ios'
+//   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
+//   //     : 'market://details?id=com.greekgeographyquizapp.dion';  
+
+// >>>>>>> 92ce09298c1f5cdbfed369469c43f0898b028d61
   //   Alert.alert(
   //     "Διαθέσιμη Ενημέρωση",
   //     "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
@@ -82,7 +92,7 @@ export default function App() {
   ) : (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <AppContent />
+        <AppContent/>
       </Provider>
     </GestureHandlerRootView>
   );
