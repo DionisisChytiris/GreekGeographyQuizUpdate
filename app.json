@@ -18,11 +18,13 @@
       "supportsTablet": true,
       "requireFullScreen": true,
       "bundleIdentifier": "com.greekgeographyquizapp.dion",
-      "buildNumber": "2"
+      "buildNumber": "2",
+      "newArchEnabled": true
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
       "versionCode": 31,
+      "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",
         "backgroundColor": "#ffffff"

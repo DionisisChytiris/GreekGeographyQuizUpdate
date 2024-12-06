@@ -104,7 +104,7 @@ const NomoiInstructions = () => {
           marginTop: 45,
           width: "100%",
           height: "24%",
-          zIndex: -1,
+          zIndex: 20,
         }}
       />
     </View>
