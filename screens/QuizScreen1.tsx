@@ -5,6 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
+import Feather from '@expo/vector-icons/Feather';
 
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
@@ -62,11 +63,12 @@ const QuizScreen1 = () => {
             navigation.navigate("Settings");
           }}
         >
-          <AntDesign name="setting" size={24} color="white" />
+          <Feather name="menu" size={24} color="white" />
+          {/* <AntDesign name="setting" size={24} color="white" /> */}
         </Pressable>
       <View style={styles.title}>
         <Text style={{ color: "white", fontSize: height>960? 32: 22, fontWeight: "bold" }}>
-          Επέλεξε κατηγορία 
+          Επέλεξε κατηγορία
         </Text>
         {/* <Text>{name}</Text> */}
       </View>

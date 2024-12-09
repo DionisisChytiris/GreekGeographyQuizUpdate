@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Introduction: undefined;
   Instructions: undefined;
   Settings: undefined;
+  AboutApp: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;
   LakeRiverResults: { points: number, data: any };

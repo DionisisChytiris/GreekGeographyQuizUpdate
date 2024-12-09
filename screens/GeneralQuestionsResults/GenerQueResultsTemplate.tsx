@@ -8,12 +8,14 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as StoreReview from "expo-store-review";
+import CustomAlert from "../components/CustomAlert";
 import LottieView from "lottie-react-native";
 
 const { height } = Dimensions.get("window");
@@ -32,6 +34,37 @@ const GenerQueResultsTemplate = (props: any) => {
   const data = route.params.data;
   const scoreGeneral = Math.floor((scores * 100) / data.length);
 
+  const [show, setShow] = useState(false);
+
+  const handleQuizCompletion = async () => {
+    if (scoreGeneral >= 90) {
+      setShow(true);
+
+      if (await StoreReview.hasAction()) {
+        StoreReview.requestReview();
+      } else {
+        console.log("In-app review is not supported on this device.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleQuizCompletion();
+    }, 2000);
+
+    // Clean up the timeout
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    const timeout1 = setTimeout(() => {
+      setShow(false);
+    }, 5000);
+
+    return () => clearTimeout(timeout1);
+  }, []);
+
   const setData = async () => {
     try {
       var user = scoreGeneral;
@@ -49,7 +82,14 @@ const GenerQueResultsTemplate = (props: any) => {
         resizeMode="cover"
         style={{ height: "100%" }}
       >
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        {show ? (
+          <View style={{ position: "absolute", top: 0, left: 0 }}>
+            <CustomAlert />
+          </View>
+        ) : null}
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
           <View style={stylesT.title}>
             <Text
               style={{
@@ -61,12 +101,11 @@ const GenerQueResultsTemplate = (props: any) => {
                 marginRight: "auto",
               }}
             >
-              Βαθμολογία 
+              Βαθμολογία
             </Text>
           </View>
 
           <View style={stylesT.container}>
-          
             {scoreGeneral > 49 ? (
               <View>
                 <View style={stylesT.score}>
@@ -119,7 +158,7 @@ const GenerQueResultsTemplate = (props: any) => {
                         Καλή προσπάθεια, αλλά πάντα υπάρχει περιθώριο βελτίωσης.
                         Επανέλαβε το κουίζ για να τελειωποιήσεις τις γνώσεις σου
                         ή πήγαινε στην αρχική σελίδα για να επιλέξεις άλλη
-                        κατηγορία. 
+                        κατηγορία.
                       </Text>
                     </View>
                   )}
@@ -198,7 +237,7 @@ const GenerQueResultsTemplate = (props: any) => {
           )}
         </View>
 
-{/* 
+        {/* 
         <View
           style={{     
             flex: 1,
@@ -267,7 +306,7 @@ const stylesT = StyleSheet.create({
     marginTop: 40,
     flexDirection: "row",
     marginHorizontal: 40,
-    gap: 20
+    gap: 20,
   },
   buttonBox2: {
     // marginTop: 40,
@@ -275,7 +314,7 @@ const stylesT = StyleSheet.create({
     // zIndex: 9999999,
     flexDirection: "row",
     marginHorizontal: 40,
-    gap: 20
+    gap: 20,
     // marginBottom: 100
   },
   button0: {

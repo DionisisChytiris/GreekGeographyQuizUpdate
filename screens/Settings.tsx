@@ -18,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
@@ -127,27 +128,27 @@ const Settings = () => {
             <Pressable
               onPressIn={() => setScale3(1.1)}
               onPressOut={() => {
-                Linking.openURL(url),
+                navigation.navigate("AboutApp"),
+                // Linking.openURL(url),
                   setScale3(1);
               }}
               style={[
                 styles.button,
-                { transform: [{ scale: scale3 }], paddingVertical: 5 },
+                { transform: [{ scale: scale3 }], paddingVertical: 5, flexDirection: 'row', gap: 10 },
               ]}
             >
-              <Text style={styles.text1}>Αξιολογήστε μας</Text>
-              <Image
+              <FontAwesome5 name="book-open" size={20} color="white" />
+              <Text style={styles.text1}>Σχετικά</Text>
+              {/* <Image
                 source={require("../assets/MorePhotos/rating.png")}
                 resizeMode="cover"
-                // blurRadius={3}
                 style={{
                   flex: 1,
-                  // justifyContent: "center",
                   alignItems: "center",
                   width: "40%",
                   marginTop: -5,
                 }}
-              />
+              /> */}
             </Pressable>
             <View
               style={{

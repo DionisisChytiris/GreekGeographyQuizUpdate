@@ -116,6 +116,7 @@ import NomoiLoseScreen2Time from "./screens/NomoiQuizzes/NomoiLoseScreen2Time";
 import NomoiLoseScreen3Time from "./screens/NomoiQuizzes/NomoiLoseScreen3Time";
 import NomoiLoseScreen4Time from "./screens/NomoiQuizzes/NomoiLoseScreen4Time";
 import NomoiLoseScreen5Time from "./screens/NomoiQuizzes/NomoiLoseScreen5Time";
+import AboutApp from "./screens/components/AboutApp";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -163,6 +164,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+        />
+        <Stack.Screen
+          name="AboutApp"
+          component={AboutApp}
           options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
         />
         <Stack.Screen
