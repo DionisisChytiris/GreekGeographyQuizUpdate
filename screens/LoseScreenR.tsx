@@ -32,13 +32,13 @@ const LoseScreenR = () => {
       >
         <View
           style={{
-            width: width > 960 ? "40%" : "75%",
+            width: width > 1000 ? "40%" : "75%",
             height: "45%",
             // margin: "auto",
             marginLeft: "auto",
             marginRight: "auto",
             marginTop:
-              height > 960
+              height > 1000
                 ? height > 1100
                   ? "30%"
                   : "30%"

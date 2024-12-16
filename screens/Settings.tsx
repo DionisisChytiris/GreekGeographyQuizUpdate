@@ -5,6 +5,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Dimensions,
   Pressable,
   Linking,
   Image,
@@ -24,6 +25,8 @@ type GenerQTProp = StackNavigationProp<
   RootStackParamList,
   "GenerQuestTemplate"
 >;
+
+const { height } = Dimensions.get('window');
 
 const Settings = () => {
   const navigation = useNavigation<GenerQTProp>();
@@ -62,7 +65,7 @@ const Settings = () => {
             // justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            height: 900,
+            height: height> 900? 950: 800,
           }}
         >
           <Pressable

@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   btnTop: {
     height: "70%",
-    backgroundColor: "green",
+    // backgroundColor: "green",
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
 },

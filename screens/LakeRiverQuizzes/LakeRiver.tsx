@@ -177,7 +177,7 @@ const LakeRiver = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: height>960? 130:90 }}
+              style={{ position: "absolute", top: 32, right: height>1000? 130:90 }}
               // style={styles.btnInfoHeart}
             >
               <Ionicons
@@ -210,7 +210,7 @@ const LakeRiver = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 120: 35}}>
+          <View style={{ paddingVertical: 20, paddingHorizontal: height>1000? 120: 35}}>
             <View style={style}>
               <View>
                 <Image source={currentQuestion?.img} style={stylesT.image} />
@@ -558,10 +558,10 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: height>960?"90%": '100%',
+    width: height>1000?"90%": '100%',
     margin: 'auto',
-    marginLeft: height>960? height>1100?30:20: null,
-    height: height > 960 ? height>1100? 400:300 : 180,
+    marginLeft: height>960? height>1100?30:0: null,
+    height: height > 960 ? height>1100? 400:250 : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",
