@@ -10,6 +10,7 @@ import {
   Vibration,
   Alert,
   Dimensions,
+  Animated,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -158,12 +159,55 @@ const GenerQuestTemplate = (props: any) => {
     }
   }, [index]);
 
+  const slideAnim = useRef(new Animated.Value(-300)).current;
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+  const answerAnims = useRef([
+    new Animated.Value(0), // Box 0
+    new Animated.Value(0), // Box 1
+    new Animated.Value(0), // Box 2
+    new Animated.Value(0), // Box 3
+  ]).current;
+
+  useEffect(() => {
+    slideAnim.setValue(-300);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, slideAnim]);
+
+  useEffect(() => {
+    scaleAnim.setValue(0);
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, scaleAnim]);
+
+  useEffect(() => {
+    answerAnims.forEach((anim) => anim.setValue(0));
+    setTimeout(() => {
+      Animated.stagger(
+        200, // Delay between each animation
+        answerAnims.map((anim) =>
+          Animated.timing(anim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          })
+        )
+      ).start();
+    }, 300);
+  }, [index, answerAnims]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
         <ImageBackground
           source={require("../../assets/MorePhotos/ath.jpg")}
-          style={{ marginTop: height>1100? 100: null }}
+          style={{ marginTop: height > 1100 ? 100 : null }}
         >
           <View>
             <View style={styles.progressContainerInfo}>
@@ -230,8 +274,33 @@ const GenerQuestTemplate = (props: any) => {
               {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
               {/* <View style={style}> */}
               <View style={style}>
-                <Image source={currentQuestion?.img} style={stylesT.image} />
-                <Text style={styles.question}>{currentQuestion?.question}</Text>
+                <Image
+                  source={currentQuestion?.img}
+                  // style={[
+                  //   stylesT.image,
+                  //   {
+                  //     transform: [
+                  //       {
+                  //         scale: scaleAnim.interpolate({
+                  //           inputRange: [0, 1],
+                  //           outputRange: [0, 1],
+                  //         }),
+                  //       },
+                  //     ],
+                  //   },
+                  // ]}
+                  style={ stylesT.image}
+                />
+                <View style={{ width: "100%", overflow: "hidden" }}>
+                  <Animated.View
+                    style={{ transform: [{ translateX: slideAnim }] }}
+                  >
+                    {/* <Text style={styles.text}>Hello, World!</Text> */}
+                    <Text style={styles.question}>
+                      {currentQuestion?.question}
+                    </Text>
+                  </Animated.View>
+                </View>
                 <View style={styles.answersContainer}>
                   {currentQuestion?.options.map((item: any, index: any) => (
                     <Pressable
@@ -241,17 +310,42 @@ const GenerQuestTemplate = (props: any) => {
                           setSelectedAnswerIndex(index);
                         setCounter(false);
                       }}
-                      style={
-                        selectedAnswerIndex === index &&
-                        index === currentQuestion.correctAnswerIndex
-                          ? styles.correctAnswer
-                          : selectedAnswerIndex !== null &&
-                            selectedAnswerIndex === index
-                          ? styles.wrongAnswer
-                          : styles.borderAnswer
-                      }
+                      style={{flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "47%",
+                        height: height>960 ? 120:90,
+                        borderRadius: 6,
+                        margin: "1.5%",}}
+                      // style={ selectedAnswerIndex === index &&
+                      //   index === currentQuestion.correctAnswerIndex
+                      //     ? stylesT.correctAnswer
+                      //     : selectedAnswerIndex !== null &&
+                      //       selectedAnswerIndex === index
+                      //     ? stylesT.wrongAnswer
+                      //     : stylesT.borderAnswer}
                     >
-                      <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                      <Animated.View
+                        style={[ selectedAnswerIndex === index &&
+                          index === currentQuestion.correctAnswerIndex
+                            ? stylesT.correctAnswer
+                            : selectedAnswerIndex !== null &&
+                              selectedAnswerIndex === index
+                            ? stylesT.wrongAnswer
+                            : stylesT.borderAnswer ,{
+                          opacity: answerAnims[index],
+                          transform: [
+                            {
+                              scale: answerAnims[index].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1],
+                              }),
+                            },
+                          ],
+                        }]}
+                      >
+                        <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                     
                       {selectedAnswerIndex === index &&
                       index === currentQuestion.correctAnswerIndex ? (
                         <View
@@ -290,6 +384,8 @@ const GenerQuestTemplate = (props: any) => {
                           />
                         </View>
                       ) : null}
+                      <View/>
+                      </Animated.View>
                     </Pressable>
                   ))}
                 </View>
@@ -519,8 +615,8 @@ const stylesT = StyleSheet.create({
     marginBottom: 5,
     width: height > 1000 ? "90%" : "100%",
     margin: "auto",
-    marginLeft: height>960? height>1100?30:0: null,
-    height: height > 960 ? height>1100? 400:250 : 180,
+    marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
+    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
     // borderColor: 'white',
     // borderWidth: 1
   },
@@ -625,5 +721,35 @@ const stylesT = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+  },
+  correctAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    width: "100%",
+    height: height>960 ? 120:90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  wrongAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#dd0530",
+    width: "100%",
+    height: height>960 ? 120:90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  borderAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006cfa",
+    width: "100%",
+    height: height>960 ? 120:90,
+    borderRadius: 6,
+    margin: "1.5%",
   },
 });
