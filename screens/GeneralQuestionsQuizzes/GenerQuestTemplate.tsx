@@ -274,22 +274,23 @@ const GenerQuestTemplate = (props: any) => {
               {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
               {/* <View style={style}> */}
               <View style={style}>
-                <Image
+                <Animated.Image
+                  key={currentQuestion?.id}
                   source={currentQuestion?.img}
-                  // style={[
-                  //   stylesT.image,
-                  //   {
-                  //     transform: [
-                  //       {
-                  //         scale: scaleAnim.interpolate({
-                  //           inputRange: [0, 1],
-                  //           outputRange: [0, 1],
-                  //         }),
-                  //       },
-                  //     ],
-                  //   },
-                  // ]}
-                  style={ stylesT.image}
+                  style={[
+                    stylesT.image,
+                    {
+                      transform: [
+                        {
+                          scale: scaleAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, 1],
+                          }),
+                        },
+                      ],
+                    },
+                  ]}
+                  // style={ stylesT.image}
                 />
                 <View style={{ width: "100%", overflow: "hidden" }}>
                   <Animated.View
