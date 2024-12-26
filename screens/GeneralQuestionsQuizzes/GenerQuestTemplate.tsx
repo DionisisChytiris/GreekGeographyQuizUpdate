@@ -617,7 +617,7 @@ const stylesT = StyleSheet.create({
     width: height > 1000 ? "90%" : "100%",
     margin: "auto",
     marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
-    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
+    height: height > 960 ? (height > 1100 ? 400 : 250) : 190,
     // borderColor: 'white',
     // borderWidth: 1
   },

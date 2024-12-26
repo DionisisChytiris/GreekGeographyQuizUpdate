@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Vibration,
   Alert,
+  Animated,
   Dimensions,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
@@ -176,8 +177,8 @@ const NomoiTemplate = (props: any) => {
   const fiftyfifty = () => {
     // Alert.alert("hello world");
     const wrongAnswers = currentQuestion.options
-      .map((option, index) => index)
-      .filter((index) => index !== currentQuestion.correctAnswerIndex);
+      .map((option: string[], index: number) => index)
+      .filter((index: number) => index !== currentQuestion.correctAnswerIndex);
 
     const randomWrongAnswers = wrongAnswers
       .sort(() => 0.5 - Math.random())
@@ -186,6 +187,49 @@ const NomoiTemplate = (props: any) => {
     // console.log(randomWrongAnswers)
     setFifty(randomWrongAnswers);
   };
+
+  const slideAnim = useRef(new Animated.Value(-300)).current;
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+  const answerAnims = useRef([
+    new Animated.Value(0), // Box 0
+    new Animated.Value(0), // Box 1
+    new Animated.Value(0), // Box 2
+    new Animated.Value(0), // Box 3
+  ]).current;
+
+  useEffect(() => {
+    slideAnim.setValue(-300);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, slideAnim]);
+
+  useEffect(() => {
+    scaleAnim.setValue(0);
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, scaleAnim]);
+
+  useEffect(() => {
+    answerAnims.forEach((anim) => anim.setValue(0));
+    setTimeout(() => {
+      Animated.stagger(
+        200, // Delay between each animation
+        answerAnims.map((anim) =>
+          Animated.timing(anim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          })
+        )
+      ).start();
+    }, 300);
+  }, [index, answerAnims]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -290,18 +334,39 @@ const NomoiTemplate = (props: any) => {
           >
             <View style={style}>
               {/* <View style={style}> */}
-              <Image
+              <Animated.Image
+                key={currentQuestion?.id}
                 source={currentQuestion?.img}
-                style={{
-                  borderRadius: 10,
-                  marginBottom: 5,
-                  width: height > 1000 ? "90%" : "100%",
-                  margin: "auto",
-                  marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
-                  height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
-                }}
+                style={[
+                  {
+                    borderRadius: 10,
+                    marginBottom: 5,
+                    width: height > 1000 ? "90%" : "100%",
+                    margin: "auto",
+                    marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
+                    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
+                  },
+                  {
+                    transform: [
+                      {
+                        scale: scaleAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 1],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
               />
-              <Text style={styles.question}>{currentQuestion?.question}</Text>
+              <View style={{ width: "100%", overflow: "hidden" }}>
+                <Animated.View
+                  style={{ transform: [{ translateX: slideAnim }] }}
+                >
+                  <Text style={styles.question}>
+                    {currentQuestion?.question}
+                  </Text>
+                </Animated.View>
+              </View>
               <View style={styles.answersContainer}>
                 {currentQuestion?.options.map((item: any, index: any) => (
                   <Pressable
@@ -311,65 +376,88 @@ const NomoiTemplate = (props: any) => {
                         setSelectedAnswerIndex(index);
                       setCounter(false);
                     }}
-                    style={[
-                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
-                      selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex
-                        ? styles.correctAnswer
-                        : selectedAnswerIndex !== null &&
-                          selectedAnswerIndex === index
-                        ? styles.wrongAnswer
-                        : styles.borderAnswer,
-                    ]}
+                    style={[{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "47%",
+                      height: height > 960 ? 120 : 90,
+                      borderRadius: 6,
+                      margin: "1.5%",
+                    }, fifty.includes(index)
+                    ? { opacity: 0.4 }
+                    : { opacity: 1 },]}
                   >
-                    <Text
-                      style={{
-                        marginHorizontal: "auto",
-                        fontWeight: "600",
-                        color: "white",
-                        fontSize: height > 960 ? 20 : 14,
-                      }}
+                    <Animated.View
+                      style={[
+                          selectedAnswerIndex === index &&
+                          index === currentQuestion.correctAnswerIndex
+                            ? stylesT.correctAnswer
+                            : selectedAnswerIndex !== null &&
+                              selectedAnswerIndex === index
+                            ? stylesT.wrongAnswer
+                            : stylesT.borderAnswer ,{
+                          opacity: answerAnims[index],
+                          transform: [
+                            {
+                              scale: answerAnims[index].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1],
+                              }),
+                            },
+                          ],
+                        }
+                      ]}
                     >
-                      {item.answer}
-                    </Text>
-                    {selectedAnswerIndex === index &&
-                    index === currentQuestion.correctAnswerIndex ? (
-                      <View
+                      <Text
                         style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "70%",
-                          top: 0,
-                          right: -30,
+                          marginHorizontal: "auto",
+                          fontWeight: "600",
+                          color: "white",
+                          fontSize: height > 960 ? 20 : 14,
                         }}
                       >
-                        <LottieView
-                          style={{ width: "100%", height: "100%" }}
-                          source={require("../../assets/LottieAnimations/Success.json")}
-                          autoPlay
-                          loop={false}
-                        />
-                      </View>
-                    ) : null}
-                    {selectedAnswerIndex === index &&
-                    index !== currentQuestion.correctAnswerIndex ? (
-                      <View
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "70%",
-                          top: 0,
-                          right: -30,
-                        }}
-                      >
-                        <LottieView
-                          style={{ width: "100%", height: "100%" }}
-                          source={require("../../assets/LottieAnimations/Fail.json")}
-                          autoPlay
-                          loop={false}
-                        />
-                      </View>
-                    ) : null}
+                        {item.answer}
+                      </Text>
+                      {selectedAnswerIndex === index &&
+                      index === currentQuestion.correctAnswerIndex ? (
+                        <View
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "70%",
+                            top: 0,
+                            right: -30,
+                          }}
+                        >
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Success.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
+                      {selectedAnswerIndex === index &&
+                      index !== currentQuestion.correctAnswerIndex ? (
+                        <View
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "70%",
+                            top: 0,
+                            right: -30,
+                          }}
+                        >
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Fail.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
+                    </Animated.View>
                   </Pressable>
                 ))}
               </View>
@@ -560,178 +648,6 @@ const NomoiTemplate = (props: any) => {
               )}
             </BottomSheetModal>
           </View>
-          {/* 
-          <View style={styles.feedBackArea}>
-            {index + 1 >= data.length ? (
-              answerStatus === null ? (
-                <Pressable
-                  onPressIn={() => setBtnBackground("#62a9da")}
-                  onPressOut={() => {
-                    navigation.navigate("Quiz1");
-                    setBtnBackground("#2E86C1");
-                  }}
-                  style={stylesT.button0}
-                >
-                  <View
-                    style={[
-                      stylesT.button1,
-                      { backgroundColor: btnBackground },
-                    ]}
-                  />
-                  <View style={stylesT.btnText}>
-                    <Ionicons name="home-outline" size={20} color="white" />
-                  </View>
-                </Pressable>
-              ) : (
-                <View style={{ marginBottom: 25 }}>
-                  <Pressable
-                    onPress={() =>
-                      {
-                        navigation.navigate(nomoiR, {
-                          points: points,
-                          data: data,
-                        })
-                        setSelectedAnswerIndex(null);
-                        setAnswerStatus(null);
-                        setCounter(15)
-                        setIndex(0)
-                      }
-                    }
-                    style={nextQueButton}
-                  >
-                    <Text style={{ color: "white" }}>Αποτελέσματα</Text>
-                  </Pressable>
-                </View>
-              )
-            ) : answerStatus === null ? (
-              <View style={{padding: 28}}/>
-            ) : (
-              <View style={{ flexDirection: "row", marginBottom: 65 }}>
-                <Pressable
-                  onPress={() => setIndex(index + 1)}
-                  style={nextQueButton}
-                >
-                  <Text style={{ color: "white", fontSize: 12 }}>
-                    Επόμενη Ερώτηση
-                  </Text>
-                </Pressable>
-                <Pressable onPress={handleModal}>
-                  <Text>
-                    <Entypo name="info-with-circle" size={28} color="white" />
-                  </Text>
-                </Pressable>
-              </View>
-            )}
-
-            <BottomSheetModal
-              ref={bottomSheetModalRef}
-              index={0}
-              snapPoints={snapPoints}
-              backgroundStyle={{ borderRadius: 50 }}
-            >
-              {answerStatus === null ? null : (
-                <View
-                  style={
-                    answerStatus === null ? null : { alignItems: "center" }
-                  }
-                >
-                  {!!answerStatus ? (
-                    <View
-                      style={{
-                        alignItems: "center",
-                        backgroundColor: "white",
-                        borderRadius: 20,
-                        width: "100%",
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: 60,
-                          marginBottom: 20,
-                        }}
-                      >
-                        <Text
-                          style={{ color: "green", fontSize: 20, padding: 10 }}
-                        >
-                          Σωστή Απάντηση
-                        </Text>
-                        <Image
-                          source={require("../../assets/thumbUp.jpg")}
-                          resizeMode="cover"
-                          style={{
-                            marginVertical: 20,
-                            width: 50,
-                            height: 50,
-                          }}
-                        />
-                      </View>
-                      <Image
-                        source={currentQuestion?.imgMap}
-                        resizeMode="cover"
-                        style={{
-                          borderRadius: 10,
-                          marginBottom: 10,
-                          marginHorizontal: 3,
-                          width: 300,
-                          height: 250,
-                        }}
-                      />
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        margin: 40,
-                        alignItems: "center",
-                        backgroundColor: "white",
-                        borderRadius: 20,
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "column",
-                          alignItems: "center",
-                          marginTop: 30,
-                          marginBottom: 50,
-                          width: 250,
-                          height: 200,
-                        }}
-                      >
-                        <Text
-                          style={{ color: "red", fontSize: 20, padding: 10 }}
-                        >
-                          Λάθος Απάντηση
-                        </Text>
-                        <Image
-                          source={require("../../assets/sadFace.jpg")}
-                          resizeMode="cover"
-                          style={{
-                            marginVertical: 20,
-                            width: 50,
-                            height: 50,
-                          }}
-                        />
-                        <View>
-                          <Text
-                            style={{
-                              color: "darkblue",
-                              textAlign: "center",
-                              fontSize: 12,
-                              padding: 20,
-                            }}
-                          >
-                            {currentQuestion?.answer}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  )}
-                </View>
-              )}
-            </BottomSheetModal>
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -825,5 +741,35 @@ const stylesT = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+  },
+  correctAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  wrongAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#dd0530",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  borderAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006cfa",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
   },
 });

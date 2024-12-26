@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Vibration,
   Alert,
-  Dimensions
+  Animated,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -23,7 +24,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -38,7 +39,9 @@ const LakeRiver = () => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(
+    stylesT.nextQueButton
+  );
   const [btnBackground, setBtnBackground] = useState("#2E86C1");
   let interval: any = null;
   let index1 = index + 1;
@@ -128,7 +131,7 @@ const LakeRiver = () => {
   useEffect(() => {
     const myInterval = () => {
       if (counter >= 1) {
-        setCounter((counter:number) => counter - 1);
+        setCounter((counter: number) => counter - 1);
       }
       if (counter === 1) {
         navigation.navigate("LakeRiverLoseScreen");
@@ -153,11 +156,56 @@ const LakeRiver = () => {
     }
   }, [index]);
 
+  const slideAnim = useRef(new Animated.Value(-300)).current;
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+  const answerAnims = useRef([
+    new Animated.Value(0), // Box 0
+    new Animated.Value(0), // Box 1
+    new Animated.Value(0), // Box 2
+    new Animated.Value(0), // Box 3
+  ]).current;
+
+  useEffect(() => {
+    slideAnim.setValue(-300);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, slideAnim]);
+
+  useEffect(() => {
+    scaleAnim.setValue(0);
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, scaleAnim]);
+
+  useEffect(() => {
+    answerAnims.forEach((anim) => anim.setValue(0));
+    setTimeout(() => {
+      Animated.stagger(
+        200, // Delay between each animation
+        answerAnims.map((anim) =>
+          Animated.timing(anim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          })
+        )
+      ).start();
+    }, 300);
+  }, [index, answerAnims]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
-        <ImageBackground source={require("../../assets/MorePhotos/lake2.jpg")} style={{ marginTop: height>1100? 100: null }}>
-
+        <ImageBackground
+          source={require("../../assets/MorePhotos/lake2.jpg")}
+          style={{ marginTop: height > 1100 ? 100 : null }}
+        >
           <View style={styles.progressContainerInfo}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
@@ -177,7 +225,11 @@ const LakeRiver = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: height>1000? 130:90 }}
+              style={{
+                position: "absolute",
+                top: 32,
+                right: height > 1000 ? 130 : 90,
+              }}
               // style={styles.btnInfoHeart}
             >
               <Ionicons
@@ -210,11 +262,40 @@ const LakeRiver = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: height>1000? 120: 35}}>
+          <View
+            style={{
+              paddingVertical: 20,
+              paddingHorizontal: height > 1000 ? 120 : 35,
+            }}
+          >
             <View style={style}>
               <View>
-                <Image source={currentQuestion?.img} style={stylesT.image} />
-                <Text style={styles.question}>{currentQuestion?.question}</Text>
+                <Animated.Image
+                  key={currentQuestion?.id}
+                  source={currentQuestion?.img}
+                  style={[
+                    stylesT.image,
+                    {
+                      transform: [
+                        {
+                          scale: scaleAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, 1],
+                          }),
+                        },
+                      ],
+                    },
+                  ]}
+                />
+                <View style={{ width: "100%", overflow: "hidden" }}>
+                  <Animated.View
+                    style={{ transform: [{ translateX: slideAnim }] }}
+                  >
+                    <Text style={styles.question}>
+                      {currentQuestion?.question}
+                    </Text>
+                  </Animated.View>
+                </View>
                 <View style={styles.answersContainer}>
                   {currentQuestion?.options.map((item: any, index: any) => (
                     <Pressable
@@ -224,59 +305,78 @@ const LakeRiver = () => {
                           setSelectedAnswerIndex(index);
                         setCounter(false);
                       }}
-                      style={
-                        selectedAnswerIndex === index &&
-                        index === currentQuestion.correctAnswerIndex
-                          ? styles.correctAnswer
-                          : selectedAnswerIndex !== null &&
-                            selectedAnswerIndex === index
-                          ? styles.wrongAnswer
-                          : styles.borderAnswer
-                      }
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "47%",
+                        height: height > 960 ? 120 : 90,
+                        borderRadius: 6,
+                        margin: "1.5%",
+                      }}
                     >
-                      <Text style={stylesT.textAnswer}>{item.answer}</Text>
-                      {selectedAnswerIndex === index &&
-                       index === currentQuestion.correctAnswerIndex ? (
-                         <View
-                           style={{
-                             position: "absolute",
-                             width: "100%",
-                             height: "70%",
-                             top: 0,
-                             right: -30,
-                           }}
-                         >
-                           <LottieView
-                             style={{ width: "100%", height: "100%" }}
-                             source={require("../../assets/LottieAnimations/Success.json")}
-                             autoPlay
-                             loop={false}
-                           />
-                         </View>
-                      
-                       ) : 
-                       null}
-                        {selectedAnswerIndex === index &&
-                    index !== currentQuestion.correctAnswerIndex ? (
-                      <View
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          height: "70%",
-                          top: 0,
-                          right: -30,
-                        }}
+                      <Animated.View
+                        style={[
+                          selectedAnswerIndex === index &&
+                          index === currentQuestion.correctAnswerIndex
+                            ? stylesT.correctAnswer
+                            : selectedAnswerIndex !== null &&
+                              selectedAnswerIndex === index
+                            ? stylesT.wrongAnswer
+                            : stylesT.borderAnswer,
+                          {
+                            opacity: answerAnims[index],
+                            transform: [
+                              {
+                                scale: answerAnims[index].interpolate({
+                                  inputRange: [0, 1],
+                                  outputRange: [0.8, 1],
+                                }),
+                              },
+                            ],
+                          },
+                        ]}
                       >
-                        <LottieView
-                          style={{ width: "100%", height: "100%" }}
-                          source={require("../../assets/LottieAnimations/Fail.json")}
-                          autoPlay
-                          loop={false}
-                        />
-                      </View>
-                     
-                    ) : 
-                    null}
+                        <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                        {selectedAnswerIndex === index &&
+                        index === currentQuestion.correctAnswerIndex ? (
+                          <View
+                            style={{
+                              position: "absolute",
+                              width: "100%",
+                              height: "70%",
+                              top: 0,
+                              right: -30,
+                            }}
+                          >
+                            <LottieView
+                              style={{ width: "100%", height: "100%" }}
+                              source={require("../../assets/LottieAnimations/Success.json")}
+                              autoPlay
+                              loop={false}
+                            />
+                          </View>
+                        ) : null}
+                        {selectedAnswerIndex === index &&
+                        index !== currentQuestion.correctAnswerIndex ? (
+                          <View
+                            style={{
+                              position: "absolute",
+                              width: "100%",
+                              height: "70%",
+                              top: 0,
+                              right: -30,
+                            }}
+                          >
+                            <LottieView
+                              style={{ width: "100%", height: "100%" }}
+                              source={require("../../assets/LottieAnimations/Fail.json")}
+                              autoPlay
+                              loop={false}
+                            />
+                          </View>
+                        ) : null}
+                      </Animated.View>
                     </Pressable>
                   ))}
                 </View>
@@ -308,10 +408,13 @@ const LakeRiver = () => {
                       Αποτελέσματα
                     </Text>
                   </Pressable>
-                  <Pressable  style={[
+                  <Pressable
+                    style={[
                       nextQueButton,
                       { position: "absolute", bottom: -15, right: 10 },
-                    ]} onPress={handleModal}>
+                    ]}
+                    onPress={handleModal}
+                  >
                     <Text
                       style={{ color: "white", padding: 10, borderRadius: 10 }}
                     >
@@ -329,7 +432,11 @@ const LakeRiver = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom:height>960? 350: 260, right: -10 }}
+                    style={{
+                      position: "absolute",
+                      bottom: height > 960 ? 350 : 260,
+                      right: -10,
+                    }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -453,7 +560,7 @@ const LakeRiver = () => {
                 style={answerStatus === null ? null : { alignItems: "center" }}
               >
                 {!!answerStatus ? (
-                  <View style={[stylesT.BtmModalView,{width: '100%'}]}>
+                  <View style={[stylesT.BtmModalView, { width: "100%" }]}>
                     <View style={stylesT.btmMdlText}>
                       <Text
                         style={{ color: "green", fontSize: 20, padding: 10 }}
@@ -558,16 +665,16 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 5,
-    width: height>1000?"90%": '100%',
-    margin: 'auto',
-    marginLeft: height>960? height>1100?30:0: null,
-    height: height > 960 ? height>1100? 400:250 : 180,
+    width: height > 1000 ? "90%" : "100%",
+    margin: "auto",
+    marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
+    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",
     fontWeight: "600",
     color: "white",
-    fontSize: height>960? 20: 14,
+    fontSize: height > 960 ? 20 : 14,
   },
   button0: {
     position: "relative",
@@ -603,7 +710,7 @@ const stylesT = StyleSheet.create({
   progressBarBack: {
     backgroundColor: "white",
     // backgroundColor: "green",
-    width: height>960?"60%": '80%',
+    width: height > 960 ? "60%" : "80%",
     flexDirection: "row",
     alignItems: "center",
     height: 7,
@@ -614,7 +721,7 @@ const stylesT = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
-  BtmModalView:{
+  BtmModalView: {
     flex: 1,
     alignItems: "center",
     backgroundColor: "white",
@@ -672,5 +779,35 @@ const stylesT = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+  },
+  correctAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  wrongAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#dd0530",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  borderAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006cfa",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
   },
 });

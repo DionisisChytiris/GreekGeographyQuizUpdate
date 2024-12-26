@@ -107,7 +107,7 @@ import LoseScreenR from "./screens/LoseScreenR";
 import Settings from "./screens/Settings";
 // import { StatusBar } from 'expo-status-bar';
 // import Introduction from './screens/Introduction';
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { useAppSelector } from "./ReduxToolkit/store";
 import LoseScreenREndTime from "./screens/LoseScreenREndTime";
 import LoseScreenNomoi from "./screens/LoseScreenNomoi";
@@ -142,39 +142,66 @@ const StackNavigator = () => {
   // };
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-                    contentStyle: { backgroundColor: "#76b5c5" },
-                }}>
+      <Stack.Navigator
+        screenOptions={{
+          // contentStyle: { backgroundColor: 'transparent' },
+          contentStyle: { backgroundColor: "#76b5c5" },
+        }}
+      >
         {/* <Stack.Screen name="Nomoi6Final" component={Nomoi6Final} options={{headerShown: false, orientation: 'portrait'}}/>  */}
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false,headerBackTitleVisible: false, orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="SetUserName"
           component={SetUserName}
-          options={{ headerShown: false,headerBackTitleVisible: false, orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="UpdateUserName"
           component={UpdateUserName}
-          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="Settings"
           component={Settings}
-          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="AboutApp"
           component={AboutApp}
-          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LoseScreenREndTime"
           component={LoseScreenREndTime}
-          options={{ headerShown: false,headerBackTitleVisible: false,orientation: "portrait"}}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="Quiz"
@@ -183,7 +210,7 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             headerShown: true,
             orientation: "portrait",
-            title: `Γειά σου ${ name }`,
+            title: `Γειά σου ${name}`,
             headerTitleStyle: {
               fontWeight: "bold",
               color: "#006f96",
@@ -209,12 +236,20 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Introduction"
           component={Introduction}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="Instructions"
           component={NomoiInstructions}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Group
           screenOptions={{
@@ -238,23 +273,39 @@ const StackNavigator = () => {
         <Stack.Screen
           name="LakeRiverResults"
           component={LakeRiverResults}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LakeRiverResultsRepeat"
           component={LakeRiverResultsRepeat}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
 
         <Stack.Screen
           name="LakeRiverLoseScreen"
           component={LakeRiverLoseScreen}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LakeRiverLoseScreenR"
           component={LakeRiverLoseScreenR}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Group
           screenOptions={{
@@ -278,37 +329,65 @@ const StackNavigator = () => {
         <Stack.Screen
           name="MountainResults"
           component={MountainResults}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="MountainResultsRepeat"
           component={MountainResultsRepeat}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="MountainLoseScreen"
           component={MountainLoseScreen}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="MountainLoseScreenR"
           component={MountainLoseScreenR}
-          options={{ headerBackTitleVisible: false,headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LoseScreen"
           component={LoseScreen}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LoseScreenNomoi"
           component={LoseScreenNomoi}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Screen
           name="LoseScreenR"
           component={LoseScreenR}
-          options={{headerBackTitleVisible: false, headerShown: false, orientation: "portrait" }}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            orientation: "portrait",
+          }}
         />
         <Stack.Group
           screenOptions={{
@@ -326,8 +405,16 @@ const StackNavigator = () => {
             },
           }}
         >
-          <Stack.Screen name="Nomoi1" component={Nomoi1} options={{headerShown: true}}/>
-          <Stack.Screen name="Nomoi1R" component={Nomoi1R} options={{headerShown: true}} />
+          <Stack.Screen
+            name="Nomoi1"
+            component={Nomoi1}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="Nomoi1R"
+            component={Nomoi1R}
+            options={{ headerShown: true }}
+          />
           <Stack.Screen name="Nomoi2" component={Nomoi2} />
           <Stack.Screen name="Nomoi2R" component={Nomoi2R} />
           <Stack.Screen name="Nomoi3" component={Nomoi3} />
@@ -358,11 +445,26 @@ const StackNavigator = () => {
           <Stack.Screen name="NomoiResult5" component={NomoiResult5} />
           <Stack.Screen name="NomoiResult6" component={NomoiResult6} />
           <Stack.Screen name="NomoiLoseScreen1" component={NomoiLoseScreen1} />
-          <Stack.Screen name="NomoiLoseScreen1Time" component={NomoiLoseScreen1Time} />
-          <Stack.Screen name="NomoiLoseScreen2Time" component={NomoiLoseScreen2Time} />
-          <Stack.Screen name="NomoiLoseScreen3Time" component={NomoiLoseScreen3Time} />
-          <Stack.Screen name="NomoiLoseScreen4Time" component={NomoiLoseScreen4Time} />
-          <Stack.Screen name="NomoiLoseScreen5Time" component={NomoiLoseScreen5Time} />
+          <Stack.Screen
+            name="NomoiLoseScreen1Time"
+            component={NomoiLoseScreen1Time}
+          />
+          <Stack.Screen
+            name="NomoiLoseScreen2Time"
+            component={NomoiLoseScreen2Time}
+          />
+          <Stack.Screen
+            name="NomoiLoseScreen3Time"
+            component={NomoiLoseScreen3Time}
+          />
+          <Stack.Screen
+            name="NomoiLoseScreen4Time"
+            component={NomoiLoseScreen4Time}
+          />
+          <Stack.Screen
+            name="NomoiLoseScreen5Time"
+            component={NomoiLoseScreen5Time}
+          />
           <Stack.Screen
             name="NomoiLoseScreen1R"
             component={NomoiLoseScreen1R}
@@ -453,32 +555,32 @@ const StackNavigator = () => {
           <Stack.Screen
             name="GQLoseScreen1"
             component={GQLoseScreen1}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="GQLoseScreen2"
             component={GQLoseScreen2}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="GQLoseScreen3"
             component={GQLoseScreen3}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="GQLoseScreen4"
             component={GQLoseScreen4}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="GQLoseScreen5"
             component={GQLoseScreen5}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="GQLoseScreenR1"
             component={GQLoseScreenR1}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           {/* <Stack.Screen
             name="GQLoseScreenR2"

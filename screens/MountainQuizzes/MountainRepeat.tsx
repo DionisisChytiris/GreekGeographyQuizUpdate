@@ -9,11 +9,12 @@ import {
   StyleSheet,
   Vibration,
   Alert,
-  Dimensions
+  Animated,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/testStyle";
 import questions from "../../data/Mountain/questions";
@@ -23,9 +24,12 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
-type MountRepeatProp = StackNavigationProp<RootStackParamList, 'MountainRepeat'>
+type MountRepeatProp = StackNavigationProp<
+  RootStackParamList,
+  "MountainRepeat"
+>;
 
 const MountainRepeat = () => {
   const navigation = useNavigation<MountRepeatProp>();
@@ -33,14 +37,16 @@ const MountainRepeat = () => {
   const totalQuestions = data.length;
   const [points, setPoints] = useState(0);
   const [index, setIndex] = useState(0);
-  const [answerStatus, setAnswerStatus] = useState<boolean|null>(null);
+  const [answerStatus, setAnswerStatus] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<any>([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
-  const [nextQueButton, setNextQueButton] = useState<any>(stylesT.nextQueButton);
+  const [nextQueButton, setNextQueButton] = useState<any>(
+    stylesT.nextQueButton
+  );
   const [btnBackground, setBtnBackground] = useState("#2E86C1");
-  let interval:any = null;
+  let interval: any = null;
   let index1 = index + 1;
   const currentQuestion = data[index];
   const bottomSheetModalRef = useRef<any>(null);
@@ -128,7 +134,7 @@ const MountainRepeat = () => {
   useEffect(() => {
     const myInterval = () => {
       if (counter >= 1) {
-        setCounter((counter:number) => counter - 1);
+        setCounter((counter: number) => counter - 1);
       }
       if (counter === 1) {
         navigation.navigate("LoseScreenREndTime");
@@ -148,7 +154,7 @@ const MountainRepeat = () => {
 
   useEffect(() => {
     if (index + 1 > data.length) {
-      navigation.navigate("MountainResultsRepeat",{points,data});
+      navigation.navigate("MountainResultsRepeat", { points, data });
     }
   }, [currentQuestion]);
 
@@ -158,12 +164,55 @@ const MountainRepeat = () => {
     }
   }, [index]);
 
+  const slideAnim = useRef(new Animated.Value(-300)).current;
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+  const answerAnims = useRef([
+    new Animated.Value(0), // Box 0
+    new Animated.Value(0), // Box 1
+    new Animated.Value(0), // Box 2
+    new Animated.Value(0), // Box 3
+  ]).current;
+
+  useEffect(() => {
+    slideAnim.setValue(-300);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, slideAnim]);
+
+  useEffect(() => {
+    scaleAnim.setValue(0);
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+  }, [index, scaleAnim]);
+
+  useEffect(() => {
+    answerAnims.forEach((anim) => anim.setValue(0));
+    setTimeout(() => {
+      Animated.stagger(
+        200, // Delay between each animation
+        answerAnims.map((anim) =>
+          Animated.timing(anim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          })
+        )
+      ).start();
+    }, 300);
+  }, [index, answerAnims]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bounces={false}>
         <ImageBackground
           source={require("../../assets/meteora.jpg")}
-          style={{ marginTop: height>1100? 100: null }}
+          style={{ marginTop: height > 1100 ? 100 : null }}
         >
           <View style={styles.progressContainerInfo}>
             <View>
@@ -184,7 +233,11 @@ const MountainRepeat = () => {
                   [{ text: "Ενταξει" }]
                 )
               }
-              style={{ position: "absolute", top: 32, right: height>1000? 130:90 }}
+              style={{
+                position: "absolute",
+                top: 32,
+                right: height > 1000 ? 130 : 90,
+              }}
             >
               <Ionicons
                 name="information-circle-sharp"
@@ -215,10 +268,39 @@ const MountainRepeat = () => {
             />
           </View>
 
-          <View style={{ paddingVertical: 20, paddingHorizontal: height>1000? 120: 35 }}>
-          <View style={style}>
-              <Image source={currentQuestion?.img} style={stylesT.image} />
-              <Text style={styles.question}>{currentQuestion?.question}</Text>
+          <View
+            style={{
+              paddingVertical: 20,
+              paddingHorizontal: height > 1000 ? 120 : 35,
+            }}
+          >
+            <View style={style}>
+              <Animated.Image
+                key={currentQuestion?.id}
+                source={currentQuestion?.img}
+                style={[
+                  stylesT.image,
+                  {
+                    transform: [
+                      {
+                        scale: scaleAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 1],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              />
+              <View style={{ width: "100%", overflow: "hidden" }}>
+                <Animated.View
+                  style={{ transform: [{ translateX: slideAnim }] }}
+                >
+                  <Text style={styles.question}>
+                    {currentQuestion?.question}
+                  </Text>
+                </Animated.View>
+              </View>
               <View style={styles.answersContainer}>
                 {currentQuestion?.options.map((item: any, index: any) => (
                   <Pressable
@@ -228,39 +310,61 @@ const MountainRepeat = () => {
                         setSelectedAnswerIndex(index);
                       setCounter(false);
                     }}
-                    style={
-                      selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex
-                        ? styles.correctAnswer
-                        : selectedAnswerIndex !== null &&
-                          selectedAnswerIndex === index
-                        ? styles.wrongAnswer
-                        : styles.borderAnswer
-                    }
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "47%",
+                      height: height > 960 ? 120 : 90,
+                      borderRadius: 6,
+                      margin: "1.5%",
+                    }}
                   >
-                    <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                    <Animated.View
+                      style={[
+                        selectedAnswerIndex === index &&
+                        index === currentQuestion.correctAnswerIndex
+                          ? stylesT.correctAnswer
+                          : selectedAnswerIndex !== null &&
+                            selectedAnswerIndex === index
+                          ? stylesT.wrongAnswer
+                          : stylesT.borderAnswer,
+                        {
+                          opacity: answerAnims[index],
+                          transform: [
+                            {
+                              scale: answerAnims[index].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1],
+                              }),
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <Text style={stylesT.textAnswer}>{item.answer}</Text>
+                    </Animated.View>
+
                     {selectedAnswerIndex === index &&
-                       index === currentQuestion.correctAnswerIndex ? (
-                         <View
-                           style={{
-                             position: "absolute",
-                             width: "100%",
-                             height: "70%",
-                             top: 0,
-                             right: -30,
-                           }}
-                         >
-                           <LottieView
-                             style={{ width: "100%", height: "100%" }}
-                             source={require("../../assets/LottieAnimations/Success.json")}
-                             autoPlay
-                             loop={false}
-                           />
-                         </View>
-                      
-                       ) : 
-                       null}
-                        {selectedAnswerIndex === index &&
+                    index === currentQuestion.correctAnswerIndex ? (
+                      <View
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "70%",
+                          top: 0,
+                          right: -30,
+                        }}
+                      >
+                        <LottieView
+                          style={{ width: "100%", height: "100%" }}
+                          source={require("../../assets/LottieAnimations/Success.json")}
+                          autoPlay
+                          loop={false}
+                        />
+                      </View>
+                    ) : null}
+                    {selectedAnswerIndex === index &&
                     index !== currentQuestion.correctAnswerIndex ? (
                       <View
                         style={{
@@ -278,9 +382,7 @@ const MountainRepeat = () => {
                           loop={false}
                         />
                       </View>
-                     
-                    ) : 
-                    null}
+                    ) : null}
                   </Pressable>
                 ))}
               </View>
@@ -311,10 +413,13 @@ const MountainRepeat = () => {
                       Αποτελέσματα
                     </Text>
                   </Pressable>
-                  <Pressable  style={[
+                  <Pressable
+                    style={[
                       nextQueButton,
                       { position: "absolute", bottom: -15, right: 10 },
-                    ]} onPress={handleModal}>
+                    ]}
+                    onPress={handleModal}
+                  >
                     <Text
                       style={{ color: "white", padding: 10, borderRadius: 10 }}
                     >
@@ -332,7 +437,11 @@ const MountainRepeat = () => {
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
-                    style={{ position: "absolute", bottom: height>960? 350:260, right: -10 }}
+                    style={{
+                      position: "absolute",
+                      bottom: height > 960 ? 350 : 260,
+                      right: -10,
+                    }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
                   </Pressable>
@@ -484,10 +593,10 @@ const stylesT = StyleSheet.create({
   image: {
     borderRadius: 10,
     marginBottom: 20,
-    width: height>1000?"90%": '100%',
-    margin: 'auto',
-    marginLeft: height>960? height>1100?30:0: null,
-    height: height > 960 ? height>1100? 400: 250 : 180,
+    width: height > 1000 ? "90%" : "100%",
+    margin: "auto",
+    marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
+    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
   },
   textAnswer: {
     marginHorizontal: "auto",
@@ -598,5 +707,35 @@ const stylesT = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+  },
+  correctAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  wrongAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#dd0530",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
+  },
+  borderAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006cfa",
+    width: "100%",
+    height: height > 960 ? 120 : 90,
+    borderRadius: 6,
+    margin: "1.5%",
   },
 });
