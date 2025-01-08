@@ -60,7 +60,7 @@ import {
         setHeart(heart);
       }
     };
-  
+    
     const handleModal = () => {
       bottomSheetModalRef.current?.present();
     };
@@ -149,7 +149,7 @@ import {
         setCounter(15);
       }
     }, [index]);
-  
+                 
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>

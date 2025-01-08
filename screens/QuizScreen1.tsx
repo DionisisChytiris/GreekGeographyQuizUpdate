@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View, Alert, Dimensions, Linking, ImageBackground } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View, Alert, Dimensions, Linking, ImageBackground} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -11,6 +11,7 @@ import Feather from '@expo/vector-icons/Feather';
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
 const { height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const QuizScreen1 = () => {
   const navigation = useNavigation<QuizScreenProp>();
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
   title: {
     position: "absolute",
     // top: height>960? 90: 70
-    top: 90
+    top: 70
   },
   text: {
     fontSize: 16,
@@ -188,7 +189,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnContentView: {
-    backgroundColor: "white",
+    // backgroundColor: "#0b7fcc",
+    backgroundColor: 'transparent',
     width: "100%",
     borderRadius: 20,
   },
@@ -202,12 +204,13 @@ btnBottom: {
     height: "30%",
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: '#f5f5f5',
+    // backgroundColor: 'transparent',
+    // backgroundColor: '#20345d',
     // borderBottomRightRadius: 20,
     // borderBottomLeftRadius: 20,
   },
   buttonBox: {
-    width: "95%",
+    width: width> 400? "95%":"85%",
     height: height>960? 650 :500,
     paddingTop: 50,
     flexWrap: "wrap",
@@ -219,7 +222,8 @@ btnBottom: {
   button: {
     width: "49%",
     height: "48%",
-    backgroundColor: "lightgray",
+    // backgroundColor: "#738297",
+    backgroundColor: "#f5f5f5",
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",

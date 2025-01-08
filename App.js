@@ -6,8 +6,10 @@ import Splash from "./Splash";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
-import * as Updates from 'expo-updates';
-import { Alert, Linking, Platform } from 'react-native';
+import * as Updates from "expo-updates";
+import { Alert, Linking, Platform, Appearance, StatusBar } from "react-native";
+
+// Appearance.setColorScheme('light');
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -16,51 +18,47 @@ const AppContent = () => {
     dispatch(loadName());
   }, [dispatch]);
 
-  
-  // used for minus changes on the code javascript, styling, typescript
   const checkForUpdates = async () => {
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
         Alert.alert(
-          'Διαθέσιμη Ενημέρωση',
-          'Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.',
-          // '"Μικρές διορθώσεις."',
+          "Διαθέσιμη Ενημέρωση",
+          "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.",
           [
-            { text: 'Ακύρωση', style: 'cancel' },
+            { text: "Ακύρωση", style: "cancel" },
             {
-              text: 'Επανεκκίνηση',
+              text: "Επανεκκίνηση",
               onPress: () => Updates.reloadAsync(),
             },
           ]
         );
       }
     } catch (e) {
-      console.log('Error checking for updates:', e);
+      console.log("Error checking for updates:", e);
     }
   };
 
   useEffect(() => {
     checkForUpdates();
-  }, []); 
+  }, []);
 
-// <<<<<<< HEAD
-//   // use only when create a new build
-//   // const checkVersion = async () => {
-//   //   const appStoreLink = Platform.OS === 'ios'
-//   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
-//   //     : 'market://details?id=com.greekgeographyquizapp.dion';  
+  // <<<<<<< HEAD
+  //   // use only when create a new build
+  //   // const checkVersion = async () => {
+  //   //   const appStoreLink = Platform.OS === 'ios'
+  //   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'
+  //   //     : 'market://details?id=com.greekgeographyquizapp.dion';
 
-// =======
-//   // const checkVersion = async () => {
+  // =======
+  //   // const checkVersion = async () => {
 
+  //   //   const appStoreLink = Platform.OS === 'ios'
+  //   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'
+  //   //     : 'market://details?id=com.greekgeographyquizapp.dion';
 
-//   //   const appStoreLink = Platform.OS === 'ios'
-//   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'   
-//   //     : 'market://details?id=com.greekgeographyquizapp.dion';  
-
-// >>>>>>> 92ce09298c1f5cdbfed369469c43f0898b028d61
+  // >>>>>>> 92ce09298c1f5cdbfed369469c43f0898b028d61
   //   Alert.alert(
   //     "Διαθέσιμη Ενημέρωση",
   //     "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
@@ -77,7 +75,6 @@ const AppContent = () => {
   //   checkVersion();
   // }, []);
 
-
   return (
     <BottomSheetModalProvider>
       <StackNavigator />
@@ -92,7 +89,8 @@ export default function App() {
   ) : (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <AppContent/>
+        <StatusBar hidden={true} />
+        <AppContent />
       </Provider>
     </GestureHandlerRootView>
   );

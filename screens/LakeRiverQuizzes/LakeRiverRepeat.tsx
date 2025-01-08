@@ -281,7 +281,7 @@ const LakeRiverRepeat = () => {
             }}
           >
             {/* <View style={[style, {opacity: 0.5}]}> */}
-            <View style={style}>
+            <View style={[style, {marginBottom: height>980? 0: 80}]}>
               <View>
                 <Animated.Image
                   key={currentQuestion?.id}
@@ -402,7 +402,7 @@ const LakeRiverRepeat = () => {
               answerStatus === null ? (
                 <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: 75 }}>
                   <Pressable
                     onPress={() =>
                       navigation.navigate("LakeRiverResults", {
@@ -412,7 +412,7 @@ const LakeRiverRepeat = () => {
                     }
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
+                      { position: "absolute", bottom: 50, right: 180 },
                     ]}
                   >
                     <Text
@@ -424,7 +424,7 @@ const LakeRiverRepeat = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -456,7 +456,7 @@ const LakeRiverRepeat = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -736,7 +736,7 @@ const stylesT = StyleSheet.create({
     height: 7,
     borderRadius: 20,
     justifyContent: "center",
-    marginTop: "8%",
+    marginTop: "5%",
     marginBottom: -10,
     marginLeft: "auto",
     marginRight: "auto",

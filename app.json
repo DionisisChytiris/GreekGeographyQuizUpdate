@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
-      "versionCode": 32,
+      "versionCode": 33,
       "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",
@@ -48,7 +48,7 @@
       }
     },
     "androidStatusBar": {
-      "backgroundColor": "#00000000",
+      "backgroundColor": "#738297",
       "translucent": true
     },
     "runtimeVersion": {

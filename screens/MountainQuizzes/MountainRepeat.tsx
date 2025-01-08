@@ -214,7 +214,7 @@ const MountainRepeat = () => {
           source={require("../../assets/meteora.jpg")}
           style={{ marginTop: height > 1100 ? 100 : null }}
         >
-          <View style={styles.progressContainerInfo}>
+          <View style={[styles.progressContainerInfo,{marginTop: -5}]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
@@ -259,7 +259,7 @@ const MountainRepeat = () => {
           </View>
 
           {/* Progress Bar */}
-          <View style={styles.progressBarBack}>
+          <View style={[styles.progressBarBack,{marginBottom: -10}]}>
             <Text
               style={[
                 stylesT.progressBar,
@@ -274,7 +274,7 @@ const MountainRepeat = () => {
               paddingHorizontal: height > 1000 ? 120 : 35,
             }}
           >
-            <View style={style}>
+            <View style={[style, {marginBottom: height>980? 0: 80}]}>
               <Animated.Image
                 key={currentQuestion?.id}
                 source={currentQuestion?.img}
@@ -394,7 +394,7 @@ const MountainRepeat = () => {
               answerStatus === null ? (
                 <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: 75 }}>
                   <Pressable
                     onPress={() =>
                       navigation.navigate("MountainResults", {
@@ -404,7 +404,7 @@ const MountainRepeat = () => {
                     }
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
+                      { position: "absolute", bottom: 50, right: 180 },
                     ]}
                   >
                     <Text
@@ -416,7 +416,7 @@ const MountainRepeat = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -448,7 +448,7 @@ const MountainRepeat = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >

@@ -25,7 +25,7 @@ const GeneralQuizMenu = () => {
         blurRadius={5}
         style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%'}}
       >
-      <View style={{ gap: 30, marginTop: -30 }}>
+      <View style={{ gap: 30, marginTop: -70 }}>
         <Pressable 
            onPressIn={() => setScale1(1.1)}
            onPressOut={() => {
@@ -89,20 +89,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "lightgrey",
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center"
   },
   button: {
-    width: 220,
-    height: 60,
+    width: 200,
+    height: 55,
     borderRadius: 30,
     backgroundColor: "#f5f5f5",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   text: {
     color: "#006f96",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold'
   },
 });

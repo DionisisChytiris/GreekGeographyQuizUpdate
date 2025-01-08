@@ -68,25 +68,18 @@ const Home = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              marginTop: 30,
+              // marginTop: 30,
             }}
           >
-            <Text style={{ color: "white", fontSize: 30 }}>Γεωγραφία</Text>
-            <Text style={{ color: "white", fontSize: 26 }}>της</Text>
-            <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text>
-            {/* <Text style={{ color: "white", fontSize: 30 }}>Ελλάδας</Text> */}
+            <Text style={{ color: "white", fontSize: 28 }}>Γεωγραφία</Text>
+            <Text style={{ color: "white", fontSize: 24 }}>της</Text>
+            <Text style={{ color: "white", fontSize: 28 }}>Ελλάδας</Text>
           </View>
         </Animated.View>
 
         <Pressable
-          // onPress={() => navigation.navigate("Introduction")}
           onPressIn={() => setColor("purple")}
           onPressOut={() => {
-            // {
-            //   name
-            //     ? navigation.navigate("Quiz")
-            //     : navigation.navigate("Introduction");
-            // }
             {
               name
                 ? navigation.navigate("Quiz1")
@@ -120,7 +113,7 @@ const Home = () => {
             }}
           >
             <Text
-              style={{ color: "#006f96", fontSize: 16, fontWeight: "bold" }}
+              style={{ color: "#006f96", fontSize: 14, fontWeight: "bold" }}
             >
               Καλώς ήλθες {name}!!!
             </Text>
@@ -137,8 +130,8 @@ const styles = StyleSheet.create({
   },
   button: {
     position: "relative",
-    width: 180,
-    height: 70,
+    width: 160,
+    height: 60,
     borderRadius: 25,
     marginLeft: "auto",
     marginRight: "auto",
@@ -154,8 +147,8 @@ const styles = StyleSheet.create({
   },
   btnText: {
     position: "absolute",
-    bottom: 23,
-    left: 52,
+    bottom: 18,
+    left: 42,
     color: "white",
     // fontWeight: "600",
     fontSize: 20,

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: "10%",
+    paddingHorizontal: "10%"
   },
   progressBarBack: {
     backgroundColor: "white",

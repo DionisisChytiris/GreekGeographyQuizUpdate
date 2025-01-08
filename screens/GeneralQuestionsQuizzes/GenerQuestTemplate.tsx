@@ -207,7 +207,7 @@ const GenerQuestTemplate = (props: any) => {
       <ScrollView bounces={false}>
         <ImageBackground
           source={require("../../assets/MorePhotos/ath.jpg")}
-          style={{ marginTop: height > 1100 ? 100 : null }}
+          style={{ marginTop: height > 1100 ? 100 : null}}
         >
           <View>
             <View style={styles.progressContainerInfo}>
@@ -231,7 +231,7 @@ const GenerQuestTemplate = (props: any) => {
                 }
                 style={{
                   position: "absolute",
-                  top: 32,
+                  top: 20,
                   right: height > 1000 ? 130 : 90,
                 }}
               >
@@ -273,7 +273,7 @@ const GenerQuestTemplate = (props: any) => {
             >
               {/* <View style={{ paddingVertical: 20, paddingHorizontal: height>960? 35: 35 }}> */}
               {/* <View style={style}> */}
-              <View style={style}>
+              <View style={[style, {marginBottom: height>980? 0: 80}]}>
                 <Animated.Image
                   key={currentQuestion?.id}
                   source={currentQuestion?.img}
@@ -398,7 +398,7 @@ const GenerQuestTemplate = (props: any) => {
                 answerStatus === null ? (
                   <View style={{ marginBottom: 40 }} />
                 ) : (
-                  <View style={{ marginBottom: 50 }}>
+                  <View style={{ marginBottom: 75 }}>
                     <Pressable
                       onPress={() =>
                         navigation.navigate(nomoiR, {
@@ -408,7 +408,7 @@ const GenerQuestTemplate = (props: any) => {
                       }
                       style={[
                         nextQueButton,
-                        { position: "absolute", bottom: -15, right: 180 },
+                        { position: "absolute", bottom: 50, right: 180 },
                       ]}
                     >
                       <Text
@@ -424,7 +424,7 @@ const GenerQuestTemplate = (props: any) => {
                     <Pressable
                       style={[
                         nextQueButton,
-                        { position: "absolute", bottom: -15, right: 10 },
+                        { position: "absolute", bottom: 50, right: 10 },
                       ]}
                       onPress={handleModal}
                     >
@@ -445,7 +445,7 @@ const GenerQuestTemplate = (props: any) => {
                 <View style={{ padding: 38 }} />
               ) : (
                 <View>
-                  <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                  <View style={{ flexDirection: "row", marginBottom: 75 }}>
                     <Pressable
                       onPress={() => setIndex(index + 1)}
                       // style={nextQueButton}
@@ -460,7 +460,7 @@ const GenerQuestTemplate = (props: any) => {
                     <Pressable
                       style={[
                         nextQueButton,
-                        { position: "absolute", bottom: -15, right: 10 },
+                        { position: "absolute", bottom: 50, right: 10 },
                       ]}
                       onPress={handleModal}
                     >
@@ -596,10 +596,10 @@ const stylesT = StyleSheet.create({
   timer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 15,
+    marginTop: 5,
     marginRight: -30,
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     backgroundColor: "#b8f5ef",
     borderRadius: 20,
   },
@@ -610,6 +610,7 @@ const stylesT = StyleSheet.create({
     left: 0,
     height: 8,
     right: 0,
+
   },
   image: {
     borderRadius: 10,
@@ -666,8 +667,8 @@ const stylesT = StyleSheet.create({
     height: 7,
     borderRadius: 20,
     justifyContent: "center",
-    marginTop: "8%",
-    marginBottom: -10,
+    marginTop: "5%",
+    marginBottom: -15,
     marginLeft: "auto",
     marginRight: "auto",
   },

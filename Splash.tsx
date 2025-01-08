@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StatusBar } from "react-native";
 import React, { Dispatch, SetStateAction } from "react";
 import LottieView from "lottie-react-native";
 
@@ -18,6 +18,7 @@ const Splash = ({ setIsLoading }: SplashProps): JSX.Element => {
         backgroundColor: "transparent",
       }}
     >
+      <StatusBar hidden={true} />
       {/* <Text>Hello</Text>
         <Text>Hello</Text>
         <Text>Hello</Text> */}

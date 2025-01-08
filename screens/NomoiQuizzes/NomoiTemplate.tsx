@@ -241,7 +241,7 @@ const NomoiTemplate = (props: any) => {
             marginTop: height > 1100 ? 100 : null,
           }}
         >
-          <View style={[styles.containerInfo, { marginTop: 15 }]}>
+          <View style={[styles.containerInfo, { marginTop: 10 }]}>
             <View>{props.goBack}</View>
             <View style={styles.levelBox}>
               <View>{props.star}</View>
@@ -264,7 +264,7 @@ const NomoiTemplate = (props: any) => {
           </View>
           <View></View>
 
-          <View style={[styles.progressContainerInfo, { marginBottom: 25 }]}>
+          <View style={[styles.progressContainerInfo, { marginTop: -10 }]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
@@ -309,7 +309,7 @@ const NomoiTemplate = (props: any) => {
           </View>
 
           {/* Progress Bar */}
-          <View style={{ marginTop: -20 }}>
+          <View style={{ marginTop: 0 }}>
             <View style={styles.progressBarBack}>
               <Text
                 style={{
@@ -332,7 +332,7 @@ const NomoiTemplate = (props: any) => {
               paddingHorizontal: height > 1000 ? 120 : 35,
             }}
           >
-            <View style={style}>
+            <View style={[style, {marginBottom: height>980? 0: 80}]}>
               {/* <View style={style}> */}
               <Animated.Image
                 key={currentQuestion?.id}
@@ -469,7 +469,7 @@ const NomoiTemplate = (props: any) => {
               answerStatus === null ? (
                 <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: 75}}>
                   <Pressable
                     onPress={() =>
                       navigation.navigate(nomoiR, {
@@ -479,7 +479,7 @@ const NomoiTemplate = (props: any) => {
                     }
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
+                      { position: "absolute", bottom: 50, right: 180 },
                     ]}
                   >
                     <Text
@@ -491,7 +491,7 @@ const NomoiTemplate = (props: any) => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -525,7 +525,7 @@ const NomoiTemplate = (props: any) => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >

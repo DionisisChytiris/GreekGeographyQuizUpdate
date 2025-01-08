@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, Pressable } from "react-native";
+import { View, ScrollView, Text, Pressable} from "react-native";
 import React from "react";
 import questions2 from "../../data/NomoiPoleis/questions2";
 import { Entypo } from "@expo/vector-icons";

@@ -54,7 +54,7 @@ const Settings = () => {
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <ScrollView bounces={false}>
         <ImageBackground
           source={require("../assets/romaikiAgora.jpg")}
@@ -65,13 +65,13 @@ const Settings = () => {
             // justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            height: height> 900? 950: 800,
+            height: height> 900? 960: 820,
           }}
         >
           <Pressable
             style={{
               position: "absolute",
-              top: 50,
+              top: 30,
               right: 30,
               // padding: 30,
             }}
@@ -81,7 +81,7 @@ const Settings = () => {
           >
             <AntDesign name="closecircle" size={34} color="white" />
           </Pressable>
-          <View style={{ marginTop: 180, gap: 20 }}>
+          <View style={{ marginTop: 150, gap: 20 }}>
             <Pressable
           
               onPressIn={() => setScale1(1.1)}
@@ -175,10 +175,10 @@ const Settings = () => {
                   source={require("../assets/WorldTrivia.png")}
                   resizeMode="cover"
                   style={{
-                    width: 80,
-                    height: 80,
+                    width: 70,
+                    height: 70,
                     borderRadius: 20,
-                    marginTop: 30,
+                    marginTop: 20,
                     transform: [{ scale: scale4 }],
                   }}
                 />
@@ -186,9 +186,15 @@ const Settings = () => {
               <Text style={styles.text3}>World Wise Trivia</Text>
             </View>
           </View>
+          {/* <Pressable
+            onPress={()=>navigation.navigate("DragDrop")}
+            style={{position: 'absolute',bottom: 50, right: 20, backgroundColor: 'green', padding: 10, borderRadius: 10}}
+          >
+            <Text style={{color: 'white'}}>Drag & Drop</Text>
+          </Pressable> */}
         </ImageBackground>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -213,17 +219,17 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "bold",
   },
   text1: {
     color: "white",
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
   },
   text2: {
     color: "#dfebf7",
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
   },
   text3: {

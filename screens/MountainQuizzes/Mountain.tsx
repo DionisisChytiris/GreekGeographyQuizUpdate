@@ -217,7 +217,7 @@ const Mountain = () => {
           source={require("../../assets/meteora.jpg")}
           style={{ marginTop: height > 1100 ? 100 : null }}
         >
-          <View style={styles.progressContainerInfo}>
+          <View style={[styles.progressContainerInfo,{marginTop: -5}]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
@@ -262,7 +262,7 @@ const Mountain = () => {
           </View>
 
           {/* Progress Bar */}
-          <View style={styles.progressBarBack}>
+          <View style={[styles.progressBarBack,{marginBottom: -10}]}>
             <Text
               style={[
                 stylesT.progressBar,
@@ -277,7 +277,7 @@ const Mountain = () => {
               paddingHorizontal: height > 1000 ? 120 : 35,
             }}
           >
-            <View style={style}>
+            <View style={[style, {marginBottom: height>980? 0: 80}]}>
               <Animated.Image
                 key={currentQuestion?.id}
                 source={currentQuestion?.img}
@@ -293,8 +293,7 @@ const Mountain = () => {
                       },
                     ],
                   },
-                ]}
-                
+                ]}               
               />
               <View style={{ width: "100%", overflow: "hidden" }}>
                 <Animated.View
@@ -398,7 +397,7 @@ const Mountain = () => {
               answerStatus === null ? (
                 <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: 75 }}>
                   <Pressable
                     onPress={() =>
                       navigation.navigate("MountainResults", {
@@ -408,7 +407,7 @@ const Mountain = () => {
                     }
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
+                      { position: "absolute", bottom: 50, right: 180 },
                     ]}
                   >
                     <Text
@@ -420,7 +419,7 @@ const Mountain = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -437,7 +436,7 @@ const Mountain = () => {
               <View style={{ padding: 38 }} />
             ) : (
               <View>
-                <View style={{ flexDirection: "row", marginBottom: 65 }}>
+                <View style={{ flexDirection: "row", marginBottom: 75 }}>
                   <Pressable
                     onPress={() => setIndex(index + 1)}
                     // style={nextQueButton}
@@ -452,7 +451,7 @@ const Mountain = () => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -643,7 +642,7 @@ const stylesT = StyleSheet.create({
     height: 7,
     borderRadius: 20,
     justifyContent: "center",
-    marginTop: "8%",
+    marginTop: "5%",
     marginBottom: -10,
     marginLeft: "auto",
     marginRight: "auto",

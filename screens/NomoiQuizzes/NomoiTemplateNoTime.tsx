@@ -239,7 +239,7 @@ const NomoiTemplateNoTime = (props: any) => {
             marginTop: height > 1100 ? 100 : null,
           }}
         >
-          <View style={[styles.containerInfo, { marginTop: 15 }]}>
+          <View style={[styles.containerInfo, { marginTop: 5 }]}>
             <View>{props.goBack}</View>
             <View style={styles.levelBox}>
               <View>{props.star}</View>
@@ -261,7 +261,7 @@ const NomoiTemplateNoTime = (props: any) => {
           </View>
           <View></View>
 
-          <View style={[styles.progressContainerInfo, { marginBottom: 25 }]}>
+          <View style={[styles.progressContainerInfo, { marginTop: -15 }]}>
             <View>
               <Text style={{ color: "white", fontSize: 13 }}>
                 {index + 1} / {totalQuestions}
@@ -329,7 +329,7 @@ const NomoiTemplateNoTime = (props: any) => {
               paddingHorizontal: height > 1000 ? 120 : 35,
             }}
           >
-            <View style={style}>
+            <View style={[style, {marginBottom: height>980? 0: 80}]}>
               {/* <View style={style}> */}
               <Animated.Image
                 key={currentQuestion?.id}
@@ -467,7 +467,7 @@ const NomoiTemplateNoTime = (props: any) => {
               answerStatus === null ? (
                 <View style={{ marginBottom: 40 }} />
               ) : (
-                <View style={{ marginBottom: 50 }}>
+                <View style={{ marginBottom: 75 }}>
                   <Pressable
                     onPress={() =>
                       navigation.navigate(nomoiR, {
@@ -477,7 +477,7 @@ const NomoiTemplateNoTime = (props: any) => {
                     }
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 180 },
+                      { position: "absolute", bottom: 50, right: 180 },
                     ]}
                   >
                     <Text
@@ -489,7 +489,7 @@ const NomoiTemplateNoTime = (props: any) => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
@@ -523,7 +523,7 @@ const NomoiTemplateNoTime = (props: any) => {
                   <Pressable
                     style={[
                       nextQueButton,
-                      { position: "absolute", bottom: -15, right: 10 },
+                      { position: "absolute", bottom: 50, right: 10 },
                     ]}
                     onPress={handleModal}
                   >
