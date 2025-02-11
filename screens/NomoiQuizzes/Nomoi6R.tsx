@@ -12,6 +12,7 @@ const Nomoi6R = () => {
           questions={questions6}
           nomoiResults={"Nomoi6Final"}
           nomoiLoseScreen={'NomoiLoseScreen6R'}
+          nomoiLoseScreenTime={'LoseScreenREndTime'}
           num={6}
           star={
             <View style={{ flexDirection: "row" }}>

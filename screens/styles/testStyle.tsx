@@ -67,8 +67,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 5, height: 8 },
     shadowRadius: 20,
     elevation: 10,
+    height: '75%'
   },
   quizContainer1: {
+    // height: '75%',
     flex: 1,
     justifyContent: "space-between",
     marginTop: 10,
@@ -82,6 +84,7 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
   quizContainer2: {
+    // height: '75%',
     flex: 1,
     justifyContent: "space-between",
     marginTop: 10,
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     paddingHorizontal: 10,
-    fontSize: height>960? height>1100? 24:20: 16,
+    fontSize: height>960? height>1100? 24:19: 16,
     fontWeight: "bold",
     height: 70
   },

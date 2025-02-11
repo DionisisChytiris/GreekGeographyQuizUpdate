@@ -5,7 +5,9 @@ import {
   Text,
   Pressable,
   ImageBackground,
-  Animated
+  Animated,
+  Platform,
+  StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -49,7 +51,6 @@ const Home = () => {
       useNativeDriver: true,
     }).start();
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -119,6 +120,20 @@ const Home = () => {
             </Text>
           </View>
         ) : null}
+
+        {/* <Pressable
+          onPress={() => navigation.navigate("MapQuiz")}
+          style={{
+            position: "absolute",
+            bottom: 100,
+            right: 20,
+            backgroundColor: "green",
+            padding: 10,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: "white" }}>Map Quiz</Text>
+        </Pressable> */}
       </ImageBackground>
     </View>
   );
@@ -126,7 +141,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   button: {
     position: "relative",
@@ -160,7 +175,7 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   slider: {
-    width: '80%',
+    width: "80%",
     marginBottom: 20,
   },
 });

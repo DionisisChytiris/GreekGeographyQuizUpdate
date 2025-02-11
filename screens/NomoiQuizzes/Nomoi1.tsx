@@ -7,7 +7,7 @@ import NomoiTemplate from "./NomoiTemplate";
 const Nomoi1 = () => {
   return (
     <ScrollView bounces={false}>
-      <View style={{ backgroundColor: "#005ce6" }}>
+      <View>
         <NomoiTemplate
           questions={questions1}
           nomoiResults={"NomoiResult1"}

@@ -48,7 +48,7 @@
       }
     },
     "androidStatusBar": {
-      "backgroundColor": "#738297",
+      "backgroundColor": "transparent",
       "translucent": true
     },
     "runtimeVersion": {

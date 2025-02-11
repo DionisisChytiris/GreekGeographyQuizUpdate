@@ -22,44 +22,12 @@ const Nomoi3R = () => {
     <SafeAreaView>
     <ScrollView bounces={false}>
       <View>
-        <NomoiTemplateNoTime
+        <NomoiTemplate
           questions={questions3}
           nomoiResults={"NomoiResult3"}
           nomoiLoseScreen={'NomoiLoseScreen3R'}
+          nomoiLoseScreenTime={'LoseScreenREndTime'}
           num={3}
-          goBack={
-            <View
-              style={{
-                width: "100%",
-                height: 45,
-                paddingBottom: 20,
-                paddingLeft: 20,
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                // justifyContent: "center",
-              }}
-            >
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("Quiz1");
-                }}
-                style={{paddingLeft: 10}}
-              >
-                <AntDesign name="arrowleft" size={24} color="white" />
-              </Pressable>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "500",
-                  color: "white",
-                  paddingLeft: 40,
-                }}
-              >
-                Νομοί / Πόλεις
-              </Text>
-            </View>
-          }
           star={
             <View style={{ flexDirection: "row" }}>
               <Entypo name="star" size={16} color="gold" />

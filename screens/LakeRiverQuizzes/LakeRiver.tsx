@@ -3,26 +3,32 @@ import {
   View,
   Text,
   Pressable,
-  Image,
   ScrollView,
+  Image,
+  ActivityIndicator,
   ImageBackground,
   StyleSheet,
   Vibration,
-  Alert,
   Animated,
   Dimensions,
+  Platform,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/testStyle";
+import { stylesM } from "../styles/QuizStylesheet";
 import questions from "../../data/LakeRiver/questions";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
+import TimerHeartSection from "../components/TimerHeartSection";
+import ProgressBar from "../components/ProgressBar";
+import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
 
 const { height } = Dimensions.get("window");
 
@@ -36,11 +42,13 @@ const LakeRiver = () => {
   const [index, setIndex] = useState(0);
   const [answerStatus, setAnswerStatus] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<any>([]);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(
+    null
+  );
   const [counter, setCounter] = useState<any>(15);
   const [style, setStyle] = useState<any>(styles.quizContainer);
   const [nextQueButton, setNextQueButton] = useState<any>(
-    stylesT.nextQueButton
+    stylesM.nextQueButton
   );
   const [btnBackground, setBtnBackground] = useState("#2E86C1");
   let interval: any = null;
@@ -48,23 +56,25 @@ const LakeRiver = () => {
   const currentQuestion = data[index];
   const bottomSheetModalRef = useRef<any>(null);
   const snapPoints = ["50%"];
-  const [heart, setHeart] = useState<any>(["❤️", "❤️", "❤️"]);
+  // const [heart, setHeart] = useState<any>(["❤️", "❤️", "❤️"]);
+  const [heart, setHeart] = useState<any>(3);
+  const [correctAnswer, setCorrectAnswer] = useState(0);
   const [cor, setCor] = useState(0);
 
   const removeHeart = () => {
-    const newArray = heart.length - 1;
-    heart.pop(newArray);
-    setHeart(heart);
-    {
-      newArray === 0 && navigation.navigate("LakeRiverLoseScreenR");
-    }
+    setHeart((prevHeart: number) => prevHeart - 1);
   };
 
+  useEffect(() => {
+    if (heart === 0) {
+      navigation.navigate("LakeRiverLoseScreenR");
+    }
+  }, [heart, navigation]);
+
   const addHeart = () => {
-    if (cor === 2 && heart.length < 5) {
-      heart.push("❤️");
-      setCor(0);
-      setHeart(heart);
+    if (correctAnswer === 2 && heart < 5) {
+      setCorrectAnswer(0);
+      setHeart((prevHeart: number) => prevHeart + 1);
     }
   };
 
@@ -104,18 +114,19 @@ const LakeRiver = () => {
         setPoints((points) => points + 1);
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
-        setNextQueButton(stylesT.nextQueButton1);
-        CorrectPlaySound();
-        setCor((cor) => cor + 1);
-        addHeart();
+        setNextQueButton(stylesM.nextQueButton1);
+        // CorrectPlaySound();
+        setCorrectAnswer((cor) => cor + 1);
+        // addHeart();
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
-        setNextQueButton(stylesT.nextQueButton2);
-        WrongPlaySound();
-        removeHeart();
-        Vibration.vibrate();
+        setNextQueButton(stylesM.nextQueButton2);
+        setShowCorrectAnswer(false);
+        // WrongPlaySound();
+        // removeHeart();
+        // Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
       }
     }
@@ -124,7 +135,7 @@ const LakeRiver = () => {
   useEffect(() => {
     setSelectedAnswerIndex(null);
     setStyle(styles.quizContainer);
-    setNextQueButton(stylesT.nextQueButton);
+    setNextQueButton(stylesM.nextQueButton);
     setAnswerStatus(null);
   }, [index]);
 
@@ -199,131 +210,145 @@ const LakeRiver = () => {
     }, 300);
   }, [index, answerAnims]);
 
+  const [showLoading, setShowLoading] = useState(false);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const [countdown, setCountdown] = useState(3);
+  const [isCountdownFinished, setIsCountdownFinished] =
+    useState<boolean>(false);
+
+  const handleAnswerSelection = (index: number) => {
+    if (selectedAnswerIndex === null) {
+      setSelectedAnswerIndex(index);
+      setShowLoading(true); // Show loading spinner
+
+      let count = 3;
+      setCountdown(count);
+
+      const interval = setInterval(() => {
+        count -= 1;
+        setCountdown(count);
+        if (count === 0) {
+          clearInterval(interval);
+          setShowLoading(false); // Hide loading spinner
+          setShowCorrectAnswer(true); // Show correct answer
+          setIsCountdownFinished(true);
+        }
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    if (isCountdownFinished) {
+      if (selectedAnswerIndex === currentQuestion?.correctAnswerIndex) {
+        CorrectPlaySound();
+        addHeart();
+      } else {
+        WrongPlaySound();
+        Vibration.vibrate();
+        removeHeart();
+      }
+    }
+  }, [isCountdownFinished, selectedAnswerIndex, currentQuestion]);
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
-        <ImageBackground
+        {/* <ImageBackground
           source={require("../../assets/MorePhotos/lake2.jpg")}
-          style={{ marginTop: height > 1100 ? 100 : null }}
-        >
-          <View style={styles.progressContainerInfo}>
-            <View>
-              <Text style={{ color: "white", fontSize: 13 }}>
-                {index + 1} / {totalQuestions}
-              </Text>
-            </View>
+          resizeMode="cover"
+          style={{ height: "100%" }}
+        > */}
 
-            <View>
-              <Text style={{ color: "red", fontSize: 15 }}>{heart}</Text>
-            </View>
+        {/* Section 1 */}
+        <View style={{ paddingTop: Platform.OS == "ios" ? 45 : 30 }} />
 
-            <Pressable
-              onPress={() =>
-                Alert.alert(
-                  "",
-                  "Aπάντησε σε 3 συνεχόμενες ερωτήσεις σωστά για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.",
-                  [{ text: "Ενταξει" }]
-                )
-              }
-              style={{
-                position: "absolute",
-                top: 32,
-                right: height > 1000 ? 130 : 90,
-              }}
-              // style={styles.btnInfoHeart}
-            >
-              <Ionicons
-                name="information-circle-sharp"
-                size={24}
-                color="white"
-              />
-            </Pressable>
+        {/* Timer Heart Section */}
+        <TimerHeartSection
+          navigation={navigation}
+          quizName="Λίμνες/Ποτάμια"
+          index={index}
+          heart={heart}
+          totalQuestions={totalQuestions}
+          counter={counter}
+        />
 
-            <View style={stylesT.timer}>
-              <Text
-                style={{
-                  ...styles.counterNumber,
-                  fontSize: 30,
-                  color: "#2E86C1",
-                }}
-              >
-                {counter}
-              </Text>
-            </View>
-          </View>
-
-          {/* Progress Bar */}
-          <View style={stylesT.progressBarBack}>
-            <View
+        {/* Section 2 */}
+        <View style={stylesM.section2Container}>
+          <View style={{}}>
+            {/* Image Subsection */}
+            <Animated.Image
+              key={currentQuestion?.id}
+              source={currentQuestion?.img}
               style={[
-                stylesT.progressBar,
-                { width: `${Math.floor((index1 / totalQuestions) * 100)}%` },
+                stylesM.image,
+                {
+                  transform: [
+                    {
+                      scale: scaleAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 1],
+                      }),
+                    },
+                  ],
+                },
               ]}
             />
-          </View>
+            {/* Question Subsection */}
+            <View
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                marginTop: height > 900 ? 20 : 0,
+              }}
+            >
+              <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
+                <Text style={stylesM.question}>
+                  {currentQuestion?.question}
+                </Text>
+              </Animated.View>
+            </View>
 
-          <View
-            style={{
-              paddingVertical: 20,
-              paddingHorizontal: height > 1000 ? 120 : 35,
-            }}
-          >
-            <View style={[style, {marginBottom: height>980? 0: 80}]}>
-              <View>
-                <Animated.Image
-                  key={currentQuestion?.id}
-                  source={currentQuestion?.img}
-                  style={[
-                    stylesT.image,
-                    {
-                      transform: [
-                        {
-                          scale: scaleAnim.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [0, 1],
-                          }),
-                        },
-                      ],
-                    },
-                  ]}
-                />
-                <View style={{ width: "100%", overflow: "hidden" }}>
-                  <Animated.View
-                    style={{ transform: [{ translateX: slideAnim }] }}
-                  >
-                    <Text style={styles.question}>
-                      {currentQuestion?.question}
-                    </Text>
-                  </Animated.View>
+            {/* Answers Subsection */}
+            <View
+              style={[
+                stylesM.answersContainer,
+                {
+                  height: 260,
+                  marginTop: height > 900 ? (height > 900 ? 70 : 70) : 30,
+                },
+              ]}
+            >
+              {showLoading ? (
+                <View style={stylesM.ActivityIndicatorBox}>
+                  {/* Custom size for ActivityIndicator */}
+                  <Text>
+                    <ActivityIndicator size={80} color="#ffffff" />{" "}
+                  </Text>
+                  {/* 80px size */}
+                  <Text style={stylesM.ActivityIndText}>{countdown}</Text>
                 </View>
-                <View style={styles.answersContainer}>
-                  {currentQuestion?.options.map((item: any, index: any) => (
-                    <Pressable
-                      key={index}
-                      onPress={() => {
-                        selectedAnswerIndex === null &&
-                          setSelectedAnswerIndex(index);
-                        setCounter(false);
-                      }}
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "47%",
-                        height: height > 960 ? 120 : 90,
-                        borderRadius: 6,
-                        margin: "1.5%",
-                      }}
-                    >
+              ) : showCorrectAnswer ? (
+                // Show correct answer after loading
+                currentQuestion?.options.map((item: any, index: any) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      selectedAnswerIndex === null &&
+                        setSelectedAnswerIndex(index);
+                      setCounter(false);
+                    }}
+                    style={stylesM.answerButton}
+                  >
+                    <View>
                       <Animated.View
                         style={[
                           selectedAnswerIndex === index &&
                           index === currentQuestion.correctAnswerIndex
-                            ? stylesT.correctAnswer
+                            ? stylesM.correctAnswer
                             : selectedAnswerIndex !== null &&
                               selectedAnswerIndex === index
-                            ? stylesT.wrongAnswer
-                            : stylesT.borderAnswer,
+                            ? stylesM.wrongAnswer
+                            : stylesM.borderAnswer,
                           {
                             opacity: answerAnims[index],
                             transform: [
@@ -337,477 +362,323 @@ const LakeRiver = () => {
                           },
                         ]}
                       >
-                        <Text style={stylesT.textAnswer}>{item.answer}</Text>
-                        {selectedAnswerIndex === index &&
-                        index === currentQuestion.correctAnswerIndex ? (
-                          <View
-                            style={{
-                              position: "absolute",
-                              width: "100%",
-                              height: "70%",
-                              top: 0,
-                              right: -30,
-                            }}
-                          >
-                            <LottieView
-                              style={{ width: "100%", height: "100%" }}
-                              source={require("../../assets/LottieAnimations/Success.json")}
-                              autoPlay
-                              loop={false}
-                            />
-                          </View>
-                        ) : null}
-                        {selectedAnswerIndex === index &&
-                        index !== currentQuestion.correctAnswerIndex ? (
-                          <View
-                            style={{
-                              position: "absolute",
-                              width: "100%",
-                              height: "70%",
-                              top: 0,
-                              right: -30,
-                            }}
-                          >
-                            <LottieView
-                              style={{ width: "100%", height: "100%" }}
-                              source={require("../../assets/LottieAnimations/Fail.json")}
-                              autoPlay
-                              loop={false}
-                            />
-                          </View>
-                        ) : null}
+                        <Text style={stylesM.textAnswer}>{item.answer}</Text>
                       </Animated.View>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
+                      {selectedAnswerIndex === index &&
+                      index === currentQuestion.correctAnswerIndex ? (
+                        <View style={stylesM.lottieCorrect}>
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Success.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
+                      {selectedAnswerIndex === index &&
+                      index !== currentQuestion.correctAnswerIndex ? (
+                        <View style={stylesM.lottieWrong}>
+                          <LottieView
+                            style={{ width: "100%", height: "100%" }}
+                            source={require("../../assets/LottieAnimations/Fail.json")}
+                            autoPlay
+                            loop={false}
+                          />
+                        </View>
+                      ) : null}
+                    </View>
+                  </TouchableOpacity>
+                ))
+              ) : (
+                // Show normal answer buttons if no answer has been selected
+                currentQuestion?.options.map((item: any, index: any) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => (
+                      handleAnswerSelection(index), setCounter(false)
+                    )}
+                    style={stylesM.answerButton}
+                  >
+                    <Animated.View
+                      style={[
+                        stylesM.borderAnswer,
+                        {
+                          opacity: answerAnims[index],
+                          transform: [
+                            {
+                              scale: answerAnims[index].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1],
+                              }),
+                            },
+                          ],
+                        },
+                      ]}
+                    >
+                      <Text style={stylesM.textAnswer}>{item.answer}</Text>
+                    </Animated.View>
+                  </TouchableOpacity>
+                ))
+              )}
+              {/* Progress Bar */}
+              {!showCorrectAnswer && (
+                <ProgressBar index1={index1} totalQuestions={totalQuestions} />
+              )}
             </View>
           </View>
+        </View>
 
-          <View style={styles.feedBackArea}>
-            {index + 1 >= data.length ? (
-              answerStatus === null ? (
-                <View style={{ marginBottom: 40 }} />
-              ) : (
-                <View style={{ marginBottom: 75 }}>
-                  <Pressable
-                    onPress={() =>
-                      navigation.navigate("LakeRiverResults", {
-                        points: points,
-                        data: data,
-                      })
-                    }
-                    style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: 50, right: 180 },
-                    ]}
+        {/* Section 3 - FeedBack Area */}
+        {!showCorrectAnswer ? null : (
+        <View style={styles.feedBackArea}>
+          {index + 1 >= data.length ? (
+            answerStatus === null ? null : (
+              <View style={{ marginBottom: 75 }}>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("LakeRiverResults", {
+                      points: points,
+                      data: data,
+                    })
+                  }
+                  style={nextQueButton}
+                >
+                  <Text
+                    style={{ color: "white", padding: 10, borderRadius: 10 }}
                   >
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Αποτελέσματα
-                    </Text>
-                  </Pressable>
-                  <Pressable
-                    style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: 50, right: 10 },
-                    ]}
-                    onPress={handleModal}
+                    Αποτελέσματα
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={nextQueButton}
+                  onPress={handleModal}
+                >
+                  <Text
+                    style={{ color: "white", padding: 10, borderRadius: 10 }}
                   >
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Απάντηση
-                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
-                    </Text>
-                  </Pressable>
-                </View>
-              )
-            ) : answerStatus === null ? (
-              <View style={{ padding: 38 }} />
-            ) : (
-              <View>
-                <View style={{ flexDirection: "row", marginBottom: 65 }}>
-                  <Pressable
-                    onPress={() => setIndex(index + 1)}
-                    // style={nextQueButton}
-                    style={{
-                      position: "absolute",
-                      bottom: height > 960 ? 350 : 260,
-                      right: -10,
-                    }}
-                  >
-                    <AntDesign name="rightcircle" size={50} color="white" />
-                  </Pressable>
-                  <Pressable
-                    style={[
-                      nextQueButton,
-                      { position: "absolute", bottom: 50, right: 10 },
-                    ]}
-                    onPress={handleModal}
-                  >
-                    <Text
-                      style={{ color: "white", padding: 10, borderRadius: 10 }}
-                    >
-                      Απάντηση
-                      {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
-                    </Text>
-                  </Pressable>
-                </View>
+                    Απάντηση
+                  </Text>
+                </Pressable>
               </View>
-            )}
-            <BottomSheetModal
-              ref={bottomSheetModalRef}
-              index={0}
-              snapPoints={snapPoints}
-              backgroundStyle={{ borderRadius: 30 }}
-            >
-              <View style={{ flex: 1, alignItems: "center" }}>
-                {answerStatus === null ? null : (
-                  <View
-                    style={
-                      answerStatus === null ? null : { alignItems: "center" }
-                    }
+            )
+          ) : answerStatus === null ? null : (
+            <View>
+                <Pressable
+                  onPress={() => {setIndex(index + 1); setShowCorrectAnswer(false);
+                    setIsCountdownFinished(false);}}
+                  // style={nextQueButton}
+                  style={{
+                    position: "absolute",
+                     bottom: Platform.OS ==="android"? height > 800 ? height / 2.5: height / 2.2 : height/2.3,
+                    right: -10,
+                  }}
+                >
+                  <AntDesign name="rightcircle" size={50} color="white" />
+                </Pressable>
+                <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                <Pressable
+                  style={nextQueButton}
+                  onPress={handleModal}
+                >
+                  <Text
+                    style={{ color: "white", padding: 10, borderRadius: 10 }}
                   >
-                    {!!answerStatus ? (
-                      <View style={[stylesT.BtmModalView, { width: "100%" }]}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{
-                              color: "green",
-                              fontSize: 20,
-                              padding: 10,
-                            }}
-                          >
-                            Σωστή Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/thumbUp.jpg")}
-                            resizeMode="cover"
-                            style={{
-                              // marginBottom: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
-
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    ) : (
-                      <View style={stylesT.BtmModalView}>
-                        <View style={stylesT.btmMdlText}>
-                          <Text
-                            style={{ color: "red", fontSize: 20, padding: 10 }}
-                          >
-                            Λάθος Απάντηση
-                          </Text>
-                          <Image
-                            source={require("../../assets/sadFace.jpg")}
-                            resizeMode="cover"
-                            style={{
-                              marginVertical: 20,
-                              width: 50,
-                              height: 50,
-                            }}
-                          />
-                        </View>
-                        <View style={stylesT.btmMdlView}>
-                          <Text style={{ color: "#22c200" }}>
-                            {currentQuestion?.result1}{" "}
-                          </Text>
-                          <Text style={{ color: "black" }}>
-                            {currentQuestion?.result2}{" "}
-                          </Text>
-                          <Text style={{ color: "#014acf" }}>
-                            {currentQuestion?.result3}{" "}
-                          </Text>
-                          <Text style={{ color: "magenta" }}>
-                            {currentQuestion?.result4}{" "}
-                          </Text>
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                )}
+                    Απάντηση
+                    {/* <Entypo name="info-with-circle" size={28} color="white" /> */}
+                  </Text>
+                </Pressable>
               </View>
-            </BottomSheetModal>
-          </View>
-        </ImageBackground>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
-          backgroundStyle={{ borderRadius: 30 }}
-        >
-          <View style={{ flex: 1, alignItems: "center" }}>
-            {answerStatus === null ? null : (
-              <View
-                style={answerStatus === null ? null : { alignItems: "center" }}
-              >
-                {!!answerStatus ? (
-                  <View style={[stylesT.BtmModalView, { width: "100%" }]}>
-                    <View style={stylesT.btmMdlText}>
-                      <Text
-                        style={{ color: "green", fontSize: 20, padding: 10 }}
-                      >
-                        Σωστή Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/thumbUp.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          // marginBottom: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                    </View>
-
-                    <View style={stylesT.btmMdlView}>
-                      <Text style={{ color: "#22c200" }}>
-                        {currentQuestion?.result1}{" "}
-                      </Text>
-                      <Text style={{ color: "black" }}>
-                        {currentQuestion?.result2}{" "}
-                      </Text>
-                      <Text style={{ color: "#014acf" }}>
-                        {currentQuestion?.result3}{" "}
-                      </Text>
-                      <Text style={{ color: "magenta" }}>
-                        {currentQuestion?.result4}{" "}
-                      </Text>
-                    </View>
-                  </View>
-                ) : (
-                  <View style={stylesT.BtmModalView}>
-                    <View style={stylesT.btmMdlText}>
-                      <Text style={{ color: "red", fontSize: 20, padding: 10 }}>
-                        Λάθος Απάντηση
-                      </Text>
-                      <Image
-                        source={require("../../assets/sadFace.jpg")}
-                        resizeMode="cover"
-                        style={{
-                          marginVertical: 20,
-                          width: 50,
-                          height: 50,
-                        }}
-                      />
-                    </View>
-                    <View style={stylesT.btmMdlView}>
-                      <Text style={{ color: "#22c200" }}>
-                        {currentQuestion?.result1}{" "}
-                      </Text>
-                      <Text style={{ color: "black" }}>
-                        {currentQuestion?.result2}{" "}
-                      </Text>
-                      <Text style={{ color: "#014acf" }}>
-                        {currentQuestion?.result3}{" "}
-                      </Text>
-                      <Text style={{ color: "magenta" }}>
-                        {currentQuestion?.result4}{" "}
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              </View>
-            )}
-          </View>
-        </BottomSheetModal>
+            </View>
+          )}
+          {/* FeedBackBottomSheet */}
+          <FeedbackBottomSheet
+            bottomSheetModalRef={bottomSheetModalRef}
+            snapPoints={snapPoints}
+            answerStatus={answerStatus}
+            currentQuestion={currentQuestion}
+          />
+        </View>
+        )}
+        {/* </ImageBackground> */}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default LakeRiver;
 
-const stylesT = StyleSheet.create({
-  textTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "white",
-    textAlign: "center",
-    paddingTop: 30,
-  },
-  timer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 15,
-    marginRight: -30,
-    width: 60,
-    height: 60,
-    backgroundColor: "#b8f5ef",
-    borderRadius: 20,
-  },
-  progressBar: {
-    backgroundColor: "#0059DF",
-    borderRadius: 12,
-    position: "absolute",
-    left: 0,
-    height: 8,
-    right: 0,
-  },
-  image: {
-    borderRadius: 10,
-    marginBottom: 5,
-    width: height > 1000 ? "90%" : "100%",
-    margin: "auto",
-    marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
-    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
-  },
-  textAnswer: {
-    marginHorizontal: "auto",
-    fontWeight: "600",
-    color: "white",
-    fontSize: height > 960 ? 20 : 14,
-  },
-  button0: {
-    position: "relative",
-    width: 180,
-    height: 40,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 0,
-    marginBottom: 40,
-  },
-  button1: {
-    position: "absolute",
-    opacity: 0.4,
-    backgroundColor: "#2E86C1",
-    width: "100%",
-    height: "100%",
-    borderRadius: 25,
-  },
-  btnText: {
-    position: "absolute",
-    bottom: 11,
-    left: 79,
-    color: "white",
-    fontWeight: "600",
-    fontSize: 20,
-  },
-  progressContainerInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: "10%",
-  },
-  progressBarBack: {
-    backgroundColor: "white",
-    // backgroundColor: "green",
-    width: height > 960 ? "60%" : "80%",
-    flexDirection: "row",
-    alignItems: "center",
-    height: 7,
-    borderRadius: 20,
-    justifyContent: "center",
-    marginTop: "5%",
-    marginBottom: -10,
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  BtmModalView: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "white",
-    width: "95%",
-  },
-  btmMdlView: {
-    paddingBottom: 20,
-    paddingHorizontal: 15,
-    gap: 10,
-    backgroundColor: "#f5f5f5",
-    height: 300,
-    borderRadius: 20,
-    padding: 10,
-  },
-  btmMdlText: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 60,
-  },
-  infoBtn: {
-    position: "absolute",
-    bottom: -15,
-    right: -10,
-    backgroundColor: "transparent",
-    width: 80,
-    height: 80,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  nextQueButton: {
-    position: "absolute",
-    bottom: -15,
-    right: 10,
-    backgroundColor: "magenta",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-  },
-  nextQueButton1: {
-    // position: "absolute",
-    // bottom: -15,
-    // right: 10,
-    backgroundColor: "green",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-  },
-  nextQueButton2: {
-    backgroundColor: "#dd0530",
-    // position: "absolute",
-    // bottom: -15,
-    // right: 10,
-    // backgroundColor: "magenta",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-  },
-  correctAnswer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "green",
-    width: "100%",
-    height: height > 960 ? 120 : 90,
-    borderRadius: 6,
-    margin: "1.5%",
-  },
-  wrongAnswer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#dd0530",
-    width: "100%",
-    height: height > 960 ? 120 : 90,
-    borderRadius: 6,
-    margin: "1.5%",
-  },
-  borderAnswer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#006cfa",
-    width: "100%",
-    height: height > 960 ? 120 : 90,
-    borderRadius: 6,
-    margin: "1.5%",
-  },
-});
+// const stylesM = StyleSheet.create({
+//   textTitle: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     color: "white",
+//     textAlign: "center",
+//     paddingTop: 30,
+//   },
+//   timer: {
+//     alignItems: "center",
+//     justifyContent: "center",
+//     marginTop: 15,
+//     marginRight: -30,
+//     width: 60,
+//     height: 60,
+//     backgroundColor: "#b8f5ef",
+//     borderRadius: 20,
+//   },
+//   progressBar: {
+//     backgroundColor: "#0059DF",
+//     borderRadius: 12,
+//     position: "absolute",
+//     left: 0,
+//     height: 8,
+//     right: 0,
+//   },
+//   image: {
+//     borderRadius: 10,
+//     marginBottom: 5,
+//     width: "100%",
+//     margin: "auto",
+//     marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
+//     height: height > 960 ? (height > 1000 ? 320 : 250) : 180,
+//   },
+//   textAnswer: {
+//     marginHorizontal: "auto",
+//     fontWeight: "600",
+//     color: "white",
+//     fontSize: height > 960 ? 20 : 14,
+//   },
+//   button0: {
+//     position: "relative",
+//     width: 180,
+//     height: 40,
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//     marginTop: 0,
+//     marginBottom: 40,
+//   },
+//   button1: {
+//     position: "absolute",
+//     opacity: 0.4,
+//     backgroundColor: "#2E86C1",
+//     width: "100%",
+//     height: "100%",
+//     borderRadius: 25,
+//   },
+//   btnText: {
+//     position: "absolute",
+//     bottom: 11,
+//     left: 79,
+//     color: "white",
+//     fontWeight: "600",
+//     fontSize: 20,
+//   },
+//   progressContainerInfo: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "space-between",
+//     paddingHorizontal: "10%",
+//   },
+//   progressBarBack: {
+//     backgroundColor: "white",
+//     // backgroundColor: "green",
+//     width: height > 960 ? "60%" : "80%",
+//     flexDirection: "row",
+//     alignItems: "center",
+//     height: 7,
+//     borderRadius: 20,
+//     justifyContent: "center",
+//     marginTop: "5%",
+//     marginBottom: -10,
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//   },
+//   BtmModalView: {
+//     flex: 1,
+//     alignItems: "center",
+//     backgroundColor: "white",
+//     width: "95%",
+//   },
+//   btmMdlView: {
+//     paddingBottom: 20,
+//     paddingHorizontal: 15,
+//     gap: 10,
+//     backgroundColor: "#f5f5f5",
+//     height: 300,
+//     borderRadius: 20,
+//     padding: 10,
+//   },
+//   btmMdlText: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     height: 60,
+//   },
+//   infoBtn: {
+//     position: "absolute",
+//     bottom: -15,
+//     right: -10,
+//     backgroundColor: "transparent",
+//     width: 80,
+//     height: 80,
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   nextQueButton: {
+//     position: "absolute",
+//     bottom: -15,
+//     right: 10,
+//     backgroundColor: "magenta",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderRadius: 10,
+//   },
+//   nextQueButton1: {
+//     // position: "absolute",
+//     // bottom: -15,
+//     // right: 10,
+//     backgroundColor: "green",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderRadius: 10,
+//   },
+//   nextQueButton2: {
+//     backgroundColor: "#dd0530",
+//     // position: "absolute",
+//     // bottom: -15,
+//     // right: 10,
+//     // backgroundColor: "magenta",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderRadius: 10,
+//   },
+//   correctAnswer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     backgroundColor: "green",
+//     width: "100%",
+//     height: height > 960 ? 120 : 90,
+//     borderRadius: 6,
+//     margin: "1.5%",
+//   },
+//   wrongAnswer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     backgroundColor: "#dd0530",
+//     width: "100%",
+//     height: height > 960 ? 120 : 90,
+//     borderRadius: 6,
+//     margin: "1.5%",
+//   },
+//   borderAnswer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     backgroundColor: "#006cfa",
+//     width: "100%",
+//     height: height > 960 ? 120 : 90,
+//     borderRadius: 6,
+//     margin: "1.5%",
+//   },
+// });

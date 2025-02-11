@@ -1,34 +1,45 @@
-import { View, Text, Pressable, TextInput,Alert } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  Alert,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+} from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { setNameInput } from "../ReduxToolkit/setUserNameSlice";
+import { AntDesign } from "@expo/vector-icons";
 
-type SetUserProp = StackNavigationProp<RootStackParamList, 'SetUserName'>
+type SetUserProp = StackNavigationProp<RootStackParamList, "SetUserName">;
+
+const { width } = Dimensions.get("window");
 
 const SetUserName = () => {
-  const navigation = useNavigation<SetUserProp>()
+  const navigation = useNavigation<SetUserProp>();
   const [name, setName] = useState("");
   const dispatch = useDispatch();
 
   const setData = async () => {
     if (name.length == 0) {
-      Alert.alert("","Εισάγεται το όνομά σας");
+      Alert.alert("", "Εισάγεται το όνομά σας");
     } else {
       try {
         const user = {
-          Name: 
-            name.slice(-1) === "ς" || name.slice(-1) === "Σ"  
+          Name:
+            name.slice(-1) === "ς" || name.slice(-1) === "Σ"
               ? name[0].toUpperCase() + name.slice(1, -1)
               : name[0].toUpperCase() + name.slice(1),
         };
         await AsyncStorage.setItem("UserData", JSON.stringify(user));
         navigation.navigate("Quiz1");
-        dispatch(setNameInput(name))
-        // setName(' ');
+        dispatch(setNameInput(name));
       } catch (e) {
         console.log(e);
       }
@@ -36,76 +47,130 @@ const SetUserName = () => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#0b7fcc",
-      }}
-    >
-      <Text style={{ color: "white", marginBottom: 30 }}>
-        Εισάγεται το όνομά σας:
-      </Text>
-
-      <TextInput
-        style={{
-          width: 300,
-          height: 50,
-          backgroundColor: "#f5f5f5",
-          borderRadius: 30,
-          alignItems: "center",
-          paddingLeft: 20,
-        }}
-        placeholder="Εισαγωγή ονόματος..."
-        maxLength={12}
-        value={name}
-        onChangeText={setName}
-      />
-
-      <View style={{ flexDirection: "row", gap: 40, marginTop: 120 }}>
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("../assets/MorePhotos/ath.jpg")}
+        resizeMode="cover"
+        blurRadius={7}
+        style={styles.mainContainer}
+      >
         <Pressable
-          style={{
-            width: 150,
-            height: 50,
-            // paddingVertical: 5,
-            paddingHorizontal: 30,
-            backgroundColor: "#ccc",
-            borderRadius: 30,
-            alignItems: 'center', 
-            justifyContent: 'center',
-            elevation: 15,
-            shadowOffset: {width: 3, height: 3},
-            shadowOpacity: 1.0,
-            // borderRadius: 10,
-          }}
+          style={styles.cancelBtn}
           onPress={() => {
-            navigation.navigate("Quiz1")
-            dispatch(setNameInput(''))
+            navigation.navigate("Quiz1");
+            dispatch(setNameInput(""));
           }}
         >
-          <Text style={{fontSize: 12, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>Είσοδος χωρίς όνομα</Text>
+          <AntDesign name="closecircle" size={34} color="white" />
         </Pressable>
-        <Pressable
-          style={{
-            width: 150,
-            paddingVertical: 10,
-            paddingHorizontal: 30,
-            backgroundColor: "#ccc",
-            borderRadius: 30,
-            alignItems: 'center', 
-            justifyContent: 'center',
-            elevation: 15,
-            shadowOffset: {width: 3, height: 3},
-            shadowOpacity: 1.0,
-          }}
-          onPress={setData}
-        >
-          <Text style={{fontSize: 12, textAlign: 'center', fontWeight: 'bold'}}>Είσοδος με όνομα</Text>
-        </Pressable>
-      </View>
+        <View style={styles.popupContainer}>
+          <Text style={styles.text}>
+            Προαιρετικά, μπορείτε να εισαγάγετε το όνομά σας για μια πιο
+            εξατομικευμένη εμπειρία.
+          </Text>
+          <View style={styles.nameInput}>
+            <TextInput
+              style={{ paddingLeft: 20, fontSize: 12 }}
+              placeholder="Εισαγωγή ονόματος..."
+              placeholderTextColor="#7090f8"
+              maxLength={12}
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
+          <View style={{ height: 50 }} />
+
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={styles.btnNoName}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("Quiz1");
+                  dispatch(setNameInput(""));
+                  setName("");
+                }}
+              >
+                <Text style={styles.text}>Είσοδος χωρίς όνομα</Text>
+              </Pressable>
+            </View>
+            {name ? (
+              <View style={styles.btnWithName}>
+                <Pressable onPress={setData}>
+                  <Text style={styles.text}>Aποθήκευση & Έξοδος</Text>
+                </Pressable>
+              </View>
+            ) : null}
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 export default SetUserName;
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    // position: "absolute",
+    // zIndex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#1a4efa90",
+    justifyContent: "center",
+    alignItems: "center",
+    // opacity: 0.8,
+  },
+  popupContainer: {
+    width: Math.max(width * 0.23, 300), // Equivalent to max(23vw, 330px)
+    backgroundColor: "white",
+    marginTop: -60,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    flexDirection: "column",
+    gap: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5, // Adds shadow for Android
+  },
+  text: {
+    fontSize: 12,
+    color: "#5f5f5f",
+    textAlign: "center",
+  },
+  cancelBtn: {
+    position: "absolute",
+    top: 50,
+    right: 30,
+  },
+  nameInput: {
+    width: "100%",
+    height: 50,
+    borderColor: "lightgrey",
+    backgroundColor: "#f5f5f5",
+    borderWidth: 1,
+    borderRadius: 9,
+    justifyContent: "center",
+  },
+  btnNoName: {
+    width: "45%",
+    height: 50,
+    borderColor: "lightgrey",
+    borderWidth: 1,
+    borderRadius: 9,
+    justifyContent: "center",
+    backgroundColor: "#efeef0",
+  },
+  btnWithName: {
+    width: "45%",
+    height: 50,
+    borderColor: "lightgrey",
+    borderWidth: 1,
+    borderRadius: 9,
+    justifyContent: "center",
+    backgroundColor: "#c7fdd3",
+  },
+});

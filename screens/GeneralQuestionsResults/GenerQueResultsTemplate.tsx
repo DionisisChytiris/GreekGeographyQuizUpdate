@@ -51,7 +51,7 @@ const GenerQueResultsTemplate = (props: any) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       handleQuizCompletion();
-    }, 2000);
+    }, 1000);
 
     // Clean up the timeout
     return () => clearTimeout(timeout);
@@ -60,7 +60,7 @@ const GenerQueResultsTemplate = (props: any) => {
   useEffect(() => {
     const timeout1 = setTimeout(() => {
       setShow(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timeout1);
   }, []);

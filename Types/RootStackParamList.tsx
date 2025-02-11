@@ -9,6 +9,9 @@ export type RootStackParamList = {
   Instructions: undefined;
   Settings: undefined;
   DragDrop: undefined;
+  MapQuiz: undefined;
+  DragDropQuiz: undefined;
+  MapTest: undefined;
   AboutApp: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;

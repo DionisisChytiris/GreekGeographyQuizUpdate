@@ -267,7 +267,8 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: "80%",
-    backgroundColor: "#a7a7a7",
+    backgroundColor: "#cccccc",
+    // backgroundColor: "#121a2490",
     borderRadius: 25,
     paddingTop: 30,
     paddingBottom: 60,
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   text2: {
+    // color: "white",
     fontSize: 15,
     marginTop: 30,
     color: "#002142",

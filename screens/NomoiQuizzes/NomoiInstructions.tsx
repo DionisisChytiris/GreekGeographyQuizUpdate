@@ -40,7 +40,7 @@ const NomoiInstructions = () => {
              // () => Alert.alert("hey")
              ()=>{navigation.navigate("Quiz1");}
            }
-           style={{ position: 'absolute', top: 40, left: 40 }}
+           style={{ position: 'absolute', top: 60, left: 40 }}
          >
            <AntDesign name="arrowleft" size={24} color="white" />
          </Pressable>

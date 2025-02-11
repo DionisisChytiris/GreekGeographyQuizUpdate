@@ -9,7 +9,7 @@ import {
   Pressable,
   Linking,
   Image,
-  Platform
+  Platform,
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -18,15 +18,15 @@ import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import EvilIcons from '@expo/vector-icons/EvilIcons';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import EvilIcons from "@expo/vector-icons/EvilIcons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
   "GenerQuestTemplate"
 >;
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const Settings = () => {
   const navigation = useNavigation<GenerQTProp>();
@@ -44,14 +44,15 @@ const Settings = () => {
     }
   };
 
-  const url = Platform.OS === 'ios'
-  ? 'https://apps.apple.com/app/id6504780092'  // Replace with your iOS App Store link
-  : 'https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion';
+  const url =
+    Platform.OS === "ios"
+      ? "https://apps.apple.com/app/id6504780092" // Replace with your iOS App Store link
+      : "https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion";
 
-  const urlNewApp= Platform.OS === 'ios'
-  ? 'https://apps.apple.com/app/id6670754535'  // Replace with your iOS App Store link
-  : 'https://play.google.com/store/apps/details?id=com.worldwisetrivia.app';
-
+  const urlNewApp =
+    Platform.OS === "ios"
+      ? "https://apps.apple.com/app/id6670754535" // Replace with your iOS App Store link
+      : "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app";
 
   return (
     <View style={{ flex: 1 }}>
@@ -62,16 +63,16 @@ const Settings = () => {
           blurRadius={3}
           style={{
             flex: 1,
-            // justifyContent: "center",
+            justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            height: height> 900? 960: 820,
+            height: height > 860 ? (height > 950 ? 1100 : 900) : height< 820? 820:850,
           }}
         >
           <Pressable
             style={{
               position: "absolute",
-              top: 30,
+              top: 50,
               right: 30,
               // padding: 30,
             }}
@@ -81,68 +82,79 @@ const Settings = () => {
           >
             <AntDesign name="closecircle" size={34} color="white" />
           </Pressable>
-          <View style={{ marginTop: 150, gap: 20 }}>
-            <Pressable
-          
-              onPressIn={() => setScale1(1.1)}
-              onPressOut={() => {
-                removeName(), setScale1(1);
-              }}
-              style={[styles.button, { transform: [{ scale: scale1 }] }]}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 10,
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ gap: 20 }}>
+              <Pressable
+                onPressIn={() => setScale1(1.1)}
+                onPressOut={() => {
+                  removeName(), setScale1(1);
                 }}
+                style={[styles.button, { transform: [{ scale: scale1 }] }]}
               >
-                <EvilIcons name="user" size={32} color="white" />
-                {/* <AntDesign name="user" size={20} color="white" /> */}
-                <Text style={styles.text1}>Αλλαγη Ονόματος</Text>
-              </View>
-            </Pressable>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <EvilIcons name="user" size={32} color="white" />
+                  {/* <AntDesign name="user" size={20} color="white" /> */}
+                  <Text style={styles.text1}>Αλλαγη Ονόματος</Text>
+                </View>
+              </Pressable>
 
-            <Pressable
-              onPressIn={() => setScale2(1.1)}
-              onPressOut={() => {
-                Linking.openURL(
-                  "https://sites.google.com/view/geografiatiselladas"
-                ),
-                  setScale2(1);
-              }}
-              style={[styles.button, { transform: [{ scale: scale2 }] }]}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 10,
+              <Pressable
+                onPressIn={() => setScale2(1.1)}
+                onPressOut={() => {
+                  Linking.openURL(
+                    "https://sites.google.com/view/geografiatiselladas"
+                  ),
+                    setScale2(1);
                 }}
+                style={[styles.button, { transform: [{ scale: scale2 }] }]}
               >
-                <MaterialIcons name="policy" size={24} color="white" />
-                <Text style={styles.text}>Πολιτική Απορρήτου</Text>
-              </View>
-            </Pressable>
-            <Pressable
-              onPressIn={() => setScale3(1.1)}
-              onPressOut={() => {
-                navigation.navigate("AboutApp"),
-                // Linking.openURL(url),
-                  setScale3(1);
-              }}
-              style={[
-                styles.button,
-                { transform: [{ scale: scale3 }], paddingVertical: 5, flexDirection: 'row', gap: 10 },
-              ]}
-            >
-              <FontAwesome5 name="book-open" size={20} color="white" />
-              <Text style={styles.text1}>Σχετικά</Text>
-              {/* <Image
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <MaterialIcons name="policy" size={24} color="white" />
+                  <Text style={styles.text}>Πολιτική Απορρήτου</Text>
+                </View>
+              </Pressable>
+              <Pressable
+                onPressIn={() => setScale3(1.1)}
+                onPressOut={() => {
+                  navigation.navigate("AboutApp"),
+                    // Linking.openURL(url),
+                    setScale3(1);
+                }}
+                style={[
+                  styles.button,
+                  {
+                    transform: [{ scale: scale3 }],
+                    paddingVertical: 5,
+                    flexDirection: "row",
+                    gap: 10,
+                  },
+                ]}
+              >
+                <FontAwesome5 name="book-open" size={20} color="white" />
+                <Text style={styles.text1}>Σχετικά</Text>
+                {/* <Image
                 source={require("../assets/MorePhotos/rating.png")}
                 resizeMode="cover"
                 style={{
@@ -152,46 +164,42 @@ const Settings = () => {
                   marginTop: -5,
                 }}
               /> */}
-            </Pressable>
-            <View
-              style={{
-                marginTop: 70,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={styles.text2}>Δοκιμάστε την νέα μας</Text>
-              <Text style={styles.text2}>εφαρμογή.</Text>
-              <Pressable
-                onPressIn={() => setScale4(1.1)}
-                onPressOut={() => {
-                  Linking.openURL(urlNewApp
-                    // "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app"
-                  ),
-                    setScale4(1);
+              </Pressable>
+              <View
+                style={{
+                  marginTop: 70,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <Image
-                  source={require("../assets/WorldTrivia.png")}
-                  resizeMode="cover"
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 20,
-                    marginTop: 20,
-                    transform: [{ scale: scale4 }],
+                <Text style={styles.text2}>Δοκιμάστε την νέα μας</Text>
+                <Text style={styles.text2}>εφαρμογή.</Text>
+                <Pressable
+                  onPressIn={() => setScale4(1.1)}
+                  onPressOut={() => {
+                    Linking.openURL(
+                      urlNewApp
+                      // "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app"
+                    ),
+                      setScale4(1);
                   }}
-                />
-              </Pressable>
-              <Text style={styles.text3}>World Wise Trivia</Text>
+                >
+                  <Image
+                    source={require("../assets/WorldTrivia.png")}
+                    resizeMode="cover"
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 20,
+                      marginTop: 20,
+                      transform: [{ scale: scale4 }],
+                    }}
+                  />
+                </Pressable>
+                <Text style={styles.text3}>World Wise Trivia</Text>
+              </View>
             </View>
           </View>
-          {/* <Pressable
-            onPress={()=>navigation.navigate("DragDrop")}
-            style={{position: 'absolute',bottom: 50, right: 20, backgroundColor: 'green', padding: 10, borderRadius: 10}}
-          >
-            <Text style={{color: 'white'}}>Drag & Drop</Text>
-          </Pressable> */}
         </ImageBackground>
       </ScrollView>
     </View>
@@ -206,6 +214,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 20,
     backgroundColor: "#738297",
+    // backgroundColor: "#121a24",
     justifyContent: "center",
     alignItems: "center",
   },

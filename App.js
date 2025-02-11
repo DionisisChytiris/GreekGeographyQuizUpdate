@@ -89,7 +89,8 @@ export default function App() {
   ) : (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <StatusBar hidden={true} />
+        {/* <StatusBar style='auto' /> */}
+        <StatusBar style='auto' hidden={false} translucent backgroundColor="transparent"  />
         <AppContent />
       </Provider>
     </GestureHandlerRootView>

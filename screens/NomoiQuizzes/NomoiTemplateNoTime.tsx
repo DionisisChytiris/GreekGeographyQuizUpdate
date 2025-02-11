@@ -170,7 +170,7 @@ const NomoiTemplateNoTime = (props: any) => {
   //     }
   //   }, [index]);
 
-  const [fifty, setFifty] = useState([]);
+  const [fifty, setFifty] = useState<number[]>([]);
   
     const fiftyfifty = () => {
       // Alert.alert("hello world");
@@ -338,10 +338,10 @@ const NomoiTemplateNoTime = (props: any) => {
                   {
                     borderRadius: 10,
                     marginBottom: 5,
-                    width: height > 1000 ? "90%" : "100%",
+                    width: "100%",
                     margin: "auto",
                     marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
-                    height: height > 960 ? (height > 1100 ? 400 : 250) : 180,
+                    height: height > 960 ? (height > 1000 ? 350 : 250) : 180,
                   },
                   {
                     transform: [

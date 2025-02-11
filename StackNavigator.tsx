@@ -117,10 +117,13 @@ import NomoiLoseScreen3Time from "./screens/NomoiQuizzes/NomoiLoseScreen3Time";
 import NomoiLoseScreen4Time from "./screens/NomoiQuizzes/NomoiLoseScreen4Time";
 import NomoiLoseScreen5Time from "./screens/NomoiQuizzes/NomoiLoseScreen5Time";
 import AboutApp from "./screens/components/AboutApp";
-import DragDrop from "./screens/Atestcomponents/DragDrop";
+import DragDrop from "./screens/Atestcomponents/DragDropQuiz";
 import { Platform, Text, View } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
+import MapTest from "./screens/Atestcomponents/MapTest";
+import DragAndDropQuiz from "./screens/Atestcomponents/DragDropQuiz";
+import MapQuiz from "./screens/Atestcomponents/MapQuiz";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -149,8 +152,8 @@ const StackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          // contentStyle: { backgroundColor: 'green' },
-          contentStyle: { backgroundColor: "#76b5c5" },
+          contentStyle: { backgroundColor: 'lightgrey' },
+          // contentStyle: { backgroundColor: "#76b5c5" },
         }}
       >
         {/* <Stack.Screen name="Nomoi6Final" component={Nomoi6Final} options={{headerShown: false, orientation: 'portrait'}}/>  */}
@@ -209,6 +212,33 @@ const StackNavigator = () => {
           }}
         />
         <Stack.Screen
+          name="DragDropQuiz"
+          component={DragAndDropQuiz}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="MapTest"
+          component={MapTest}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="MapQuiz"
+          component={MapQuiz}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
           name="LoseScreenREndTime"
           component={LoseScreenREndTime}
           options={{
@@ -238,7 +268,7 @@ const StackNavigator = () => {
           options={{
             orientation: "portrait",
             headerBackTitleVisible: false,
-            headerShown: true,
+            headerShown: false,
             headerTitle: () => (
               <View style={{ height: 65, paddingTop: Platform.OS === "ios" ? 10 : 25 }}>
                 <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
@@ -246,7 +276,6 @@ const StackNavigator = () => {
                 </Text>
               </View>
             ),
-            // title: `Γειά σου ${name}`,
             headerTitleStyle: {
               fontWeight: "bold",
               color: "#006f96",
@@ -275,7 +304,7 @@ const StackNavigator = () => {
         <Stack.Group
           screenOptions={{
             headerBackTitleVisible: false,
-            headerShown: true,
+            headerShown: false,
             orientation: "portrait",
             title: "Ποτάμια / Λίμνες",
             headerTitle: () => (
@@ -338,7 +367,7 @@ const StackNavigator = () => {
         <Stack.Group
           screenOptions={{
             headerBackTitleVisible: false,
-            headerShown: true,
+            headerShown: false,
             orientation: "portrait",
             headerTitle: () => (
               <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
@@ -426,33 +455,34 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             headerShown: false,
             orientation: "portrait",
-            title: "Νομοί / Πόλεις",
-            headerTitle: () => (
-              <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
-                Νομοί / Πόλεις
-                </Text>
-              </View>
-            ),
-            headerStyle: {
-              // backgroundColor: 'transparent',
-            },
-            headerTitleStyle: {
-              fontWeight: "bold",
-              color: "#006f96",
-              fontSize: 16,
-            },
+            // title: "Νομοί / Πόλεις",
+            // headerTitle: () => (
+            //   <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
+            //   <View>
+            //     <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
+            //     Νομοί / Πόλεις
+            //     </Text>
+            //   </View>
+            // ),
+            // headerStyle: {
+            //   backgroundColor: 'transparent',
+            // },
+            // headerTitleStyle: {
+            //   fontWeight: "bold",
+            //   color: "#006f96",
+            //   fontSize: 16,
+            // },
           }}
         >
           <Stack.Screen
             name="Nomoi1"
             component={Nomoi1}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Nomoi1R"
             component={Nomoi1R}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen name="Nomoi2" component={Nomoi2} />
           <Stack.Screen name="Nomoi2R" component={Nomoi2R} />
@@ -538,10 +568,11 @@ const StackNavigator = () => {
           screenOptions={{
             headerBackTitleVisible: false,
             // headerBackVisible: false,
-            headerShown: true,
+            headerShown: false,
             orientation: "portrait",
             headerTitle: () => (
-              <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
+              <View >
+              {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
                
                 <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
                 Γενικές Ερωτήσεις
@@ -559,7 +590,30 @@ const StackNavigator = () => {
             },
           }}
         >
-          <Stack.Screen name="GeneralQuizMenu" component={GeneralQuizMenu} />
+          <Stack.Screen name="GeneralQuizMenu" component={GeneralQuizMenu}  options={{
+            headerBackTitleVisible: false,
+            // headerBackVisible: false,
+            headerShown: true,
+            orientation: "portrait",
+            headerTitle: () => (
+              <View >
+              {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
+               
+                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
+                Γενικές Ερωτήσεις
+                </Text>
+              </View>
+            ),
+            title: "Γενικές Ερωτήσεις",
+            headerStyle: {
+              // backgroundColor: 'transparent',
+            },
+            headerTitleStyle: {
+              fontWeight: "bold",
+              color: "#006f96",
+              fontSize: 16,
+            },
+          }} />
           <Stack.Screen
             name="GeneralQuestions1"
             component={GeneralQuestions1}

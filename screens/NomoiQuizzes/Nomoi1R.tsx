@@ -9,10 +9,12 @@ const Nomoi1R = () => {
   return (
     <ScrollView bounces={false}>
       <View >
-        <NomoiTemplateNoTime
+        <NomoiTemplate
           questions={questions1}
           nomoiResults={"NomoiResult1"}
-          nomoiLoseScreen={'NomoiLoseScreen1R'}
+          nomoiLoseScreen={'LoseScreenREndTime'}
+          nomoiLoseScreenTime={'LoseScreenREndTime'}
+          // nomoiLoseScreen={'NomoiLoseScreen1R'}
           num={1}
           star={
             <View style={{ flexDirection: "row" }}>
