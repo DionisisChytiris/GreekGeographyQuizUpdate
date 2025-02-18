@@ -25,6 +25,12 @@ import TimerHeartSection from "../components/TimerHeartSection";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import ProgressBar from "../components/ProgressBar";
 import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
+import { useSoundEffect } from "../Utilities/useSoundEffects";
+import {
+  useAnswerAnimations,
+  useScaleAnimation,
+  useSlideAnimation,
+} from "../Utilities/useAnimations";
 
 const { height } = Dimensions.get("window");
 
@@ -51,14 +57,12 @@ const NomoiTemplate = (props: any) => {
   const [nextQueButton, setNextQueButton] = useState<any>(
     stylesM.nextQueButton
   );
-  const [btnBackground, setBtnBackground] = useState("lightgrey");
   let interval: any = null;
   let index1 = index + 1;
   const bottomSheetModalRef = useRef<any>(null);
   const snapPoints = ["50%"];
   const [heart, setHeart] = useState<any>(3);
   const [correctAnswer, setCorrectAnswer] = useState(0);
-  // const [tr, setTr] = useState<boolean>(true)
 
   const removeHeart = () => {
     setHeart((prevHeart: number) => prevHeart - 1);
@@ -72,7 +76,6 @@ const NomoiTemplate = (props: any) => {
 
   const addHeart = () => {
     if (correctAnswer === 2 && heart < 5) {
-      // heart.push("❤️");
       setCorrectAnswer(0);
       setHeart((prevHeart: number) => prevHeart + 1);
     }
@@ -83,30 +86,25 @@ const NomoiTemplate = (props: any) => {
   };
 
   // Correct Sound Effect
-  const [correctSound, setCorrectSound] = useState<any>();
-  async function CorrectPlaySound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../assets/sounds/correct2.wav")
-    );
-    setCorrectSound(correctSound);
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return correctSound ? () => correctSound.uploadAsync() : undefined;
-  }, [correctSound]);
-
+  const CorrectPlaySound = useSoundEffect(
+    require("../../assets/sounds/correct3.mp3")
+  );
   // Wrong Sound Effect
-  const [wrongSound, setWrongSound] = useState<any>();
-  async function WrongPlaySound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../assets/sounds/wrong.wav")
-    );
-    setWrongSound(wrongSound);
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return wrongSound ? () => wrongSound.uploadAsync() : undefined;
-  }, [wrongSound]);
+  const WrongPlaySound = useSoundEffect(
+    require("../../assets/sounds/wrong.mp3")
+  );
+  // Fifty Fifty Sound Effect
+  const fiftyPlaySound = useSoundEffect(
+    require("../../assets/sounds/popup.mp3")
+  );
+  // Spinner Sound Effect
+  const spinnerPlaySound = useSoundEffect(
+    require("../../assets/sounds/spinner.mp3")
+  );
+  // Image Sound Effect
+  const imgPlaySound = useSoundEffect(
+    require("../../assets/sounds/popimg.mp3")
+  );
 
   useEffect(() => {
     if (selectedAnswerIndex !== null) {
@@ -115,17 +113,12 @@ const NomoiTemplate = (props: any) => {
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
         setNextQueButton(stylesM.nextQueButton1);
-        // CorrectPlaySound();
         setCorrectAnswer((cor) => cor + 1);
-        // addHeart();
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
         setNextQueButton(stylesM.nextQueButton2);
-        // WrongPlaySound();
-        // removeHeart();
-        // Vibration.vibrate();
         answers.push({ question: index + 1, answer: false });
         setFifty([]);
       }
@@ -143,7 +136,6 @@ const NomoiTemplate = (props: any) => {
     const myInterval = () => {
       if (counter >= 1) {
         setCounter((counter: number) => counter - 1);
-        // console.log(counter);
       }
       if (counter === 1) {
         navigation.navigate(props.nomoiLoseScreenTime);
@@ -160,11 +152,6 @@ const NomoiTemplate = (props: any) => {
     };
   }, [counter]);
 
-  // if(counter === 0){
-  //   setIndex(index + 1)
-  //   setCounter(15)
-  // }
-
   useEffect(() => {
     if (index + 1 > data.length) {
       navigation.navigate("NomoiResultTemplate");
@@ -178,9 +165,10 @@ const NomoiTemplate = (props: any) => {
   }, [index]);
 
   const [fifty, setFifty] = useState<number[]>([]);
+  const [showFifty, setShowFifty] = useState<boolean>(true);
 
-  const fiftyfifty = () => {
-    // Alert.alert("hello world");
+  const fiftyfifty = async() => {
+    await fiftyPlaySound()
     const wrongAnswers = currentQuestion.options
       .map((option: string[], index: number) => index)
       .filter((index: number) => index !== currentQuestion.correctAnswerIndex);
@@ -188,53 +176,32 @@ const NomoiTemplate = (props: any) => {
     const randomWrongAnswers = wrongAnswers
       .sort(() => 0.5 - Math.random())
       .slice(0, 2);
-
-    // console.log(randomWrongAnswers)
     setFifty(randomWrongAnswers);
+    setShowFifty(false);
   };
 
-  const slideAnim = useRef(new Animated.Value(-300)).current;
-  const scaleAnim = useRef(new Animated.Value(0)).current;
-  const answerAnims = useRef([
-    new Animated.Value(0), // Box 0
-    new Animated.Value(0), // Box 1
-    new Animated.Value(0), // Box 2
-    new Animated.Value(0), // Box 3
-  ]).current;
+  // useEffect(() => {
+  //   imgPlaySound()
+  // }, [currentQuestion.img]);
+
+  // useEffect(() => {
+  //   imgPlaySound()
+  // }, [currentQuestion.answer]);
 
   useEffect(() => {
-    slideAnim.setValue(-300);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 400,
-      useNativeDriver: true,
-    }).start();
-  }, [index, slideAnim]);
+    currentQuestion?.options.forEach((_, index) => {
+      setTimeout(() => {
+        imgPlaySound();
+      }, index * 200); // Delay each sound to match animation timing
+    });
+  }, [currentQuestion]);
 
-  useEffect(() => {
-    scaleAnim.setValue(0);
-    Animated.timing(scaleAnim, {
-      toValue: 1,
-      duration: 400,
-      useNativeDriver: true,
-    }).start();
-  }, [index, scaleAnim]);
+  // Animations
+  const slideAnim = useSlideAnimation(index);
+  const scaleAnim = useScaleAnimation(index);
+  const answerAnims = useAnswerAnimations(index);
 
-  useEffect(() => {
-    answerAnims.forEach((anim) => anim.setValue(0));
-    setTimeout(() => {
-      Animated.stagger(
-        200, // Delay between each animation
-        answerAnims.map((anim) =>
-          Animated.timing(anim, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-          })
-        )
-      ).start();
-    }, 300);
-  }, [index, answerAnims]);
+  // ActivityIndicator - Handle Answer Selection
 
   const [showLoading, setShowLoading] = useState(false);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -242,10 +209,11 @@ const NomoiTemplate = (props: any) => {
   const [isCountdownFinished, setIsCountdownFinished] =
     useState<boolean>(false);
 
-  const handleAnswerSelection = (index: number) => {
+  const handleAnswerSelection = async (index: number) => {
+    await spinnerPlaySound()
     if (selectedAnswerIndex === null) {
       setSelectedAnswerIndex(index);
-      setShowLoading(true); // Show loading spinner
+      setShowLoading(true);
 
       let count = 3;
       setCountdown(count);
@@ -255,8 +223,8 @@ const NomoiTemplate = (props: any) => {
         setCountdown(count);
         if (count === 0) {
           clearInterval(interval);
-          setShowLoading(false); // Hide loading spinner
-          setShowCorrectAnswer(true); // Show correct answer
+          setShowLoading(false);
+          setShowCorrectAnswer(true);
           setIsCountdownFinished(true);
         }
       }, 1000);
@@ -279,13 +247,7 @@ const NomoiTemplate = (props: any) => {
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
-        <View
-        // style={{
-        //   height: "100%",
-        //   backgroundColor: "#005ce6",
-        //   marginTop: height > 1100 ? 100 : null,
-        // }}
-        >
+        <View>
           {/* Section 1 */}
           <View style={{ paddingTop: Platform.OS == "ios" ? 45 : 30 }} />
 
@@ -303,32 +265,15 @@ const NomoiTemplate = (props: any) => {
           >
             {/* <View>{props.goBack}</View> */}
             <View style={styles.levelBox}>
-              <View
-                style={{
-                  alignItems: "center",
-                  backgroundColor: "#615f5f90",
-                  justifyContent: "center",
-                  paddingVertical: 3,
-                  paddingHorizontal: 8,
-                  borderRadius: 10,
-                  marginLeft: 20,
-                }}
-              >
-                {props.star}
-              </View>
-              <Pressable
-                onPress={fiftyfifty}
-                style={{
-                  // borderColor: "darkblue",
-                  // borderWidth: 1,
-                  padding: 4,
-                  borderRadius: 6,
-                  backgroundColor: "green",
-                  marginLeft: 30
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
-              </Pressable>
+              <View style={stylesNomoi.star}>{props.star}</View>
+              {showFifty && (
+                <Pressable
+                  onPress={fiftyfifty}
+                  style={stylesNomoi.fiftyBtn}
+                >
+                  <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+                </Pressable>
+              )}
               <View style={{ marginRight: 20 }}>
                 <Text style={{ color: "black", fontSize: 12 }}>
                   Επίπεδο {props.num}
@@ -496,100 +441,6 @@ const NomoiTemplate = (props: any) => {
                     </TouchableOpacity>
                   ))
                 )}
-                {/* {currentQuestion?.options.map((item: any, index: any) => (
-                  <Pressable
-                    key={index}
-                    onPress={() => {
-                      selectedAnswerIndex === null &&
-                        setSelectedAnswerIndex(index);
-                      setCounter(false);
-                    }}
-                    style={[
-                      {
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "47%",
-                        height: height > 960 ? 120 : 90,
-                        borderRadius: 6,
-                        margin: "1.5%",
-                      },
-                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
-                    ]}
-                  >
-                    <Animated.View
-                      style={[
-                        selectedAnswerIndex === index &&
-                        index === currentQuestion.correctAnswerIndex
-                          ? stylesM.correctAnswer
-                          : selectedAnswerIndex !== null &&
-                            selectedAnswerIndex === index
-                          ? stylesM.wrongAnswer
-                          : stylesM.borderAnswer,
-                        {
-                          opacity: answerAnims[index],
-                          transform: [
-                            {
-                              scale: answerAnims[index].interpolate({
-                                inputRange: [0, 1],
-                                outputRange: [0.8, 1],
-                              }),
-                            },
-                          ],
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          marginHorizontal: "auto",
-                          fontWeight: "600",
-                          color: "white",
-                          fontSize: height > 960 ? 20 : 14,
-                        }}
-                      >
-                        {item.answer}
-                      </Text>
-                      {selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex ? (
-                        <View
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            height: "70%",
-                            top: 0,
-                            right: -30,
-                          }}
-                        >
-                          <LottieView
-                            style={{ width: "100%", height: "100%" }}
-                            source={require("../../assets/LottieAnimations/Success.json")}
-                            autoPlay
-                            loop={false}
-                          />
-                        </View>
-                      ) : null}
-                      {selectedAnswerIndex === index &&
-                      index !== currentQuestion.correctAnswerIndex ? (
-                        <View
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            height: "70%",
-                            top: 0,
-                            right: -30,
-                          }}
-                        >
-                          <LottieView
-                            style={{ width: "100%", height: "100%" }}
-                            source={require("../../assets/LottieAnimations/Fail.json")}
-                            autoPlay
-                            loop={false}
-                          />
-                        </View>
-                      ) : null}
-                    </Animated.View>
-                  </Pressable>
-                ))} */}
               </View>
             </View>
           </View>
@@ -662,6 +513,7 @@ const NomoiTemplate = (props: any) => {
                         setFifty([]),
                         setShowCorrectAnswer(false);
                       setIsCountdownFinished(false);
+                      setShowFifty(true);
                     }}
                     style={{
                       position: "absolute",
@@ -701,13 +553,6 @@ const NomoiTemplate = (props: any) => {
                   </View>
                 </View>
               )}
-              {/* FeedBackBottomSheet */}
-              {/* <FeedbackBottomSheet
-              bottomSheetModalRef={bottomSheetModalRef}
-              snapPoints={snapPoints}
-              answerStatus={answerStatus}
-              currentQuestion={currentQuestion}
-            /> */}
               <BottomSheetModal
                 ref={bottomSheetModalRef}
                 index={0}
@@ -830,119 +675,20 @@ const NomoiTemplate = (props: any) => {
 
 export default NomoiTemplate;
 
-// const stylesM = StyleSheet.create({
-//   button0: {
-//     position: "relative",
-//     width: 180,
-//     height: 40,
-//     borderRadius: 25,
-//     marginLeft: "auto",
-//     marginRight: "auto",
-//     marginBottom: 30,
-//     marginTop: 0,
-//   },
-//   button1: {
-//     position: "absolute",
-//     opacity: 0.4,
-//     backgroundColor: "lightgray",
-//     width: "100%",
-//     height: "100%",
-//     borderRadius: 25,
-//   },
-//   BtmModalView: {
-//     flex: 1,
-//     alignItems: "center",
-//     backgroundColor: "white",
-//     width: "95%",
-//   },
-//   btmMdlView: {
-//     paddingBottom: 20,
-//     paddingHorizontal: 15,
-//     gap: 10,
-//     backgroundColor: "#f5f5f5",
-//     height: 300,
-//     borderRadius: 20,
-//     padding: 10,
-//   },
-//   btmMdlText: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     height: 60,
-//   },
-//   infoBtn: {
-//     position: "absolute",
-//     bottom: -15,
-//     right: 10,
-//     backgroundColor: "magenta",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   btnText: {
-//     position: "absolute",
-//     bottom: 11,
-//     left: 79,
-//     color: "white",
-//     fontWeight: "600",
-//     fontSize: 20,
-//   },
-//   nextQueButton: {
-//     position: "absolute",
-//     bottom: -15,
-//     right: 10,
-//     backgroundColor: "magenta",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton1: {
-//     // position: "absolute",
-//     // bottom: -15,
-//     // right: 10,
-//     backgroundColor: "green",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton2: {
-//     backgroundColor: "#dd0530",
-//     // position: "absolute",
-//     // bottom: -15,
-//     // right: 10,
-//     // backgroundColor: "magenta",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   correctAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "green",
-//     width: "100%",
-//     height: height > 960 ? 120 : 90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-//   wrongAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#dd0530",
-//     width: "100%",
-//     height: height > 960 ? 120 : 90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-//   borderAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#006cfa",
-//     width: "100%",
-//     height: height > 960 ? 120 : 90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-// });
+const stylesNomoi = StyleSheet.create({
+  star: {
+    alignItems: "center",
+    backgroundColor: "#615f5f90",
+    justifyContent: "center",
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 10,
+    marginLeft: 20,
+  },
+  fiftyBtn: {
+    padding: 4,
+    borderRadius: 6,
+    backgroundColor: "green",
+    marginLeft: 30,
+  },
+});

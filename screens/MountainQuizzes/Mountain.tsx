@@ -25,6 +25,12 @@ import TimerHeartSection from "../components/TimerHeartSection";
 import ProgressBar from "../components/ProgressBar";
 import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
 import { stylesM } from '../styles/QuizStylesheet'
+import { useSoundEffect } from "../Utilities/useSoundEffects";
+import {
+  useAnswerAnimations,
+  useScaleAnimation,
+  useSlideAnimation,
+} from "../Utilities/useAnimations";
 
 const { height } = Dimensions.get("window");
 
@@ -86,31 +92,52 @@ const Mountain = () => {
   };
 
   // Correct Sound Effect
-  const [correctSound, setCorrectSound] = useState<any>();
-  async function CorrectPlaySound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../assets/sounds/correct2.wav")
-    );
-    setCorrectSound(correctSound);
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return correctSound ? () => correctSound.uploadAsync() : undefined;
-  }, [correctSound]);
+  // const [correctSound, setCorrectSound] = useState<any>();
+  // async function CorrectPlaySound() {
+  //   const { sound } = await Audio.Sound.createAsync(
+  //     require("../../assets/sounds/correct2.wav")
+  //   );
+  //   setCorrectSound(correctSound);
+  //   await sound.playAsync();
+  // }
+  // useEffect(() => {
+  //   return correctSound ? () => correctSound.uploadAsync() : undefined;
+  // }, [correctSound]);
 
   // Wrong Sound Effect
-  const [wrongSound, setWrongSound] = useState<any>();
+  // const [wrongSound, setWrongSound] = useState<any>();
 
-  async function WrongPlaySound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../assets/sounds/wrong.wav")
+  // async function WrongPlaySound() {
+  //   const { sound } = await Audio.Sound.createAsync(
+  //     require("../../assets/sounds/wrong.wav")
+  //   );
+  //   setWrongSound(wrongSound);
+  //   await sound.playAsync();
+  // }
+  // useEffect(() => {
+  //   return wrongSound ? () => wrongSound.uploadAsync() : undefined;
+  // }, [wrongSound]);
+
+   // Correct Sound Effect
+    const CorrectPlaySound = useSoundEffect(
+      require("../../assets/sounds/correct3.mp3")
     );
-    setWrongSound(wrongSound);
-    await sound.playAsync();
-  }
-  useEffect(() => {
-    return wrongSound ? () => wrongSound.uploadAsync() : undefined;
-  }, [wrongSound]);
+    // Wrong Sound Effect
+    const WrongPlaySound = useSoundEffect(
+      require("../../assets/sounds/wrong.mp3")
+    );
+    // Fifty Fifty Sound Effect
+    const fiftyPlaySound = useSoundEffect(
+      require("../../assets/sounds/popup.mp3")
+    );
+    // Spinner Sound Effect
+    const spinnerPlaySound = useSoundEffect(
+      require("../../assets/sounds/spinner.mp3")
+    );
+    // Image Sound Effect
+    const imgPlaySound = useSoundEffect(
+      require("../../assets/sounds/popimg.mp3")
+    );
 
   // Find Correct Answer
   useEffect(() => {
@@ -173,48 +200,61 @@ const Mountain = () => {
     }
   }, [index]);
 
-  const slideAnim = useRef(new Animated.Value(-300)).current;
-  const scaleAnim = useRef(new Animated.Value(0)).current;
-  const answerAnims = useRef([
-    new Animated.Value(0), // Box 0
-    new Animated.Value(0), // Box 1
-    new Animated.Value(0), // Box 2
-    new Animated.Value(0), // Box 3
-  ]).current;
+   useEffect(() => {
+      currentQuestion?.options.forEach((_, index) => {
+        setTimeout(() => {
+          imgPlaySound();
+        }, index * 200); // Delay each sound to match animation timing
+      });
+    }, [currentQuestion]);
+  
+    // Animations
+    const slideAnim = useSlideAnimation(index);
+    const scaleAnim = useScaleAnimation(index);
+    const answerAnims = useAnswerAnimations(index);
 
-  useEffect(() => {
-    slideAnim.setValue(-300);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 400,
-      useNativeDriver: true,
-    }).start();
-  }, [index, slideAnim]);
+  // const slideAnim = useRef(new Animated.Value(-300)).current;
+  // const scaleAnim = useRef(new Animated.Value(0)).current;
+  // const answerAnims = useRef([
+  //   new Animated.Value(0), // Box 0
+  //   new Animated.Value(0), // Box 1
+  //   new Animated.Value(0), // Box 2
+  //   new Animated.Value(0), // Box 3
+  // ]).current;
 
-  useEffect(() => {
-    scaleAnim.setValue(0);
-    Animated.timing(scaleAnim, {
-      toValue: 1,
-      duration: 400,
-      useNativeDriver: true,
-    }).start();
-  }, [index, scaleAnim]);
+  // useEffect(() => {
+  //   slideAnim.setValue(-300);
+  //   Animated.timing(slideAnim, {
+  //     toValue: 0,
+  //     duration: 400,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, [index, slideAnim]);
 
-  useEffect(() => {
-    answerAnims.forEach((anim) => anim.setValue(0));
-    setTimeout(() => {
-      Animated.stagger(
-        200, // Delay between each animation
-        answerAnims.map((anim) =>
-          Animated.timing(anim, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-          })
-        )
-      ).start();
-    }, 300);
-  }, [index, answerAnims]);
+  // useEffect(() => {
+  //   scaleAnim.setValue(0);
+  //   Animated.timing(scaleAnim, {
+  //     toValue: 1,
+  //     duration: 400,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, [index, scaleAnim]);
+
+  // useEffect(() => {
+  //   answerAnims.forEach((anim) => anim.setValue(0));
+  //   setTimeout(() => {
+  //     Animated.stagger(
+  //       200, // Delay between each animation
+  //       answerAnims.map((anim) =>
+  //         Animated.timing(anim, {
+  //           toValue: 1,
+  //           duration: 500,
+  //           useNativeDriver: true,
+  //         })
+  //       )
+  //     ).start();
+  //   }, 300);
+  // }, [index, answerAnims]);
 
   const [showLoading, setShowLoading] = useState(false);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -222,7 +262,8 @@ const Mountain = () => {
   const [isCountdownFinished, setIsCountdownFinished] =
     useState<boolean>(false);
 
-  const handleAnswerSelection = (index: number) => {
+  const handleAnswerSelection = async (index: number) => {
+    await spinnerPlaySound();
     if (selectedAnswerIndex === null) {
       setSelectedAnswerIndex(index);
       setShowLoading(true); // Show loading spinner
