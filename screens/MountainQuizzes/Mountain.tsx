@@ -11,6 +11,7 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -19,12 +20,12 @@ import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/testStyle";
 import questions from "../../data/Mountain/questions";
 import { Audio } from "expo-av";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import TimerHeartSection from "../components/TimerHeartSection";
 import ProgressBar from "../components/ProgressBar";
 import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
-import { stylesM } from '../styles/QuizStylesheet'
+import { stylesM } from "../styles/QuizStylesheet";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import {
   useAnswerAnimations,
@@ -91,53 +92,34 @@ const Mountain = () => {
     bottomSheetModalRef.current?.present();
   };
 
+  const soundFiles = [
+    require("../../assets/sounds/spinner.mp3"),
+    require("../../assets/sounds/timpani.mp3"),
+    require("../../assets/sounds/cymbal.mp3"), // Add more sounds as needed
+  ];
+  const randomIndex = Math.floor(Math.random() * soundFiles.length);
+  const selectedSound = soundFiles[randomIndex];
   // Correct Sound Effect
-  // const [correctSound, setCorrectSound] = useState<any>();
-  // async function CorrectPlaySound() {
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../../assets/sounds/correct2.wav")
-  //   );
-  //   setCorrectSound(correctSound);
-  //   await sound.playAsync();
-  // }
-  // useEffect(() => {
-  //   return correctSound ? () => correctSound.uploadAsync() : undefined;
-  // }, [correctSound]);
-
+  const CorrectPlaySound = useSoundEffect(
+    require("../../assets/sounds/correct3.mp3")
+  );
   // Wrong Sound Effect
-  // const [wrongSound, setWrongSound] = useState<any>();
-
-  // async function WrongPlaySound() {
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../../assets/sounds/wrong.wav")
-  //   );
-  //   setWrongSound(wrongSound);
-  //   await sound.playAsync();
-  // }
-  // useEffect(() => {
-  //   return wrongSound ? () => wrongSound.uploadAsync() : undefined;
-  // }, [wrongSound]);
-
-   // Correct Sound Effect
-    const CorrectPlaySound = useSoundEffect(
-      require("../../assets/sounds/correct3.mp3")
-    );
-    // Wrong Sound Effect
-    const WrongPlaySound = useSoundEffect(
-      require("../../assets/sounds/wrong.mp3")
-    );
-    // Fifty Fifty Sound Effect
-    const fiftyPlaySound = useSoundEffect(
-      require("../../assets/sounds/popup.mp3")
-    );
-    // Spinner Sound Effect
-    const spinnerPlaySound = useSoundEffect(
-      require("../../assets/sounds/spinner.mp3")
-    );
-    // Image Sound Effect
-    const imgPlaySound = useSoundEffect(
-      require("../../assets/sounds/popimg.mp3")
-    );
+  const WrongPlaySound = useSoundEffect(
+    require("../../assets/sounds/wrong.mp3")
+  );
+  // Fifty Fifty Sound Effect
+  const fiftyPlaySound = useSoundEffect(
+    require("../../assets/sounds/popup.mp3")
+  );
+  // Spinner Sound Effect
+  const spinnerPlaySound = useSoundEffect(
+    selectedSound
+    // require("../../assets/sounds/spinner.mp3")
+  );
+  // Image Sound Effect
+  const imgPlaySound = useSoundEffect(
+    require("../../assets/sounds/popimg.mp3")
+  );
 
   // Find Correct Answer
   useEffect(() => {
@@ -147,18 +129,15 @@ const Mountain = () => {
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
         setNextQueButton(stylesM.nextQueButton1);
-        // CorrectPlaySound();
         setCorrectAnswer((cor) => cor + 1);
-        // addHeart();
+        setConsecutiveCorrectAnswers((prev) => prev + 1);
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
         setNextQueButton(stylesM.nextQueButton2);
         setShowCorrectAnswer(false);
-        // WrongPlaySound();
-        // removeHeart();
-        // Vibration.vibrate();
+        setConsecutiveCorrectAnswers(0);
         answers.push({ question: index + 1, answer: false });
       }
     }
@@ -200,61 +179,18 @@ const Mountain = () => {
     }
   }, [index]);
 
-   useEffect(() => {
-      currentQuestion?.options.forEach((_, index) => {
-        setTimeout(() => {
-          imgPlaySound();
-        }, index * 200); // Delay each sound to match animation timing
-      });
-    }, [currentQuestion]);
-  
-    // Animations
-    const slideAnim = useSlideAnimation(index);
-    const scaleAnim = useScaleAnimation(index);
-    const answerAnims = useAnswerAnimations(index);
+  useEffect(() => {
+    currentQuestion?.options.forEach((_, index) => {
+      setTimeout(() => {
+        imgPlaySound();
+      }, index * 200); // Delay each sound to match animation timing
+    });
+  }, [currentQuestion]);
 
-  // const slideAnim = useRef(new Animated.Value(-300)).current;
-  // const scaleAnim = useRef(new Animated.Value(0)).current;
-  // const answerAnims = useRef([
-  //   new Animated.Value(0), // Box 0
-  //   new Animated.Value(0), // Box 1
-  //   new Animated.Value(0), // Box 2
-  //   new Animated.Value(0), // Box 3
-  // ]).current;
-
-  // useEffect(() => {
-  //   slideAnim.setValue(-300);
-  //   Animated.timing(slideAnim, {
-  //     toValue: 0,
-  //     duration: 400,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, [index, slideAnim]);
-
-  // useEffect(() => {
-  //   scaleAnim.setValue(0);
-  //   Animated.timing(scaleAnim, {
-  //     toValue: 1,
-  //     duration: 400,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, [index, scaleAnim]);
-
-  // useEffect(() => {
-  //   answerAnims.forEach((anim) => anim.setValue(0));
-  //   setTimeout(() => {
-  //     Animated.stagger(
-  //       200, // Delay between each animation
-  //       answerAnims.map((anim) =>
-  //         Animated.timing(anim, {
-  //           toValue: 1,
-  //           duration: 500,
-  //           useNativeDriver: true,
-  //         })
-  //       )
-  //     ).start();
-  //   }, 300);
-  // }, [index, answerAnims]);
+  // Animations
+  const slideAnim = useSlideAnimation(index);
+  const scaleAnim = useScaleAnimation(index);
+  const answerAnims = useAnswerAnimations(index);
 
   const [showLoading, setShowLoading] = useState(false);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -297,6 +233,39 @@ const Mountain = () => {
     }
   }, [isCountdownFinished, selectedAnswerIndex, currentQuestion]);
 
+  const [fifty, setFifty] = useState<number[]>([]);
+  const [showFifty, setShowFifty] = useState<boolean>(true);
+
+  const fiftyfifty = async () => {
+    await fiftyPlaySound();
+    const wrongAnswers = currentQuestion.options
+      .map((option, index) => index)
+      .filter((index) => index !== currentQuestion.correctAnswerIndex);
+
+    const randomWrongAnswers = wrongAnswers
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 2);
+    setFifty(randomWrongAnswers);
+    setShowFifty(false);
+  };
+
+  const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
+  
+    const infoIcon = () => {
+      setCounter(false);
+      Alert.alert(
+        "",
+        "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις  για να επανεμφανιστεί η βοήθεια.",
+        [
+          {
+            text: "Ενταξει",
+            // onPress: ()=>setCounter(true)
+          },
+        ]
+      );
+    };
+  
+
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
@@ -319,6 +288,31 @@ const Mountain = () => {
           totalQuestions={totalQuestions}
           counter={counter}
         />
+
+        {/* Fifty Fifty Button */}
+        {showFifty ? (
+          <View>
+            <Pressable onPress={fiftyfifty} style={stylesMountain.fiftyBtn}>
+              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            </Pressable>
+          </View>
+        ): (
+          <View>
+            <View style={stylesMountain.infoIcon}>
+              <Ionicons
+                name="information-circle-sharp"
+                size={24}
+                color="orange"
+              />
+            </View>
+            <Pressable
+              onPress={infoIcon}
+              style={[stylesMountain.fiftyBtn, { opacity: 0.5 }]}
+            >
+              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            </Pressable>
+          </View>
+        )}
 
         {/* Section 2 */}
         <View style={stylesM.section2Container}>
@@ -350,15 +344,20 @@ const Mountain = () => {
               }}
             >
               <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
-                <Text style={stylesM.question}>{currentQuestion?.question}</Text>
+                <Text style={stylesM.question}>
+                  {currentQuestion?.question}
+                </Text>
               </Animated.View>
             </View>
 
-             {/* Answers Subsection */}
+            {/* Answers Subsection */}
             <View
               style={[
                 stylesM.answersContainer,
-                { height: 260, marginTop: height > 900 ? height>900? 70:70 : 30 },
+                {
+                  height: 260,
+                  marginTop: height > 900 ? (height > 900 ? 70 : 70) : 30,
+                },
               ]}
             >
               {showLoading ? (
@@ -440,7 +439,10 @@ const Mountain = () => {
                     onPress={() => (
                       handleAnswerSelection(index), setCounter(false)
                     )}
-                    style={stylesM.answerButton}
+                    style={[
+                      stylesM.answerButton,
+                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
+                    ]}
                   >
                     <Animated.View
                       style={[
@@ -509,12 +511,22 @@ const Mountain = () => {
                     setIndex(index + 1);
                     setShowCorrectAnswer(false);
                     setIsCountdownFinished(false);
+                    setFifty([]);
+                    if (consecutiveCorrectAnswers === 3) {
+                      setShowFifty(true);
+                      setConsecutiveCorrectAnswers(0);
+                    }
                   }}
                   style={{
                     position: "absolute",
                     right: -10,
                     // bottom: Platform.OS ==="android"?height > 800 ? (height>960? height/2.6:height / 2.5): height / 2 : height/2.3
-                    bottom: Platform.OS ==="android"? height > 800 ? height / 2.5: height / 2.2 : height/2.3
+                    bottom:
+                      Platform.OS === "android"
+                        ? height > 800
+                          ? height / 2.5
+                          : height / 2.2
+                        : height / 2.3,
                   }}
                 >
                   <AntDesign name="rightcircle" size={50} color="white" />
@@ -547,176 +559,20 @@ const Mountain = () => {
 
 export default Mountain;
 
-// const stylesT = StyleSheet.create({
-//   image: {
-//     borderRadius: 10,
-//     marginBottom: 20,
-//     width: height > 1100 ? "100%" : "90%",
-//     margin: "auto",
-//     marginLeft: height > 960 ? (height > 1000 ? 30 : 20) : null,
-//     height:
-//       Platform.OS === "android"
-//         ? height < 800
-//           ? 190
-//           : height > 1100
-//           ? 320
-//           : 210
-//         : 190,
-//   },
-//   textAnswer: {
-//     marginHorizontal: "auto",
-//     fontWeight: "600",
-//     color: "white",
-//     fontSize: height>800? 16:14,
-//   },
- 
-//   section2Container: {
-//     marginVertical: 0,
-//     paddingHorizontal: height > 1000 ? 120 : 25,
-//     marginTop: 20,
-//   },
-//   answersContainer: {
-//     flex: 1,
-//     flexDirection: "row",
-//     flexWrap: "wrap",
-//     marginTop: 10,
-//     paddingTop: 5,
-//   },
-//   answerButton: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     width: "47%",
-//     height: height > 960 ? 120 : 100,
-//     borderRadius: 6,
-//     margin: "0.8%",
-//   },
-//   lottieCorrect: {
-//     position: "absolute",
-//     width: "100%",
-//     height: "70%",
-//     top: 0,
-//     right: -30,
-//   },
-//   lottieWrong: {
-//     position: "absolute",
-//     width: "100%",
-//     height: "70%",
-//     top: 0,
-//     right: -30,
-//   },
-//   BtmModalView: {
-//     flex: 1,
-//     alignItems: "center",
-//     backgroundColor: "white",
-//     width: "95%",
-//   },
-//   btmMdlView: {
-//     paddingBottom: 20,
-//     paddingHorizontal: 15,
-//     gap: 10,
-//     backgroundColor: "#f5f5f5",
-//     height: 300,
-//     borderRadius: 20,
-//     padding: 10,
-//   },
-//   btmMdlText: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     height: 60,
-//   },
-//   nextQueButton: {
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton1: {
-//     marginTop: 0,
-//     marginLeft: Platform.OS === "android" ? (height > 800 ? 300 : 230) : 240,
-//     backgroundColor: "green",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton2: {
-//     marginTop: 0,
-//     marginLeft: Platform.OS === "android" ? (height > 800 ? 300 : 230) : 240,
-//     backgroundColor: "#dd0530",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   correctAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "green",
-//     width: "100%",
-//     height: height > 960 ? 120 : 100,
-//     borderRadius: 6,
-//   },
-//   wrongAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#dd0530",
-//     width: "100%",
-//     height: height > 960 ? 120 : 100,
-//     borderRadius: 6,
-//   },
-//   borderAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#006cfa",
-//     width: "100%",
-//     height: height > 960 ? 120 : 100,
-//     borderRadius: 6,
-//   },
-//   ActivityIndicatorBox: {
-//     width: 200,
-//     height: 200,
-//     backgroundColor: "rgba(0, 0, 0, 0.3)",
-//     borderRadius: 20,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     position: "absolute",
-//     top: "50%",
-//     left: "50%",
-//     transform: [{ translateX: -100 }, { translateY: -100 }],
-//   },
-//   ActivityIndText: {
-//     color: "#ffffff",
-//     fontSize: 50,
-//     fontWeight: "bold",
-//     marginTop: 10,
-//   },
-// });
-
-
- // button0: {
-  //   position: "relative",
-  //   width: 180,
-  //   height: 40,
-  //   marginLeft: "auto",
-  //   marginRight: "auto",
-  //   marginTop: 0,
-  //   marginBottom: 40,
-  // },
-  // button1: {
-  //   position: "absolute",
-  //   opacity: 0.4,
-  //   backgroundColor: "#2E86C1",
-  //   width: "100%",
-  //   height: "100%",
-  //   borderRadius: 25,
-  // },
-  // btnText: {
-  //   position: "absolute",
-  //   bottom: 11,
-  //   left: 79,
-  //   color: "white",
-  //   fontWeight: "600",
-  //   fontSize: 20,
-  // },
+const stylesMountain = StyleSheet.create({
+  fiftyBtn: {
+    position: "absolute",
+    top: 60,
+    left: 5,
+    paddingVertical: 14,
+    paddingHorizontal: 4,
+    borderRadius: 6,
+    backgroundColor: "#615f5f95",
+  },
+  infoIcon: {
+    position: "absolute",
+    top: 40,
+    left: 15,
+    opacity: 1,
+  },
+})

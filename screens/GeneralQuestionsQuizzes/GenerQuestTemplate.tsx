@@ -11,15 +11,17 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../Types/RootStackParamList";
+import { RootStackParamList, Question } from "../../Types/RootStackParamList";
+// import { Question } from "../../Types/RootStackParamList";
 import styles from "../styles/testStyle";
 import { stylesM } from "../styles/QuizStylesheet";
 import { Audio } from "expo-av";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import TimerHeartSection from "../components/TimerHeartSection";
 import ProgressBar from "../components/ProgressBar";
@@ -40,7 +42,7 @@ type GenerQTProp = StackNavigationProp<
 
 const GenerQuestTemplate = (props: any) => {
   const navigation = useNavigation<GenerQTProp>();
-  const data = props.questions;
+  const data: Question[] = props.questions;
   const nomoiR = props.nomoiResults;
   const totalQuestions = data.length;
   const test = 5;
@@ -64,7 +66,7 @@ const GenerQuestTemplate = (props: any) => {
   const snapPoints = ["50%"];
   const [heart, setHeart] = useState<any>(3);
   const [correctAnswer, setCorrectAnswer] = useState(0);
-  const currentQuestion = data[index];
+  const currentQuestion: Question = data[index];
 
   const removeHeart = () => {
     setHeart((prevHeart: number) => prevHeart - 1);
@@ -87,32 +89,14 @@ const GenerQuestTemplate = (props: any) => {
   const handleModal = () => {
     bottomSheetModalRef.current?.present();
   };
-  // Correct Sound Effect
-  // const [correctSound, setCorrectSound] = useState<any>();
-  // async function CorrectPlaySound() {
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../../assets/sounds/correct2.wav")
-  //   );
-  //   setCorrectSound(correctSound);
-  //   await sound.playAsync();
-  // }
-  // useEffect(() => {
-  //   return correctSound ? () => correctSound.uploadAsync() : undefined;
-  // }, [correctSound]);
 
-  // Wrong Sound Effect
-  // const [wrongSound, setWrongSound] = useState<any>();
-  // async function WrongPlaySound() {
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../../assets/sounds/wrong.wav")
-  //   );
-  //   setWrongSound(wrongSound);
-  //   await sound.playAsync();
-  // }
-  // useEffect(() => {
-  //   return wrongSound ? () => wrongSound.uploadAsync() : undefined;
-  // }, [wrongSound]);
-
+  const soundFiles = [
+    require("../../assets/sounds/spinner.mp3"),
+    require("../../assets/sounds/timpani.mp3"),
+    require("../../assets/sounds/cymbal.mp3"), // Add more sounds as needed
+  ];
+  const randomIndex = Math.floor(Math.random() * soundFiles.length);
+  const selectedSound = soundFiles[randomIndex];
   // Correct Sound Effect
   const CorrectPlaySound = useSoundEffect(
     require("../../assets/sounds/correct3.mp3")
@@ -127,7 +111,8 @@ const GenerQuestTemplate = (props: any) => {
   );
   // Spinner Sound Effect
   const spinnerPlaySound = useSoundEffect(
-    require("../../assets/sounds/spinner.mp3")
+    selectedSound
+    // require("../../assets/sounds/spinner.mp3")
   );
   // Image Sound Effect
   const imgPlaySound = useSoundEffect(
@@ -141,18 +126,16 @@ const GenerQuestTemplate = (props: any) => {
         setAnswerStatus(true);
         setStyle(styles.quizContainer1);
         setNextQueButton(stylesM.nextQueButton1);
-        // CorrectPlaySound();
         setCorrectAnswer((cor) => cor + 1);
-        // addHeart();
+        setConsecutiveCorrectAnswers((prev) => prev + 1);
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
         setNextQueButton(stylesM.nextQueButton2);
         setShowCorrectAnswer(false);
-        // WrongPlaySound();
-        // removeHeart();
-        // Vibration.vibrate();
+        setCorrectAnswer(0);
+        setConsecutiveCorrectAnswers(0);
         answers.push({ question: index + 1, answer: false });
       }
     }
@@ -200,53 +183,10 @@ const GenerQuestTemplate = (props: any) => {
     });
   }, [currentQuestion]);
 
-   // Animations
-    const slideAnim = useSlideAnimation(index);
-    const scaleAnim = useScaleAnimation(index);
-    const answerAnims = useAnswerAnimations(index);
-
-  // const slideAnim = useRef(new Animated.Value(-300)).current;
-  // const scaleAnim = useRef(new Animated.Value(0)).current;
-  // const answerAnims = useRef([
-  //   new Animated.Value(0), 
-  //   new Animated.Value(0),
-  //   new Animated.Value(0), 
-  //   new Animated.Value(0), 
-  // ]).current;
-
-  // useEffect(() => {
-  //   slideAnim.setValue(-300);
-  //   Animated.timing(slideAnim, {
-  //     toValue: 0,
-  //     duration: 400,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, [index, slideAnim]);
-
-  // useEffect(() => {
-  //   scaleAnim.setValue(0);
-  //   Animated.timing(scaleAnim, {
-  //     toValue: 1,
-  //     duration: 400,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }, [index, scaleAnim]);
-
-  // useEffect(() => {
-  //   answerAnims.forEach((anim) => anim.setValue(0));
-  //   setTimeout(() => {
-  //     Animated.stagger(
-  //       200, // Delay between each animation
-  //       answerAnims.map((anim) =>
-  //         Animated.timing(anim, {
-  //           toValue: 1,
-  //           duration: 500,
-  //           useNativeDriver: true,
-  //         })
-  //       )
-  //     ).start();
-  //   }, 300);
-  // }, [index, answerAnims]);
+  // Animations
+  const slideAnim = useSlideAnimation(index);
+  const scaleAnim = useScaleAnimation(index);
+  const answerAnims = useAnswerAnimations(index);
 
   const [showLoading, setShowLoading] = useState(false);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -255,7 +195,7 @@ const GenerQuestTemplate = (props: any) => {
     useState<boolean>(false);
 
   const handleAnswerSelection = async (index: number) => {
-    await spinnerPlaySound()
+    await spinnerPlaySound();
     if (selectedAnswerIndex === null) {
       setSelectedAnswerIndex(index);
       setShowLoading(true); // Show loading spinner
@@ -289,6 +229,38 @@ const GenerQuestTemplate = (props: any) => {
     }
   }, [isCountdownFinished, selectedAnswerIndex, currentQuestion]);
 
+  const [fifty, setFifty] = useState<number[]>([]);
+  const [showFifty, setShowFifty] = useState<boolean>(true);
+
+  const fiftyfifty = async () => {
+    await fiftyPlaySound();
+    const wrongAnswers = currentQuestion.options
+      .map((option, index) => index)
+      .filter((index) => index !== currentQuestion.correctAnswerIndex);
+
+    const randomWrongAnswers = wrongAnswers
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 2);
+    setFifty(randomWrongAnswers);
+    setShowFifty(false);
+  };
+
+  const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
+
+  const infoIcon = () => {
+    setCounter(false);
+    Alert.alert(
+      "",
+      "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις  για να επανεμφανιστεί η βοήθεια.",
+      [
+        {
+          text: "Ενταξει",
+          // onPress: ()=>setCounter(true)
+        },
+      ]
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
@@ -309,6 +281,31 @@ const GenerQuestTemplate = (props: any) => {
           totalQuestions={totalQuestions}
           counter={counter}
         />
+
+        {/* Fifty Fifty Button */}
+        {showFifty ? (
+          <View>
+            <Pressable onPress={fiftyfifty} style={stylesG.fiftyBtn}>
+              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <View>
+            <View style={stylesG.infoIcon}>
+              <Ionicons
+                name="information-circle-sharp"
+                size={24}
+                color="orange"
+              />
+            </View>
+            <Pressable
+              onPress={infoIcon}
+              style={[stylesG.fiftyBtn, { opacity: 0.5 }]}
+            >
+              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            </Pressable>
+          </View>
+        )}
 
         {/* Section 2 */}
         <View style={stylesM.section2Container}>
@@ -439,7 +436,10 @@ const GenerQuestTemplate = (props: any) => {
                     onPress={() => (
                       handleAnswerSelection(index), setCounter(false)
                     )}
-                    style={stylesM.answerButton}
+                    style={[
+                      stylesM.answerButton,
+                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
+                    ]}
                   >
                     <Animated.View
                       style={[
@@ -534,6 +534,11 @@ const GenerQuestTemplate = (props: any) => {
                   onPress={() => {
                     setIndex(index + 1), setShowCorrectAnswer(false);
                     setIsCountdownFinished(false);
+                    if (consecutiveCorrectAnswers === 3) {
+                      setShowFifty(true);
+                      setConsecutiveCorrectAnswers(0);
+                    }
+                    setFifty([]);
                   }}
                   // style={nextQueButton}
                   style={{
@@ -590,177 +595,20 @@ const GenerQuestTemplate = (props: any) => {
 
 export default GenerQuestTemplate;
 
-// const stylesM = StyleSheet.create({
-//   background1: {
-//     flex: 1,
-//     ...StyleSheet.absoluteFillObject,
-//   },
-//   textTitle: {
-//     fontSize: 18,
-//     fontWeight: "600",
-//     color: "white",
-//     textAlign: "center",
-//     paddingTop: 30,
-//   },
-//   timer: {
-//     alignItems: "center",
-//     justifyContent: "center",
-//     marginTop: 5,
-//     marginRight: -30,
-//     width: 55,
-//     height: 55,
-//     backgroundColor: "#b8f5ef",
-//     borderRadius: 20,
-//   },
-//   progressBar: {
-//     backgroundColor: "magenta",
-//     borderRadius: 12,
-//     position: "absolute",
-//     left: 0,
-//     height: 8,
-//     right: 0,
-
-//   },
-//   image: {
-//     borderRadius: 10,
-//     marginBottom: 5,
-//     width: "100%",
-//     margin: "auto",
-//     marginLeft: height > 960 ? (height > 1100 ? 30 : 0) : null,
-//     height: height > 960 ? (height > 1000 ? 350 : 250) : 190,
-//     // borderColor: 'white',
-//     // borderWidth: 1
-//   },
-//   textAnswer: {
-//     marginHorizontal: "auto",
-//     fontWeight: "600",
-//     color: "white",
-//     fontSize: height > 960 ? 20 : 14,
-//   },
-//   button0: {
-//     position: "relative",
-//     width: 180,
-//     height: 40,
-//     marginLeft: "auto",
-//     marginRight: "auto",
-//     marginTop: 0,
-//     marginBottom: 40,
-//   },
-//   button1: {
-//     position: "absolute",
-//     opacity: 0.4,
-//     backgroundColor: "#2E86C1",
-//     width: "100%",
-//     height: "100%",
-//     borderRadius: 25,
-//   },
-//   btnText: {
-//     position: "absolute",
-//     bottom: 11,
-//     left: 79,
-//     color: "white",
-//     fontWeight: "600",
-//     fontSize: 20,
-//   },
-//   progressContainerInfo: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "space-between",
-//     paddingHorizontal: "10%",
-//   },
-//   progressBarBack: {
-//     backgroundColor: "white",
-//     width: height > 960 ? "60%" : "80%",
-//     flexDirection: "row",
-//     alignItems: "center",
-//     height: 7,
-//     borderRadius: 20,
-//     justifyContent: "center",
-//     marginTop: "5%",
-//     marginBottom: -15,
-//     marginLeft: "auto",
-//     marginRight: "auto",
-//   },
-//   BtmModalView: {
-//     flex: 1,
-//     alignItems: "center",
-//     backgroundColor: "white",
-//     width: "95%",
-//   },
-//   btmMdlView: {
-//     paddingBottom: 20,
-//     paddingHorizontal: 15,
-//     gap: 10,
-//     backgroundColor: "#f5f5f5",
-//     height: 300,
-//     borderRadius: 20,
-//     padding: 10,
-//   },
-//   btmMdlText: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     height: 60,
-//   },
-//   infoBtn: {
-//     position: "absolute",
-//     bottom: -15,
-//     right: -10,
-//     backgroundColor: "transparent",
-//     width: 80,
-//     height: 80,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   nextQueButton: {
-//     position: "absolute",
-//     bottom: -15,
-//     right: 10,
-//     backgroundColor: "magenta",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton1: {
-//     backgroundColor: "green",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   nextQueButton2: {
-//     backgroundColor: "#dd0530",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     borderRadius: 10,
-//   },
-//   correctAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "green",
-//     width: "100%",
-//     height: height>960 ? 120:90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-//   wrongAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#dd0530",
-//     width: "100%",
-//     height: height>960 ? 120:90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-//   borderAnswer: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     backgroundColor: "#006cfa",
-//     width: "100%",
-//     height: height>960 ? 120:90,
-//     borderRadius: 6,
-//     margin: "1.5%",
-//   },
-// });
+const stylesG = StyleSheet.create({
+  fiftyBtn: {
+    position: "absolute",
+    top: 60,
+    left: 5,
+    paddingVertical: 14,
+    paddingHorizontal: 4,
+    borderRadius: 6,
+    backgroundColor: "#615f5f95",
+  },
+  infoIcon: {
+    position: "absolute",
+    top: 40,
+    left: 15,
+    opacity: 1,
+  },
+});

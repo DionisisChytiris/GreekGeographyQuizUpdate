@@ -11,15 +11,17 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../Types/RootStackParamList";
+import { RootStackParamList, Question } from "../../Types/RootStackParamList";
+// import { Question } from "../../Types/RootStackParamList";
 import styles from "../styles/testStyle";
 import { stylesM } from "../styles/QuizStylesheet";
 import { Audio } from "expo-av";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import TimerHeartSection from "../components/TimerHeartSection";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -31,6 +33,7 @@ import {
   useScaleAnimation,
   useSlideAnimation,
 } from "../Utilities/useAnimations";
+import { opacity } from "react-native-reanimated/lib/typescript/Colors";
 
 const { height } = Dimensions.get("window");
 
@@ -41,12 +44,12 @@ type NomoiTProp = StackNavigationProp<
 
 const NomoiTemplate = (props: any) => {
   const navigation = useNavigation<NomoiTProp>();
-  const data = props.questions;
+  const data: Question[] = props.questions;
   const nomoiR = props.nomoiResults;
   const totalQuestions = data.length;
   const [points, setPoints] = useState(0);
   const [index, setIndex] = useState(0);
-  const currentQuestion = data[index];
+  const currentQuestion: Question = data[index];
   const [answerStatus, setAnswerStatus] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<any>([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(
@@ -122,11 +125,13 @@ const NomoiTemplate = (props: any) => {
         setStyle(styles.quizContainer1);
         setNextQueButton(stylesM.nextQueButton1);
         setCorrectAnswer((cor) => cor + 1);
+        setConsecutiveCorrectAnswers((prev) => prev + 1);
         answers.push({ question: index + 1, answer: true });
       } else {
         setAnswerStatus(false);
         setStyle(styles.quizContainer2);
         setNextQueButton(stylesM.nextQueButton2);
+        setConsecutiveCorrectAnswers(0);
         answers.push({ question: index + 1, answer: false });
         setFifty([]);
       }
@@ -175,11 +180,11 @@ const NomoiTemplate = (props: any) => {
   const [fifty, setFifty] = useState<number[]>([]);
   const [showFifty, setShowFifty] = useState<boolean>(true);
 
-  const fiftyfifty = async() => {
-    await fiftyPlaySound()
+  const fiftyfifty = async () => {
+    await fiftyPlaySound();
     const wrongAnswers = currentQuestion.options
-      .map((option: string[], index: number) => index)
-      .filter((index: number) => index !== currentQuestion.correctAnswerIndex);
+      .map((option, index) => index)
+      .filter((index) => index !== currentQuestion.correctAnswerIndex);
 
     const randomWrongAnswers = wrongAnswers
       .sort(() => 0.5 - Math.random())
@@ -218,7 +223,7 @@ const NomoiTemplate = (props: any) => {
     useState<boolean>(false);
 
   const handleAnswerSelection = async (index: number) => {
-    await spinnerPlaySound()
+    await spinnerPlaySound();
     if (selectedAnswerIndex === null) {
       setSelectedAnswerIndex(index);
       setShowLoading(true);
@@ -252,6 +257,18 @@ const NomoiTemplate = (props: any) => {
     }
   }, [isCountdownFinished, selectedAnswerIndex, currentQuestion]);
 
+  const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
+  const infoIcon = () => {
+    setCounter(false)
+    Alert.alert(
+      "",
+      "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις  για να επανεμφανιστεί η βοήθεια.",
+      [{ text: "Ενταξει" ,
+        // onPress: ()=>setCounter(true)
+      }]
+    );
+  };
+  
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
@@ -274,13 +291,26 @@ const NomoiTemplate = (props: any) => {
             {/* <View>{props.goBack}</View> */}
             <View style={styles.levelBox}>
               <View style={stylesNomoi.star}>{props.star}</View>
-              {showFifty && (
-                <Pressable
-                  onPress={fiftyfifty}
-                  style={stylesNomoi.fiftyBtn}
-                >
+              {showFifty ? (
+                <Pressable onPress={fiftyfifty} style={stylesNomoi.fiftyBtn}>
                   <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
                 </Pressable>
+              ) : (
+                <View>
+                  <View style={stylesNomoi.infoIcon}>
+                    <Ionicons
+                      name="information-circle-sharp"
+                      size={24}
+                      color="orange"
+                    />
+                  </View>
+                  <Pressable
+                    onPress={infoIcon}
+                    style={[stylesNomoi.fiftyBtn, { opacity: 0.5 }]}
+                  >
+                    <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+                  </Pressable>
+                </View>
               )}
               <View style={{ marginRight: 20 }}>
                 <Text style={{ color: "black", fontSize: 12 }}>
@@ -521,7 +551,10 @@ const NomoiTemplate = (props: any) => {
                         setFifty([]),
                         setShowCorrectAnswer(false);
                       setIsCountdownFinished(false);
-                      setShowFifty(true);
+                      if (consecutiveCorrectAnswers === 3) {
+                        setShowFifty(true);
+                        setConsecutiveCorrectAnswers(0);
+                      }
                     }}
                     style={{
                       position: "absolute",
@@ -698,5 +731,11 @@ const stylesNomoi = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "green",
     marginLeft: 30,
+  },
+  infoIcon: {
+    position: "absolute",
+    top: 0,
+    right: -20,
+    opacity: 1,
   },
 });

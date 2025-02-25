@@ -2,7 +2,7 @@ export type RootStackParamList = {
   Home: undefined;
   SetUserName: undefined;
   UpdateUserName: undefined;
-  LoseScreenREndTime:undefined;
+  LoseScreenREndTime: undefined;
   Quiz: undefined;
   Quiz1: undefined;
   Introduction: undefined;
@@ -15,14 +15,14 @@ export type RootStackParamList = {
   AboutApp: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;
-  LakeRiverResults: { points: number, data: any };
-  LakeRiverResultsRepeat: { points: number, data: any };
+  LakeRiverResults: { points: number; data: any };
+  LakeRiverResultsRepeat: { points: number; data: any };
   LakeRiverLoseScreen: undefined;
   LakeRiverLoseScreenR: undefined;
   Mountain: undefined;
   MountainRepeat: undefined;
-  MountainResults: { points: number, data: any };
-  MountainResultsRepeat: { points: number, data: any };
+  MountainResults: { points: number; data: any };
+  MountainResultsRepeat: { points: number; data: any };
   MountainLoseScreen: undefined;
   MountainLoseScreenR: undefined;
   LoseScreen: undefined;
@@ -39,15 +39,15 @@ export type RootStackParamList = {
   Nomoi5: undefined;
   Nomoi5R: undefined;
   Nomoi6: undefined;
-  Nomoi6Final: { points: number, data: any };
+  Nomoi6Final: { points: number; data: any };
   Nomoi6R: undefined;
   NomoiResultTemplate: undefined;
-  NomoiResult1: { points: number, data: any };
-  NomoiResult2: { points: number, data: any };
-  NomoiResult3: { points: number, data: any };
-  NomoiResult4: { points: number, data: any };
-  NomoiResult5: { points: number, data: any };
-  NomoiResult6: { points: number, data: any };
+  NomoiResult1: { points: number; data: any };
+  NomoiResult2: { points: number; data: any };
+  NomoiResult3: { points: number; data: any };
+  NomoiResult4: { points: number; data: any };
+  NomoiResult5: { points: number; data: any };
+  NomoiResult6: { points: number; data: any };
   NomoiLoseScreen1: undefined;
   NomoiLoseScreen1R: undefined;
   NomoiLoseScreen1Time: undefined;
@@ -76,16 +76,16 @@ export type RootStackParamList = {
   GeneralQuestions5: undefined;
   GeneralQuestions5R: undefined;
   // GeneralQuestionsResult1: undefined;
-  GeneralQuestionsResult1: { points: number, data: any };
-  GeneralQuestionsResult2: { points: number, data: any };
-  GeneralQuestionsResult3: { points: number, data: any };
-  GeneralQuestionsResult4: { points: number, data: any };
-  GeneralQuestionsResult5: { points: number, data: any };
-  GeneralQuestionsResult1R: { points: number, data: any };
-  GeneralQuestionsResult2R: { points: number, data: any };
-  GeneralQuestionsResult3R: { points: number, data: any };
-  GeneralQuestionsResult4R: { points: number, data: any };
-  GeneralQuestionsResult5R: { points: number, data: any };
+  GeneralQuestionsResult1: { points: number; data: any };
+  GeneralQuestionsResult2: { points: number; data: any };
+  GeneralQuestionsResult3: { points: number; data: any };
+  GeneralQuestionsResult4: { points: number; data: any };
+  GeneralQuestionsResult5: { points: number; data: any };
+  GeneralQuestionsResult1R: { points: number; data: any };
+  GeneralQuestionsResult2R: { points: number; data: any };
+  GeneralQuestionsResult3R: { points: number; data: any };
+  GeneralQuestionsResult4R: { points: number; data: any };
+  GeneralQuestionsResult5R: { points: number; data: any };
   GQLoseScreen1: undefined;
   GQLoseScreen2: undefined;
   GQLoseScreen3: undefined;
@@ -98,7 +98,21 @@ export type RootStackParamList = {
   GQLoseScreenR5: undefined;
   GenQResLoseScreen: undefined;
   GenQResLoseScreenR: undefined;
-  GenerQuestTemplate: { points: number, data: any }
-  GeneralQuizMenu: undefined
+  GenerQuestTemplate: { points: number; data: any };
+  GeneralQuizMenu: undefined;
   // GeneralQuizMenu: { points: number, data: any }
+};
+
+export type Question = {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswerIndex: number;
+  img: any;
+  imgMap: any;
+  answer: string;
+  result1: string;
+  result2: string;
+  result3: string;
+  result4: string;
 };
