@@ -82,11 +82,11 @@ const GenerQueResultsTemplate = (props: any) => {
         resizeMode="cover"
         style={{ height: "100%" }}
       >
-        {show ? (
+        {/* {show ? (
           <View style={{ position: "absolute", top: 0, left: 0 }}>
             <CustomAlert />
           </View>
-        ) : null}
+        ) : null} */}
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     height: 5,
     borderRadius: 20,
     position: "absolute",
-    bottom: Platform.OS === "android"?height > 800 ? -65 :-20 : -20, 
+    bottom: Platform.OS === "android"? height > 860 ? -65 :-20 : -20, 
     left: 35,
     justifyContent: "center",
   },

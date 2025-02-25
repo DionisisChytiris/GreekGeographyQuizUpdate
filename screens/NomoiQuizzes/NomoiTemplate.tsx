@@ -85,6 +85,13 @@ const NomoiTemplate = (props: any) => {
     bottomSheetModalRef.current?.present();
   };
 
+  const soundFiles = [
+    require("../../assets/sounds/spinner.mp3"),
+    require("../../assets/sounds/timpani.mp3"),
+    require("../../assets/sounds/cymbal.mp3"), // Add more sounds as needed
+  ];
+  const randomIndex = Math.floor(Math.random() * soundFiles.length);
+  const selectedSound = soundFiles[randomIndex];
   // Correct Sound Effect
   const CorrectPlaySound = useSoundEffect(
     require("../../assets/sounds/correct3.mp3")
@@ -99,7 +106,8 @@ const NomoiTemplate = (props: any) => {
   );
   // Spinner Sound Effect
   const spinnerPlaySound = useSoundEffect(
-    require("../../assets/sounds/spinner.mp3")
+    selectedSound
+    // require("../../assets/sounds/spinner.mp3")
   );
   // Image Sound Effect
   const imgPlaySound = useSoundEffect(
@@ -519,7 +527,7 @@ const NomoiTemplate = (props: any) => {
                       position: "absolute",
                       bottom:
                         Platform.OS === "android"
-                          ? height > 800
+                          ? height > 860
                             ? height / 2.5
                             : height / 2.2
                           : height / 2.3,
