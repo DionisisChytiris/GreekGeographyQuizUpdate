@@ -202,6 +202,7 @@ const GenerQuestTemplate = (props: any) => {
 
       let count = 3;
       setCountdown(count);
+      setShowConsecutiveCorrectAnswers(false);
 
       const interval = setInterval(() => {
         count -= 1;
@@ -211,6 +212,7 @@ const GenerQuestTemplate = (props: any) => {
           setShowLoading(false); // Hide loading spinner
           setShowCorrectAnswer(true); // Show correct answer
           setIsCountdownFinished(true);
+          setShowConsecutiveCorrectAnswers(true);
         }
       }, 1000);
     }
@@ -246,6 +248,8 @@ const GenerQuestTemplate = (props: any) => {
   };
 
   const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
+    const [showConsecutiveCorrectAnswers, setShowConsecutiveCorrectAnswers] =
+      useState(false);
 
   const infoIcon = () => {
     setCounter(false);
@@ -285,24 +289,34 @@ const GenerQuestTemplate = (props: any) => {
         {/* Fifty Fifty Button */}
         {showFifty ? (
           <View>
-            <Pressable onPress={fiftyfifty} style={stylesG.fiftyBtn}>
-              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            <Pressable onPress={fiftyfifty} style={stylesM.fiftyBtn}>
+              <Text style={{ color: "white", fontSize: 10 }}>50%</Text>
             </Pressable>
           </View>
         ) : (
           <View>
-            <View style={stylesG.infoIcon}>
-              <Ionicons
-                name="information-circle-sharp"
-                size={24}
-                color="orange"
-              />
+            <View style={stylesM.infoIcon}>
+              {showConsecutiveCorrectAnswers ? (
+                <Text style={{ color: "white", fontSize: 10 }}>
+                  {consecutiveCorrectAnswers}
+                </Text>
+              ) : (
+                <Text style={{ color: "white", fontSize: 10 }}>
+                  {Math.max(consecutiveCorrectAnswers - 1, 0)}
+                </Text>
+              )}
             </View>
             <Pressable
               onPress={infoIcon}
-              style={[stylesG.fiftyBtn, { opacity: 0.5 }]}
+              style={[stylesM.fiftyBtn, { opacity: 0.5, paddingVertical: 5 }]}
             >
-              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+              <View>
+                <Ionicons
+                  name="information-circle-sharp"
+                  size={24}
+                  color="white"
+                />
+              </View>
             </Pressable>
           </View>
         )}
@@ -595,20 +609,20 @@ const GenerQuestTemplate = (props: any) => {
 
 export default GenerQuestTemplate;
 
-const stylesG = StyleSheet.create({
-  fiftyBtn: {
-    position: "absolute",
-    top: 60,
-    left: 5,
-    paddingVertical: 14,
-    paddingHorizontal: 4,
-    borderRadius: 6,
-    backgroundColor: "#615f5f95",
-  },
-  infoIcon: {
-    position: "absolute",
-    top: 40,
-    left: 15,
-    opacity: 1,
-  },
-});
+// const stylesG = StyleSheet.create({
+//   fiftyBtn: {
+//     position: "absolute",
+//     top: 60,
+//     left: 5,
+//     paddingVertical: 14,
+//     paddingHorizontal: 4,
+//     borderRadius: 6,
+//     backgroundColor: "#615f5f95",
+//   },
+//   infoIcon: {
+//     position: "absolute",
+//     top: 40,
+//     left: 15,
+//     opacity: 1,
+//   },
+// });

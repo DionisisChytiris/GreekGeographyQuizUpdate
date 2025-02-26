@@ -206,6 +206,7 @@ const Mountain = () => {
 
       let count = 3;
       setCountdown(count);
+      setShowConsecutiveCorrectAnswers(false);
 
       const interval = setInterval(() => {
         count -= 1;
@@ -215,6 +216,7 @@ const Mountain = () => {
           setShowLoading(false); // Hide loading spinner
           setShowCorrectAnswer(true); // Show correct answer
           setIsCountdownFinished(true);
+          setShowConsecutiveCorrectAnswers(true);
         }
       }, 1000);
     }
@@ -232,6 +234,8 @@ const Mountain = () => {
       }
     }
   }, [isCountdownFinished, selectedAnswerIndex, currentQuestion]);
+  const [showConsecutiveCorrectAnswers, setShowConsecutiveCorrectAnswers] =
+    useState(false);
 
   const [fifty, setFifty] = useState<number[]>([]);
   const [showFifty, setShowFifty] = useState<boolean>(true);
@@ -250,21 +254,20 @@ const Mountain = () => {
   };
 
   const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
-  
-    const infoIcon = () => {
-      setCounter(false);
-      Alert.alert(
-        "",
-        "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις  για να επανεμφανιστεί η βοήθεια.",
-        [
-          {
-            text: "Ενταξει",
-            // onPress: ()=>setCounter(true)
-          },
-        ]
-      );
-    };
-  
+
+  const infoIcon = () => {
+    setCounter(false);
+    Alert.alert(
+      "",
+      "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις  για να επανεμφανιστεί η βοήθεια.",
+      [
+        {
+          text: "Ενταξει",
+          // onPress: ()=>setCounter(true)
+        },
+      ]
+    );
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
@@ -292,24 +295,34 @@ const Mountain = () => {
         {/* Fifty Fifty Button */}
         {showFifty ? (
           <View>
-            <Pressable onPress={fiftyfifty} style={stylesMountain.fiftyBtn}>
-              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+            <Pressable onPress={fiftyfifty} style={stylesM.fiftyBtn}>
+              <Text style={{ color: "white", fontSize: 10 }}>50%</Text>
             </Pressable>
           </View>
-        ): (
+        ) : (
           <View>
-            <View style={stylesMountain.infoIcon}>
-              <Ionicons
-                name="information-circle-sharp"
-                size={24}
-                color="orange"
-              />
+            <View style={stylesM.infoIcon}>
+              {showConsecutiveCorrectAnswers ? (
+                <Text style={{ color: "white", fontSize: 10 }}>
+                  {consecutiveCorrectAnswers}
+                </Text>
+              ) : (
+                <Text style={{ color: "white", fontSize: 10 }}>
+                  {Math.max(consecutiveCorrectAnswers - 1, 0)}
+                </Text>
+              )}
             </View>
             <Pressable
               onPress={infoIcon}
-              style={[stylesMountain.fiftyBtn, { opacity: 0.5 }]}
+              style={[stylesM.fiftyBtn, { opacity: 0.5, paddingVertical: 5 }]}
             >
-              <Text style={{ color: "white", fontSize: 12 }}>50%</Text>
+              <View>
+                <Ionicons
+                  name="information-circle-sharp"
+                  size={24}
+                  color="white"
+                />
+              </View>
             </Pressable>
           </View>
         )}
@@ -559,20 +572,20 @@ const Mountain = () => {
 
 export default Mountain;
 
-const stylesMountain = StyleSheet.create({
-  fiftyBtn: {
-    position: "absolute",
-    top: 60,
-    left: 5,
-    paddingVertical: 14,
-    paddingHorizontal: 4,
-    borderRadius: 6,
-    backgroundColor: "#615f5f95",
-  },
-  infoIcon: {
-    position: "absolute",
-    top: 40,
-    left: 15,
-    opacity: 1,
-  },
-})
+// const stylesMountain = StyleSheet.create({
+//   fiftyBtn: {
+//     position: "absolute",
+//     top: 60,
+//     left: 5,
+//     paddingVertical: 10,
+//     paddingHorizontal: 4,
+//     borderRadius: 6,
+//     backgroundColor: "#615f5f95",
+//   },
+//   infoIcon: {
+//     position: "absolute",
+//     top: 60,
+//     left: 15,
+//     opacity: 1,
+//   },
+// });

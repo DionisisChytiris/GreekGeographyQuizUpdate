@@ -165,4 +165,23 @@ export const stylesM = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 10,
   },
+  fiftyBtn: {
+    position: "absolute",
+    top: 60,
+    left: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    borderRadius: 6,
+    backgroundColor: "#615f5f95",
+  },
+  infoIcon: {
+    position: "absolute",
+    top: 44,
+    left: 20,
+    opacity: 1,
+    backgroundColor: 'orange',
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderRadius: 4
+  },
 });
