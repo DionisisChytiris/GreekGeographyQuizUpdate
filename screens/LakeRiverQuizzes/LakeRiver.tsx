@@ -490,6 +490,7 @@ const LakeRiver = () => {
                     </TouchableOpacity>
                   ))
                 )}
+             
                 {/* Progress Bar */}
                 {!showCorrectAnswer && (
                   <ProgressBar
