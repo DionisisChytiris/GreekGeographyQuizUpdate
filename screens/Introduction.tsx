@@ -50,7 +50,7 @@ const Introduction = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/meteora.jpg")}
+        source={require("../assets/Photos/meteora.jpg")}
         // source={require("../assets/introduction2.png")}
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}

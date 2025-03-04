@@ -17,7 +17,7 @@ const NomoiInstructions = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "lightblue" }}>
       <Image
-        source={require("../../assets/salonika.jpg")}
+        source={require("../../assets/Photos/salonika.jpg")}
         // resizeMode="cover"
         style={{
           position: "absolute",
@@ -96,7 +96,7 @@ const NomoiInstructions = () => {
       </View>
 
       <Image
-        source={require("../../assets/athina.jpg")}
+        source={require("../../assets/Photos/athina.jpg")}
         // resizeMode="cover"
         style={{
           position: "absolute",

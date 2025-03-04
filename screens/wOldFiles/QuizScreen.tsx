@@ -144,7 +144,7 @@ const QuizScreen = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/romaikiAgora.jpg")}
+        source={require("../assets/Photos/romaikiAgora.jpg")}
         resizeMode="cover"
         style={{ flex: 1}}
       >

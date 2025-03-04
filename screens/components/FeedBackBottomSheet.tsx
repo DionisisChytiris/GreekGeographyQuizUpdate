@@ -43,7 +43,7 @@ const FeedbackBottomSheet: React.FC<FeedbackBottomSheetProps> = ({
                     Σωστή Απάντηση
                   </Text>
                   <Image
-                    source={require("../../assets/thumbUp.jpg")}
+                    source={require("../../assets/Photos/thumbUp.jpg")}
                     resizeMode="cover"
                     style={{ width: 50, height: 50 }}
                   />
@@ -76,7 +76,7 @@ const FeedbackBottomSheet: React.FC<FeedbackBottomSheetProps> = ({
                     Λάθος Απάντηση
                   </Text>
                   <Image
-                    source={require("../../assets/sadFace.jpg")}
+                    source={require("../../assets/Photos/sadFace.jpg")}
                     resizeMode="cover"
                     style={{ marginVertical: 20, width: 50, height: 50 }}
                   />

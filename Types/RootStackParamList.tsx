@@ -100,6 +100,7 @@ export type RootStackParamList = {
   GenQResLoseScreenR: undefined;
   GenerQuestTemplate: { points: number; data: any };
   GeneralQuizMenu: undefined;
+  Calendar: undefined;
   // GeneralQuizMenu: { points: number, data: any }
 };
 

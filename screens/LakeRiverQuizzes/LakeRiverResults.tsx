@@ -93,7 +93,7 @@ const LakeRiverResults = () => {
                         φανταστικές!!!
                       </Text>
                       <Image
-                        source={require("../../assets/trophy.png")}
+                        source={require("../../assets/Photos/trophy.png")}
                         resizeMode="cover"
                         style={{
                           marginVertical: 20,

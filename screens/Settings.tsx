@@ -58,7 +58,7 @@ const Settings = () => {
     <View style={{ flex: 1 }}>
       <ScrollView bounces={false}>
         <ImageBackground
-          source={require("../assets/romaikiAgora.jpg")}
+          source={require("../assets/Photos/romaikiAgora.jpg")}
           resizeMode="cover"
           blurRadius={3}
           style={{
@@ -185,7 +185,7 @@ const Settings = () => {
                   }}
                 >
                   <Image
-                    source={require("../assets/WorldTrivia.png")}
+                    source={require("../assets/Photos/WorldTrivia.png")}
                     resizeMode="cover"
                     style={{
                       width: 70,

@@ -504,7 +504,7 @@ import {
                                 Σωστή Απάντηση
                               </Text>
                               <Image
-                                source={require("../../assets/thumbUp.jpg")}
+                                source={require("../../assets/Photos/thumbUp.jpg")}
                                 resizeMode="cover"
                                 style={{
                                   // marginBottom: 20,
@@ -542,7 +542,7 @@ import {
                                 Λάθος Απάντηση
                               </Text>
                               <Image
-                                source={require("../../assets/sadFace.jpg")}
+                                source={require("../../assets/Photos/sadFace.jpg")}
                                 resizeMode="cover"
                                 style={{
                                   marginVertical: 20,

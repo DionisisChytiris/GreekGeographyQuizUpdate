@@ -31,6 +31,7 @@ import {
   useAnswerAnimations,
   useScaleAnimation,
   useSlideAnimation,
+  useSlideAnimationFiftyBtn
 } from "../Utilities/useAnimations";
 
 const { height } = Dimensions.get("window");
@@ -185,6 +186,7 @@ const GenerQuestTemplate = (props: any) => {
 
   // Animations
   const slideAnim = useSlideAnimation(index);
+   const slideAnimFiftyBtn = useSlideAnimationFiftyBtn(index);
   const scaleAnim = useScaleAnimation(index);
   const answerAnims = useAnswerAnimations(index);
 
@@ -248,8 +250,8 @@ const GenerQuestTemplate = (props: any) => {
   };
 
   const [consecutiveCorrectAnswers, setConsecutiveCorrectAnswers] = useState(0);
-    const [showConsecutiveCorrectAnswers, setShowConsecutiveCorrectAnswers] =
-      useState(false);
+  const [showConsecutiveCorrectAnswers, setShowConsecutiveCorrectAnswers] =
+    useState(false);
 
   const infoIcon = () => {
     setCounter(false);
@@ -268,140 +270,208 @@ const GenerQuestTemplate = (props: any) => {
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
-        {/* <ImageBackground
+        <ImageBackground
           source={require("../../assets/MorePhotos/ath.jpg")}
-          style={{ marginTop: height > 1100 ? 100 : null}}
-        > */}
+          resizeMode="cover"
+          blurRadius={0.4}
+          style={{ flex: 1, width: "100%", height: "110%" }}
+        >
+          {/* Section 1 */}
+          <View style={{ paddingTop: Platform.OS == "ios" ? 45 : 30 }} />
 
-        {/* Section 1 */}
-        <View style={{ paddingTop: Platform.OS == "ios" ? 45 : 30 }} />
+          {/* Timer Heart Section */}
+          <TimerHeartSection
+            navigation={navigation}
+            color="white"
+            color1="white"
+            quizName="Γενικές Ερωτήσεις"
+            index={index}
+            heart={heart}
+            totalQuestions={totalQuestions}
+            counter={counter}
+          />
 
-        {/* Timer Heart Section */}
-        <TimerHeartSection
-          navigation={navigation}
-          quizName="Γενικές Ερωτήσεις"
-          index={index}
-          heart={heart}
-          totalQuestions={totalQuestions}
-          counter={counter}
-        />
-
-        {/* Fifty Fifty Button */}
-        {showFifty ? (
-          <View>
-            <Pressable onPress={fiftyfifty} style={stylesM.fiftyBtn}>
-              <Text style={{ color: "white", fontSize: 10 }}>50%</Text>
-            </Pressable>
-          </View>
-        ) : (
-          <View>
-            <View style={stylesM.infoIcon}>
-              {showConsecutiveCorrectAnswers ? (
-                <Text style={{ color: "white", fontSize: 10 }}>
-                  {consecutiveCorrectAnswers}
-                </Text>
-              ) : (
-                <Text style={{ color: "white", fontSize: 10 }}>
-                  {Math.max(consecutiveCorrectAnswers - 1, 0)}
-                </Text>
-              )}
-            </View>
-            <Pressable
-              onPress={infoIcon}
-              style={[stylesM.fiftyBtn, { opacity: 0.5, paddingVertical: 5 }]}
-            >
-              <View>
-                <Ionicons
-                  name="information-circle-sharp"
-                  size={24}
-                  color="white"
-                />
-              </View>
-            </Pressable>
-          </View>
-        )}
-
-        {/* Section 2 */}
-        <View style={stylesM.section2Container}>
-          <View style={{}}>
-            {/* Image Subsection */}
-            <Animated.Image
-              key={currentQuestion?.id}
-              source={currentQuestion?.img}
-              style={[
-                stylesM.image,
-                {
-                  transform: [
-                    {
-                      scale: scaleAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 1],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            />
-
-            {/* Question Subsection */}
-            <View
+          {/* Fifty Fifty Button */}
+          {showFifty ? (
+            <Animated.View
               style={{
-                width: "100%",
-                overflow: "hidden",
-                marginTop: height > 900 ? 20 : 0,
+                transform: [{ translateX: slideAnimFiftyBtn }],
+                zIndex: 999,
               }}
             >
-              <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
-                <Text style={stylesM.question}>
-                  {currentQuestion?.question}
-                </Text>
-              </Animated.View>
-            </View>
-            <View style={{ marginBottom: height > 800 ? 30 : 0 }}>
-              <ProgressBar index1={index1} totalQuestions={test} />
-            </View>
-
-            {/* Answers Subsection */}
-            <View
-              style={[
-                stylesM.answersContainer,
-                {
-                  height: height > 800 ? 320 : 290,
-                  marginTop: height > 900 ? (height > 900 ? 50 : 70) : 30,
-                },
-              ]}
-            >
-              {showLoading ? (
-                <View style={stylesM.ActivityIndicatorBox}>
-                  {/* Custom size for ActivityIndicator */}
-                  <Text>
-                    <ActivityIndicator size={80} color="#ffffff" />{" "}
+              <Pressable onPress={fiftyfifty} style={stylesM.fiftyBtn}>
+                <Text style={{ color: "white", fontSize: 10 }}>50%</Text>
+              </Pressable>
+            </Animated.View>
+          ) : (
+            <View style={{zIndex: 999}}>
+              <View style={stylesM.infoIcon}>
+                {showConsecutiveCorrectAnswers ? (
+                  <Text style={{ color: "white", fontSize: 10 }}>
+                    {consecutiveCorrectAnswers}
                   </Text>
-                  {/* 80px size */}
-                  <Text style={stylesM.ActivityIndText}>{countdown}</Text>
+                ) : (
+                  <Text style={{ color: "white", fontSize: 10 }}>
+                    {Math.max(consecutiveCorrectAnswers - 1, 0)}
+                  </Text>
+                )}
+              </View>
+              <Pressable
+                onPress={infoIcon}
+                style={[stylesM.fiftyBtn, { opacity: 0.5, paddingVertical: 5 }]}
+              >
+                <View>
+                  <Ionicons
+                    name="information-circle-sharp"
+                    size={24}
+                    color="white"
+                  />
                 </View>
-              ) : showCorrectAnswer ? (
-                // Show correct answer after loading
-                currentQuestion?.options.map((item: any, index: any) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      selectedAnswerIndex === null &&
-                        setSelectedAnswerIndex(index);
-                      setCounter(false);
-                    }}
-                    style={stylesM.answerButton}
-                  >
-                    <View>
+              </Pressable>
+            </View>
+          )}
+
+          {/* Section 2 */}
+          <View style={[stylesM.section2Container, { marginBottom: 50 }]}>
+            <View style={{}}>
+              {/* Image Subsection */}
+              <Animated.Image
+                key={currentQuestion?.id}
+                source={currentQuestion?.img}
+                style={[
+                  stylesM.image,
+                  {
+                    transform: [
+                      {
+                        scale: scaleAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, 1],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              />
+
+              {/* Question Subsection */}
+              <View
+                style={{
+                  width: "100%",
+                  overflow: "hidden",
+                  marginTop: height > 900 ? 20 : 0,
+                }}
+              >
+                <Animated.View
+                  style={{ transform: [{ translateX: slideAnim }] }}
+                >
+                  <Text style={stylesM.question}>
+                    {currentQuestion?.question}
+                  </Text>
+                </Animated.View>
+              </View>
+              <View style={{ marginBottom: height > 800 ? 30 : 0 }}>
+                <ProgressBar index1={index1} totalQuestions={test} />
+              </View>
+
+              {/* Answers Subsection */}
+              <View
+                style={[
+                  stylesM.answersContainer,
+                  {
+                    height: height > 800 ? 320 : 290,
+                    marginTop: height > 900 ? (height > 900 ? 50 : 70) : 30,
+                  },
+                ]}
+              >
+                {showLoading ? (
+                  <View style={stylesM.ActivityIndicatorBox}>
+                    {/* Custom size for ActivityIndicator */}
+                    <Text>
+                      <ActivityIndicator size={80} color="#ffffff" />{" "}
+                    </Text>
+                    {/* 80px size */}
+                    <Text style={stylesM.ActivityIndText}>{countdown}</Text>
+                  </View>
+                ) : showCorrectAnswer ? (
+                  // Show correct answer after loading
+                  currentQuestion?.options.map((item: any, index: any) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        selectedAnswerIndex === null &&
+                          setSelectedAnswerIndex(index);
+                        setCounter(false);
+                      }}
+                      style={stylesM.answerButton}
+                    >
+                      <View>
+                        <Animated.View
+                          style={[
+                            selectedAnswerIndex === index &&
+                            index === currentQuestion.correctAnswerIndex
+                              ? stylesM.correctAnswer
+                              : selectedAnswerIndex !== null &&
+                                selectedAnswerIndex === index
+                              ? stylesM.wrongAnswer
+                              : stylesM.borderAnswer,
+                            {
+                              opacity: answerAnims[index],
+                              transform: [
+                                {
+                                  scale: answerAnims[index].interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0.8, 1],
+                                  }),
+                                },
+                              ],
+                            },
+                          ]}
+                        >
+                          <Text style={stylesM.textAnswer}>{item.answer}</Text>
+                        </Animated.View>
+                        {selectedAnswerIndex === index &&
+                        index === currentQuestion.correctAnswerIndex ? (
+                          <View style={stylesM.lottieCorrect}>
+                            <LottieView
+                              style={{ width: "100%", height: "100%" }}
+                              source={require("../../assets/LottieAnimations/Success.json")}
+                              autoPlay
+                              loop={false}
+                            />
+                          </View>
+                        ) : null}
+                        {selectedAnswerIndex === index &&
+                        index !== currentQuestion.correctAnswerIndex ? (
+                          <View style={stylesM.lottieWrong}>
+                            <LottieView
+                              style={{ width: "100%", height: "100%" }}
+                              source={require("../../assets/LottieAnimations/Fail.json")}
+                              autoPlay
+                              loop={false}
+                            />
+                          </View>
+                        ) : null}
+                      </View>
+                    </TouchableOpacity>
+                  ))
+                ) : (
+                  // Show normal answer buttons if no answer has been selected
+                  currentQuestion?.options.map((item: any, index: any) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => (
+                        handleAnswerSelection(index), setCounter(false)
+                      )}
+                      style={[
+                        stylesM.answerButton,
+                        fifty.includes(index)
+                          ? { opacity: 0.4 }
+                          : { opacity: 1 },
+                      ]}
+                    >
                       <Animated.View
                         style={[
-                          selectedAnswerIndex === index &&
-                          index === currentQuestion.correctAnswerIndex
-                            ? stylesM.correctAnswer
-                            : selectedAnswerIndex !== null &&
-                              selectedAnswerIndex === index
-                            ? stylesM.wrongAnswer
-                            : stylesM.borderAnswer,
+                          stylesM.borderAnswer,
                           {
                             opacity: answerAnims[index],
                             transform: [
@@ -417,116 +487,109 @@ const GenerQuestTemplate = (props: any) => {
                       >
                         <Text style={stylesM.textAnswer}>{item.answer}</Text>
                       </Animated.View>
-                      {selectedAnswerIndex === index &&
-                      index === currentQuestion.correctAnswerIndex ? (
-                        <View style={stylesM.lottieCorrect}>
-                          <LottieView
-                            style={{ width: "100%", height: "100%" }}
-                            source={require("../../assets/LottieAnimations/Success.json")}
-                            autoPlay
-                            loop={false}
-                          />
-                        </View>
-                      ) : null}
-                      {selectedAnswerIndex === index &&
-                      index !== currentQuestion.correctAnswerIndex ? (
-                        <View style={stylesM.lottieWrong}>
-                          <LottieView
-                            style={{ width: "100%", height: "100%" }}
-                            source={require("../../assets/LottieAnimations/Fail.json")}
-                            autoPlay
-                            loop={false}
-                          />
-                        </View>
-                      ) : null}
-                    </View>
-                  </TouchableOpacity>
-                ))
-              ) : (
-                // Show normal answer buttons if no answer has been selected
-                currentQuestion?.options.map((item: any, index: any) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => (
-                      handleAnswerSelection(index), setCounter(false)
-                    )}
-                    style={[
-                      stylesM.answerButton,
-                      fifty.includes(index) ? { opacity: 0.4 } : { opacity: 1 },
-                    ]}
-                  >
-                    <Animated.View
-                      style={[
-                        stylesM.borderAnswer,
-                        {
-                          opacity: answerAnims[index],
-                          transform: [
-                            {
-                              scale: answerAnims[index].interpolate({
-                                inputRange: [0, 1],
-                                outputRange: [0.8, 1],
-                              }),
-                            },
-                          ],
-                        },
-                      ]}
-                    >
-                      <Text style={stylesM.textAnswer}>{item.answer}</Text>
-                    </Animated.View>
-                  </TouchableOpacity>
-                ))
-              )}
-
-              {/* Progress Bar */}
-              {/* {!showCorrectAnswer && (
-                <ProgressBar index1={index1} totalQuestions={test} />
-              )} */}
+                    </TouchableOpacity>
+                  ))
+                )}
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* Section 3 - FeedBack Area */}
-        {!showCorrectAnswer ? null : (
-          <View style={styles.feedBackArea}>
-            {index + 1 >= data.length ? (
-              answerStatus === null ? null : (
-                <View style={{}}>
-                  <View
-                    style={{
-                      position: "absolute",
-                      left: -220,
-                      marginTop: height > 800 ? -40 : -30,
-                    }}
-                  >
-                    <Pressable
-                      onPress={() =>
-                        navigation.navigate(nomoiR, {
-                          points: points,
-                          data: data,
-                        })
-                      }
-                      style={[nextQueButton, { marginTop: -45, width: 130 }]}
+          {/* Section 3 - FeedBack Area */}
+          {!showCorrectAnswer ? null : (
+            <View style={styles.feedBackArea}>
+              {index + 1 >= data.length ? (
+                answerStatus === null ? null : (
+                  <View style={{}}>
+                    <View
+                      style={{
+                        position: "absolute",
+                        left: -220,
+                        marginTop: height > 800 ? -40 : -30,
+                      }}
                     >
-                      <Text
-                        style={{
-                          color: "white",
-                          padding: 10,
-                          borderRadius: 10,
-                        }}
+                      <Pressable
+                        onPress={() =>
+                          navigation.navigate(nomoiR, {
+                            points: points,
+                            data: data,
+                          })
+                        }
+                        style={[nextQueButton, { marginTop: -45, width: 130 }]}
                       >
-                        Αποτελέσματα
-                      </Text>
-                    </Pressable>
+                        <Text
+                          style={{
+                            color: "white",
+                            padding: 10,
+                            borderRadius: 10,
+                          }}
+                        >
+                          Αποτελέσματα
+                        </Text>
+                      </Pressable>
+                    </View>
+                    <View
+                      style={{
+                        position: "absolute",
+                        left: -0,
+                        // bottom: 40
+                        // marginTop: height > 800 ? -40 : -60,
+                      }}
+                    >
+                      <Pressable
+                        style={[nextQueButton, { marginTop: 0 }]}
+                        onPress={handleModal}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                            padding: 10,
+                            borderRadius: 10,
+                          }}
+                        >
+                          Απάντηση
+                        </Text>
+                      </Pressable>
+                    </View>
                   </View>
-                  <View
+                )
+              ) : answerStatus === null ? null : (
+                <View>
+                  <Pressable
+                    onPress={() => {
+                      setIndex(index + 1), setShowCorrectAnswer(false);
+                      setIsCountdownFinished(false);
+                      if (consecutiveCorrectAnswers === 3) {
+                        setShowFifty(true);
+                        setConsecutiveCorrectAnswers(0);
+                      }
+                      setFifty([]);
+                    }}
+                    // style={nextQueButton}
                     style={{
                       position: "absolute",
-                      left: -0,
-                      marginTop: height > 800 ? -40 : -30,
+                      bottom:
+                        Platform.OS === "android"
+                          ? height > 800
+                            ? height / 2.5
+                            : height / 2.2
+                          : height / 2.3,
+                      right: -10,
+                      zIndex: 999
+                    }}
+                  >
+                    <AntDesign name="rightcircle" size={50} color="white" />
+                  </Pressable>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      bottom: 70
+                      // flexDirection: "row",
+                      // marginBottom: 65,
+                      // marginTop: height > 800 ? -40 : -30,
                     }}
                   >
                     <Pressable
-                      style={[nextQueButton, { marginTop: -45 }]}
+                      style={[nextQueButton, { marginBottom: -40 }]}
                       onPress={handleModal}
                     >
                       <Text
@@ -541,67 +604,17 @@ const GenerQuestTemplate = (props: any) => {
                     </Pressable>
                   </View>
                 </View>
-              )
-            ) : answerStatus === null ? null : (
-              <View>
-                <Pressable
-                  onPress={() => {
-                    setIndex(index + 1), setShowCorrectAnswer(false);
-                    setIsCountdownFinished(false);
-                    if (consecutiveCorrectAnswers === 3) {
-                      setShowFifty(true);
-                      setConsecutiveCorrectAnswers(0);
-                    }
-                    setFifty([]);
-                  }}
-                  // style={nextQueButton}
-                  style={{
-                    position: "absolute",
-                    bottom:
-                      Platform.OS === "android"
-                        ? height > 800
-                          ? height / 2.5
-                          : height / 2.2
-                        : height / 2.3,
-                    right: -10,
-                  }}
-                >
-                  <AntDesign name="rightcircle" size={50} color="white" />
-                </Pressable>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginBottom: 5,
-                    marginTop: height > 800 ? -40 : -30,
-                  }}
-                >
-                  <Pressable
-                    style={[nextQueButton, { marginTop: -40 }]}
-                    onPress={handleModal}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        padding: 10,
-                        borderRadius: 10,
-                      }}
-                    >
-                      Απάντηση
-                    </Text>
-                  </Pressable>
-                </View>
-              </View>
-            )}
-            {/* FeedBackBottomSheet */}
-            <FeedbackBottomSheet
-              bottomSheetModalRef={bottomSheetModalRef}
-              snapPoints={snapPoints}
-              answerStatus={answerStatus}
-              currentQuestion={currentQuestion}
-            />
-          </View>
-        )}
-        {/* </ImageBackground> */}
+              )}
+              {/* FeedBackBottomSheet */}
+              <FeedbackBottomSheet
+                bottomSheetModalRef={bottomSheetModalRef}
+                snapPoints={snapPoints}
+                answerStatus={answerStatus}
+                currentQuestion={currentQuestion}
+              />
+            </View>
+          )}
+        </ImageBackground>
       </ScrollView>
     </View>
   );

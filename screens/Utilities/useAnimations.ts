@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
+import { useSoundEffect } from "./useSoundEffects";
 
 export function useSlideAnimation(index: number) {
   const slideAnim = useRef(new Animated.Value(-300)).current;
@@ -12,6 +13,38 @@ export function useSlideAnimation(index: number) {
       useNativeDriver: true,
     }).start();
   }, [index]);
+
+  return slideAnim;
+}
+
+export function useSlideAnimationFiftyBtn(index: number) {
+  const slideAnim = useRef(new Animated.Value(-300)).current;
+
+  const fiftyPlaySound = useSoundEffect(
+    require("../../assets/sounds/popimg.mp3")
+  );
+
+  useEffect(() => {
+    const timeout1 = setTimeout(() => {
+      fiftyPlaySound();
+    },1500);
+    return () => clearTimeout(timeout1);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      slideAnim.setValue(-300);
+      // fiftyPlaySound()
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 400,
+        useNativeDriver: true,
+      }).start();
+    }, 1500); // 3-second delay
+
+    // Cleanup the timeout when the component unmounts or index changes
+    return () => clearTimeout(timeout);
+  }, []);
 
   return slideAnim;
 }

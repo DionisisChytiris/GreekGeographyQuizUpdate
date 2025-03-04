@@ -51,7 +51,7 @@ const questions1 =  [
             },
         ],
         correctAnswerIndex: 0,
-        img: require('../assets/meteora.jpg')
+        img: require('../assets/Photos/meteora.jpg')
 
     },
     // {

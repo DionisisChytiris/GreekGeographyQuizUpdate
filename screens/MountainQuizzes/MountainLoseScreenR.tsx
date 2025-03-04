@@ -46,7 +46,7 @@ export default MountainLoseScreen
 //   return (
 //     <View style={{ height: "100%", backgroundColor: "darkblue" }}>
 //       <ImageBackground
-//         source={require("../../assets/meteora.jpg")}
+//         source={require("../../assets/Photos/meteora.jpg")}
 //         style={{ height: "100%" }}
 //       >
 //         <View

@@ -30,9 +30,14 @@ export const stylesM = StyleSheet.create({
 
   section2Container: {
     // backgroundColor: "lightblue",
-    marginVertical: 0,
-    paddingHorizontal: height > 1000 ? 120 : 25,
-    marginTop: 20,
+    backgroundColor: "#f5f5f595",
+    borderRadius: 20,
+    marginHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: Platform.OS=== 'android'? height>800? 30: 0 : 0,
+    zIndex: 1
+    // paddingHorizontal: height > 1000 ? 120 : 25,
+    // marginTop: 20,
     // marginBottom: -100,
   },
   answersContainer: {
@@ -41,22 +46,24 @@ export const stylesM = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: 10,
     paddingTop: 5,
+    paddingHorizontal: 10,
     // backgroundColor: 'yellow'
   },
   question: {
     // marginLeft: 20,
     textAlign: "center",
     marginTop: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     fontSize: height > 960 ? (height > 1100 ? 24 : 19) : 16,
     fontWeight: "bold",
-    height: 70,
+    height:height> 800? 50: 70,
   },
   answerButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "47%",
+    // width: "47%",
+    width: "48%",
     height: height > 960 ? 120 : 100,
     borderRadius: 6,
     margin: "0.8%",
@@ -100,6 +107,7 @@ export const stylesM = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    zIndex: 10
   },
   nextQueButton1: {
     marginTop: height < 900 ? -30 : 20,
@@ -108,6 +116,7 @@ export const stylesM = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    zIndex: 10
   },
   nextQueButton2: {
     marginTop: height < 900 ? -30 : 20,
@@ -116,6 +125,7 @@ export const stylesM = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    zIndex: 10
   },
   correctAnswer: {
     flexDirection: "row",
@@ -172,16 +182,19 @@ export const stylesM = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 4,
     borderRadius: 6,
-    backgroundColor: "#615f5f95",
+    // opacity: 0.8,
+    // backgroundColor: "#615f5f95",
+    backgroundColor: "#ff00ff"
   },
   infoIcon: {
     position: "absolute",
     top: 44,
     left: 20,
     opacity: 1,
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
     paddingVertical: 3,
     paddingHorizontal: 5,
-    borderRadius: 4
+    borderRadius: 4,
+    zIndex: 9999
   },
 });

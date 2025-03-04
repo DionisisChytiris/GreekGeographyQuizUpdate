@@ -20,6 +20,8 @@ interface YourComponentProps {
   heart: number;
   counter: number;
   quizName: string;
+  color: string;
+  color1: string;
 }
 
 const TimerHeartSection: React.FC<YourComponentProps> = ({
@@ -29,18 +31,20 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
   totalQuestions,
   heart,
   counter,
+  color,
+  color1
 }) => {
   return (
     <View style={styles.container}>
       <View style={styles.quizName}>
-        <Text style={{ fontSize: 12 }}>{quizName}</Text>
+        <Text style={{ fontSize: 12, color: color }}>{quizName}</Text>
       </View>
       {/* Back Button */}
       <Pressable
         style={styles.btnArrow}
         onPress={() => navigation.navigate("Quiz1")}
       >
-        <AntDesign name="arrowleft" size={24} color="grey" />
+        <AntDesign name="arrowleft" size={20} color={color1}/>
       </Pressable>
 
       {/* Question Counter */}

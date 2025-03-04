@@ -124,6 +124,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MapTest from "./screens/Atestcomponents/MapTest";
 import DragAndDropQuiz from "./screens/Atestcomponents/DragDropQuiz";
 import MapQuiz from "./screens/Atestcomponents/MapQuiz";
+import Calendar from "./screens/Atestcomponents/Calendar";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -187,6 +188,15 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="Calendar"
+          component={Calendar}
           options={{
             headerShown: false,
             headerBackTitleVisible: false,

@@ -26,7 +26,7 @@ import {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "darkblue" }}>
         <ImageBackground
-          source={require("../../assets/salonika.jpg")}
+          source={require("../../assets/Photos/salonika.jpg")}
           // resizeMode="cover"
           style={{ height: "100%" }}
         >
@@ -73,7 +73,7 @@ import {
                           φανταστικές!!!
                         </Text>
                         <Image
-                          source={require("../../assets/trophy.png")}
+                          source={require("../../assets/Photos/trophy.png")}
                           resizeMode="cover"
                           style={{
                             marginVertical: 20,

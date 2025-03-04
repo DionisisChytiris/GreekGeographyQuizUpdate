@@ -12,6 +12,7 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
+  ImageBackground,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -272,6 +273,12 @@ const NomoiTemplate = (props: any) => {
   return (
     <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
       <ScrollView bounces={false}>
+        <ImageBackground
+          source={require("../../assets/MorePhotos/ath.jpg")}
+          resizeMode="cover"
+          blurRadius={0.4}
+          style={{ flex: 1, width: "100%", height: "100%" }}
+        >
         <View>
           {/* Section 1 */}
           <View style={{ paddingTop: Platform.OS == "ios" ? 45 : 30 }} />
@@ -279,6 +286,8 @@ const NomoiTemplate = (props: any) => {
           {/* Timer Heart Section */}
           <TimerHeartSection
             navigation={navigation}
+             color="white"
+            color1="white"
             quizName="Νομοί/Πόλεις"
             index={index}
             heart={heart}
@@ -289,7 +298,7 @@ const NomoiTemplate = (props: any) => {
             style={[styles.containerInfo, { marginTop: -5, marginBottom: -10 }]}
           >
             {/* <View>{props.goBack}</View> */}
-            <View style={styles.levelBox}>
+            <View style={[styles.levelBox,{ zIndex: 999, marginTop: 10}]}>
               <View style={stylesNomoi.star}>{props.star}</View>
               {showFifty ? (
                 <Pressable onPress={fiftyfifty} style={stylesNomoi.fiftyBtn}>
@@ -321,7 +330,7 @@ const NomoiTemplate = (props: any) => {
           </View>
 
           {/* Section 2 */}
-          <View style={stylesM.section2Container}>
+          <View style={[stylesM.section2Container,{marginTop: -25, paddingTop: 40, marginBottom: 20}]}>
             <View style={{}}>
               {/* Image Subsection */}
               <Animated.Image
@@ -347,7 +356,7 @@ const NomoiTemplate = (props: any) => {
                 style={{
                   width: "100%",
                   overflow: "hidden",
-                  marginTop: height > 900 ? 20 : 0,
+                  marginTop: height > 900 ? 20 : 0
                 }}
               >
                 <Animated.View
@@ -565,6 +574,7 @@ const NomoiTemplate = (props: any) => {
                             : height / 2.2
                           : height / 2.3,
                       right: -10,
+                      zIndex:999
                     }}
                   >
                     <AntDesign name="rightcircle" size={50} color="white" />
@@ -634,7 +644,7 @@ const NomoiTemplate = (props: any) => {
                             Σωστή Απάντηση
                           </Text>
                           <Image
-                            source={require("../../assets/thumbUp.jpg")}
+                            source={require("../../assets/Photos/thumbUp.jpg")}
                             resizeMode="cover"
                             style={{
                               marginVertical: 20,
@@ -680,7 +690,7 @@ const NomoiTemplate = (props: any) => {
                             Λάθος Απάντηση
                           </Text>
                           <Image
-                            source={require("../../assets/sadFace.jpg")}
+                            source={require("../../assets/Photos/sadFace.jpg")}
                             resizeMode="cover"
                             style={{
                               marginVertical: 20,
@@ -709,6 +719,7 @@ const NomoiTemplate = (props: any) => {
             </View>
           )}
         </View>
+        </ImageBackground>
       </ScrollView>
     </View>
   );

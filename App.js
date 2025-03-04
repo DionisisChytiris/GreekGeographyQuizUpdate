@@ -7,9 +7,28 @@ import { Provider, useDispatch } from "react-redux";
 import { store } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
 import * as Updates from "expo-updates";
-import { Alert, Linking, Platform, Appearance, StatusBar } from "react-native";
+import { Alert, StatusBar } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Appearance.setColorScheme('light');
+
+const saveUsageDate = async () => {
+  const today = new Date().toISOString().split("T")[0];
+  try {
+    const storedDates = await AsyncStorage.getItem("usedDates");
+    const dates = storedDates ? JSON.parse(storedDates) : {};
+    dates[today] = { 
+      marked: true, 
+      selected: true,
+      // backgroundColor: 'green',
+      selectedColor: 'lightblue',
+      // dotColor: "blue" 
+    };
+    await AsyncStorage.setItem("usedDates", JSON.stringify(dates));
+  } catch (error) {
+    console.error("Error saving usage date:", error);
+  }
+};
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -17,6 +36,10 @@ const AppContent = () => {
   useEffect(() => {
     dispatch(loadName());
   }, [dispatch]);
+
+  useEffect(() => {
+    saveUsageDate(); // Runs when the app starts
+  }, []);
 
   const checkForUpdates = async () => {
     try {
@@ -90,7 +113,12 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         {/* <StatusBar style='auto' /> */}
-        <StatusBar style='auto' hidden={false} translucent backgroundColor="transparent"  />
+        <StatusBar
+          style="auto"
+          hidden={false}
+          translucent
+          backgroundColor="transparent"
+        />
         <AppContent />
       </Provider>
     </GestureHandlerRootView>

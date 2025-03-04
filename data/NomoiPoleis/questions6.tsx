@@ -217,7 +217,7 @@ const questions6 =  [
             },
         ],
         correctAnswerIndex: 2,
-        img: require('../../assets/meteora.jpg'),
+        img: require('../../assets/Photos/meteora.jpg'),
         imgMap: require('../../assets/maps/N.Trikalwn.png'),
         nomos: 'Τρικάλων',
         capital: 'Τρίκαλα',

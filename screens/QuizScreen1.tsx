@@ -180,6 +180,12 @@ const QuizScreen1 = () => {
               </Pressable>
             </View>
           </View>
+          <Pressable
+            onPress={()=>navigation.navigate("Calendar")}
+            style={{ position: "absolute", bottom: height>800? 80:40, backgroundColor: 'magenta', padding: 10, borderRadius: 10 }}
+          >
+            <Text style={{color: 'white'}}>Iχνηλάτης Εφαρμογής</Text>
+          </Pressable>
         </View>
       </ImageBackground>
     </View>

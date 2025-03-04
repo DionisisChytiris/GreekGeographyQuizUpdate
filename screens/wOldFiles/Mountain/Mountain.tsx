@@ -214,7 +214,7 @@ import {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView bounces={false}>
           <ImageBackground
-            source={require("../../assets/meteora.jpg")}
+            source={require("../../assets/Photos/meteora.jpg")}
             style={{ marginTop: height > 1100 ? 100 : null }}
           >
             <View style={[styles.progressContainerInfo,{marginTop: -5}]}>
@@ -491,7 +491,7 @@ import {
                               Σωστή Απάντηση
                             </Text>
                             <Image
-                              source={require("../../assets/thumbUp.jpg")}
+                              source={require("../../assets/Photos/thumbUp.jpg")}
                               resizeMode="cover"
                               style={{
                                 // marginBottom: 20,
@@ -525,7 +525,7 @@ import {
                               Λάθος Απάντηση
                             </Text>
                             <Image
-                              source={require("../../assets/sadFace.jpg")}
+                              source={require("../../assets/Photos/sadFace.jpg")}
                               resizeMode="cover"
                               style={{
                                 marginVertical: 20,
