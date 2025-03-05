@@ -14,11 +14,11 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+// import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from "@expo/vector-icons/Feather";
 import { useAppSelector } from "../ReduxToolkit/store";
-import { LinearGradient } from "expo-linear-gradient";
+import ShareButton from "./components/ShareButton";
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -65,12 +65,6 @@ const QuizScreen1 = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <LinearGradient
-        colors={["#0073f7", "#bdc1c4"]} // Gradient from blue to light blue
-        start={{ x: 0, y: 0 }} // Top center
-        end={{ x: 0, y: 1 }} // Bottom center
-        style={{ flex: 1 }}
-      /> */}
       <ImageBackground
         source={require("../assets//MorePhotos/ath.jpg")}
         resizeMode="cover"
@@ -181,10 +175,32 @@ const QuizScreen1 = () => {
             </View>
           </View>
           <Pressable
-            onPress={()=>navigation.navigate("Calendar")}
-            style={{ position: "absolute", bottom: height>800? 80:40, backgroundColor: 'magenta', padding: 10, borderRadius: 10 }}
+            onPress={() => navigation.navigate("Calendar")}
+            style={{
+              position: "absolute",
+              left: 20,
+              bottom: height > 800 ? 80 : 40,
+              backgroundColor: "magenta",
+              padding: 10,
+              borderRadius: 10,
+            }}
           >
-            <Text style={{color: 'white'}}>Iχνηλάτης Εφαρμογής</Text>
+            <Text style={{ color: "white" }}>Iχνηλάτης Εφαρμογής</Text>
+          </Pressable>
+          <Pressable
+            style={{
+              position: "absolute",
+              right: 20,
+              bottom: height > 800 ? 80 : 40,
+              backgroundColor: "#5bf834d7",
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+              borderRadius: 10,
+            }}
+          >
+            {/* <FontAwesome6 name="share-nodes" size={24} color="black" /> */}
+            {/* <Ionicons name="share-social-sharp" size={24} color="black" /> */}
+              <ShareButton/>
           </Pressable>
         </View>
       </ImageBackground>
