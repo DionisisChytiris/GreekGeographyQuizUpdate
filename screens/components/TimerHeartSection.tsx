@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,13 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
+  Button,
 } from "react-native";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { Heart, ArrowLeft, Info } from "lucide-react-native";
 import { NavigationProp } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector } from "../../ReduxToolkit/store";
+import { useSoundEffect } from "../Utilities/useSoundEffects";
 
 const { height } = Dimensions.get("window");
 
@@ -32,54 +36,69 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
   heart,
   counter,
   color,
-  color1
+  color1,
 }) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.quizName}>
-        <Text style={{ fontSize: 12, color: color }}>{quizName}</Text>
-      </View>
-      {/* Back Button */}
-      <Pressable
-        style={styles.btnArrow}
-        onPress={() => navigation.navigate("Quiz1")}
-      >
-        <AntDesign name="arrowleft" size={20} color={color1}/>
-      </Pressable>
+  const livesEnabled = useAppSelector((state) => state.lives.livesEnabled);
+  const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
 
-      {/* Question Counter */}
-      <View>
-        <Text style={styles.text1}>
+  const soundFiles = [
+    require("../../assets/sounds/spinner.mp3"),
+    require("../../assets/sounds/timpani.mp3"),
+    require("../../assets/sounds/cymbal.mp3"), // Add more sounds as needed
+  ];
+  const randomIndex = Math.floor(Math.random() * soundFiles.length);
+  const selectedSound = soundFiles[randomIndex];
+
+   // Fifty Fifty Sound Effect
+    const fiftyPlaySound = useSoundEffect(
+      require("../../assets/sounds/popup.mp3")
+    );
+    // Spinner Sound Effect
+    const spinnerPlaySound = useSoundEffect(
+      selectedSound
+      // require("../../assets/sounds/spinner.mp3")
+    );
+
+  return (
+    <View style={styles.header}>
+      <View style={styles.headerLeft}>
+        <View style={styles.quizName}>
+          <Text style={{ fontSize: 12, color: "#333" }}>{quizName}</Text>
+        </View>
+        <Text style={styles.progress}>
           {index + 1} / {totalQuestions}
         </Text>
       </View>
 
-      {/* Heart Counter */}
-      <View style={styles.heartBox}>
-        <Text style={{ zIndex: 1, color: "red", fontSize: 16 }}>❤️</Text>
-        <Text style={styles.heartCounterTxt}>{heart}</Text>
-      </View>
+      <View style={styles.headerRight}>
+        {/* Lives */}
+        {/* <View style={styles.livesContainer}>
+          <Text style={{ zIndex: 1, color: "red", fontSize: 14 }}>❤️</Text>
+          <Text style={styles.livesText}>{heart}</Text>
+        </View> */}
 
-      <Pressable
-        onPress={() =>
-          Alert.alert(
-            "",
-            "Aπάντησε σωστά σε 3 συνεχόμενες ερωτήσεις για να προσθέσεις μια καρδιά.\n\nΜέγιστος αριθμός καρδιών 5.",
-            [{ text: "Ενταξει" }]
-          )
-        }
-        style={styles.btnInfo}
-      >
-        <Ionicons name="information-circle-sharp" size={24} color="white" />
-      </Pressable>
-
-      {/* Timer */}
-      <View style={styles.timer}>
-        <Text
-          style={{ ...styles.counterNumber, fontSize: 30, color: "#2E86C1" }}
-        >
-          {counter}
-        </Text>
+        {/* 50% */}
+        {/* <View style={styles.livesContainer}>
+          <Text style={{ zIndex: 1, color: "red", fontSize: 14 }}>❤️</Text>
+          <Text style={styles.livesText}>9</Text>
+        </View> */}
+        {/* Other */}
+        {/* <View style={styles.livesContainer}>
+          <Text style={{ zIndex: 1, color: "red", fontSize: 14 }}>❤️</Text>
+          <Text style={styles.livesText}>8</Text>
+        </View> */}
+        {livesEnabled && (
+          <View style={styles.livesContainer}>
+            <Text style={{ zIndex: 1, color: "red", fontSize: 14 }}>❤️</Text>
+            <Text style={styles.livesText}>{heart}</Text>
+          </View>
+        )}
+        {/* Timer */}
+        {isTimerEnabled && (
+          <View style={styles.scoreContainer}>
+            <Text style={styles.scoreText}>{counter}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -88,71 +107,78 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
 export default TimerHeartSection;
 
 const styles = StyleSheet.create({
-  container: {
+  header: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: "10%",
-    paddingVertical: Platform.OS === "android" ? (height > 800 ? 20 : 10) : 5,
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: Platform.OS === 'ios' ? 12:25,
+    marginBottom: -5,
   },
   quizName: {
     position: "absolute",
-    top: Platform.OS === "android" ? (height > 800 ? 10 : 0) : 0,
-    left: 20
+    bottom: 45,
+    left: 0,
   },
-  btnArrow: {
-    position: "absolute",
-    top: Platform.OS == "ios" ? -5 : height > 800 ? 10 : 0,
-    left: -20,
-    padding: 30,
-    zIndex: 1,
-  },
-  text1: {
-    color: "white",
-    fontSize: 13,
-    alignItems: "center",
-    backgroundColor: "#615f5f90",
-    justifyContent: "center",
-    paddingVertical: 3,
-    paddingHorizontal: 8,
-    borderRadius: 10,
-  },
-  heartBox: {
+  headerLeft: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    gap: 12,
   },
-  heartCounterTxt: {
-    backgroundColor: "#615f5f90",
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    marginLeft: -10,
-    borderRadius: 5,
-    color: "white",
-  },
-  btnInfo: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    justifyContent: "center",
+  headerRight: {
+    flexDirection: "row",
     alignItems: "center",
-    right: height > 1000 ? -130 : -120,
+    gap: 12,
+    justifyContent: "flex-end",
+    // backgroundColor: 'yellow',
+    width: "80%",
   },
-  timer: {
+  iconButton: {
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    marginLeft: -50,
+  },
+  progress: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 16,
+    color: "#333",
+    backgroundColor: "#E8EDF3",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  livesContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: 0,
-    marginRight: 0,
-    width: 60,
-    height: 60,
-    backgroundColor: "#b8f5ef",
-    borderRadius: 20,
+    backgroundColor: "#e7e6e6",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    gap: 4,
   },
-  counterNumber: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
+  livesText: {
+    fontFamily: "Poppins-SemiBold",
     fontSize: 14,
+  },
+  scoreContainer: {
+    backgroundColor: "#1f85a7",
+    // backgroundColor: "#E0F7FF",
+    paddingHorizontal: 14,
+    paddingVertical: 4,
+    borderRadius: 12,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  scoreText: {
+    fontFamily: "Poppins-Bold",
+    fontSize: 16,
+    color: "white",
   },
 });

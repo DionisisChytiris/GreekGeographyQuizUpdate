@@ -7,8 +7,12 @@ import { Provider, useDispatch } from "react-redux";
 import { store } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
 import * as Updates from "expo-updates";
-import { Alert, StatusBar } from "react-native";
+import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { StatusBar } from 'expo-status-bar';
+// import { useColorScheme } from 'react-native';
+
+// const theme = useColorScheme(); // 'light' or 'dark'
 
 // Appearance.setColorScheme('light');
 
@@ -17,12 +21,12 @@ const saveUsageDate = async () => {
   try {
     const storedDates = await AsyncStorage.getItem("usedDates");
     const dates = storedDates ? JSON.parse(storedDates) : {};
-    dates[today] = { 
-      marked: true, 
+    dates[today] = {
+      marked: true,
       selected: true,
       // backgroundColor: 'green',
-      selectedColor: 'lightblue',
-      // dotColor: "blue" 
+      selectedColor: "lightblue",
+      // dotColor: "blue"
     };
     await AsyncStorage.setItem("usedDates", JSON.stringify(dates));
   } catch (error) {
@@ -107,20 +111,42 @@ const AppContent = () => {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  return isLoading ? (
-    <Splash setIsLoading={setIsLoading} />
-  ) : (
+  return  (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        {/* <StatusBar style='auto' /> */}
-        <StatusBar
-          style="auto"
+        <StatusBar style="auto" translucent />
+        {/* <StatusBar
+          style="dark"
+          translucent={Platform.OS === 'android'}
           hidden={false}
           translucent
-          backgroundColor="transparent"
-        />
+          backgroundColor="transparent" 
+          style={theme === "dark" ? "light" : "dark"}
+          backgroundColor="#F7F9FC00"
+        /> */}
+
         <AppContent />
       </Provider>
     </GestureHandlerRootView>
   );
+  // return isLoading ? (
+  //   <Splash setIsLoading={setIsLoading} />
+  // ) : (
+  //   <GestureHandlerRootView style={{ flex: 1 }}>
+  //     <Provider store={store}>
+  //       <StatusBar style="auto" translucent />
+  //       {/* <StatusBar
+  //         style="dark"
+  //         translucent={Platform.OS === 'android'}
+  //         hidden={false}
+  //         translucent
+  //         backgroundColor="transparent" 
+  //         style={theme === "dark" ? "light" : "dark"}
+  //         backgroundColor="#F7F9FC00"
+  //       /> */}
+
+  //       <AppContent />
+  //     </Provider>
+  //   </GestureHandlerRootView>
+  // );
 }

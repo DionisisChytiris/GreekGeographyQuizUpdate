@@ -1,331 +1,327 @@
 import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
   View,
-  Alert,
-  ImageBackground,
+  Text,
+  StyleSheet,
+  Pressable,
   Dimensions,
+  Image,
+  StatusBar,
+  ImageBackground,
   Platform,
 } from "react-native";
-import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  Menu,
+  Share2,
+  MapPin,
+  Mountain,
+  Waves,
+  Globe as Globe2,
+} from "lucide-react-native";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-// import Ionicons from '@expo/vector-icons/Ionicons';
-import Feather from "@expo/vector-icons/Feather";
-import { useAppSelector } from "../ReduxToolkit/store";
+import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
-
-type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
+import { useAppSelector } from "../ReduxToolkit/store";
+import GeneralQuestions from "./GeneralQuestionsQuizzes/GeneralQuestions";
+// import { StatusBar } from 'expo-status-bar';
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
 
-const QuizScreen1 = () => {
+
+type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
+// import { SplashScreen } from 'expo-router';
+
+// Prevent splash screen from auto-hiding
+// SplashScreen.preventAutoHideAsync();
+
+const categories: {
+  id: string;
+  title: string;
+  icon: any;
+  gradient: [string, string, ...string[]];
+  image: string;
+}[] = [
+  {
+    id: "Nomoi",
+    title: "Νομοί - Πόλεις",
+    icon: MapPin,
+    gradient: ["#FF6B6B", "#FF8E8E"],
+    image:
+      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80",
+  },
+  {
+    id: "Mountain",
+    title: "Βουνά",
+    icon: Mountain,
+    gradient: ["#4ECDC4", "#45B7AF"],
+    image:
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80",
+  },
+  {
+    id: "LakeRiver",
+    title: "Λίμνες - Ποτάμια",
+    icon: Waves,
+    gradient: ["#3498DB", "#2980B9"],
+    image:
+      "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&q=80",
+  },
+  {
+  id: "GeneralQuestions",
+    title: "Γενικές Ερωτήσεις",
+    icon: Globe2,
+    gradient: ["#9B59B6", "#8E44AD"],
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80",
+  },
+];
+
+export default function HomeScreen() {
   const navigation = useNavigation<QuizScreenProp>();
   const name = useAppSelector((state) => state.user.name);
-  const [scale1, setScale1] = React.useState(1);
-  const [scale2, setScale2] = React.useState(1);
-  const [scale3, setScale3] = React.useState(1);
-  const [scale4, setScale4] = React.useState(1);
+  const [scale1, setScale1] = useState(1);
+  const [scale2, setScale2] = useState(1);
+  const [pressedCategory, setPressedCategory] = useState<string | null>(null);
+  const [fontsLoaded, fontError] = useFonts({
+    "Poppins-Regular": Poppins_400Regular,
+    "Poppins-SemiBold": Poppins_600SemiBold,
+    "Poppins-Bold": Poppins_700Bold,
+  });
 
-  // const removeData = async () => {
-  //   try {
-  //     await AsyncStorage.clear();
-  //     navigation.navigate("UpdateUserName");
-  //     // setName('')
-  //   } catch (error) {
-  //     console.log(error);
+  // useEffect(() => {
+  //   if (fontsLoaded || fontError) {
+  //     SplashScreen.hideAsync();
   //   }
-  // };
-  const removeName = async () => {
-    try {
-      await AsyncStorage.removeItem("UserData");
-      navigation.navigate("SetUserName");
-    } catch (error) {
-      console.log(error);
+  // }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+  const handleCategoryPress = (categoryId: string) => {
+    const categoryToScreenMap: Record<string, string> = {
+      Nomoi: "Nomoi",
+      Mountain: "Mountain",
+      LakeRiver: "LakeRiver",
+      GeneralQuestions: "GeneralQuestions",
+    };
+
+    const screenName = categoryToScreenMap[categoryId];
+
+    if (screenName) {
+      console.log(`Navigating to ${screenName} with category:`, categoryId);
+      navigation.navigate(screenName as any, { categoryId });
+    } else {
+      console.warn("Category not found:", categoryId);
     }
   };
 
-  const alertTest = () => {
-    Alert.alert("", "", [
-      { text: "Ακυρωση     ", onPress: () => {} },
-      // { text: " ", onPress: () => {} },
-      // { text: "Διαγραφη Δεδομενων", onPress: removeData },
-      {
-        text: "Αλλαγη ονοματος",
-        onPress: removeName,
-      },
-    ]);
+  const handleShare = () => {
+    // Implement share functionality
+    console.log("Share app");
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <ImageBackground
-        source={require("../assets//MorePhotos/ath.jpg")}
-        resizeMode="cover"
-        // blurRadius={2}
-        style={styles.imageBg}
-      >
-        <View style={styles.linear}>
-          <View style={styles.welcomeCnt}>
-            <FontAwesome5 name="user-alt" size={12} color="white" />
-            <Text style={styles.welcomeTxt}>{`Γειά σου ${name}`}</Text>
-          </View>
-          <Pressable
-            style={styles.menuBtn}
-            onPress={() => {
-              navigation.navigate("Settings");
-            }}
-          >
-            <Feather name="menu" size={24} color="white" />
-          </Pressable>
-          <View style={styles.titleCnt}>
-            <Text style={styles.titleTxt}>Επέλεξε κατηγορία</Text>
-          </View>
-          <View style={styles.buttonSection}>
-            <View style={styles.buttonBox}>
-              <Pressable
-                onPressIn={() => setScale1(0.95)}
-                onPressOut={() => {
-                  navigation.navigate("GeneralQuizMenu");
-                  setScale1(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale1 }] }]}
-              >
-                <View style={styles.btnContentView}>
-                  <View style={styles.btnTop}>
-                    <Image
-                      source={require("../assets/MorePhotos/monumentsAnimation.jpg")}
-                      style={styles.img}
-                    />
-                  </View>
-                  <View style={{ height: 2, backgroundColor: "#0b7fcc" }} />
-                  <View style={styles.btnBottom}>
-                    <Text style={styles.text}>Γενικές</Text>
-                    <Text style={styles.text1}>Eρωτήσεις</Text>
-                  </View>
-                </View>
-              </Pressable>
-              <Pressable
-                onPressIn={() => setScale2(0.95)}
-                onPressOut={() => {
-                  navigation.navigate("LakeRiver");
-                  setScale2(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale2 }] }]}
-              >
-                <View style={styles.btnContentView}>
-                  <View style={styles.btnTop}>
-                    <Image
-                      source={require("../assets/MorePhotos/lakeAnimation.jpg")}
-                      style={styles.img}
-                    />
-                  </View>
-                  <View style={styles.btnBottom}>
-                    <Text style={styles.text}>Λίμνες/Ποτάμια</Text>
-                  </View>
-                </View>
-              </Pressable>
-              <Pressable
-                onPressIn={() => setScale3(0.95)}
-                onPressOut={() => {
-                  navigation.navigate("Instructions");
-                  setScale3(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale3 }] }]}
-              >
-                <View style={styles.btnContentView}>
-                  <View style={styles.btnTop}>
-                    <Image
-                      source={require("../assets/MorePhotos/cityAnimation.jpg")}
-                      style={styles.img}
-                    />
-                  </View>
-                  <View style={styles.btnBottom}>
-                    <Text style={styles.text}>Πόλεις/Νομοί</Text>
-                  </View>
-                </View>
-              </Pressable>
-              <Pressable
-                onPressIn={() => setScale4(0.95)}
-                onPressOut={() => {
-                  navigation.navigate("Mountain");
-                  setScale4(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale4 }] }]}
-              >
-                <View style={styles.btnContentView}>
-                  <View style={styles.btnTop}>
-                    <Image
-                      source={require("../assets/MorePhotos/mountainAnimation.jpg")}
-                      style={styles.img}
-                      resizeMode="cover"
-                    />
-                  </View>
-                  <View style={styles.btnBottom}>
-                    <Text style={styles.text}>Βουνά</Text>
-                  </View>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-          <Pressable
-            onPress={() => navigation.navigate("Calendar")}
-            style={{
-              position: "absolute",
-              left: 20,
-              bottom: height > 800 ? 80 : 40,
-              backgroundColor: "magenta",
-              padding: 10,
-              borderRadius: 10,
-            }}
-          >
-            <Text style={{ color: "white" }}>Iχνηλάτης Εφαρμογής</Text>
-          </Pressable>
-          <Pressable
-            style={{
-              position: "absolute",
-              right: 20,
-              bottom: height > 800 ? 80 : 40,
-              backgroundColor: "#5bf834d7",
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-              borderRadius: 10,
-            }}
-          >
-            {/* <FontAwesome6 name="share-nodes" size={24} color="black" /> */}
-            {/* <Ionicons name="share-social-sharp" size={24} color="black" /> */}
-              <ShareButton/>
-          </Pressable>
-        </View>
-      </ImageBackground>
-    </View>
-  );
-};
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
-export default QuizScreen1;
+      <Animated.View
+        entering={FadeInUp.delay(200).springify()}
+        style={styles.header}
+      >
+        <View>
+          {/* <Text style={styles.greeting}>Hello Explorer! 👋</Text> */}
+          <Text style={styles.greeting}>Γειά σου {name}! 👋</Text>
+          {/* <Text style={styles.subtitle}>Ready to test your geography knowledge?</Text> */}
+          <Text style={styles.subtitle}>Έτοιμος να τεστάρεις τις γνώσεις </Text>
+          <Text style={[styles.subtitle, { marginTop: -5 }]}>
+            σου στην γεωγραφία;
+          </Text>
+        </View>
+        <Pressable
+          onPressIn={() => setScale1(1.25)}
+          onPressOut={() => {
+            navigation.navigate("Settings");
+            setScale1(1);
+          }}
+          style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
+        >
+          <Menu size={24} color="#333" />
+        </Pressable>
+      </Animated.View>
+
+      <Animated.View
+        style={styles.categoriesGrid}
+        entering={FadeInDown.delay(300).springify()}
+      >
+        {categories.map((category) => {
+          const Icon = category.icon;
+          const isPressed = pressedCategory === category.id;
+          return (
+            <Pressable
+              key={category.id}
+              style={[
+                styles.categoryCard,
+                { transform: [{ scale: isPressed ? 0.95 : 1 }] },
+              ]}
+              onPressIn={() => setPressedCategory(category.id)}
+              onPressOut={() => {
+                handleCategoryPress(category.id),
+                  // setScale(1);
+                  setPressedCategory(null);
+              }}
+            >
+              {/* <Image
+                source={{ uri: category.image }}
+                style={styles.categoryBackground}
+              /> */}
+
+              <LinearGradient
+                colors={category.gradient}
+                style={styles.categoryContent}
+              >
+                <Icon size={32} color="white" />
+                <Text style={styles.categoryTitle}>{category.title}</Text>
+              </LinearGradient>
+            </Pressable>
+          );
+        })}
+        {/* <Image
+           source={{
+            uri: "https://api.a0.dev/assets/image?text=stunning%20aerial%20view%20of%20greek%20islands%20with%20dramatic%20coastline%20crystal%20clear%20waters%20and%20ancient%20ruins&aspect=9:16",
+          }}
+          resizeMode="cover"
+          style={{width: '100%', height: 150, borderRadius: 10}}
+        /> */}
+      </Animated.View>
+      
+
+      {/* <Animated.View entering={FadeInDown.delay(450).springify()}>
+        <Pressable
+          onPressIn={() => setScale2(0.95)}
+          onPressOut={() => {navigation.navigate("Calendar"), setScale2(1)}}
+          style={[
+            styles.shareButton,
+            { marginBottom: 20, backgroundColor: "magenta",transform: [{scale:scale2}] },
+          ]}
+        >
+          <Share2 size={24} color="#fff" />
+          <Text style={styles.shareText}>Iχνηλάτης Εφαρμογής</Text>
+        </Pressable>
+      </Animated.View> */}
+      <Animated.View entering={FadeInDown.delay(400).springify()}>
+        <ShareButton />
+      </Animated.View>
+      <View style={{marginBottom: 20  }}/>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
-  imageBg: {
+  container: {
+    flex: 1,
+    backgroundColor: "#F7F9FC",
+    // backgroundColor: '#F7F9FC',
+    paddingTop: Platform.OS==='ios'? 0: 14,
+    paddingHorizontal:16,
+    alignItems: height> 900? 'center': 'flex-start'
+  },
+  backgroundImage: {
+    position: "absolute",
+    width: "100%",
+    height: "100%"
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 24,
+    width:'100%',
+    marginTop: height> 1000? 20: 0,
+    // padding: 16,
+  },
+  greeting: {
+    fontSize: 24,
+    fontFamily: "Poppins-Bold",
+    color: "#333",
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: height>900? 20: 16,
+    fontFamily: "Poppins-Regular",
+    color: "#666",
+  },
+  menuButton: {
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  categoriesGrid: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
+    alignItems: 'center',
+    marginTop: height> 1000? 40: 0,
+    width: height> 1000? '80%': '100%'
+  },
+  categoryCard: {
+    width: "47.7%",
+    aspectRatio: 1,
+    borderRadius: 20,
+    overflow: "hidden",
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 4 },
+    // shadowOpacity: 0.15,
+    // shadowRadius: 8,
+    // elevation: 5,
+  },
+  categoryBackground: {
+    position: "absolute",
     width: "100%",
     height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
   },
-  welcomeCnt: {
-    position: "absolute",
-    top: Platform.OS == "ios" ? 55 : 50,
-    left: 20,
+  categoryContent: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "space-between",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  categoryTitle: {
+    fontSize: 18,
+    fontFamily: "Poppins-SemiBold",
+    color: "white",
+  },
+  shareButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#615f5f90",
-    justifyContent: "center",
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    borderRadius: 10,
+    justifyContent: "center", // This will horizontally center the text
+    backgroundColor: "#464443",
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 30,
+    gap: 8,
   },
-  welcomeTxt: {
-    fontWeight: "bold",
+  shareText: {
     color: "white",
-    fontSize: 12,
-    marginLeft: 5,
-  },
-  menuBtn: {
-    position: "absolute",
-    top: Platform.OS == "ios" ? 25 : 20,
-    right: 0,
-    padding: 30,
-  },
-  linear: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ffffff40",
-    // backgroundColor: '#cfd5da'
-  },
-  titleCnt: {
-    position: "absolute",
-    left: 30,
-    top:
-      Platform.OS == "ios" ? 170 : height > 800 ? height * 0.21 : height * 0.2,
-    // bottom: 0,
-    // top: height>960? 90: 70
-    // top: 110,
-  },
-  titleTxt: {
-    color: "#ffffff",
-    fontSize: Platform.OS === "android" ? (height > 800 ? 24 : 20) : 22,
-    fontWeight: "bold",
-  },
-  text: {
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  text1: {
-    marginTop: -5,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  btnContentView: {
-    // backgroundColor: "#0b7fcc",
-    backgroundColor: "transparent",
-    width: "100%",
-    borderRadius: 20,
-  },
-  btnTop: {
-    height: "70%",
-    // backgroundColor: "green",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-  },
-  btnBottom: {
-    height: "30%",
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor: 'transparent',
-    // backgroundColor: '#20345d',
-    // borderBottomRightRadius: 20,
-    // borderBottomLeftRadius: 20,
-  },
-  buttonSection: {
-    width: "100%",
-    backgroundColor: "#615f5f90",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 60,
-  },
-  buttonBox: {
-    width: width > 400 ? (width > 400 ? "90%" : "95%") : "90%",
-    height: height > 960 ? (height > 1000 ? 650 : 500) : 450,
-    paddingTop: 10,
-    flexWrap: "wrap",
-    // backgroundColor: "yellow",
-    // alignItems: "center",
-    // justifyContent: "center",
-    gap: 7,
-  },
-  button: {
-    width: "49%",
-    height: "48%",
-    // backgroundColor: "#738297",
-    backgroundColor: "#f5f5f5",
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  img: {
-    width: "100%",
-    height: "100%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    fontFamily: "Poppins-SemiBold",
+    textAlign: "center", // Ensures text is centered if there is any overflow or multiline text
   },
 });

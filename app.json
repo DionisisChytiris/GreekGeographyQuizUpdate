@@ -29,6 +29,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",
         "backgroundColor": "#ffffff"
+      },
+      "statusBar": {
+        "barStyle": "dark-content",
+        "backgroundColor": "#ffffff"
       }
     },
     "plugins": [
@@ -37,7 +41,8 @@
         {
           "initialOrientation": "PORTRAIT_UP"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "web": {
       "favicon": "./assets/adaptive-icon-test.png"

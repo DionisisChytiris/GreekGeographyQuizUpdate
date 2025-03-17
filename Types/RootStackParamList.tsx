@@ -28,6 +28,7 @@ export type RootStackParamList = {
   LoseScreen: undefined;
   LoseScreenR: undefined;
   LoseScreenNomoi: undefined;
+  Nomoi: undefined;
   Nomoi1: undefined;
   Nomoi1R: undefined;
   Nomoi2: undefined;
@@ -65,6 +66,7 @@ export type RootStackParamList = {
   NomoiLoseScreen5Time: undefined;
   NomoiLoseScreen6: undefined;
   NomoiLoseScreen6R: undefined;
+  GeneralQuestions: undefined;
   GeneralQuestions1: undefined;
   GeneralQuestions1R: undefined;
   GeneralQuestions2: undefined;
@@ -101,6 +103,43 @@ export type RootStackParamList = {
   GenerQuestTemplate: { points: number; data: any };
   GeneralQuizMenu: undefined;
   Calendar: undefined;
+  // ResultsAi: undefined;
+  ResultsLake: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points:number;
+    seconds: number;
+    minutes: number;
+  };
+  ResultsMountain: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points:number;
+    seconds: number;
+    minutes: number;
+  };
+  ResultsGeneral: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points:number;
+    seconds: number;
+    minutes: number;
+  };
+  ResultsNomoi: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points:number;
+    seconds: number;
+    minutes: number;
+  };
   // GeneralQuizMenu: { points: number, data: any }
 };
 

@@ -1,183 +1,174 @@
-import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
   View,
   Text,
-  Pressable,
+  StyleSheet,
   ImageBackground,
-  Animated,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
   Platform,
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type HomeProp = StackNavigationProp<RootStackParamList, "Home">;
+type HomeProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
-const Home = () => {
+const { width, height } = Dimensions.get("window");
+
+export default function HomeScreen() {
   const navigation = useNavigation<HomeProp>();
-  const [fadeAnim] = useState(new Animated.Value(0));
-  const [showBtn, setShowBtn] = useState(false);
-  const [color, setColor] = useState("magenta");
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    try {
-      AsyncStorage.getItem("UserData").then((value) => {
-        if (value != null) {
-          let user = JSON.parse(value);
-          setName(user.Name);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const hide = () => setShowBtn(true);
-
-  setTimeout(hide, 1400);
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1300,
-      useNativeDriver: true,
-    }).start();
-  }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{flex:1}}>
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <ImageBackground
-        source={require("../assets/Photos/meteora.jpg")}
-        resizeMode="cover"
-        style={{ flex: 1, justifyContent: "center" }}
+        // source={{
+        //   uri: "https://api.a0.dev/assets/image?text=stunning%20aerial%20view%20of%20greek%20islands%20with%20dramatic%20coastline%20crystal%20clear%20waters%20and%20ancient%20ruins&aspect=9:16",
+        // }}
+        source={require('../assets/Photos/meteora.jpg')}
+        style={styles.container}
       >
-        <Animated.View
-          style={{
-            opacity: fadeAnim,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              // marginTop: 30,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 28 }}>Γεωγραφία</Text>
-            <Text style={{ color: "white", fontSize: 24 }}>της</Text>
-            <Text style={{ color: "white", fontSize: 28 }}>Ελλάδας</Text>
+        {/* <ScrollView contentContainerStyle={styles.scrollContent}> */}
+        <View style={styles.overlay}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Γεωγραφία της Ελλάδας</Text>
+            <Text style={styles.subtitle}>Τέσταρε τις Γνώσεις σου</Text>
           </View>
-        </Animated.View>
 
-        <Pressable
-          onPressIn={() => setColor("purple")}
-          onPressOut={() => {
-            {
-              name
-                ? navigation.navigate("Quiz1")
-                : navigation.navigate("Introduction");
-            }
-            setColor("magenta");
-          }}
-          style={styles.button}
-        >
-          <View
-            style={
-              showBtn ? [styles.button1, { backgroundColor: color }] : null
-            }
-          />
-          <Text style={showBtn ? styles.btnText : styles.btnText1}>
-            Είσοδος
-          </Text>
-        </Pressable>
-        {name ? (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              top: 100,
-              left: "15%",
-              right: "15%",
-              padding: 10,
-              backgroundColor: "#f5f5f5",
-              borderRadius: 20,
-            }}
-          >
-            <Text
-              style={{ color: "#006f96", fontSize: 14, fontWeight: "bold" }}
-            >
-              Καλώς ήλθες {name}!!!
+          <View style={styles.infoContainer}>
+            <Text style={styles.description}>
+              Εξερευνήστε την συναρπαστική γεωγραφία της Ελλάδας μέσα από αυτό
+              το διαδραστικό κουίζ. Μάθετε για τα όμορφα νησιά, τις ιστορικές
+              πόλεις, τα μεγαλοπρεπή βουνά και τα εντυπωσιακά τοπία.
             </Text>
           </View>
-        ) : null}
 
-        {/* <Pressable
-          onPress={() => navigation.navigate("MapQuiz")}
-          style={{
-            position: "absolute",
-            bottom: 100,
-            right: 20,
-            backgroundColor: "green",
-            padding: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Text style={{ color: "white" }}>Map Quiz</Text>
-        </Pressable> */}
+          <TouchableOpacity
+            style={styles.startButton}
+            onPress={() => navigation.navigate("Quiz1")}
+          >
+            <MaterialCommunityIcons
+              name="flag-checkered"
+              size={24}
+              color="white"
+            />
+            <Text style={styles.buttonText}>Έναρξη Κουίζ</Text>
+          </TouchableOpacity>
+
+          <View style={styles.featuresContainer}>
+            <View style={styles.featureItem}>
+              <MaterialCommunityIcons
+                name="map-marker-question"
+                size={24}
+                color="white"
+              />
+              <Text style={styles.featureText}>Πολλαπλές Κατηγορίες</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <MaterialCommunityIcons name="star" size={24} color="white" />
+              <Text style={styles.featureText}>Μάθηση & Πρόκληση</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <MaterialCommunityIcons name="brain" size={24} color="white" />
+              <Text style={styles.featureText}>
+                Δοκίμασε τις Ικανότητές σου
+              </Text>
+            </View>
+          </View>
+        </View>
+        {/* </ScrollView> */}
       </ImageBackground>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
-  button: {
-    position: "relative",
-    width: 160,
-    height: 60,
-    borderRadius: 25,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 80,
+  scrollContent: {
+    flexGrow: 1,
   },
-  button1: {
-    position: "absolute",
-    opacity: 0.3,
-    // backgroundColor: 'magenta',
-    width: "100%",
-    height: "100%",
-    borderRadius: 25,
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 20,
+    justifyContent: "center",
   },
-  btnText: {
-    position: "absolute",
-    bottom: 18,
-    left: 42,
+  titleContainer: {
+    alignItems: "center",
+    marginBottom: 40,
+    marginTop:  Platform.OS ==='android'? height > 800? 50: 50 : 0
+  },
+  title: {
+    marginHorizontal: Platform.OS ==='android'? height > 800? 50: 30 : 0,
+    fontSize: Platform.OS ==='android'? height > 800? 40:25 : height <900? 30:50,
+    // fontSize: height < 900 ? 30: 50,
+    fontWeight: "bold",
     color: "white",
-    // fontWeight: "600",
+    textAlign: "center",
+    textShadowColor: "rgba(0,0,0,0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  subtitle: {
+    fontSize: Platform.OS ==='android'? height > 800? 18:16 : height <900? 20:30,
+    color: "white",
+    marginTop: 10,
+    textShadowColor: "rgba(0,0,0,0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  infoContainer: {
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 30,
+  },
+  description: {
+    color: "white",
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: "center",
+  },
+  startButton: {
+    backgroundColor: "#4CAF50",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 30,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonText: {
+    color: "white",
     fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 10,
   },
-  btnText1: {
-    position: "absolute",
-    bottom: 14,
-    left: 36,
-    opacity: 0,
+  featuresContainer: {
+    marginTop: 20,
   },
-  slider: {
-    width: "80%",
-    marginBottom: 20,
+  featureItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  featureText: {
+    color: "white",
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
-
-export default Home;

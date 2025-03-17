@@ -89,19 +89,19 @@ const questions =  [
         options:[
             {
                 id:"0",
-                answer:"Μακεδονία\nΘεσσαλία",
+                answer:"Μακεδονία-Θεσσαλία",
             },
             {
                 id:"1",
-                answer:"Μακεδονία\nΉπειρος",
+                answer:"Μακεδονία-Ήπειρος",
             },
             {
                 id:"2",
-                answer:"Μακεδονία\nΘράκη",
+                answer:"Μακεδονία-Θράκη",
             },
             {
                 id:"3",
-                answer:"Θεσσαλία\nΉπειρος",
+                answer:"Θεσσαλία-Ήπειρος",
             },
         ],
         correctAnswerIndex: 1,

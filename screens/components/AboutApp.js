@@ -27,7 +27,7 @@ const AboutApp = () => {
               navigation.navigate("Quiz1");
               // alert("hey")}
             }}
-            style={{ position: "absolute", top: 40, left: 40 }}
+            style={{ position: "absolute", top: 20, left: -10, padding: 30 }}
           >
             <AntDesign name="arrowleft" size={24} color="white" />
           </Pressable>

@@ -23,7 +23,7 @@ import { stylesM } from "../styles/QuizStylesheet";
 import { Audio } from "expo-av";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import TimerHeartSection from "../components/TimerHeartSection";
+import TimerHeartSection from "../components/TimerHeartSection1";
 import ProgressBar from "../components/ProgressBar";
 import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
 import { useSoundEffect } from "../Utilities/useSoundEffects";

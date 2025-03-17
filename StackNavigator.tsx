@@ -125,6 +125,14 @@ import MapTest from "./screens/Atestcomponents/MapTest";
 import DragAndDropQuiz from "./screens/Atestcomponents/DragDropQuiz";
 import MapQuiz from "./screens/Atestcomponents/MapQuiz";
 import Calendar from "./screens/Atestcomponents/Calendar";
+import FirstPageTest from "./screens/Atestcomponents/FirstPageTest";
+import ResultsScreen from "./screens/LakeRiverQuizzes/ResultsLake";
+import ResultsMountain from "./screens/MountainQuizzes/ResultMountain";
+import ResultsLake from "./screens/LakeRiverQuizzes/ResultsLake";
+import GeneralQuestions from "./screens/GeneralQuestionsQuizzes/GeneralQuestions";
+import ResultsGeneral from "./screens/GeneralQuestionsQuizzes/ResultsGeneral";
+import Nomoi from "./screens/NomoiQuizzes/Nomoi";
+import ResultsNomoi from "./screens/NomoiQuizzes/ResultsNomoi";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -153,7 +161,8 @@ const StackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          contentStyle: { backgroundColor: 'lightgrey' },
+          contentStyle: { backgroundColor: "lightgrey" },
+
           // contentStyle: { backgroundColor: "#76b5c5" },
         }}
       >
@@ -164,7 +173,7 @@ const StackNavigator = () => {
           options={{
             headerShown: false,
             headerBackTitleVisible: false,
-            orientation: "portrait"
+            orientation: "portrait",
           }}
         />
         <Stack.Screen
@@ -197,6 +206,42 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Calendar"
           component={Calendar}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="ResultsLake"
+          component={ResultsLake}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="ResultsMountain"
+          component={ResultsMountain}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="ResultsGeneral"
+          component={ResultsGeneral}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait",
+          }}
+        />
+        <Stack.Screen
+          name="ResultsNomoi"
+          component={ResultsNomoi}
           options={{
             headerShown: false,
             headerBackTitleVisible: false,
@@ -241,9 +286,10 @@ const StackNavigator = () => {
         />
         <Stack.Screen
           name="MapQuiz"
-          component={MapQuiz}
+          // component={MapQuiz}
+          component={FirstPageTest}
           options={{
-            headerShown: true,
+            headerShown: false,
             headerBackTitleVisible: false,
             orientation: "portrait",
           }}
@@ -280,16 +326,23 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             headerShown: false,
             headerTitle: () => (
-              <View style={{ height: 65, paddingTop: Platform.OS === "ios" ? 10 : 25 }}>
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
-                {`Γειά σου ${name}`}
+              <View
+                style={{
+                  height: 65,
+                  paddingTop: Platform.OS === "ios" ? 10 : 25,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}
+                >
+                  {`Γειά σου ${name}`}
                 </Text>
               </View>
             ),
             headerTitleStyle: {
               fontWeight: "bold",
               color: "#006f96",
-              fontSize: 16
+              fontSize: 16,
             },
           }}
         />
@@ -318,9 +371,16 @@ const StackNavigator = () => {
             orientation: "portrait",
             title: "Ποτάμια / Λίμνες",
             headerTitle: () => (
-              <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
-                Ποτάμια / Λίμνες
+              <View
+                style={{
+                  height: Platform.OS === "ios" ? 68 : 88,
+                  paddingTop: Platform.OS === "ios" ? 10 : 50,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}
+                >
+                  Ποτάμια / Λίμνες
                 </Text>
               </View>
             ),
@@ -380,8 +440,15 @@ const StackNavigator = () => {
             headerShown: false,
             orientation: "portrait",
             headerTitle: () => (
-              <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}>
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
+              <View
+                style={{
+                  height: Platform.OS === "ios" ? 68 : 88,
+                  paddingTop: Platform.OS === "ios" ? 10 : 50,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}
+                >
                   Βουνά
                 </Text>
               </View>
@@ -484,6 +551,7 @@ const StackNavigator = () => {
             // },
           }}
         >
+          <Stack.Screen name="Nomoi" component={Nomoi} />
           <Stack.Screen
             name="Nomoi1"
             component={Nomoi1}
@@ -517,6 +585,7 @@ const StackNavigator = () => {
             name="NomoiResultTemplate"
             component={NomoiResultTemplate}
           />
+          
           <Stack.Screen name="NomoiResult1" component={NomoiResult1} />
           <Stack.Screen name="NomoiResult2" component={NomoiResult2} />
           <Stack.Screen name="NomoiResult3" component={NomoiResult3} />
@@ -581,11 +650,13 @@ const StackNavigator = () => {
             headerShown: false,
             orientation: "portrait",
             headerTitle: () => (
-              <View >
-              {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
-               
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
-                Γενικές Ερωτήσεις
+              <View>
+                {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
+
+                <Text
+                  style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}
+                >
+                  Γενικές Ερωτήσεις
                 </Text>
               </View>
             ),
@@ -600,34 +671,49 @@ const StackNavigator = () => {
             },
           }}
         >
-          <Stack.Screen name="GeneralQuizMenu" component={GeneralQuizMenu}  options={{
-            headerBackTitleVisible: false,
-            // headerBackVisible: false,
-            headerShown: true,
-            orientation: "portrait",
-            headerTitle: () => (
-              <View >
-              {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
-               
-                <Text style={{ fontWeight: "bold", color: "#006f96", fontSize: 16 }}>
-                Γενικές Ερωτήσεις
-                </Text>
-              </View>
-            ),
-            title: "Γενικές Ερωτήσεις",
-            headerStyle: {
-              // backgroundColor: 'transparent',
-            },
-            headerTitleStyle: {
-              fontWeight: "bold",
-              color: "#006f96",
-              fontSize: 16,
-            },
-          }} />
+          <Stack.Screen
+            name="GeneralQuestions"
+            component={GeneralQuestions}
+          />
+          <Stack.Screen
+            name="GeneralQuizMenu"
+            component={GeneralQuizMenu}
+            options={{
+              headerBackTitleVisible: false,
+              // headerBackVisible: false,
+              headerShown: true,
+              orientation: "portrait",
+              headerTitle: () => (
+                <View>
+                  {/* <View style={{ height: Platform.OS === "ios" ? 68 : 88 , paddingTop: Platform.OS === "ios" ? 10 : 50 }}> */}
+
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "#006f96",
+                      fontSize: 16,
+                    }}
+                  >
+                    Γενικές Ερωτήσεις
+                  </Text>
+                </View>
+              ),
+              title: "Γενικές Ερωτήσεις",
+              headerStyle: {
+                // backgroundColor: 'transparent',
+              },
+              headerTitleStyle: {
+                fontWeight: "bold",
+                color: "#006f96",
+                fontSize: 16,
+              },
+            }}
+          />
           <Stack.Screen
             name="GeneralQuestions1"
             component={GeneralQuestions1}
           />
+
           <Stack.Screen
             name="GeneralQuestions1R"
             component={GeneralQuestions1R}

@@ -21,7 +21,7 @@ import questions from "../../data/LakeRiver/questions";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import LottieView from "lottie-react-native";
-import TimerHeartSection from "../components/TimerHeartSection";
+import TimerHeartSection from "../components/TimerHeartSection1";
 import ProgressBar from "../components/ProgressBar";
 import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
 import { stylesM } from "../styles/QuizStylesheet";

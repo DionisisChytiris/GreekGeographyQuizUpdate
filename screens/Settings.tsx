@@ -1,250 +1,419 @@
 import {
-  SafeAreaView,
-  ScrollView,
-  ImageBackground,
   View,
   Text,
+  TouchableOpacity,
+  Switch,
   StyleSheet,
   Dimensions,
-  Pressable,
   Linking,
-  Image,
   Platform,
+  Image,
 } from "react-native";
-import React from "react";
+// import { useRouter } from 'expo-router';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeft,
+  Settings as IconSettings,
+  User,
+  Bell,
+  Globe,
+  Flag,
+  LogOut,
+} from "lucide-react-native";
+import React, { useState } from "react";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
+// import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+// import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AntDesign } from "@expo/vector-icons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import EvilIcons from "@expo/vector-icons/EvilIcons";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLives } from "../ReduxToolkit/livesSlice";
+import { toggleTimer } from "../ReduxToolkit/timerSlice";
+import { toggleSound } from "../ReduxToolkit/soundSlice";
+import { useAppSelector } from "../ReduxToolkit/store";
+import ModalNameInput from "../screens/components/ModalNameInput";
+import { useSoundEffect } from "./Utilities/useSoundEffects";
 
-type GenerQTProp = StackNavigationProp<
-  RootStackParamList,
-  "GenerQuestTemplate"
->;
+type GenerQTProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
 const { height } = Dimensions.get("window");
 
-const Settings = () => {
+export default function Settings() {
   const navigation = useNavigation<GenerQTProp>();
-  const [scale1, setScale1] = React.useState(1);
-  const [scale2, setScale2] = React.useState(1);
-  const [scale3, setScale3] = React.useState(1);
-  const [scale4, setScale4] = React.useState(1);
+  const dispatch = useDispatch();
+  const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
+  const livesEnabled = useAppSelector((state) => state.lives.livesEnabled); // Get the livesEnabled state
+  const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
 
-  const removeName = async () => {
-    try {
-      await AsyncStorage.removeItem("UserData");
-      navigation.navigate("SetUserName");
-    } catch (error) {
-      console.log(error);
+  const toggleLivesVisibility = () => {
+    dispatch(toggleLives()); // Dispatch action to toggle the lives state
+    if (isSoundEnabled) {
+      imgPlaySound(); // Play sound if sound is enabled
     }
   };
 
-  const url =
-    Platform.OS === "ios"
-      ? "https://apps.apple.com/app/id6504780092" // Replace with your iOS App Store link
-      : "https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion";
+  const handleToggleTimer = () => {
+    dispatch(toggleTimer());
+    if (isSoundEnabled) {
+      imgPlaySound(); // Play sound if sound is enabled
+    }
+  };
+
+  const handleToggleSound = () => {
+    dispatch(toggleSound()); // Dispatch the action to toggle sound
+    if (isSoundEnabled) {
+      imgPlaySound(); // Play sound if sound is enabled
+    }
+  };
+
+  // const removeName = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem("UserData");
+  //     navigation.navigate("SetUserName");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const imgPlaySound = useSoundEffect(
+    require("../assets/sounds/popimg.mp3")
+    // require("../.")
+  );
+  const fiftyPlaySound = useSoundEffect(require("../assets/sounds/popup.mp3"));
 
   const urlNewApp =
     Platform.OS === "ios"
       ? "https://apps.apple.com/app/id6670754535" // Replace with your iOS App Store link
       : "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app";
 
-  return (
-    <View style={{ flex: 1 }}>
-      <ScrollView bounces={false}>
-        <ImageBackground
-          source={require("../assets/Photos/romaikiAgora.jpg")}
-          resizeMode="cover"
-          blurRadius={3}
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: height > 860 ? (height > 950 ? 1100 : 900) : height< 820? 820:850,
-          }}
-        >
-          <Pressable
-            style={{
-              position: "absolute",
-              top: 50,
-              right: 30,
-              // padding: 30,
-            }}
-            onPress={() => {
-              navigation.navigate("Quiz1");
-            }}
-          >
-            <AntDesign name="closecircle" size={34} color="white" />
-          </Pressable>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View style={{ gap: 20 }}>
-              <Pressable
-                onPressIn={() => setScale1(1.1)}
-                onPressOut={() => {
-                  removeName(), setScale1(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale1 }] }]}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 10,
-                  }}
-                >
-                  <EvilIcons name="user" size={32} color="white" />
-                  {/* <AntDesign name="user" size={20} color="white" /> */}
-                  <Text style={styles.text1}>Αλλαγη Ονόματος</Text>
-                </View>
-              </Pressable>
+  const [modalVisible, setModalVisible] = useState(false);
 
-              <Pressable
-                onPressIn={() => setScale2(1.1)}
-                onPressOut={() => {
-                  Linking.openURL(
-                    "https://sites.google.com/view/geografiatiselladas"
-                  ),
-                    setScale2(1);
-                }}
-                style={[styles.button, { transform: [{ scale: scale2 }] }]}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 10,
-                  }}
-                >
-                  <MaterialIcons name="policy" size={24} color="white" />
-                  <Text style={styles.text}>Πολιτική Απορρήτου</Text>
-                </View>
-              </Pressable>
-              <Pressable
-                onPressIn={() => setScale3(1.1)}
-                onPressOut={() => {
-                  navigation.navigate("AboutApp"),
-                    // Linking.openURL(url),
-                    setScale3(1);
-                }}
-                style={[
-                  styles.button,
-                  {
-                    transform: [{ scale: scale3 }],
-                    paddingVertical: 5,
-                    flexDirection: "row",
-                    gap: 10,
-                  },
-                ]}
-              >
-                <FontAwesome5 name="book-open" size={20} color="white" />
-                <Text style={styles.text1}>Σχετικά</Text>
-                {/* <Image
-                source={require("../assets/MorePhotos/rating.png")}
-                resizeMode="cover"
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  width: "40%",
-                  marginTop: -5,
-                }}
-              /> */}
-              </Pressable>
-              <View
-                style={{
-                  marginTop: 70,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={styles.text2}>Δοκιμάστε την νέα μας</Text>
-                <Text style={styles.text2}>εφαρμογή.</Text>
-                <Pressable
-                  onPressIn={() => setScale4(1.1)}
-                  onPressOut={() => {
-                    Linking.openURL(
-                      urlNewApp
-                      // "https://play.google.com/store/apps/details?id=com.worldwisetrivia.app"
-                    ),
-                      setScale4(1);
-                  }}
-                >
-                  <Image
-                    source={require("../assets/Photos/WorldTrivia.png")}
-                    resizeMode="cover"
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 20,
-                      marginTop: 20,
-                      transform: [{ scale: scale4 }],
-                    }}
-                  />
-                </Pressable>
-                <Text style={styles.text3}>World Wise Trivia</Text>
-              </View>
-            </View>
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      {/* <View style={styles.header}> */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Quiz1");
+        }}
+        style={styles.header}
+      >
+        <ChevronLeft size={24} color="#000" />
+      </TouchableOpacity>
+      <View style={styles.sectionHeaderTitle}>
+        <Text
+          style={[
+            styles.sectionTitle,
+            {
+              fontWeight: "bold",
+              fontSize: 28,
+              color: "black",
+              marginBottom: -15,
+            },
+          ]}
+        >
+          Ρυθμίσεις{" "}
+        </Text>
+      </View>
+      {/* <Text style={styles.title}>Ρυθμίσεις</Text> */}
+      {/* </View> */}
+
+      {/* Notifications Section */}
+      <View style={styles.section1}>
+        <View style={styles.sectionHeader}>
+          <View style={styles.iconBackground}>
+            <IconSettings size={18} color="#fffdfd" />
           </View>
-        </ImageBackground>
-      </ScrollView>
+          <Text style={styles.sectionTitle}>Εξατομίκευση</Text>
+        </View>
+      </View>
+
+      <ModalNameInput
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
+
+      <View style={styles.section2}>
+        <View style={styles.menuItemIcon}>
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            {livesEnabled ? (
+              <View style={[styles.iconBackground, { backgroundColor: "red" }]}>
+                <Ionicons name="heart" size={18} color="#fff" />
+              </View>
+            ) : (
+              <View style={[styles.iconBackground, { backgroundColor: "red" }]}>
+                <Ionicons name="heart-dislike" size={18} color="#fff" />
+              </View>
+            )}
+            <Text style={[styles.menuText]}>Ζωές</Text>
+          </View>
+          <Switch
+            value={livesEnabled}
+            onValueChange={toggleLivesVisibility}
+            style={{
+              transform: [
+                { scaleX: Platform.OS === "ios" ? 0.9 : 1 },
+                { scaleY: Platform.OS === "ios" ? 0.9 : 1 },
+              ],
+            }}
+            // trackColor={{ false: '#767577', true: '#4CAF50' }}
+          />
+        </View>
+        <View style={styles.menuItemIcon}>
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            {isTimerEnabled ? (
+              <View
+                style={[styles.iconBackground, { backgroundColor: "#a0a0a0" }]}
+              >
+                <MaterialIcons name="timer" size={18} color="white" />
+              </View>
+            ) : (
+              <View
+                style={[styles.iconBackground, { backgroundColor: "#a0a0a0" }]}
+              >
+                <MaterialIcons name="timer-off" size={18} color="white" />
+              </View>
+            )}
+            <Text style={styles.menuText}>Χρόνος</Text>
+          </View>
+          <Switch
+            value={isTimerEnabled}
+            onValueChange={handleToggleTimer}
+            style={{
+              transform: [
+                { scaleX: Platform.OS === "ios" ? 0.9 : 1 },
+                { scaleY: Platform.OS === "ios" ? 0.9 : 1 },
+              ],
+            }}
+            // trackColor={{ false: '#767577', true: '#4CAF50' }}
+          />
+        </View>
+        <View style={styles.menuItemIcon}>
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            {isSoundEnabled ? (
+              <View
+                style={[styles.iconBackground, { backgroundColor: "#459ef1" }]}
+              >
+                <Ionicons name="volume-medium" size={18} color="#fff" />
+              </View>
+            ) : (
+              <View
+                style={[styles.iconBackground, { backgroundColor: "#459ef1" }]}
+              >
+                <MaterialIcons name="volume-off" size={18} color="#fff" />
+              </View>
+            )}
+            <Text style={styles.menuText}>Ήχος</Text>
+          </View>
+          <Switch
+            value={isSoundEnabled}
+            onValueChange={handleToggleSound}
+            style={{
+              transform: [
+                { scaleX: Platform.OS === "ios" ? 0.9 : 1 },
+                { scaleY: Platform.OS === "ios" ? 0.9 : 1 },
+              ],
+            }}
+            // trackColor={{ false: '#767577', true: '#4CAF50' }}
+          />
+        </View>
+        <TouchableOpacity
+          // onPress={removeName}
+          onPress={() => {
+            setModalVisible(true);
+            if (isSoundEnabled) {
+              fiftyPlaySound(); // Play sound if sound is enabled
+            }
+          }}
+          style={[styles.menuItem, { paddingBottom: 10 }]}
+        >
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            <View
+              style={[styles.iconBackground, { backgroundColor: "#a0a0a0" }]}
+            >
+              <EvilIcons name="user" size={22} color="#fff" />
+            </View>
+            <Text style={styles.menuText}>Αλλαγή Ονόματος</Text>
+          </View>
+          <ChevronRight size={20} color="#666" />
+        </TouchableOpacity>
+      </View>
+
+      {/* More Section */}
+      <View style={[styles.section1, { marginTop: 20 }]}>
+        <View style={styles.sectionHeader}>
+          <View style={styles.iconBackground}>
+            <Globe size={18} color="#fff" />
+          </View>
+          <Text style={styles.sectionTitle}>Περισσότερα</Text>
+        </View>
+      </View>
+      <View style={styles.section2}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AboutApp");
+          }}
+          style={styles.menuItem}
+        >
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            <View
+              style={[styles.iconBackground, { backgroundColor: "#168652" }]}
+            >
+              <MaterialIcons name="bookmark" size={16} color="#fff" />
+            </View>
+            <Text style={styles.menuText}>Σχετικά</Text>
+          </View>
+          <ChevronRight size={20} color="#666" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(
+              "https://sites.google.com/view/geografiatiselladas"
+            );
+          }}
+          style={styles.menuItem}
+        >
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            <View
+              style={[styles.iconBackground, { backgroundColor: "#db2fb0" }]}
+            >
+              <MaterialIcons name="privacy-tip" size={16} color="#fff" />
+            </View>
+            <Text style={styles.menuText}>Απόρρητο</Text>
+          </View>
+          <ChevronRight size={20} color="#666" />
+        </TouchableOpacity>
+      </View>
+
+      {/* More Apps */}
+      <View style={[styles.section1, { marginTop: 20 }]}>
+        <View style={styles.sectionHeader}>
+          <View style={[styles.iconBackground, { backgroundColor: "#f3861f" }]}>
+            <MaterialIcons name="apps" size={18} color="#fff" />
+          </View>
+          <Text style={styles.sectionTitle}>Νέα Εφαρμογή</Text>
+        </View>
+      </View>
+      <View style={styles.section2}>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(urlNewApp);
+          }}
+          style={styles.menuItem}
+        >
+          <View style={{ flexDirection: "row", gap: 20 }}>
+            <Image
+              source={require("../assets/Photos/WorldTrivia.png")}
+              resizeMode="cover"
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 5,
+              }}
+            />
+
+            <Text style={styles.menuText}>Παγκόσμια Γεωγραφία</Text>
+          </View>
+          <ChevronRight size={20} color="#666" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
-};
-
-export default Settings;
+}
 
 const styles = StyleSheet.create({
-  button: {
-    width: 240,
-    height: 60,
-    borderRadius: 20,
-    backgroundColor: "#738297",
-    // backgroundColor: "#121a24",
-    justifyContent: "center",
-    alignItems: "center",
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
-  button1: {
-    width: 240,
-    height: 60,
-    borderRadius: 30,
-    //   backgroundColor: "#f5f5f5",
-    justifyContent: "center",
-    alignItems: "center",
+  header: {
+    width: "20%",
+    borderRadius: 10,
+    marginTop: Platform.OS === "android" ? -20 : height>900? -30:-10,
+    // paddingHorizontal: 16,
+    paddingVertical: 5,
+    fontWeight: 'bold'
+    // backgroundColor: "#fff",
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#e0e0e0",
   },
-  text: {
-    color: "white",
+  backButton: {
+    marginRight: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  section1: {
+    backgroundColor: "#fff",
+    marginTop: 16,
+    paddingVertical: 8,
+    borderRadius: 10,
+  },
+  section2: {
+    backgroundColor: "#fff",
+    // backgroundColor: "#6ee287",
+    marginTop: 12,
+    borderRadius: 10,
+  },
+  sectionHeaderTitle: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    gap: 10,
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#f0f0f0",
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "800",
+    marginLeft: 8,
+    color: "#444343",
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#f0f0f0",
+  },
+  menuItemIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 14,
+    paddingVertical: Platform.OS === "ios" ? 8 : 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  menuText: {
     fontSize: 15,
-    fontWeight: "bold",
+    color: "#333",
+    // backgroundColor: 'green'
   },
-  text1: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  text2: {
-    color: "#dfebf7",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  text3: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: "bold",
-    marginTop: 20,
+  iconBackground: {
+    width: 25,
+    height: 25,
+    backgroundColor: "grey",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
   },
 });
