@@ -55,6 +55,7 @@ import { stylesM } from "../styles/QuizStylesheet";
 import ModalExplanationQuestion from "../components/ModalExplanationQuestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector } from "../../ReduxToolkit/store";
+import { setResetQuiz } from "../../ReduxToolkit/resetQuizSlice";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -82,6 +83,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   // const data = questions;
+  const dispatch = useDispatch();
   const data = dataT;
   const totalQuestions = data.length;
   const [index, setIndex] = useState(0);
@@ -180,6 +182,15 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     setIsDisabled(true);
   };
 
+  // useEffect(() => {
+  //   // Store the resetQuiz function in Redux
+  //   dispatch(setResetQuiz(() => resetQuiz));
+
+  //   return () => {
+  //     dispatch(setResetQuiz(null)); // Clean up on unmount
+  //   };
+  // }, []);
+
   const [userAnswers, setUserAnswers] = useState<
     { question: string; userChoice: string; correctAnswer: string }[]
   >([]);
@@ -197,7 +208,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
 
   useEffect(() => {
     if (heart === 0) {
-      // navigation.navigate(resultsPage, { onReset:resetQuiz,totalQuestions, index, userAnswers, points, seconds, minutes });
       navigation.navigate(resultsPage, {
         resetQuiz,
         totalQuestions,
@@ -306,12 +316,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     scales[index].value = withSpring(1, { damping: 10, stiffness: 150 });
   };
 
-  const handleModal = () => {
-    bottomSheetModalRef.current?.present();
-    setAnswerStatus(true);
-    // fiftyPlaySound();
-  };
-
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -330,18 +334,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
-  // const [isLivesEnabled, setIsLivesEnabled] = useState(true);
-  //   const [isTimerEnabled, setIsTimerEnabled] = useState(true);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Percentage Indicator */}
-      {/* <View style={styles.percentageContainer}>
-          <Text style={styles.percentageText}>50%</Text>
-        </View> */}
-
-      {/* Header */}
-
       <TimerHeartSection
         navigation={navigation}
         color="white"
@@ -352,34 +347,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
         totalQuestions={totalQuestions}
         counter={counter}
       />
-
-      {/* <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {!isDisabled && (
-          <Pressable onPress={() => setModalVisible(true)}>
-            <View style={{ marginLeft: 200, marginTop: -30 }}>
-              <Info size={22} color="#8a8686" />
-            </View>
-          </Pressable>
-        )}
-
-        <ModalExplanationQuestion
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          title="Quiz Completed"
-          message="You did great! Keep going!"
-          currentQuestion={currentQuestion}
-        />
-      </View> */}
-
-      {/* <View>
-        <Text>time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
-       </View> */}
 
       {/* Question Card */}
       <View style={styles.card}>
@@ -570,7 +537,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F7FA",
-    paddingTop: height>900? 30: 0
+    paddingTop: height > 900 ? 30 : 0,
   },
   percentageContainer: {
     position: "absolute",

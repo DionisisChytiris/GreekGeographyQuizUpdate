@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import setUserNameSlice from './setUserNameSlice';
 import livesReducer from '../ReduxToolkit/livesSlice';
 import timerReducer from './timerSlice'; 
-import soundReducer from './soundSlice'
+import soundReducer from './soundSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,7 @@ export const store = configureStore({
     lives: livesReducer,
     timer: timerReducer,
     sound: soundReducer
-  },
+  }
 });
 
 export const useAppDispatch:()=>typeof store.dispatch=useDispatch;

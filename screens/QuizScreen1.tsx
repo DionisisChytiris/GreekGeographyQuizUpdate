@@ -119,7 +119,7 @@ export default function HomeScreen() {
     const screenName = categoryToScreenMap[categoryId];
 
     if (screenName) {
-      console.log(`Navigating to ${screenName} with category:`, categoryId);
+      // console.log(`Navigating to ${screenName} with category:`, categoryId);
       navigation.navigate(screenName as any, { categoryId });
     } else {
       console.warn("Category not found:", categoryId);
