@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, View, Text, Pressable, StyleSheet } from "react-native";
+import { Modal, View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   useFonts,
@@ -7,7 +7,7 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { Quicksand_400Regular } from '@expo-google-fonts/quicksand';
+import { Quicksand_400Regular } from "@expo-google-fonts/quicksand";
 
 type ModalComponentProps = {
   visible: boolean;
@@ -47,65 +47,87 @@ const ModalExplanationQuestion: React.FC<ModalComponentProps> = ({
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>{title}</Text>
+
+          {currentQuestion?.imgMap ? (
+          
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingVertical: 50,
+                height: '60%'
+              }}
+            >
+              <Image
+                source={currentQuestion?.imgMap}
+                resizeMode="contain"
+                style={{ width: "100%", height: '100%' }}
+              />
+            </View>
+           
+          ) : (
+            <View style={{ height: 350, paddingBottom: 20 }}>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View
+                  style={{
+                    marginBottom: 20,
+                    gap: 20,
+                    backgroundColor: "white",
+                    padding: 10,
+                    borderRadius: 20,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#22c200",
+                      fontSize: 18,
+                      textAlign: "center",
+                      // fontFamily: "Poppins-SemiBold",
+                      fontFamily: "Quicksand_400Regular",
+                    }}
+                  >
+                    {currentQuestion?.result1}{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "black",
+                      fontSize: 18,
+                      textAlign: "center",
+                      // fontFamily: "Poppins-SemiBold",
+                      fontFamily: "Quicksand_400Regular",
+                    }}
+                  >
+                    {currentQuestion?.result2}{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#014acf",
+                      fontSize: 18,
+                      textAlign: "center",
+                      // fontFamily: "Poppins-SemiBold",
+                      fontFamily: "Quicksand_400Regular",
+                    }}
+                  >
+                    {currentQuestion?.result3}{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "magenta",
+                      fontSize: 18,
+                      textAlign: "center",
+                      // fontFamily: "Poppins-SemiBold",
+                      fontFamily: "Quicksand_400Regular",
+                    }}
+                  >
+                    {currentQuestion?.result4}{" "}
+                  </Text>
+                </View>
+              </ScrollView>
+            </View>
+          )}
+
           {/* <Text style={styles.modalMessage}>{message}</Text> */}
-          <View style={{ height: 350, paddingBottom: 20 }}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <View
-                style={{
-                  marginBottom: 20,
-                  gap: 20,
-                  backgroundColor: "white",
-                  padding: 10,
-                  borderRadius: 20,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#22c200",
-                    fontSize: 18,
-                    textAlign: 'center',
-                    // fontFamily: "Poppins-SemiBold",
-                    fontFamily: 'Quicksand_400Regular'
-                  }}
-                >
-                  {currentQuestion?.result1}{" "}
-                </Text>
-                <Text
-                  style={{
-                    color: "black",
-                    fontSize: 18,
-                    textAlign: 'center',
-                    // fontFamily: "Poppins-SemiBold",
-                    fontFamily: 'Quicksand_400Regular'
-                  }}
-                >
-                  {currentQuestion?.result2}{" "}
-                </Text>
-                <Text
-                  style={{
-                    color: "#014acf",
-                    fontSize: 18,
-                    textAlign: 'center',
-                    // fontFamily: "Poppins-SemiBold",
-                    fontFamily: 'Quicksand_400Regular'
-                  }}
-                >
-                  {currentQuestion?.result3}{" "}
-                </Text>
-                <Text
-                  style={{
-                    color: "magenta",
-                    fontSize: 18,
-                    textAlign: 'center',
-                    // fontFamily: "Poppins-SemiBold",
-                    fontFamily: 'Quicksand_400Regular'
-                  }}
-                >
-                  {currentQuestion?.result4}{" "}
-                </Text>
-              </View>
-            </ScrollView>
-          </View>
           <Pressable style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>Έξοδος</Text>
           </Pressable>

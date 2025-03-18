@@ -60,6 +60,7 @@ import { setResetQuiz } from "../../ReduxToolkit/resetQuizSlice";
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
 const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 type MainQuizAiGenProps = {
   dataT: {
@@ -537,7 +538,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F7FA",
-    paddingTop: height > 900 ? 30 : 0,
+    paddingTop: height > 1000 ? 30 : 0,
   },
   percentageContainer: {
     position: "absolute",
@@ -571,7 +572,7 @@ const styles = StyleSheet.create({
   },
   questionImage: {
     width: "100%",
-    height: height > 900 ? 400 : 200,
+    height: height > 1000 ? 400: height > 900 ? 250: 200,
     resizeMode: "cover",
   },
   questionContainer: {
