@@ -399,7 +399,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 14,
-    paddingVertical: Platform.OS === "ios" ? 8 : 0,
+    paddingVertical: Platform.OS === "ios" ? 8 : 8,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
   },
