@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -7,14 +7,15 @@ import {
   Platform,
   Pressable,
   StyleSheet,
+  Animated,
 } from "react-native";
 import { Share2 } from "lucide-react-native";
 
 const ShareButton = () => {
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(1);
 
   const onShare = async () => {
-    setScale(1)
+    setScale(1);
     try {
       const appLink =
         Platform.OS === "ios"
@@ -40,16 +41,42 @@ const ShareButton = () => {
     }
   };
 
+  const shineAnim = useRef(new Animated.Value(-100)).current; // Start off-screen
+
+  useEffect(() => {
+    const startShineAnimation = () => {
+      Animated.loop(
+        Animated.timing(shineAnim, {
+          toValue: 300, // Move across the button
+          duration: 800,
+          useNativeDriver: true,
+        })
+      ).start();
+    };
+
+    startShineAnimation();
+  }, []);
+
   return (
     <View style={{ margin: 0 }}>
-      <Pressable 
-          onPressIn={()=>{setScale(0.95)}}
-          onPressOut={onShare}
-          style={[styles.shareButton, {transform: [{scale: scale}]}]} 
+      <Pressable
+        onPressIn={() => {
+          setScale(0.95);
+        }}
+        onPressOut={onShare}
+        style={[styles.shareButton, { transform: [{ scale: scale }] }]}
       >
         <Share2 size={24} color="#fff" />
         <Text style={styles.shareText}>Μοιραστείτε την εφαρμογή</Text>
       </Pressable>
+
+      {/* <Pressable style={styles.button}>
+        <Text style={styles.text}>Press Me</Text>
+
+        <Animated.View
+          style={[styles.shine, { transform: [{ translateX: shineAnim }] }]}
+        />
+      </Pressable> */}
     </View>
   );
 };
@@ -72,5 +99,30 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins-SemiBold",
     textAlign: "center", // Ensures text is centered if there is any overflow or multiline text
+  },
+  button: {
+    width: 100,
+    height: 60,
+    backgroundColor: "#3498db",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+    overflow: "hidden", // Ensures shine stays within the button
+  },
+  text: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    zIndex: 2,
+  },
+  shine: {
+    position: "absolute",
+    left: 0,
+    height: "100%",
+    borderRadius: 25,
+    width: 60, // Width of shine effect
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    opacity: 0.5,
+    // transform: [{ rotate: '0deg' }],
   },
 });

@@ -8,6 +8,7 @@ const Mountain = () => {
       dataT={questions}
       resultsPage="ResultsMountain"
       quizName="Βουνά"
+      lastQ1='lastQuestion2'
     />
   );
 };

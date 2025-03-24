@@ -4,13 +4,15 @@ import setUserNameSlice from './setUserNameSlice';
 import livesReducer from '../ReduxToolkit/livesSlice';
 import timerReducer from './timerSlice'; 
 import soundReducer from './soundSlice';
+import { coinsReducer } from './coinsSlice';
 
 export const store = configureStore({
   reducer: {
     user: setUserNameSlice,
     lives: livesReducer,
     timer: timerReducer,
-    sound: soundReducer
+    sound: soundReducer,
+    coins: coinsReducer
   }
 });
 

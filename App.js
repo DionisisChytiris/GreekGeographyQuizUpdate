@@ -6,6 +6,7 @@ import Splash from "./Splash";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
+import { loadCoins } from "./ReduxToolkit/coinsSlice";
 import * as Updates from "expo-updates";
 import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -39,6 +40,7 @@ const AppContent = () => {
 
   useEffect(() => {
     dispatch(loadName());
+    dispatch(loadCoins());
   }, [dispatch]);
 
   useEffect(() => {
@@ -111,7 +113,7 @@ const AppContent = () => {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  return  (
+  return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <StatusBar style="auto" translucent />
@@ -140,7 +142,7 @@ export default function App() {
   //         translucent={Platform.OS === 'android'}
   //         hidden={false}
   //         translucent
-  //         backgroundColor="transparent" 
+  //         backgroundColor="transparent"
   //         style={theme === "dark" ? "light" : "dark"}
   //         backgroundColor="#F7F9FC00"
   //       /> */}

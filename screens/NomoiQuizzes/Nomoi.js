@@ -8,6 +8,7 @@ const Nomoi = () => {
       dataT={questions1}
       resultsPage="ResultsNomoi"
       quizName="Νομοί-Πόλεις"
+      lastQ1='lastQuestion3'
     />
   );
 };

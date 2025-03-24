@@ -9,6 +9,7 @@ const GeneralQuestions = () => {
         dataT={questions}
         resultsPage='ResultsGeneral'
         quizName='Γενικές Ερωτήσεις'
+        lastQ1='lastQuestion4'
     />
   )
 }

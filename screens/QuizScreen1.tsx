@@ -31,7 +31,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
-import { useAppSelector } from "../ReduxToolkit/store";
+import { useAppSelector, useAppDispatch } from "../ReduxToolkit/store";
 import GeneralQuestions from "./GeneralQuestionsQuizzes/GeneralQuestions";
 // import { StatusBar } from 'expo-status-bar';
 
@@ -97,6 +97,9 @@ export default function HomeScreen() {
     "Poppins-SemiBold": Poppins_600SemiBold,
     "Poppins-Bold": Poppins_700Bold,
   });
+  const dispatch = useAppDispatch();
+  const coins = useAppSelector((state) => state.coins.coins);
+
 
   // useEffect(() => {
   //   if (fontsLoaded || fontError) {
@@ -204,6 +207,10 @@ export default function HomeScreen() {
           style={{width: '100%', height: 150, borderRadius: 10}}
         /> */}
       </Animated.View>
+
+      {/* <View style={{position: 'absolute', bottom: 150,left: 50}}>
+        <Text>coins: {coins}</Text>
+      </View> */}
       
 
       {/* <Animated.View entering={FadeInDown.delay(450).springify()}>

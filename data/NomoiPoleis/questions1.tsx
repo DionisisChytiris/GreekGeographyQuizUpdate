@@ -23,6 +23,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/kerkyra1.jpg'),
         imgMap: require('../../assets/maps/N.Kerkyras.png'),
+        result1: "Ένα από τα πιο κοσμοπολίτικα νησιά του Ιονίου.",
         nomos: 'Κέρκυρα',
         capital: 'Κέρκυρα',
         answer: 'Πρωτεύουσα του νομού είναι η πόλη της Κέρκυρας.'
@@ -51,6 +52,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/kilkis.jpg'),
         imgMap: require('../../assets/maps/N.Kilkis.png'),
+        result1: "Ιστορικός νομός με πεδία μαχών των Βαλκανικών Πολέμων. Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.",
         nomos: 'Κιλκίς',
         capital: 'Κιλκίς',
         answer: 'Πρωτεύουσα του Ν.Κιλκίς είναι η πόλη του Κιλκίς.'
@@ -79,6 +81,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/ioannina.jpg'),
         imgMap: require('../../assets/maps/N.Ioanninwn.png'),
+        result1: "Η λίμνη Παμβώτιδα φιλοξενεί το νησάκι του Αλή Πασά.",
         nomos: 'Ιωαννίνων',
         answer: 'Πρωτεύουσα του Ν.Ιωαννίνων είναι η ομώνυμη πόλη.'
     },
@@ -106,6 +109,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/larissa.jpg'),
         imgMap: require('../../assets/maps/N.Larissas.png'),
+        result1: "Σημαντικό γεωργικό και εμπορικό κέντρο της Θεσσαλίας.",
         nomos: 'Λάρισας',
         answer: 'Πρωτεύουσα του Ν.Λάρισας είναι η πόλη της Λάρισας. '
     },
@@ -133,6 +137,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/preveza.jpg'),
         imgMap: require('../../assets/maps/N.Prevezas.png'),
+        result1: 'Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Πρέβεζας',
         capital: 'Πρέβεζα',
         answer: 'Πρωτεύουσα του Ν.Πρέβεζας είναι η πόλη της Πρέβεζας.'
@@ -161,6 +166,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/thessaloniki.jpg'),
         imgMap: require('../../assets/maps/N.Thessalonikis.png'),
+        result1: 'Η "συμπρωτεύουσα" της Ελλάδας, με τον Λευκό Πύργο ως σύμβολο.',
         nomos: 'Θεσσαλονίκης',
         capital: 'Θεσσαλονίκη',
         answer: 'Πρωτεύουσα του Ν.Θεσσαλονίκης είναι η ομώνυμη πόλη.'
@@ -188,6 +194,7 @@ const questions1 =  [
         ],
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/arta.jpg'),
+        result1: "Γνωστή για το θρυλικό της πέτρινο γεφύρι.",
         imgMap: require('../../assets/maps/N.Thessalonikis.png'),
         nomos: 'Άρτας',
         capital: 'Άρτα',
@@ -217,6 +224,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/xiosad1.jpg'),
         imgMap: require('../../assets/maps/N.Xiou.png'),
+        result1: 'Γνωστή για τη μαστίχα και το Πυργί με τα ξυστά σπίτια.',
         nomos: 'Χίου',
         capital: 'Χίος',
         answer: 'Πρωτεύουσα του Ν.Χίου είναι η πόλη της Χίου.'
@@ -245,6 +253,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/chania.jpg'),
         imgMap: require('../../assets/maps/N.Xaniwn.png'),
+        result1: 'Το Ενετικό λιμάνι είναι το σήμα κατατεθέν της πόλης.',
         nomos: 'Χανίων',
         capital: 'Χανιά',
         answer: 'Πρωτεύουσα του Ν.Χανίων είναι η πόλη των Χανίων.'
@@ -273,6 +282,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/lefkada.jpg'),
         imgMap: require('../../assets/maps/N.Lefkadas.png'),
+        result1: 'Συνδέεται με γέφυρα με την ηπειρωτική Ελλάδα.',
         nomos: 'Λευκάδας',
         capital: 'Λευκάδα',
         answer: 'Πρωτεύουσα του Ν.Λευκάδας είναι η πόλη της Λευκάδας.'
@@ -301,6 +311,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/zakynthos.jpg'),
         imgMap: require('../../assets/maps/N.Zakythou.png'),
+        result1: 'Το Ναυάγιο είναι μία από τις διασημότερες παραλίες της Ελλάδας.',
         nomos: "Ζακύνθου",
         capital: 'Ζάκυνθος',
         answer: 'Πρωτεύουσα του Ν.Ζακύνθου είναι η πόλη της Ζακύνθου.'
@@ -329,6 +340,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/kavala1.jpg'),
         imgMap: require('../../assets/maps/N.Kavalas.png'),
+        result1: 'Η πόλη με το εντυπωσιακό κάστρο και το υδραγωγείο του Σουλεϊμάν.',
         nomos: 'Καβάλας',
         capital: 'Καβάλα',
         answer: 'Πρωτεύουσα του Ν.Καβάλας είναι η πόλη της Καβάλας.'
@@ -357,6 +369,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/kastoria1.jpg'),
         imgMap: require('../../assets/maps/N.Kastorias.png'),
+        result1: 'Χτισμένη γύρω από τη λίμνη Ορεστιάδα, γνωστή για τα γουναρικά της.',
         nomos: 'Καστοριάς',
         capital: 'Καστοριά',
         answer: 'Πρωτεύουσα του Ν.Καστοριάς είναι η πόλη της Καστοριάς.'
@@ -385,6 +398,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/serres.jpg'),
         imgMap: require('../../assets/maps/N.Serrwn.png'),
+        result1: 'Φημισμένες οι μπουγάτσες και τα λουτρά του Σιδηροκάστρου.',
         nomos: 'Σερρών',
         capital: 'Σέρρες',
         answer: 'Πρωτεύουσα του Ν.Σερρών είναι η πόλη των Σερρών.'
@@ -413,6 +427,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/KARDITSA.jpg'),
         imgMap: require('../../assets/maps/N.Karditsas.png'),
+        resutl1: 'Η Λίμνη Πλαστήρα είναι ένας δημοφιλής προορισμός.',
         nomos: 'Καρδίτσας',
         capital: 'Καρδίτσα',
         answer: 'Πρωτεύουσα του Ν.Καρδίτσας είναι η πόλη της Καρδίτσας.'
@@ -441,6 +456,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/trikala.jpg'),
         imgMap: require('../../assets/maps/N.Trikalwn.png'),
+        result1: 'Η γενέτειρα του Ασκληπιού, πατέρα της Ιατρικής. Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Τρικάλων',
         capital: 'Τρίκαλα',
         answer: 'Πρωτεύουσα του Ν.Τρικάλων είναι η πόλη των Τρικάλων.'
@@ -469,6 +485,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/korinthos.jpg'),
         imgMap: require('../../assets/maps/N.Korithias.png'),
+        result1: 'Η Διώρυγα της Κορίνθου συνδέει το Αιγαίο με το Ιόνιο.',
         nomos: 'Κορίνθου',
         capital: 'Κόρινθος',
         answer: 'Πρωτεύουσα του Ν.Κορύνθου είναι η πόλη της Κορύνθου.'
@@ -497,6 +514,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/florina.jpg'),
         imgMap: require('../../assets/maps/N.Florinas.png'),
+        result1: 'Γνωστή για τις Πρέσπες και το χιονοδρομικό κέντρο Βίγλα.',
         nomos: 'Φλώρινας',
         capital: 'Φλώρινα',
         answer: 'Πρωτεύουσα του Ν.Φλώρινας είναι η πόλη της Φλώρινας.'
@@ -525,6 +543,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/ksanthi.jpg'),
         imgMap: require('../../assets/maps/N.Xanthis.png'),
+        result1: 'Φημίζεται για το καρναβάλι και τη γραφική Παλιά Πόλη.',
         nomos: 'Ξάνθης',
         capital: 'Ξάνθη',
         answer: 'Πρωτεύουσα του Ν.Ξάνθης είναι η πόλη της Ξάνθης.'
@@ -553,6 +572,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/samos.jpg'),
         imgMap: require('../../assets/maps/N.Samou.png'),
+        result1: 'Το νησί του Πυθαγόρα και του φημισμένου κρασιού.',
         nomos: 'Σάμου',
         capital: 'Σάμος',
         answer: 'Πρωτεύουσα του Ν.Σάμου είναι η πόλη της Σάμου.'
@@ -581,6 +601,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/rethymno.jpg'),
         imgMap: require('../../assets/maps/N.Rethymnis.png'),
+        result1: 'Η πόλη με το βενετσιάνικο φρούριο Φορτέτζα. Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Ρεθύμνου',
         capital: 'Ρέθυμνο',
         answer: 'Πρωτεύουσα του Ν.Ρεθύμνου είναι η πόλη του Ρεθύμνου.'
@@ -609,6 +630,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/drama.png'),
         imgMap: require('../../assets/maps/N.Dramas.png'),
+        result1: 'Βόρεια πόλη κοντά στο όρος Φαλακρό. Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Δράμας',
         capital: 'Δράμα',
         answer: 'Πρωτεύουσα του Ν.Δράμας είναι η πόλη της Δράμας.'
@@ -637,6 +659,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/kozani.jpg'),
         imgMap: require('../../assets/maps/N.Kozanis.png'),
+        result1: 'Φημίζεται για τον κρόκο της και τη λίμνη Πολυφύτου. Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Κοζάνης',
         capital: 'Κοζάνη',
         answer: 'Πρωτεύουσα του Ν.Κοζάνης είναι η πόλη της Κοζάνης.'
@@ -665,6 +688,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/grevena.jpg'),
         imgMap: require('../../assets/maps/N.Grevenwn.png'),
+        result1: 'Σε μερικές περιπτώσεις, η πρωτεύουσα έχει το ίδιο όνομα με τον νομό.',
         nomos: 'Γρεβενών',
         capital: 'Γρεβενά',
         answer: 'Πρωτεύουσα του Ν.Γρεβενών είναι η πόλη των Γρεβενών.'
@@ -693,6 +717,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/Knossos.jpg'),
         imgMap: require('../../assets/maps/N.Hrakliou.png'),
+        result1: 'Ο μεγαλύτερος νομός της Κρήτης, με το Μινωικό ανάκτορο της Κνωσού.',
         nomos: 'Ηρακλείου',
         capital: 'Ηράκλειο',
         answer: 'Πρωτεύουσα του Ν.Ηρακλείου είναι η πόλη του Ηρακλείου.'
@@ -721,6 +746,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/siros.jpg'),
         imgMap: require('../../assets/maps/N.Kykladwn.png'),
+        result1: 'Νησιωτικό σύμπλεγμα με πρωτεύουσα την Ερμούπολη της Σύρου.',
         nomos: 'Κυκλάδων',
         capital: 'Ερμούπολη',
         answer: 'Πρωτεύουσα του Ν.Κυκλάδων είναι η πόλη της Σύρου.'
@@ -750,6 +776,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/Alexandroupoli.jpg'),
         imgMap: require('../../assets/maps/N.Evrou.png'),
+        result1: 'Η πρωτεύουσα του Νομού Έβρου φιλοξενεί ένα από τα μεγαλύτερα πανεπιστήμια της Θράκης.',
         nomos: 'Εβρου',
         capital: 'Αλεξανδρούπολη',
         answer: 'Πρωτεύουσα του Ν.Έβρου είναι η πόλη της Αλεξανδρούπολης.'
@@ -778,6 +805,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/patra.jpg'),
         imgMap: require('../../assets/maps/N.Axaias.png'),
+        result1: 'Η γέφυρα Ρίου-Αντιρρίου συνδέει τη Στερεά Ελλάδα με την Πελοπόννησο.',
         nomos: 'Αχαΐας',
         capital: 'Πάτρα',
         answer: 'Πρωτεύουσα του Ν.Αχαΐας είναι η πόλη της Πάτρας.'
@@ -806,6 +834,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/Komotini.jpg'),
         imgMap: require('../../assets/maps/N.Rodopis.jpg'),
+        result1: 'Πολυπολιτισμική περιοχή με Θρακιώτες, Πομάκους και μουσουλμάνους.',
         nomos: 'Ροδόπης',
         capital: 'Κομοτηνή',
         answer: 'Πρωτεύουσα του Ν.Αχαΐας είναι η πόλη της Πάτρας.'
@@ -834,6 +863,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/rodos.png'),
         imgMap: require('../../assets/maps/N.Dodekanisou1.png'),
+        result1: 'Σύμπλεγμα νησιών, με τη Ρόδο ως το μεγαλύτερο.',
         nomos: 'Δωδεκανήσου',
         capital: 'Ρόδος',
         answer: 'Πρωτεύουσα του Ν.Δωδεκανήσου είναι η πόλη της Ρόδου.'
@@ -862,6 +892,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/Mesologi.jpg'),
         imgMap: require('../../assets/maps/N.Aitoloakarnanias.png'),
+        result1: 'Ο μεγαλύτερος νομός, με το Μεσολόγγι να έχει ιστορική σημασία.',
         nomos: 'Αιτωλοακαρνανίας',
         capital: 'Μεσολόγγι',
         answer: 'Πρωτεύουσα του Ν.Αιτωλοακαρνανίας είναι η πόλη του Μεσολογγίου.'
@@ -890,6 +921,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/igoumenitsa.jpg'),
         imgMap: require('../../assets/maps/N.Thesprotias.png'),
+        result1: 'Διάσημη για το νεκρομαντείο του Αχέροντα. Επίσης είναι σημαντικό λιμάνι της Ηπείρου με ακτοπλοϊκή σύνδεση με την Ιταλία.',
         nomos: 'Θεσπρωτίας',
         capital: 'Ηγουμενίτσα',
         answer: 'Πρωτεύουσα του Ν.Θεσπρωτίας είναι η πόλη της Ηγουμενίτσας.'
@@ -918,6 +950,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/tripoli.jpg'),
         imgMap: require('../../assets/maps/N.Arkadias.png'),
+        result1: 'Ορεινή περιοχή στην καρδιά της Πελοποννήσου.',
         nomos: 'Αρκαδίας',
         capital: 'Τρίπολη',
         answer: 'Πρωτεύουσα του Ν.Αρκαδίας είναι η πόλη της Τρίπολης.'
@@ -946,6 +979,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/volos.jpg'),
         imgMap: require('../../assets/maps/N.Magnisias.png'),
+        result1: 'Το Πήλιο θεωρείται το βουνό των Κενταύρων.',
         nomos: 'Μαγνησίας',
         capital: 'Βόλος',
         answer: 'Πρωτεύουσα του Ν.Μαγνησίας είναι η πόλη του Βόλου.'
@@ -974,6 +1008,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/athens.jpg'),
         imgMap: require('../../assets/maps/attiki.png'),
+        result1: 'Περιλαμβάνει την πρωτεύουσα της Ελλάδας.',
         nomos: 'Αττικής',
         capital: 'Αθήνα',
         answer: 'Πρωτεύουσα του Ν.Αττικής είναι η πόλη της Αθήνας.'
@@ -1002,6 +1037,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/Mitilini.jpg'),
         imgMap: require('../../assets/maps/N.Lesvou.png'),
+        result1: 'Eίναι μια παραθαλάσσια πόλη, γνωστή για το λιμάνι της. Το απολιθωμένο δάσος είναι μοναδικό στην Ελλάδα.',
         nomos: 'Λέσβου',
         capital: 'Μυτιλήνη',
         answer: 'Πρωτεύουσα του Ν.Λέσβου είναι η πόλη της Μυτιλήνης.'
@@ -1030,6 +1066,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/kefalonia.jpg'),
         imgMap: require('../../assets/maps/N.Kefalinias.png'),
+        result1: 'Διάσημη για τις σπηλιές της Δρογκαράτης και της Μελισσάνης.',
         nomos: 'Κεφαλληνίας',
         capital: 'Αργοστόλι',
         answer: 'Πρωτεύουσα του Ν.Κεφαλονιάς είναι η πόλη του Αργοστολίου.'
@@ -1058,6 +1095,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/xalkida.jpg'),
         imgMap: require('../../assets/maps/N.Evoias.png'),
+        result1: 'Το δεύτερο μεγαλύτερο νησί της Ελλάδας, ενωμένο με γέφυρα στη Χαλκίδα.',
         nomos: 'Ευβοίας',
         capital: 'Χαλκίδα',
         answer: 'Πρωτεύουσα του Ν.Ευβοίας είναι η πόλη της Χαλκίδας.'
@@ -1086,6 +1124,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/nafplio.jpg'),
         imgMap: require('../../assets/maps/N.Argolidas.png'),
+        result1: 'Η πρώτη πρωτεύουσα της Ελλάδας με το μικρό εικονικό νησί, το Μπούρτζι.',
         nomos: 'Αργολίδας',
         capital: 'Ναύπλιο',
         answer: 'Πρωτεύουσα του Ν.Αργολίδας είναι η πόλη του Ναυπλίου.'
@@ -1114,6 +1153,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/kalamata.jpg'),
         imgMap: require('../../assets/maps/N.Messinias.png'),
+        result1: 'Η Καλαμάτα είναι γνωστή για τις ελιές της.',
         nomos: 'Μεσσηνίας',
         capital: 'Καλαμάτα',
         answer: 'Πρωτεύουσα του Ν.Μεσσηνίας είναι η πόλη της Καλαμάτας.'
@@ -1142,6 +1182,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/hliaOlympia.jpg'),
         imgMap: require('../../assets/maps/N.Hlias.png'),
+        result1: 'Ο τόπος όπου γεννήθηκαν οι Ολυμπιακοί Αγώνες. H πρωτεύουσα έχει διαφορετικό όνομα με τον νομό.',
         nomos: 'Ηλείας',
         capital: 'Πύργος',
         answer: 'Πρωτεύουσα του Ν.Ηλίας είναι η πόλη του Πύργου.'
@@ -1170,6 +1211,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/pieria.jpg'),
         imgMap: require('../../assets/maps/Pieria.png'),
+        result1: 'Το βουνό των θεών, ο Όλυμπος, βρίσκεται εδώ.',
         nomos: 'Πιερίας',
         capital: 'Κατερίνη',
         answer: 'Πρωτεύουσα του Ν.Πιερίας είναι η πόλη της Κατερίνης.'
@@ -1198,6 +1240,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/karpenissi1.jpg'),
         imgMap: require('../../assets/maps/N.Evritanias.png'),
+        result1: 'Ο πιο ορεινός νομός της Ελλάδας, με το Καρπενήσι ως κέντρο.',
         nomos: 'Ευρυτανίας',
         capital: 'Καρπενήσι',
         answer: 'Πρωτεύουσα του Ν.Ευρυτανίας είναι η πόλη του Καρπενησίου.'
@@ -1226,6 +1269,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/delphiFokida.jpg'),
         imgMap: require('../../assets/maps/N.Fokidas.png'),
+        result1: 'ι Δελφοί ήταν το σημαντικότερο μαντείο της αρχαιότητας.',
         nomos: 'Φωκίδας',
         capital: 'Άμφισσα',
         answer: 'Πρωτεύουσα του Ν.Φωκίδας είναι η πόλη της Άμφισσας.'
@@ -1254,6 +1298,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/livadia1.jpg'),
         imgMap: require('../../assets/maps/N.Voiwtias.png'),
+        result1: 'Bρίσκεται κοντά στο Δελφικό τοπίο και τις διάσημες πηγές της Κωπαΐδας.',
         nomos: 'Βοιωτίας',
         capital: 'Λιβαδειά',
         answer: 'Πρωτεύουσα του Ν.Βοιωτίας είναι η πόλη της Λιβαδειάς.'
@@ -1282,6 +1327,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/chalkidiki.jpg'),
         imgMap: require('../../assets/maps/N.Chalkidikis.png'),
+        result1: 'Πρωτεύουσα του Ν.Χαλκιδικής είναι η πόλη του Πολύγυρου.',
         nomos: 'Χαλκιδικής',
         capital: 'Πολύγυρος',
         answer: 'Πρωτεύουσα του Ν.Χαλκιδικής είναι η πόλη του Πολύγυρου.'
@@ -1310,6 +1356,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/fthiotidaThermopiles.jpg'),
         imgMap: require('../../assets/maps/N.Fthiotidas.png'),
+        result1: 'Οι Θερμοπύλες ήταν το πεδίο της μάχης του Λεωνίδα. H πρωτεύουσα έχει διαφορετικό όνομα από τον νομό.',
         nomos: 'Φθιώτιδας',
         capital: 'Λαμία',
         answer: 'Πρωτεύουσα του Ν.Φθιώτιδας είναι η πόλη της Λαμίας.'
@@ -1338,6 +1385,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/monemvasia.jpg'),
         imgMap: require('../../assets/maps/N.Lakonias.png'),
+        result1: 'Η Σπάρτη ήταν η πατρίδα του Λεωνίδα.',
         nomos: 'Λακωνίας',
         capital: 'Σπάρτη',
         answer: 'Πρωτεύουσα του Ν.Λακωνίας είναι η πόλη της Σπάρτης.'
@@ -1366,6 +1414,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/veroia.jpg'),
         imgMap: require('../../assets/maps/N.Imathias.png'),
+        result1: 'Πρωτεύουσα του Ν.Ημαθίας είναι η πόλη της Βέροιας.',
         nomos: 'Ημαθίας',
         capital: 'Βέροια',
         answer: 'Πρωτεύουσα του Ν.Ημαθίας είναι η πόλη της Βέροιας.'
@@ -1394,6 +1443,7 @@ const questions1 =  [
         correctAnswerIndex: 3,
         img: require('../../assets/capitals/edessa.jpg'),
         imgMap: require('../../assets/maps/N.Pellas.png'),
+        result1: 'Η γενέτειρα του Μεγάλου Αλεξάνδρου. Γνωστή για τους καταρράκτες.',
         nomos: 'Πέλλας',
         capital: 'Έδεσσα',
         answer: 'Πρωτεύουσα του Ν.Πέλλας είναι η πόλη της Έδεσσας.'
@@ -1422,6 +1472,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/lasithi.jpg'),
         imgMap: require('../../assets/maps/N.Lasithiou.png'),
+        result1: 'Η Πλάκα και η Σπιναλόγκα βρίσκονται εδώ. Ορόσημο η πόλη του Αγίου Νικολάου.',
         nomos: 'Λασιθίου',
         capital: 'Άγιος Νικόλαος',
         answer: 'Πρωτεύουσα του Ν.Λασιθίου είναι η πόλη του Αγίου Νικολάου.'
@@ -1450,6 +1501,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/monemvasia.jpg'),
         imgMap: require('../../assets/maps/N.Lakonias.png'),
+        result1: 'Βρίσκεται στη νοτιοανατολική Πελοπόννησο, πάνω σε έναν βράχο με θέα το Αιγαίο.',
         nomos: 'Λακωνίας',
         capital: 'Σπάρτη',
         answer: 'Η Μονεμβασιά βρίσκεται στον Ν.Λακωνίας.'
@@ -1478,6 +1530,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/hliaOlympia.jpg'),
         imgMap: require('../../assets/maps/N.Hlias.png'),
+        result1: 'Η Αρχαία Ολυμπία βρίσκεται στον Ν.Ηλείας.',
         nomos: 'Ηλείας',
         capital: 'Πύργος',
         answer: 'Η Αρχαία Ολυμπία βρίσκεται στον Ν.Ηλείας.'
@@ -1506,6 +1559,7 @@ const questions1 =  [
         correctAnswerIndex: 1,
         img: require('../../assets/capitals/delphiFokida.jpg'),
         imgMap: require('../../assets/maps/N.Fokidas.png'),
+        result1: 'Ο χώρος των Δελφών βρίσκεται στον Ν.Φωκίδας.',
         nomos: 'Φωκίδα',
         capital: 'Άμφισσα',
         answer: 'Ο χώρος των Δελφών βρίσκεται στον Ν.Φωκίδας.'
@@ -1534,6 +1588,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/siros.jpg'),
         imgMap: require('../../assets/maps/N.Kykladwn.png'),
+        result1: 'Η Σύρος βρίσκεται στον Ν.Κυκλάδων.',
         nomos: 'Κυκλάδες',
         capital: 'Ερμούπολη',
         answer: 'Η Σύρος βρίσκεται στον Ν.Κυκλάδων.'
@@ -1562,6 +1617,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/fthiotidaThermopiles.jpg'),
         imgMap: require('../../assets/maps/N.Fthiotidas.png'),
+        result1: 'Οι Θερμοπύλες βρίσκονται στον Ν.Φθιώτιδας.',
         nomos: 'Φθιώτιδα',
         capital: 'Λαμία',
         answer: 'Οι Θερμοπύλες βρίσκονται στον Ν.Φθιώτιδας.'
@@ -1590,6 +1646,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/Knossos.jpg'),
         imgMap: require('../../assets/maps/N.Hrakliou.png'),
+        result1: 'Η Κνωσσός βρίσκεται στον Ν.Ηρακλείου.',
         nomos: 'Ηράκλειο',
         capital: 'Ηράκλειο',
         answer: 'Η Κνωσσός βρίσκεται στον Ν.Ηρακλείου.'
@@ -1618,6 +1675,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/Photos/meteora.jpg'),
         imgMap: require('../../assets/maps/N.Trikalwn.png'),
+        result1: 'Τα Μετέωρα βρίσκονται στον Ν.Τρικάλων.',
         nomos: 'Τρικάλων',
         capital: 'Τρίκαλα',
         answer: 'Τα Μετέωρα βρίσκονται στον Ν.Τρικάλων.'
@@ -1646,6 +1704,7 @@ const questions1 =  [
         correctAnswerIndex: 0,
         img: require('../../assets/capitals/limnos.png'),
         imgMap: require('../../assets/maps/N.Lesvou.png'),
+        result1: 'Η Λίμνος βρίσκεται στον Ν.Λέσβου.',
         nomos: 'Λέσβος',
         capital: 'Μυτιλήνη',
         answer: 'Η Λίμνος βρίσκεται στον Ν.Λέσβου.'
@@ -1674,6 +1733,7 @@ const questions1 =  [
         correctAnswerIndex: 2,
         img: require('../../assets/capitals/santorini.jpg'),
         imgMap: require('../../assets/maps/N.Kykladwn.png'),
+        result1: 'Η Σαντορίνι βρίσκεται στον Ν.Κυκλάδων.',
         nomos: 'Ν.Κυκλάδων',
         capital: 'Ερμούπολη',
         answer: 'Η Σαντορίνι βρίσκεται στον Ν.Κυκλάδων.'
