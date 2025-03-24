@@ -166,7 +166,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
         <View style={styles.header}>
           <Pressable
             style={styles.backButton}
-            onPress={() => navigation.navigate("Quiz1")}
+            onPress={() => {navigation.navigate("Quiz1"),resetQuiz()}}
             // onPress={() => router.push('/quiz')}
           >
             {/* <ArrowLeft size={24} color="#333" /> */}

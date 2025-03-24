@@ -60,6 +60,7 @@ import {
 } from "../../ReduxToolkit/coinsSlice";
 import { decrementHeart, incrementHeart, resetLives } from "../../ReduxToolkit/livesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { saveProgress, getProgress } from "../../ReduxToolkit/progressSlice";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -92,7 +93,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const coins = useAppSelector((state) => state.coins.coins);
   // const data = questions;
-  const dispatch = useAppDispatch();
+  // Removed duplicate declaration of dispatch
   const data = dataT;
   const totalQuestions = data.length;
   const [index, setIndex] = useState(0);
@@ -441,37 +442,49 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const [phoneCoin, setPhoneCoin] = useState(false);
   const [hundredCoin, setHundredCoin] = useState(false);
 
+  const progressKey = lastQ1; 
+  const lastQuestionIndex = useAppSelector((state) => state.progress.progress[progressKey]);
+  const dispatch = useAppDispatch();
+
 
  // Track Quiz Progress - find the last question user left the game
-  const saveProgress = async (lastQuestionIndex:any) => {
-    try {
-      // await AsyncStorage.setItem('lastQuestion', JSON.stringify(lastQuestionIndex));
-      await AsyncStorage.setItem(lastQ1, JSON.stringify(lastQuestionIndex));
-      console.log('successfully saved')
-    } catch (e) {
-      console.error("Failed to save progress", e);
-    }
-  };
+  // const saveProgress = async (lastQuestionIndex:any) => {
+  //   try {
+  //     // await AsyncStorage.setItem('lastQuestion', JSON.stringify(lastQuestionIndex));
+  //     await AsyncStorage.setItem(lastQ1, JSON.stringify(lastQuestionIndex));
+  //     console.log('successfully saved')
+  //   } catch (e) {
+  //     console.error("Failed to save progress", e);
+  //   }
+  // };
 
   const startQuiz = async () => {
-    const lastQuestionIndex = await getProgress();
-    setIndex(lastQuestionIndex); // Set the index to continue from the last answered question
+    dispatch(getProgress(progressKey));
+    // const lastQuestionIndex = await getProgress();
+    // setIndex(lastQuestionIndex); // Set the index to continue from the last answered question
   };
 
-  const getProgress = async () => {
-    try {
-      const lastQuestionIndex = await AsyncStorage.getItem(lastQ1);
-      // const lastQuestionIndex = await AsyncStorage.getItem('lastQuestion');
-      return lastQuestionIndex ? JSON.parse(lastQuestionIndex) : 0; // 0 if no progress
-    } catch (e) {
-      console.error("Failed to retrieve progress", e);
-      return 0;
+  useEffect(() => {
+    if (lastQuestionIndex !== undefined) {
+      setIndex(lastQuestionIndex); // Update the index when the progress is fetched
     }
-  };
+  }, [lastQuestionIndex]);
+
+  // const getProgress = async () => {
+  //   try {
+  //     const lastQuestionIndex = await AsyncStorage.getItem(lastQ1);
+  //     // const lastQuestionIndex = await AsyncStorage.getItem('lastQuestion');
+  //     return lastQuestionIndex ? JSON.parse(lastQuestionIndex) : 0; // 0 if no progress
+  //   } catch (e) {
+  //     console.error("Failed to retrieve progress", e);
+  //     return 0;
+  //   }
+  // };
 
   const onAnswerQuestion = (currentIndex:any) => {
     // Save the last answered question index
-    saveProgress(currentIndex);
+    // saveProgress(currentIndex);
+    dispatch(saveProgress({ key: progressKey, lastQuestionIndex: currentIndex }));
     console.log('successfully saved')
     // Proceed to the next question...
   };
@@ -492,6 +505,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
         totalQuestions={totalQuestions}
         counter={counter}
         onAnswerQuestion={onAnswerQuestion}
+        resetQuiz={resetQuiz}
       />
 
       {/* Question Card */}

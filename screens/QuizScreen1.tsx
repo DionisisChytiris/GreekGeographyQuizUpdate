@@ -18,6 +18,7 @@ import {
   Mountain,
   Waves,
   Globe as Globe2,
+  Trash,
 } from "lucide-react-native";
 import {
   useFonts,
@@ -33,58 +34,18 @@ import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
 import { useAppSelector, useAppDispatch } from "../ReduxToolkit/store";
 import GeneralQuestions from "./GeneralQuestionsQuizzes/GeneralQuestions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getProgress } from "../ReduxToolkit/progressSlice";
 // import { StatusBar } from 'expo-status-bar';
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
-
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 // import { SplashScreen } from 'expo-router';
 
 // Prevent splash screen from auto-hiding
 // SplashScreen.preventAutoHideAsync();
-
-const categories: {
-  id: string;
-  title: string;
-  icon: any;
-  gradient: [string, string, ...string[]];
-  image: string;
-}[] = [
-  {
-    id: "Nomoi",
-    title: "Νομοί - Πόλεις",
-    icon: MapPin,
-    gradient: ["#FF6B6B", "#FF8E8E"],
-    image:
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80",
-  },
-  {
-    id: "Mountain",
-    title: "Βουνά",
-    icon: Mountain,
-    gradient: ["#4ECDC4", "#45B7AF"],
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80",
-  },
-  {
-    id: "LakeRiver",
-    title: "Λίμνες - Ποτάμια",
-    icon: Waves,
-    gradient: ["#3498DB", "#2980B9"],
-    image:
-      "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&q=80",
-  },
-  {
-  id: "GeneralQuestions",
-    title: "Γενικές Ερωτήσεις",
-    icon: Globe2,
-    gradient: ["#9B59B6", "#8E44AD"],
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80",
-  },
-];
 
 export default function HomeScreen() {
   const navigation = useNavigation<QuizScreenProp>();
@@ -97,9 +58,121 @@ export default function HomeScreen() {
     "Poppins-SemiBold": Poppins_600SemiBold,
     "Poppins-Bold": Poppins_700Bold,
   });
-  const dispatch = useAppDispatch();
-  const coins = useAppSelector((state) => state.coins.coins);
+  // const dispatch = useAppDispatch();
+  // const coins = useAppSelector((state) => state.coins.coins);
 
+  const progressKey1 = "lastQuestion3";
+  const progressKey2 = "lastQuestion2";
+  const progressKey3 = "lastQuestion1";
+  const progressKey4 = "lastQuestion4";
+  const lastQuestionIndex1 = useAppSelector(
+    (state) => state.progress.progress[progressKey1]
+  );
+  const lastQuestionIndex2 = useAppSelector(
+    (state) => state.progress.progress[progressKey2]
+  );
+  const lastQuestionIndex3 = useAppSelector(
+    (state) => state.progress.progress[progressKey3]
+  );
+  const lastQuestionIndex4 = useAppSelector(
+    (state) => state.progress.progress[progressKey4]
+  );
+
+  // useEffect(() => {
+  //   if (lastQuestionIndex1 !== undefined) {
+  //     setNum1(lastQuestionIndex1); // Update the index when the progress is fetched
+  //   }
+  // }, [lastQuestionIndex1]);
+
+  // const [num1,setNum1] = useState(lastQuestionIndex1)
+  // Update track dynamically
+  // const [trackData, setTrackData] = useState({
+  //   track1: `${lastQuestionIndex1 ?? 0}/60`,
+  //   track2: `${lastQuestionIndex2 ?? 0}/15`,
+  //   track3: `${lastQuestionIndex3 ?? 0}/15`,
+  //   track4: `${lastQuestionIndex4 ?? 0}/25`,
+  // });
+
+  // Watch for changes in the progress indexes and update track data
+  // useEffect(() => {
+  //   setTrackData({
+  //     track1: `${lastQuestionIndex1 ?? 0}/60`,
+  //     track2: `${lastQuestionIndex2 ?? 0}/15`,
+  //     track3: `${lastQuestionIndex3 ?? 0}/15`,
+  //     track4: `${lastQuestionIndex4 ?? 0}/25`,
+  //   });
+  // }, [lastQuestionIndex1, lastQuestionIndex2, lastQuestionIndex3, lastQuestionIndex4]);
+
+  const progressKey = 'lastQuestion3';
+
+  // Fetch the last question index from Redux store
+  const lastQuestionIndex = useAppSelector((state) => state.progress.progress[progressKey]);
+
+  const dispatch = useAppDispatch();
+
+  // Local state for tracking progress
+  const [trackData1, setTrackData1] = useState(`${lastQuestionIndex1 ?? 0}/60`);
+  const [trackData2, setTrackData2] = useState(`${lastQuestionIndex2 ?? 0}/60`);
+  const [trackData3, setTrackData3] = useState(`${lastQuestionIndex3 ?? 0}/60`);
+  const [trackData4, setTrackData4] = useState(`${lastQuestionIndex4 ?? 0}/60`);
+
+  useEffect(() => {
+    setTrackData1(`${lastQuestionIndex1 ?? 0}/60`);
+    setTrackData2(`${lastQuestionIndex2 ?? 0}/60`);
+    setTrackData3(`${lastQuestionIndex3 ?? 0}/60`);
+    setTrackData4(`${lastQuestionIndex4 ?? 0}/60`);
+  }, [lastQuestionIndex1, lastQuestionIndex2, lastQuestionIndex3, lastQuestionIndex4]);
+
+  useEffect(() => {
+    dispatch(getProgress(progressKey)); 
+  }, [dispatch, progressKey]);
+
+
+  const categories: {
+    id: string;
+    title: string;
+    icon: any;
+    gradient: [string, string, ...string[]];
+    image: string;
+    track: any;
+  }[] = [
+    {
+      id: "Nomoi",
+      title: "Νομοί - Πόλεις",
+      icon: MapPin,
+      gradient: ["#FF6B6B", "#FF8E8E"],
+      track: trackData1,
+      image:
+        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80",
+    },
+    {
+      id: "Mountain",
+      title: "Βουνά",
+      icon: Mountain,
+      gradient: ["#4ECDC4", "#45B7AF"],
+      track: trackData2,
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80",
+    },
+    {
+      id: "LakeRiver",
+      title: "Λίμνες - Ποτάμια",
+      icon: Waves,
+      gradient: ["#3498DB", "#2980B9"],
+      track: trackData3,
+      image:
+        "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&q=80",
+    },
+    {
+      id: "GeneralQuestions",
+      title: "Γενικές Ερωτήσεις",
+      icon: Globe2,
+      gradient: ["#9B59B6", "#8E44AD"],
+      track: trackData4,
+      image:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80",
+    },
+  ];
 
   // useEffect(() => {
   //   if (fontsLoaded || fontError) {
@@ -194,6 +267,9 @@ export default function HomeScreen() {
                 style={styles.categoryContent}
               >
                 <Icon size={32} color="white" />
+                <View style={{ position: "absolute", top: 20, right: 30 }}>
+                  <Text style={{ color: "white" }}>{category.track}</Text>
+                </View>
                 <Text style={styles.categoryTitle}>{category.title}</Text>
               </LinearGradient>
             </Pressable>
@@ -210,8 +286,8 @@ export default function HomeScreen() {
 
       {/* <View style={{position: 'absolute', bottom: 150,left: 50}}>
         <Text>coins: {coins}</Text>
+        <Text>{lastQuestionIndex}/60</Text>
       </View> */}
-      
 
       {/* <Animated.View entering={FadeInDown.delay(450).springify()}>
         <Pressable
@@ -229,7 +305,7 @@ export default function HomeScreen() {
       <Animated.View entering={FadeInDown.delay(400).springify()}>
         <ShareButton />
       </Animated.View>
-      <View style={{marginBottom: 20  }}/>
+      <View style={{ marginBottom: 20 }} />
     </SafeAreaView>
   );
 }
@@ -239,22 +315,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7F9FC",
     // backgroundColor: '#F7F9FC',
-    paddingTop: Platform.OS==='ios'? 0: 14,
-    paddingHorizontal:16,
-    alignItems: height> 900? 'center': 'flex-start'
+    paddingTop: Platform.OS === "ios" ? 0 : 14,
+    paddingHorizontal: 16,
+    alignItems: height > 900 ? "center" : "flex-start",
   },
   backgroundImage: {
     position: "absolute",
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 24,
-    width:'100%',
-    marginTop: height> 1000? 20: 0,
+    width: "100%",
+    marginTop: height > 1000 ? 20 : 0,
     // padding: 16,
   },
   greeting: {
@@ -264,7 +340,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   subtitle: {
-    fontSize: height>900? 20: 16,
+    fontSize: height > 900 ? 20 : 16,
     fontFamily: "Poppins-Regular",
     color: "#666",
   },
@@ -284,9 +360,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 16,
-    alignItems: 'center',
-    marginTop: height> 1000? 40: 0,
-    width: height> 1000? '80%': '100%'
+    alignItems: "center",
+    marginTop: height > 1000 ? 40 : 0,
+    width: height > 1000 ? "80%" : "100%",
   },
   categoryCard: {
     width: "47.7%",

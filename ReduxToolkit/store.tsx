@@ -4,6 +4,7 @@ import setUserNameSlice from './setUserNameSlice';
 import livesReducer from '../ReduxToolkit/livesSlice';
 import timerReducer from './timerSlice'; 
 import soundReducer from './soundSlice';
+import progressReducer from './progressSlice'
 import { coinsReducer } from './coinsSlice';
 
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
     lives: livesReducer,
     timer: timerReducer,
     sound: soundReducer,
-    coins: coinsReducer
+    coins: coinsReducer,
+    progress: progressReducer
   }
 });
 

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import { AntDesign } from "@expo/vector-icons";
-import { incrementHeart } from "../../ReduxToolkit/livesSlice";
+import { incrementHeart, resetLives } from "../../ReduxToolkit/livesSlice";
 import { decrementCoins, saveCoins } from "../../ReduxToolkit/coinsSlice";
 
 const { height } = Dimensions.get("window");
@@ -29,6 +29,7 @@ interface YourComponentProps {
   counter: number;
   quizName: string;
   onAnswerQuestion: any;
+  resetQuiz: any;
 }
 
 const TimerHeartSection: React.FC<YourComponentProps> = ({
@@ -37,6 +38,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
   index,
   totalQuestions,
   onAnswerQuestion,
+  resetQuiz,
   // heart,
   counter,
 }) => {
@@ -86,6 +88,8 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
           onPress={() => {
             navigation.navigate("Quiz1");
             onAnswerQuestion=onAnswerQuestion(index);
+            dispatch(resetLives());
+            resetQuiz
           }}
         >
           <AntDesign name="arrowleft" size={20} color="black" />
