@@ -87,9 +87,9 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
           // style={styles.btnArrow}
           onPress={() => {
             navigation.navigate("Quiz1");
-            onAnswerQuestion=onAnswerQuestion(index);
+            onAnswerQuestion = onAnswerQuestion(index);
             dispatch(resetLives());
-            resetQuiz
+            resetQuiz;
           }}
         >
           <AntDesign name="arrowleft" size={20} color="black" />
@@ -118,21 +118,33 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
             {heart === 1 ? (
               <Pressable
                 onPress={() => {
-                  if (isSoundEnabled) {
-                    coinsDropSound();
+                  if (coins >= 50) {
+                    if (isSoundEnabled) {
+                      coinsDropSound();
+                    }
+                    dispatch(incrementHeart());
+                    dispatch(decrementCoins(50)); // Decrement 1 coin
+                    dispatch(saveCoins(coins - 50));
+                  } else {
+                    // Optionally, show a message or alert indicating the user doesn't have enough coins
+                    Alert.alert(
+                      "You need at least 50 coins to buy an extra life!"
+                    );
                   }
-                  dispatch(incrementHeart());
-                  dispatch(decrementCoins(20)); // Decrement 1 coin
-                  dispatch(saveCoins(coins - 20));
                 }}
-                style={{ position: "absolute", top: -5, padding: 40, right:-15 }}
+                style={{
+                  position: "absolute",
+                  top: -5,
+                  padding: 40,
+                  right: -15,
+                }}
               >
                 <View style={styles.coinText}>
                   <Image
                     source={require("../../assets/Photos/goldbg.png")}
                     style={{ width: 20, height: 20 }}
                   />
-                  <Text style={{ fontSize: 12 }}>20</Text>
+                  <Text style={{ fontSize: 12 }}>50</Text>
                 </View>
               </Pressable>
             ) : null}

@@ -332,49 +332,49 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const [modalVisible, setModalVisible] = useState(false);
 
   const buyExtraCall = () => {
-    if (coins >= 30) {
+    if (coins >= 50) {
       // Check if the user has 30 or more coins
       if(isSoundEnabled){
         coinsDropSound();
       }
       setPhoneCoin(false);
-      dispatch(decrementCoins(30)); // Decrement 1 coin
-      dispatch(saveCoins(coins - 30)); // Save the updated coins after purchase
+      dispatch(decrementCoins(50)); // Decrement 1 coin
+      dispatch(saveCoins(coins - 50)); // Save the updated coins after purchase
       // Add any extra life logic here
     } else {
       // Optionally, show a message or alert indicating the user doesn't have enough coins
-      Alert.alert("You need at least 30 coins to buy an extra life!");
+      Alert.alert("You need at least 50 coins to buy an extra Call!");
     }
   };
 
   const buyExtraFifty = () => {
-    if (coins >= 20) {
-      if(isSoundEnabled){
-        coinsDropSound();
-      }
-      // Check if the user has 30 or more coins
-      setFiftyCoin(false);
-      dispatch(decrementCoins(20)); // Decrement 1 coin
-      dispatch(saveCoins(coins - 20)); // Save the updated coins after purchase
-      // Add any extra life logic here
-    } else {
-      // Optionally, show a message or alert indicating the user doesn't have enough coins
-      Alert.alert("You need at least 20 coins to buy an extra life!");
-    }
-  };
-  const buyExtraHundred = () => {
     if (coins >= 40) {
       if(isSoundEnabled){
         coinsDropSound();
       }
       // Check if the user has 30 or more coins
-      setHundredCoin(false);
+      setFiftyCoin(false);
       dispatch(decrementCoins(40)); // Decrement 1 coin
       dispatch(saveCoins(coins - 40)); // Save the updated coins after purchase
       // Add any extra life logic here
     } else {
       // Optionally, show a message or alert indicating the user doesn't have enough coins
-      Alert.alert("You need at least 40 coins to buy an extra life!");
+      Alert.alert("You need at least 40 coins to buy an extra 50%!");
+    }
+  };
+  const buyExtraHundred = () => {
+    if (coins >= 80) {
+      if(isSoundEnabled){
+        coinsDropSound();
+      }
+      // Check if the user has 30 or more coins
+      setHundredCoin(false);
+      dispatch(decrementCoins(80)); // Decrement 1 coin
+      dispatch(saveCoins(coins - 80)); // Save the updated coins after purchase
+      // Add any extra life logic here
+    } else {
+      // Optionally, show a message or alert indicating the user doesn't have enough coins
+      Alert.alert("You need at least 80 coins to buy an extra 100%!");
     }
   };
 
@@ -605,7 +605,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                 source={require("../../assets/Photos/goldbg.png")}
                 style={{ width: 20, height: 20 }}
               />
-              <Text style={{ fontSize: 12 }}>20</Text>
+              <Text style={{ fontSize: 12 }}>40</Text>
             </View>
             <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
@@ -653,7 +653,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                 source={require("../../assets/Photos/goldbg.png")}
                 style={{ width: 20, height: 20 }}
               />
-              <Text style={{ fontSize: 12 }}>30</Text>
+              <Text style={{ fontSize: 12 }}>50</Text>
             </View>
             <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
@@ -693,7 +693,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                 source={require("../../assets/Photos/goldbg.png")}
                 style={{ width: 20, height: 20 }}
               />
-              <Text style={{ fontSize: 12 }}>40</Text>
+              <Text style={{ fontSize: 12 }}>80</Text>
             </View>
             <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
