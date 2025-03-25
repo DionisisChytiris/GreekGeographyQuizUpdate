@@ -267,9 +267,9 @@ export default function HomeScreen() {
                 style={styles.categoryContent}
               >
                 <Icon size={32} color="white" />
-                <View style={{ position: "absolute", top: 20, right: 30 }}>
+                {/* <View style={{ position: "absolute", top: 20, right: 30 }}>
                   <Text style={{ color: "white" }}>{category.track}</Text>
-                </View>
+                </View> */}
                 <Text style={styles.categoryTitle}>{category.title}</Text>
               </LinearGradient>
             </Pressable>

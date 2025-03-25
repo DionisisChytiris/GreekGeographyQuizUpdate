@@ -419,5 +419,985 @@ const questions =  [
         result3: "",
         result4: "",
     },
+    {
+        id:"16",
+        question: "Πoυ βρίσκεται το φαράγγι του Βίκου;",
+        options:[
+            {
+                id:"0",
+                answer:"Ήπειρος",
+            },
+            {
+                id:"1",
+                answer:"Μακεδονία",
+            },
+            {
+                id:"2",
+                answer:"Θεσσαλία",
+            },
+            {
+                id:"3",
+                answer:"Μακεδονία",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain1vikos.jpg'),
+        result1: "Βρίσκεται στην βορειοδυτική Ελλάδα και είναι ένα από τα βαθύτερα φαράγγια στον κόσμο.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"17",
+        question: "Ποιο βουνό είναι γνωστό ως το «Άγιο Βουνό» λόγω του μοναστηριακού του χαρακτήρα;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Άθως",
+            },
+            {
+                id:"2",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"3",
+                answer:"Γκιώνα ",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/athos.jpg'),
+        result1: "Εκεί βρίσκεται η αυτοδιοικούμενη μοναστική κοινότητα του Αγίου Όρους.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"18",
+        question: "Ποιο από τα παρακάτω βουνά βρίσκεται στη Στερεά Ελλάδα;",
+        options:[
+            {
+                id:"0",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"1",
+                answer:"Άθως",
+            },
+            {
+                id:"2",
+                answer:"Ψηλορείτης",
+            },
+            {
+                id:"3",
+                answer:"Παρνασσός",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/parnassos.jpg'),
+        result1: "Είναι γνωστό για το χιονοδρομικό του κέντρο και τη σχέση του με το μαντείο των Δελφών.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"19",
+        question: "Ποιο είναι το υψόμετρο του βουνού 'Όλυμπος';",
+        options:[
+            {
+                id:"0",
+                answer:"1.950μ",
+            },
+            {
+                id:"1",
+                answer:"2.917μ",
+            },
+            {
+                id:"2",
+                answer:"2.175μ",
+            },
+            {
+                id:"3",
+                answer:"3.435μ",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/olympus.jpg'),
+        result1: "Είναι το ψηλότερο βουνό της Ελλάδας και φτάνει πάνω από 2.900 μέτρα στο υψηλότερο σημείο του, τη 'Μύτη του Ολύμπου'.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"20",
+        question: "Ποιο είναι το ψηλότερο βουνό της Πελοποννήσου;",
+        options:[
+            {
+                id:"0",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"1",
+                answer:"Πάρνωνας ",
+            },
+            {
+                id:"2",
+                answer:"Χελμός",
+            },
+            {
+                id:"3",
+                answer:"Αροάνια ",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/taygetos.jpg'),
+        result1: "Είναι γνωστό για τις απότομες χαράδρες του και τη μυθική πόλη της Σπάρτης.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"21",
+        question: "Σε ποιο βουνό βρίσκεται το χιονοδρομικό κέντρο Καλαβρύτων;",
+        options:[
+            {
+                id:"0",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"1",
+                answer:"Γκιώνα",
+            },
+            {
+                id:"2",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"3",
+                answer:"Χελμός",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/xionokalavryta.jpg'),
+        result1: "Είναι το ψηλότερο βουνό της Αχαΐας και κοντά του βρίσκεται η ιστορική Μονή Αγίας Λαύρας.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"22",
+        question: "Ποιο βουνό συνδέεται με τη λατρεία του Δία στην αρχαιότητα;",
+        options:[
+            {
+                id:"0",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"1",
+                answer:"Πίνδος",
+            },
+            {
+                id:"2",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"3",
+                answer:"Παρνασσός ",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/olympus.jpg'),
+        result1: "Σύμφωνα με τη μυθολογία, εκεί κατοικούσαν οι δώδεκα θεοί.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"23",
+        question: "Σε ποιο βουνό βρίσκεται το καταφύγιο 'Σπήλιος Αγαπητός';",
+        options:[
+            {
+                id:"0",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"1",
+                answer:"Πίνδος ",
+            },
+            {
+                id:"2",
+                answer:"Βέρμιο ",
+            },
+            {
+                id:"3",
+                answer:"Παρνασσός",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain1.jpg'),
+        result1: "Είναι το πιο διάσημο καταφύγιο στην Ελλάδα και βρίσκεται στο μονοπάτι προς τον Μύτικα.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"24",
+        question: "Ποιο βουνό είναι γνωστό για τη σπηλιά του Οδυσσέα Ανδρούτσου;",
+        options:[
+            {
+                id:"0",
+                answer:"Πίνδος",
+            },
+            {
+                id:"1",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"2",
+                answer:"Γράμμος",
+            },
+            {
+                id:"3",
+                answer:"Παρνασσός",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain5.jpg'),
+        result1: "Βρίσκεται κοντά στους Δελφούς και συνδέεται με την Ελληνική Επανάσταση.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"25",
+        question: "Ποιο βουνό της Κρήτης είναι το ψηλότερο;",
+        options:[
+            {
+                id:"0",
+                answer:"Ψηλορείτης",
+            },
+            {
+                id:"1",
+                answer:"Λευκά Όρη",
+            },
+            {
+                id:"2",
+                answer:"Δίκτη",
+            },
+            {
+                id:"3",
+                answer:"Κέδρος",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        result1: "Είναι γνωστό και ως 'Όρος Ίδη' και εκεί λέγεται ότι ανατράφηκε ο Δίας.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"26",
+        question: "Ποιο βουνό της Μακεδονίας είναι το δεύτερο ψηλότερο στην Ελλάδα;",
+        options:[
+            {
+                id:"0",
+                answer:"Βόρας",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Σμόλικας",
+            },
+            {
+                id:"3",
+                answer:"Φαλακρό",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/mountain.jpg'),
+        result1: "Βρίσκεται στα σύνορα με την Αλβανία και έχει πλούσια βλάστηση.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"27",
+        question: "Ποιο όρος είναι γνωστό για τα μοναστήρια των Μετεώρων;",
+        options:[
+            {
+                id:"0",
+                answer:"Άθως",
+            },
+            {
+                id:"1",
+                answer:"Όθρυς",
+            },
+            {
+                id:"2",
+                answer:"Χορτιάτης",
+            },
+            {
+                id:"3",
+                answer:"Τρίκκη",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/Photos/meteora.jpg'),
+        result1: "Στην κορυφή του σχηματίζονται επιβλητικοί βράχοι με ιστορικά μοναστήρια.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"28",
+        question: "Ποια οροσειρά χωρίζει τη Θεσσαλία από την Ήπειρο;",
+        options:[
+            {
+                id:"0",
+                answer:"Ταϋγετος",
+            },
+            {
+                id:"1",
+                answer:"Βόρας",
+            },
+            {
+                id:"2",
+                answer:"Πίνδος",
+            },
+            {
+                id:"3",
+                answer:"Ροδόπη",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/mountain.jpg'),
+        result1: "Είναι η φυσική συνέχεια των Δειναρικών Άλπεων και φιλοξενεί πολλά χωριά του Ζαγορίου.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"29",
+        question: "Ποιο βουνό είναι γνωστό για το φαράγγι της Σαμαριάς;",
+        options:[
+            {
+                id:"0",
+                answer:"Λευκά Όρη",
+            },
+            {
+                id:"1",
+                answer:"Ψηλορείτης",
+            },
+            {
+                id:"2",
+                answer:"Δίκτη",
+            },
+            {
+                id:"3",
+                answer:"Πάρνωνας",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        result1: "Βρίσκεται στη δυτική Κρήτη και είναι από τα μεγαλύτερα φαράγγια της Ευρώπης.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"30",
+        question: "Σε ποιο βουνό βρίσκεται το σπήλαιο Διρού;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Χελμός ",
+            },
+            {
+                id:"2",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"3",
+                answer:"Γκιώνα",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/taygetos.jpg'),
+        result1: "Βρίσκεται στη Λακωνία και αποτελεί ένα από τα πιο εντυπωσιακά λιμναία σπήλαια.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"31",
+        question: "Ποιο βουνό είναι γνωστό για το περίφημο φαράγγι του Λούσιου;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Βόρας",
+            },
+            {
+                id:"2",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"3",
+                answer:"Mαίναλο",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain.jpg'),
+        result1: "Βρίσκεται στην Αρκαδία και φιλοξενεί ιστορικά μοναστήρια, όπως η Μονή Προδρόμου.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"32",
+        question: "Ποιο βουνό συνδέεται με τον Ορφέα στην ελληνική μυθολογία;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Ροδόπη",
+            },
+            {
+                id:"2",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"3",
+                answer:"Πίνδος",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/rodopi.jpg'),
+        result1: "Το βουνό που συνδέεται με τον Ορφέα στην ελληνική μυθολογία είναι το βουνό Ροδόπη.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"33",
+        question: "Ποιο βουνό της Στερεάς Ελλάδας είναι γνωστό για το χιονοδρομικό του κέντρο;",
+        options:[
+            {
+                id:"0",
+                answer:"Όρθρυς",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"3",
+                answer:"Παρνασσός",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/parnassos.jpg'),
+        result1: "Είναι το μεγαλύτερο χιονοδρομικό κέντρο της Ελλάδας και βρίσκεται κοντά στην Αράχωβα.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"34",
+        question: "Ποιο βουνό συνδέεται με τις Δελφικές προφητείες;",
+        options:[
+            {
+                id:"0",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"1",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"2",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"3",
+                answer:"Σμόλικας ",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/capitals/delphiFokida.jpg'),
+        result1: "Βρίσκεται κοντά στο μαντείο των Δελφών, το οποίο ήταν αφιερωμένο στον Απόλλωνα και ήταν το πιο σημαντικό μαντείο της αρχαιότητας.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"35",
+        question: "Ποιο είναι το υψηλότερο βουνό της Θράκης;",
+        options:[
+            {
+                id:"0",
+                answer:"Ροδόπη",
+            },
+            {
+                id:"1",
+                answer:"Φαλακρό",
+            },
+            {
+                id:"2",
+                answer:"Βροντού ",
+            },
+            {
+                id:"3",
+                answer:"Βέρμιο",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain.jpg'),
+        result1: "Εκτείνεται και στη Βουλγαρία, όπου είναι γνωστό ως 'Ρίλα'.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"36",
+        question: "Σε ποιο βουνό βρίσκεται η λίμνη Δρακολίμνη;",
+        options:[
+            {
+                id:"0",
+                answer:"Σμόλικας ",
+            },
+            {
+                id:"1",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"2",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"3",
+                answer:"Τύμφη",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain3.jpg'),
+        result1: "H  λίμνη Δρακολίμνη βρίσκεται στο βουνό Τύμφη.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"37",
+        question: "Ποιο βουνό της Θεσσαλίας είναι γνωστό για τη Λίμνη Πλαστήρα;",
+        options:[
+            {
+                id:"0",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"1",
+                answer:"Γράμμος",
+            },
+            {
+                id:"2",
+                answer:"Άγραφα",
+            },
+            {
+                id:"3",
+                answer:"Πίνδος",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/mountain.jpg'),
+        result1: "Το όνομά του σημαίνει «μαύρο βουνό» και βρίσκεται κοντά στην Καρδίτσα.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"38",
+        question: "Ποιο βουνό είναι γνωστό για το χιονοδρομικό κέντρο Καϊμακτσαλάν;",
+        options:[
+            {
+                id:"0",
+                answer:"Βόρας",
+            },
+            {
+                id:"1",
+                answer:"Σμόλικας",
+            },
+            {
+                id:"2",
+                answer:"Όρθρυς",
+            },
+            {
+                id:"3",
+                answer:"Βέρμιο",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/xionokalavryta.jpg'),
+        result1: "Είναι το ψηλότερο βουνό της Μακεδονίας και ανήκει στη συνοριακή γραμμή με τη Βόρεια Μακεδονία.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"39",
+        question: "Ποιο βουνό βρίσκεται δίπλα από τον Όλυμπο και χωρίζεται από το στενό της Πέτρας;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Γκιώνα",
+            },
+            {
+                id:"3",
+                answer:"Όσσα",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain1.jpg'),
+        result1: "Είναι γνωστό και ως το «βουνό των Κενταύρων» και βρίσκεται στην περιοχή της Θεσσαλίας.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"40",
+        question: "Ποιο βουνό συνδέεται με τον μυθικό Ελικώνα, τον τόπο των Μουσών;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"2",
+                answer:"Ελικώνας",
+            },
+            {
+                id:"3",
+                answer:"Ταΰγετος",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        result1: "Βρίσκεται στη Στερεά Ελλάδα και συνδέεται με τη μυθολογία, καθώς ήταν ο τόπος όπου οι Μούσες ενέπνεαν τις τέχνες και τη μουσική.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"41",
+        question: "Σε ποιο βουνό βρίσκεται το μοναστήρι της Παναγίας Σουμελά;",
+        options:[
+            {
+                id:"0",
+                answer:"Πίνδος ",
+            },
+            {
+                id:"1",
+                answer:"Σμόλικας",
+            },
+            {
+                id:"2",
+                answer:"Παρνασσός ",
+            },
+            {
+                id:"3",
+                answer:"Βέρμιο ",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/soumela.jpg'),
+        result1: "Βρίσκεται στη Βόρεια Ελλάδα και αποτελεί σημαντικό προσκύνημα του Ποντιακού Ελληνισμού.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"42",
+        question: "Ποιο βουνό είναι γνωστό για τη 'Χαράδρα του Βίκου';",
+        options:[
+            {
+                id:"0",
+                answer:"Τύμφη",
+            },
+            {
+                id:"1",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"2",
+                answer:"Σμόλικας",
+            },
+            {
+                id:"3",
+                answer:"Όλυμπος",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain1vikos.jpg'),
+        result1: "Βρίσκεται στην Ήπειρο και είναι το βαθύτερο φαράγγι στον κόσμο σε αναλογία βάθους και πλάτους.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"43",
+        question: "Ποιο βουνό της Πελοποννήσου βρίσκεται κοντά στην Τρίπολη;",
+        options:[
+            {
+                id:"0",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"1",
+                answer:"Πάρνωνας ",
+            },
+            {
+                id:"2",
+                answer:"Μαίναλο",
+            },
+            {
+                id:"3",
+                answer:"Χελμός",
+            },
+        ],
+        correctAnswerIndex: 2,
+        img: require('../../assets/MorePhotos/mountain5.jpg'),
+        result1: "Το βουνό της Πελοποννήσου που βρίσκεται κοντά στην Τρίπολη είναι ο Μαίναλος.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"44",
+        question: "Ποιο βουνό χωρίζει τη Θεσσαλία από την Εύβοια;",
+        options:[
+            {
+                id:"0",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Πίνδος",
+            },
+            {
+                id:"3",
+                answer:"Όρθρυς",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain1.jpg'),
+        result1: "Το βουνό Όρθρυς χωρίζει τη Θεσσαλία από την Εύβοια.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"45",
+        question: "Ποιο βουνό της Κρήτης φιλοξενεί το Σπήλαιο του Δία;",
+        options:[
+            {
+                id:"0",
+                answer:"Ψηλορείτης",
+            },
+            {
+                id:"1",
+                answer:"Δίκτη",
+            },
+            {
+                id:"2",
+                answer:"Λευκά Όρη ",
+            },
+            {
+                id:"3",
+                answer:"Κέδρος",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        result1: "Το βουνό Δίκτης φιλοξενεί το Σπήλαιο του Δία.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"46",
+        question: "Ποιο βουνό λέγεται και 'Αρκαδικός Όλυμπος';",
+        options:[
+            {
+                id:"0",
+                answer:"Ταΰγετος",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"3",
+                answer:"Μαίναλο",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain5.jpg'),
+        result1: "'Αρκαδικός Όλυμπος' λέγεται το βουνό Μαίναλος.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"47",
+        question: "Ποιο βουνό της Ελλάδας είναι γνωστό για το πέρασμα των Θερμοπυλών;",
+        options:[
+            {
+                id:"0",
+                answer:"Καλλίδρομο",
+            },
+            {
+                id:"1",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"2",
+                answer:"Πίνδος",
+            },
+            {
+                id:"3",
+                answer:"Όρθρυς",
+            },
+        ],
+        correctAnswerIndex: 0,
+        img: require('../../assets/MorePhotos/mountain2.jpg'),
+        result1: "Το βουνό Καλλίδρομος είναι γνωστό για το πέρασμα των Θερμοπυλών.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"48",
+        question: "Ποιο βουνό της Ηπείρου έχει κορυφή που ονομάζεται 'Τραπεζίτσα';",
+        options:[
+            {
+                id:"0",
+                answer:"Τύμφη",
+            },
+            {
+                id:"1",
+                answer:"Σμόλικας",
+            },
+            {
+                id:"2",
+                answer:"Παρνασσός",
+            },
+            {
+                id:"3",
+                answer:"Όλυμπος",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/olympus.jpg'),
+        result1: "Είναι το δεύτερο ψηλότερο βουνό της Ελλάδας και βρίσκεται στην περιοχή της Ηπείρου, κοντά στην πόλη των Ιωαννίνων.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"49",
+        question: "Ποιο βουνό της Ελλάδας φιλοξενεί τη λίμνη του Μαυροβουνίου;",
+        options:[
+            {
+                id:"0",
+                answer:"Πίνδος",
+            },
+            {
+                id:"1",
+                answer:"Βέρμιο",
+            },
+            {
+                id:"2",
+                answer:"Όλυμπος",
+            },
+            {
+                id:"3",
+                answer:" Σμόλικας",
+            },
+        ],
+        correctAnswerIndex: 3,
+        img: require('../../assets/MorePhotos/mountain4.jpg'),
+        result1: "Βρίσκεται στη δυτική Ελλάδα και είναι γνωστό για τις παρθένες του δασικές εκτάσεις και την ομορφιά της φύσης του.",
+        result2: "",
+        result3: "",
+        result4: "",
+    },
+    {
+        id:"50",
+        question: "Σε ποιο βουνό βρίσκεται η αρχαία Δωδώνη, το παλαιότερο μαντείο της Ελλάδας;",
+        options:[
+            {
+                id:"0",
+                answer:"Μαίναλο",
+            },
+            {
+                id:"1",
+                answer:"Τόμαρος",
+            },
+            {
+                id:"2",
+                answer:"Πίνδος",
+            },
+            {
+                id:"3",
+                answer:"Τζουμέρκα",
+            },
+        ],
+        correctAnswerIndex: 1,
+        img: require('../../assets/MorePhotos/mountain3.jpg'),
+        result1: "Βρίσκεται στην Ήπειρο και είναι το δεύτερο σημαντικότερο μαντείο μετά τους Δελφούς, ο Τόμαρος.",
+        result2: "",
+        result3: "",
+        result4: "",
+    }
 ]
 export default questions
