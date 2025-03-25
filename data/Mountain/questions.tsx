@@ -437,7 +437,7 @@ const questions =  [
             },
             {
                 id:"3",
-                answer:"Μακεδονία",
+                answer:"Στερεά Ελλάδα",
             },
         ],
         correctAnswerIndex: 0,
