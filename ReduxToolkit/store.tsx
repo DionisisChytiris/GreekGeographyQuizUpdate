@@ -6,6 +6,7 @@ import timerReducer from './timerSlice';
 import soundReducer from './soundSlice';
 import progressReducer from './progressSlice'
 import { coinsReducer } from './coinsSlice';
+import showReducer from './lockCategorySlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,9 +15,11 @@ export const store = configureStore({
     timer: timerReducer,
     sound: soundReducer,
     coins: coinsReducer,
-    progress: progressReducer
+    progress: progressReducer,
+    show: showReducer,
   }
 });
+
 
 export const useAppDispatch:()=>typeof store.dispatch=useDispatch;
 export const useAppSelector:TypedUseSelectorHook<ReturnType<typeof store.getState>>=useSelector

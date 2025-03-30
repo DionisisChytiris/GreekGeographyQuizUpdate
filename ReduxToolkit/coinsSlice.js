@@ -16,6 +16,9 @@ const coinsSlice = createSlice({
     incrementCoins: (state) => {
       state.coins += 10;
     },
+    incrementCoinsBonus: (state) => {
+      state.coins += 50;
+    },
     decrementCoins: (state, action) => {
       state.coins -= action.payload;
     },
@@ -42,6 +45,6 @@ export const saveCoins = (coins) => async (dispatch) => {
   }
 };
 
-export const { setCoins, incrementCoins, decrementCoins } = coinsSlice.actions;
+export const { setCoins, incrementCoins, decrementCoins, incrementCoinsBonus } = coinsSlice.actions;
 
 export const coinsReducer = coinsSlice.reducer;

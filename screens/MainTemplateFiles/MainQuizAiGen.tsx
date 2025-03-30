@@ -286,7 +286,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   }, [selectedAnswerIndex]);
 
   const requestReview = async () => {
-    console.log("requestReview function called");
+    // console.log("requestReview function called");
 
     if (await StoreReview.hasAction()) {
       console.log("StoreReview has action, requesting review...");
