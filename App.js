@@ -11,7 +11,42 @@ import * as Updates from "expo-updates";
 import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ScreenOrientation from "expo-screen-orientation";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics, isSupported } from "firebase/analytics";
+import Constants from 'expo-constants';
 
+// Firebase configuration
+// const firebaseConfig = {
+//   apiKey: Constants.expoConfig.extra.firebaseKeys.apiKey,
+//   authDomain: Constants.expoConfig.extra.firebaseKeys.authDomain,
+//   projectId: Constants.expoConfig.extra.firebaseKeys.projectId,
+//   storageBucket: Constants.expoConfig.firebaseKeys.extra.storageBucket,
+//   messagingSenderId: Constants.expoConfig.extra.firebaseKeys.messagingSenderId,
+//   appId: Constants.expoConfig.extra.firebaseKeys.appId,
+//   measurementId: Constants.expoConfig.extra.firebaseKeys.measurementId,
+// };
+
+// const firebaseApiKey= Constants.expoConfig.extra.firebaseKeys.apiKey;
+const firebaseConfig = Constants.expoConfig.extra.firebaseKeys;
+
+console.log(firebaseConfig.measurementId);
+
+// console.log("Firebase API Key:", firebaseApiKey);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+if (typeof window !== "undefined") {
+  isSupported().then((supported) => {
+    if (supported) {
+      getAnalytics(app);
+    }
+  });
+}
+
+export { analytics };
+// console.log(apiKey);
 // import { StatusBar } from 'expo-status-bar';
 // import { useColorScheme } from 'react-native';
 

@@ -59,7 +59,8 @@ import {
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
 import DailyBonusModal from "./components/DailyBonusModal";
-import * as Analytics from "expo-firebase-analytics";
+// import { logEvent } from 'firebase/analytics';
+// import { analytics } from "../App";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -388,10 +389,10 @@ export default function HomeScreen() {
                   return;
                 }
                 // Log the analytics event
-                Analytics.logEvent("daily_bonus_collected", {
-                  coins_collected: 50, // Number of coins collected
-                  timestamp: new Date().toISOString(), // Optional: Add a timestamp
-                });
+                // Analytics.logEvent("daily_bonus_collected", {
+                //   coins_collected: 50, // Number of coins collected
+                //   timestamp: new Date().toISOString(), // Optional: Add a timestamp
+                // });
                 // Alert.alert("get your daily coins"),
                 dispatch(incrementCoinsBonus());
                 dispatch(saveCoins(coins + 50));
@@ -402,6 +403,10 @@ export default function HomeScreen() {
                   "lastClaimDate",
                   new Date().toISOString().split("T")[0]
                 );
+                // await logEvent(analytics, 'daily_bonus_collected', {
+                //   coins_collected: 50,
+                //   timestamp: new Date().toISOString(),
+                // });
                 // Alert.alert("Success", "You received 10 coins!");
                 // setTimeout(() => {
                 //   setScale2(1);
