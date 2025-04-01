@@ -11,6 +11,7 @@ import * as Updates from "expo-updates";
 import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ScreenOrientation from "expo-screen-orientation";
+
 // import { StatusBar } from 'expo-status-bar';
 // import { useColorScheme } from 'react-native';
 
@@ -118,13 +119,16 @@ export default function App() {
   useEffect(() => {
     const lockOrientation = async () => {
       try {
-        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+        await ScreenOrientation.lockAsync(
+          ScreenOrientation.OrientationLock.PORTRAIT_UP
+        );
       } catch (error) {
         console.log("Error locking orientation:", error);
       }
     };
     lockOrientation();
   }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>

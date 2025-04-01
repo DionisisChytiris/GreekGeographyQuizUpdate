@@ -2,7 +2,7 @@
   "expo": {
     "name": "Γεωγραφία της Ελλάδας",
     "slug": "GreekGeographyQuizApp",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "newArchEnabled": true,
     "icon": "./assets/adaptive-icon-test.png",
     "orientation": "portrait",
@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.greekgeographyquizapp.dion",
-      "versionCode": 37,
+      "versionCode": 39,
       "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-test.png",

@@ -10,6 +10,7 @@ import {
   Platform,
   Vibration,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowRight, Ban, Phone } from "lucide-react-native";
@@ -58,7 +59,11 @@ import {
   decrementCoins,
   saveCoins,
 } from "../../ReduxToolkit/coinsSlice";
-import { decrementHeart, incrementHeart, resetLives } from "../../ReduxToolkit/livesSlice";
+import {
+  decrementHeart,
+  incrementHeart,
+  resetLives,
+} from "../../ReduxToolkit/livesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveProgress, getProgress } from "../../ReduxToolkit/progressSlice";
 
@@ -77,18 +82,18 @@ type MainQuizAiGenProps = {
   }[];
   resultsPage: any;
   quizName: string;
-  lastQ1: string
+  lastQ1: string;
 };
 
 const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   dataT,
   resultsPage,
   quizName,
-  lastQ1
+  lastQ1,
 }) => {
   const navigation = useNavigation<LakeRiverProp>();
   const livesEnabled = useAppSelector((state) => state.lives.livesEnabled);
-   const heart = useAppSelector((state) => state.lives.heart);
+  const heart = useAppSelector((state) => state.lives.heart);
   const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const coins = useAppSelector((state) => state.coins.coins);
@@ -166,14 +171,12 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     require("../../assets/sounds/getCoin.wav")
   );
   // Click Sound Effect
-  const click5sSound = useSoundEffect(
-    require("../../assets/sounds/click.mp3")
-  );
+  const click5sSound = useSoundEffect(require("../../assets/sounds/click.mp3"));
 
   const removeHeart = () => {
     if (livesEnabled && heart > 0) {
       // setHeart((prevHeart: number) => prevHeart - 1);
-       dispatch(decrementHeart());
+      dispatch(decrementHeart());
     }
   };
 
@@ -190,9 +193,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     setMinutes(0);
     setIsDisabled(true);
     setFifty([]);
-    setFiftyCoin(false)
-    setPhoneCoin(false)
-    setHundredCoin(false)
+    setFiftyCoin(false);
+    setPhoneCoin(false);
+    setHundredCoin(false);
   };
 
   const [userAnswers, setUserAnswers] = useState<
@@ -242,9 +245,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       });
     }
 
-    if(counter<=5 && counter>0){
-      if(isSoundEnabled){
-        click5sSound()
+    if (counter <= 5 && counter > 0) {
+      if (isSoundEnabled) {
+        click5sSound();
       }
     }
 
@@ -260,7 +263,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       if (selectedAnswerIndex === currentQuestion?.correctAnswerIndex) {
         if (isSoundEnabled) {
           CorrectPlaySound();
-          coinsCollectSound()
+          coinsCollectSound();
         }
         setPoints((points) => points + 10);
         // Increment the score by 10 points
@@ -334,7 +337,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const buyExtraCall = () => {
     if (coins >= 50) {
       // Check if the user has 30 or more coins
-      if(isSoundEnabled){
+      if (isSoundEnabled) {
         coinsDropSound();
       }
       setPhoneCoin(false);
@@ -349,7 +352,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
 
   const buyExtraFifty = () => {
     if (coins >= 40) {
-      if(isSoundEnabled){
+      if (isSoundEnabled) {
         coinsDropSound();
       }
       // Check if the user has 30 or more coins
@@ -364,7 +367,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   };
   const buyExtraHundred = () => {
     if (coins >= 80) {
-      if(isSoundEnabled){
+      if (isSoundEnabled) {
         coinsDropSound();
       }
       // Check if the user has 30 or more coins
@@ -442,12 +445,13 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const [phoneCoin, setPhoneCoin] = useState(false);
   const [hundredCoin, setHundredCoin] = useState(false);
 
-  const progressKey = lastQ1; 
-  const lastQuestionIndex = useAppSelector((state) => state.progress.progress[progressKey]);
+  const progressKey = lastQ1;
+  const lastQuestionIndex = useAppSelector(
+    (state) => state.progress.progress[progressKey]
+  );
   const dispatch = useAppDispatch();
 
-
- // Track Quiz Progress - find the last question user left the game
+  // Track Quiz Progress - find the last question user left the game
   // const saveProgress = async (lastQuestionIndex:any) => {
   //   try {
   //     // await AsyncStorage.setItem('lastQuestion', JSON.stringify(lastQuestionIndex));
@@ -481,19 +485,20 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   //   }
   // };
 
-  const onAnswerQuestion = (currentIndex:any) => {
+  const onAnswerQuestion = (currentIndex: any) => {
     // Save the last answered question index
     // saveProgress(currentIndex);
-    dispatch(saveProgress({ key: progressKey, lastQuestionIndex: currentIndex }));
-    console.log('successfully saved')
+    dispatch(
+      saveProgress({ key: progressKey, lastQuestionIndex: currentIndex })
+    );
+    console.log("successfully saved");
     // Proceed to the next question...
   };
 
-  useEffect(()=>{
-    startQuiz()
+  useEffect(() => {
+    startQuiz();
     // getProgress
-  },[])
-
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -507,26 +512,26 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
         onAnswerQuestion={onAnswerQuestion}
         resetQuiz={resetQuiz}
       />
-
       {/* Question Card */}
       <View style={styles.card}>
-        <ImageBackground
-          key={currentQuestion?.id}
-          source={currentQuestion?.img}
-          style={styles.questionImage}
-        />
-        <View style={{ position: "absolute", top: 0, right: 0 }}>
-          <ModalExplanationQuestion
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
-            title="Επεξήγηση"
-            currentQuestion={currentQuestion}
+        <View>
+          <ImageBackground
+            key={currentQuestion?.id}
+            source={currentQuestion?.img}
+            style={styles.questionImage}
           />
+          <View style={{ position: "absolute", top: 0, right: 0 }}>
+            <ModalExplanationQuestion
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              title="Επεξήγηση"
+              currentQuestion={currentQuestion}
+            />
+          </View>
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionText}>{currentQuestion?.question}</Text>
+          </View>
         </View>
-        <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>{currentQuestion?.question}</Text>
-        </View>
-
         {/* Answer Grid */}
         {/* <Animated.View
             entering={FadeInUp.delay(100).springify()}
@@ -609,41 +614,41 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
             </View>
             <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
-                optionText='50%'
+                optionText="50%"
                 addAbility={isDisabled} // Set addAbility to null to disable the button
                 addFunction={() => {}} // No action when clicked
               />
             </View>
           </Pressable>
         ) : (
-        <Animated.View
-          style={[
-            {
-              width: "20%",
-              opacity: opacity,
-            },
-            animScale1,
-          ]}
-        >
-          <HelpOptionsButton
-            addFunction={async () => {
-              setFiftyCoin(true);
-              await fiftyPlaySound();
-              const wrongAnswers = currentQuestion.options
-                .map((option: any, index: any) => index)
-                .filter(
-                  (index: any) => index !== currentQuestion.correctAnswerIndex
-                );
+          <Animated.View
+            style={[
+              {
+                width: "20%",
+                opacity: opacity,
+              },
+              animScale1,
+            ]}
+          >
+            <HelpOptionsButton
+              addFunction={async () => {
+                setFiftyCoin(true);
+                await fiftyPlaySound();
+                const wrongAnswers = currentQuestion.options
+                  .map((option: any, index: any) => index)
+                  .filter(
+                    (index: any) => index !== currentQuestion.correctAnswerIndex
+                  );
 
-              const randomWrongAnswers = wrongAnswers
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 2);
-              setFifty(randomWrongAnswers);
-            }}
-            addAbility={selectedAnswerIndex !== null}
-            optionText="50%"
-          />
-        </Animated.View>
+                const randomWrongAnswers = wrongAnswers
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 2);
+                setFifty(randomWrongAnswers);
+              }}
+              addAbility={selectedAnswerIndex !== null}
+              optionText="50%"
+            />
+          </Animated.View>
         )}
         {/* Phone Help */}
         {phoneCoin ? (
@@ -697,25 +702,27 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
             </View>
             <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
-                optionText='100%'
+                optionText="100%"
                 addAbility={isDisabled} // Set addAbility to null to disable the button
                 addFunction={() => {}} // No action when clicked
               />
             </View>
           </Pressable>
         ) : (
-        <Animated.View style={[{ width: "20%", opacity: opacity }, animScale3]}>
-          <HelpOptionsButton
-            optionText="100%"
-            addFunction={() => {
-              setHundredCoin(true);
-              setSelectedAnswerIndex(currentQuestion.correctAnswerIndex);
-              NextQuizDelay();
-              setCounter(false);
-            }}
-            addAbility={selectedAnswerIndex !== null}
-          />
-        </Animated.View>
+          <Animated.View
+            style={[{ width: "20%", opacity: opacity }, animScale3]}
+          >
+            <HelpOptionsButton
+              optionText="100%"
+              addFunction={() => {
+                setHundredCoin(true);
+                setSelectedAnswerIndex(currentQuestion.correctAnswerIndex);
+                NextQuizDelay();
+                setCounter(false);
+              }}
+              addAbility={selectedAnswerIndex !== null}
+            />
+          </Animated.View>
         )}
         {/* </Animated.View> */}
         {/* Next Question Button */}
@@ -734,7 +741,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                   minutes,
                 });
               } else {
-                onAnswerQuestion
+                onAnswerQuestion;
                 setIndex((prev) => prev + 1);
                 setSelectedAnswerIndex(null);
                 setCurrentColor(ansBtnClr.default);
@@ -766,7 +773,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F7FA",
-    paddingTop: height > 1000 ? 30 : 0,
+    paddingTop: height > 1000 ? 20 : 0,
+    justifyContent: "center",
+    alignSelf: "center",
+    // width: width>1000?"50%":"100%",
   },
   percentageContainer: {
     position: "absolute",
@@ -788,6 +798,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
   },
   card: {
+    height: Platform.OS === "android" ? "75%" : null,
     margin: 16,
     backgroundColor: "#fff",
     borderRadius: 24,
@@ -797,6 +808,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 5,
+    // flexDirection: width>1100? 'row': 'column'
   },
   questionImage: {
     width: "100%",
@@ -804,7 +816,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   questionContainer: {
-    height: Platform.OS === "android" ? (height > 920 ? 150 : 110) : null,
+    height: Platform.OS === "android" ? (height > 820 ? 150 : 80) : null,
     paddingHorizontal: Platform.OS === "android" ? 5 : 10,
     paddingTop: Platform.OS === "android" ? 10 : 20,
     // paddingBottom: Platform.OS === "android" ? 0 : 0,
@@ -868,18 +880,18 @@ const styles = StyleSheet.create({
   bottomButtonsBox: {
     position: Platform.OS === "ios" ? "absolute" : "relative",
     bottom: 0,
-    top: Platform.OS === "android" ? (height > 940 ? 45 : 0) : null,
+    top: Platform.OS === "android" ? (height > 940 ? 0 : 0) : null,
     width: "100%",
-    height: Platform.OS === "ios" ? null : "8%",
+    // height: Platform.OS === "ios" ? null : "8%",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 30,
     marginTop: 0,
     paddingTop: 10,
     paddingBottom: Platform.OS === "ios" ? 35 : null,
-    borderWidth: Platform.OS === "ios" ? 1 : 0,
     borderColor: Platform.OS === "ios" ? "#DEE2E6" : "#ccc00",
-    backgroundColor: Platform.OS === "ios" ? "white" : "transparent",
+    // backgroundColor: "yellow",
+    // backgroundColor: Platform.OS === "ios" ? "white" : "transparent",
   },
   exitButton: {
     width: "47%",

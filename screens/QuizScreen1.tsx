@@ -59,8 +59,10 @@ import {
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
 import DailyBonusModal from "./components/DailyBonusModal";
+import * as Analytics from "expo-firebase-analytics";
 
 const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 // const { width } = Dimensions.get("window");
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
@@ -136,6 +138,7 @@ export default function HomeScreen() {
 
   const handlePress = async () => {
     await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
+    // await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
     console.log("Storage cleared-State reset to initial values");
   };
 
@@ -185,7 +188,9 @@ export default function HomeScreen() {
       dispatch(saveCoins(coins - 300)); // Save the updated coins after purchase
       dispatch(setShow1(!show1));
     } else {
-      Alert.alert("Χρειάζεσαι τουλάχιστον 300 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!");
+      Alert.alert(
+        "Χρειάζεσαι τουλάχιστον 300 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+      );
     }
   };
   const UnlockLakesCtg = () => {
@@ -197,7 +202,9 @@ export default function HomeScreen() {
       dispatch(saveCoins(coins - 100)); // Save the updated coins after purchase
       dispatch(setShow2(!show2));
     } else {
-      Alert.alert("Χρειάζεσαι τουλάχιστον 100 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!");
+      Alert.alert(
+        "Χρειάζεσαι τουλάχιστον 100 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+      );
     }
   };
   const UnlockNomoiCtg = () => {
@@ -209,7 +216,9 @@ export default function HomeScreen() {
       dispatch(saveCoins(coins - 500)); // Save the updated coins after purchase
       dispatch(setShow3(!show3));
     } else {
-      Alert.alert("Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!");
+      Alert.alert(
+        "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+      );
     }
   };
 
@@ -366,7 +375,7 @@ export default function HomeScreen() {
           {!isClaimed ? (
             <Pressable
               onPressIn={() => setScale2(0.95)}
-              onPressOut={async() => {
+              onPressOut={async () => {
                 if (isSoundEnabled) {
                   // CorrectPlaySound();
                   coinsCollectSound();
@@ -378,9 +387,14 @@ export default function HomeScreen() {
                   );
                   return;
                 }
+                // Log the analytics event
+                Analytics.logEvent("daily_bonus_collected", {
+                  coins_collected: 50, // Number of coins collected
+                  timestamp: new Date().toISOString(), // Optional: Add a timestamp
+                });
                 // Alert.alert("get your daily coins"),
                 dispatch(incrementCoinsBonus());
-                dispatch(saveCoins(coins + 50)); 
+                dispatch(saveCoins(coins + 50));
                 setScale2(1);
                 setShowModal(true);
                 setIsClaimed(true);
@@ -436,7 +450,12 @@ export default function HomeScreen() {
       <Animated.View entering={FadeInDown.delay(400).springify()}>
         <ShareButton />
       </Animated.View>
-      <View style={{ marginBottom: 20 }} />
+      <View
+        style={{
+          marginBottom:
+            Platform.OS === "android" ? (height > 820 ? 60 : 20) : 20,
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -505,6 +524,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: height > 1000 ? 40 : 0,
     width: height > 1000 ? "80%" : "100%",
+    // width: width>900?"60%":"50%",
   },
   categoryCard: {
     width: "100%",
@@ -551,8 +571,8 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 50,
     flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     gap: 10,
     backgroundColor: "#0cc0df",
     paddingHorizontal: 10,

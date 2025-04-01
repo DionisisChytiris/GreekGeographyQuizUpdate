@@ -21,6 +21,7 @@ import GeneralQuestions from "./screens/GeneralQuestionsQuizzes/GeneralQuestions
 import ResultsGeneral from "./screens/GeneralQuestionsQuizzes/ResultsGeneral";
 import Nomoi from "./screens/NomoiQuizzes/Nomoi";
 import ResultsNomoi from "./screens/NomoiQuizzes/ResultsNomoi";
+import * as Analytics from "expo-firebase-analytics";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,7 +29,15 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const StackNavigator = () => {
   // const [name, setName] = React.useState("");
   const name = useAppSelector((state) => state.user.name);
-
+ 
+  const handleStateChange = async (state: any) => {
+    if (state?.routes?.length > 0) {
+      const currentRouteName = state.routes[state.index]?.name;
+      if (currentRouteName) {
+        await Analytics.logEvent("screen_view", { screen_name: currentRouteName });
+      }
+    }
+  };
   // React.useEffect(() => {
   //   getData();
   // }, []);
@@ -46,7 +55,7 @@ const StackNavigator = () => {
   //   }
   // };
   return (
-    <NavigationContainer>
+    <NavigationContainer onStateChange={handleStateChange}>
       <Stack.Navigator
         screenOptions={{
           contentStyle: { backgroundColor: "lightgrey" },
