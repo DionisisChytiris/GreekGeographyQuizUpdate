@@ -13,19 +13,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ScreenOrientation from "expo-screen-orientation";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
+import { getAnalytics, isSupported} from "firebase/analytics";
 import Constants from 'expo-constants';
 
-// Firebase configuration
-// const firebaseConfig = {
-//   apiKey: Constants.expoConfig.extra.firebaseKeys.apiKey,
-//   authDomain: Constants.expoConfig.extra.firebaseKeys.authDomain,
-//   projectId: Constants.expoConfig.extra.firebaseKeys.projectId,
-//   storageBucket: Constants.expoConfig.firebaseKeys.extra.storageBucket,
-//   messagingSenderId: Constants.expoConfig.extra.firebaseKeys.messagingSenderId,
-//   appId: Constants.expoConfig.extra.firebaseKeys.appId,
-//   measurementId: Constants.expoConfig.extra.firebaseKeys.measurementId,
-// };
 
 // const firebaseApiKey= Constants.expoConfig.extra.firebaseKeys.apiKey;
 const firebaseConfig = Constants.expoConfig.extra.firebaseKeys;
@@ -44,6 +34,9 @@ if (typeof window !== "undefined") {
     }
   });
 }
+
+// Enable analytics collection
+// setAnalyticsCollectionEnabled(analytics, true);
 
 export { analytics };
 // console.log(apiKey);
