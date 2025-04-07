@@ -21,8 +21,7 @@ import GeneralQuestions from "./screens/GeneralQuestionsQuizzes/GeneralQuestions
 import ResultsGeneral from "./screens/GeneralQuestionsQuizzes/ResultsGeneral";
 import Nomoi from "./screens/NomoiQuizzes/Nomoi";
 import ResultsNomoi from "./screens/NomoiQuizzes/ResultsNomoi";
-// import { logEvent } from 'firebase/analytics';
-// import { analytics } from "./App";
+import BattleQuiz from "./screens/MainTemplateFiles/BattleQuiz";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -33,29 +32,6 @@ const StackNavigator = () => {
   // const [name, setName] = React.useState("");
   const name = useAppSelector((state) => state.user.name);
   
-  // React.useEffect(() => {
-  //   const handleStateChange = async (state: any) => {
-  //     if (state?.routes?.length > 0) {
-  //       const currentRouteName = state.routes[state.index]?.name;
-  //       if (currentRouteName) {
-  //         // Log the screen view event
-  //         logEvent(analytics, 'screen_view', {
-  //           firebase_screen: currentRouteName,
-  //           firebase_screen_class: currentRouteName,
-  //         });
-  //       }
-  //     }
-  //   };
-
-  //   // If you are using React Navigation, you can listen for state changes like this
-  //   const unsubscribe = navigationRef.current?.addListener('state', handleStateChange);
-
-  //   return () => {
-  //     if (unsubscribe) {
-  //       unsubscribe();  // Clean up listener on unmount
-  //     }
-  //   };
-  // }, []);
   // const getData = () => {
   //   try {
   //     AsyncStorage.getItem("UserData").then((value) => {
@@ -186,6 +162,15 @@ const StackNavigator = () => {
         <Stack.Screen
           name="MapQuiz"
           component={FirstPageTest}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait"
+          }}
+        />
+        <Stack.Screen
+          name="BattleQuiz"
+          component={BattleQuiz}
           options={{
             headerShown: false,
             headerBackTitleVisible: false,

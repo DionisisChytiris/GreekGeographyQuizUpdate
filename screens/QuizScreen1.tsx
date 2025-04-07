@@ -58,9 +58,7 @@ import {
 } from "../ReduxToolkit/coinsSlice";
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
-import DailyBonusModal from "./components/DailyBonusModal";
-// import { logEvent } from 'firebase/analytics';
-// import { analytics } from "../App";
+import DailyBonusModal from "./Modals/DailyBonusModal";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -147,38 +145,6 @@ export default function HomeScreen() {
     require("../assets/sounds/coinsDrop.wav")
   );
 
-  // const CoverButton1: React.FC<{
-  //   iconTest1: React.ReactNode;
-  //   titleTest1: string;
-  //   gradient: [string, string, ...string[]];
-  //   testFunction: () => void;
-  // }> = ({ iconTest1, titleTest1, gradient, testFunction }) => {
-  //   return (
-  //     <View style={{}}>
-  //       <View style={{ position: "absolute", top: 20, right: 40, zIndex: 1 }}>
-  //         <Image
-  //           source={require("../assets/Photos/goldbg.png")}
-  //           style={{ width: 20, height: 20 }}
-  //         />
-  //         <Text style={styles.categoryTitle}>100</Text>
-  //       </View>
-  //       <Pressable
-  //         onPress={testFunction}
-  //         style={[styles.categoryCard, { opacity: 0.4 }]}
-  //       >
-  //         <LinearGradient
-  //           colors={gradient as [string, string, ...string[]]}
-  //           style={styles.categoryContent}
-  //         >
-  //           <Text>
-  //             {iconTest1} {/* The icon passed as a prop */}
-  //           </Text>
-  //           <Text style={styles.categoryTitle}>{titleTest1}</Text>
-  //         </LinearGradient>
-  //       </Pressable>
-  //     </View>
-  //   );
-  // };
 
   const UnlockMountainCtg = () => {
     if (coins >= 300) {
@@ -353,7 +319,7 @@ export default function HomeScreen() {
           <View style={styles.bankContainer}>
             <Image
               source={require("../assets/Photos/bankbg.png")}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 90, height: 90 }}
             />
             <View style={styles.coinsContainer}>
               <Image
@@ -388,12 +354,6 @@ export default function HomeScreen() {
                   );
                   return;
                 }
-                // Log the analytics event
-                // Analytics.logEvent("daily_bonus_collected", {
-                //   coins_collected: 50, // Number of coins collected
-                //   timestamp: new Date().toISOString(), // Optional: Add a timestamp
-                // });
-                // Alert.alert("get your daily coins"),
                 dispatch(incrementCoinsBonus());
                 dispatch(saveCoins(coins + 50));
                 setScale2(1);
@@ -449,6 +409,11 @@ export default function HomeScreen() {
               </View>
             </Pressable>
           ) : null}
+          {/* <Pressable onPress={()=>navigation.navigate('BattleQuiz')} style={{backgroundColor: 'yellow', marginRight: -40}}>
+            <View>
+              <Text>Battle Quiz</Text>
+            </View>
+          </Pressable> */}
         </View>
       </Animated.View>
 
@@ -470,7 +435,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7F9FC",
     // backgroundColor: '#F7F9FC',
-    paddingTop: Platform.OS === "ios" ? 0 : 14,
+    paddingTop: Platform.OS === "ios" ? 0 : height<900? 12: 0,
     paddingHorizontal: 16,
     // alignItems: 'center'
     // alignItems: height > 900 ? "center" : "flex-start",

@@ -49,7 +49,7 @@ import TimerHeartSection from "../components/TimerHeartSection";
 import * as StoreReview from "expo-store-review";
 import ExitReturnButton from "../components/ExitReturnButton";
 import { stylesM } from "../styles/QuizStylesheet";
-import ModalExplanationQuestion from "../components/ModalExplanationQuestion";
+import ModalExplanationQuestion from "../Modals/ModalExplanationQuestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
 import HelpOptionsButton from "../components/HelpOptionsButton";
@@ -773,32 +773,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F7FA",
-    paddingTop: height > 1000 ? 20 : 0,
+    // marginTop: 0,
+    paddingTop: Platform.OS === 'ios'? -30: height > 900 ? -35 : 0,
     justifyContent: "center",
-    alignSelf: "center",
-    // width: width>1000?"50%":"100%",
+    alignSelf: "center"
   },
-  percentageContainer: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-    backgroundColor: "#FF1493",
-    borderRadius: 12,
-    padding: 8,
-    zIndex: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  percentageText: {
-    color: "#fff",
-    fontSize: 18,
-    fontFamily: "Poppins-Bold",
-  },
+  // percentageContainer: {
+  //   position: "absolute",
+  //   top: 20,
+  //   left: 20,
+  //   backgroundColor: "#FF1493",
+  //   borderRadius: 12,
+  //   padding: 8,
+  //   zIndex: 10,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 4,
+  //   elevation: 5,
+  // },
+  // percentageText: {
+  //   color: "#fff",
+  //   fontSize: 18,
+  //   fontFamily: "Poppins-Bold",
+  // },
   card: {
-    height: Platform.OS === "android" ? "75%" : null,
+    height: Platform.OS === "android" ? "75%" : "80%",
     margin: 16,
     backgroundColor: "#fff",
     borderRadius: 24,
@@ -819,11 +819,8 @@ const styles = StyleSheet.create({
     height: Platform.OS === "android" ? (height > 820 ? 150 : 80) : null,
     paddingHorizontal: Platform.OS === "android" ? 5 : 10,
     paddingTop: Platform.OS === "android" ? 10 : 20,
-    // paddingBottom: Platform.OS === "android" ? 0 : 0,
     alignContent: "center",
-    justifyContent: "center",
-    // marginBottom: 9,
-    // backgroundColor: 'yellow'
+    justifyContent: "center"
   },
   questionText: {
     fontFamily: "Poppins-SemiBold",
@@ -842,13 +839,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 16,
     overflow: "hidden",
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
-    // elevation: 3,
-    //  borderWidth: 1,
-    // borderColor: '#DEE2E6'
+   
   },
   answerGradient: {
     flex: 1,
@@ -859,44 +850,39 @@ const styles = StyleSheet.create({
   answerText: {
     fontFamily: "Poppins-SemiBold",
     fontSize: 18,
-    color: "#fff",
-    // color: "black",
+    color: "#fff"
   },
-  progressBarContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  progressBar: {
-    height: 8,
-    backgroundColor: "#E8EDF3",
-    borderRadius: 4,
-    overflow: "hidden",
-  },
-  progressFill: {
-    height: "100%",
-    backgroundColor: "#4A90E2",
-    borderRadius: 4,
-  },
+  // progressBarContainer: {
+  //   paddingHorizontal: 16,
+  //   paddingBottom: 16,
+  // },
+  // progressBar: {
+  //   height: 8,
+  //   backgroundColor: "#E8EDF3",
+  //   borderRadius: 4,
+  //   overflow: "hidden",
+  // },
+  // progressFill: {
+  //   height: "100%",
+  //   backgroundColor: "#4A90E2",
+  //   borderRadius: 4,
+  // },
   bottomButtonsBox: {
     position: Platform.OS === "ios" ? "absolute" : "relative",
     bottom: 0,
     top: Platform.OS === "android" ? (height > 940 ? 0 : 0) : null,
     width: "100%",
-    // height: Platform.OS === "ios" ? null : "8%",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 30,
     marginTop: 0,
     paddingTop: 10,
     paddingBottom: Platform.OS === "ios" ? 35 : null,
-    borderColor: Platform.OS === "ios" ? "#DEE2E6" : "#ccc00",
-    // backgroundColor: "yellow",
-    // backgroundColor: Platform.OS === "ios" ? "white" : "transparent",
+    borderColor: Platform.OS === "ios" ? "#DEE2E6" : "#ccc00"
   },
   exitButton: {
     width: "47%",
     height: 55,
-    // height: "100%",
     borderRadius: 20,
     flexDirection: "row",
     justifyContent: "center",

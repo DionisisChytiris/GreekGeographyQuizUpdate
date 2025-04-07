@@ -37,7 +37,7 @@ import { toggleLives } from "../ReduxToolkit/livesSlice";
 import { toggleTimer } from "../ReduxToolkit/timerSlice";
 import { toggleSound } from "../ReduxToolkit/soundSlice";
 import { useAppSelector } from "../ReduxToolkit/store";
-import ModalNameInput from "../screens/components/ModalNameInput";
+import ModalNameInput from "./Modals/ModalNameInput";
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 
 type GenerQTProp = StackNavigationProp<RootStackParamList, "Quiz1">;

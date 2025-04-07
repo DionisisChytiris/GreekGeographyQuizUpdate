@@ -11,6 +11,7 @@ export type RootStackParamList = {
   DragDrop: undefined;
   MapQuiz: undefined;
   DragDropQuiz: undefined;
+  BattleQuiz: undefined;
   MapTest: undefined;
   AboutApp: undefined;
   LakeRiver: undefined;

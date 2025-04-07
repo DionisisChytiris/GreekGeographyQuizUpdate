@@ -11,41 +11,8 @@ import * as Updates from "expo-updates";
 import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ScreenOrientation from "expo-screen-orientation";
+import UpdateAvailableModal from "./screens/Modals/UpdateAvailableModal";
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported} from "firebase/analytics";
-import Constants from 'expo-constants';
-
-
-// const firebaseApiKey= Constants.expoConfig.extra.firebaseKeys.apiKey;
-const firebaseConfig = Constants.expoConfig.extra.firebaseKeys;
-
-console.log(firebaseConfig.measurementId);
-
-// console.log("Firebase API Key:", firebaseApiKey);
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-if (typeof window !== "undefined") {
-  isSupported().then((supported) => {
-    if (supported) {
-      getAnalytics(app);
-    }
-  });
-}
-
-// Enable analytics collection
-// setAnalyticsCollectionEnabled(analytics, true);
-
-export { analytics };
-// console.log(apiKey);
-// import { StatusBar } from 'expo-status-bar';
-// import { useColorScheme } from 'react-native';
-
-// const theme = useColorScheme(); // 'light' or 'dark'
-
-// Appearance.setColorScheme('light');
 
 const saveUsageDate = async () => {
   const today = new Date().toISOString().split("T")[0];
@@ -65,7 +32,7 @@ const saveUsageDate = async () => {
   }
 };
 
-const AppContent = () => {
+const AppContent = ({ setUpdateAvailable }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,21 +45,23 @@ const AppContent = () => {
   }, []);
 
   const checkForUpdates = async () => {
+    if (__DEV__) return;
     try {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
-        Alert.alert(
-          "Διαθέσιμη Ενημέρωση",
-          "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.",
-          [
-            { text: "Ακύρωση", style: "cancel" },
-            {
-              text: "Επανεκκίνηση",
-              onPress: () => Updates.reloadAsync(),
-            },
-          ]
-        );
+        setUpdateAvailable(true); 
+        // Alert.alert(
+        //   "Διαθέσιμη Ενημέρωση",
+        //   "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.",
+        //   [
+        //     { text: "Ακύρωση", style: "cancel" },
+        //     {
+        //       text: "Επανεκκίνηση",
+        //       onPress: () => Updates.reloadAsync(),
+        //     },
+        //   ]
+        // );
       }
     } catch (e) {
       console.log("Error checking for updates:", e);
@@ -102,7 +71,7 @@ const AppContent = () => {
   useEffect(() => {
     checkForUpdates();
   }, []);
-
+  
   // <<<<<<< HEAD
   //   // use only when create a new build
   //   // const checkVersion = async () => {
@@ -142,57 +111,33 @@ const AppContent = () => {
 };
 
 export default function App() {
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const lockOrientation = async () => {
-      try {
-        await ScreenOrientation.lockAsync(
-          ScreenOrientation.OrientationLock.PORTRAIT_UP
-        );
-      } catch (error) {
-        console.log("Error locking orientation:", error);
-      }
-    };
-    lockOrientation();
-  }, []);
+  // useEffect(() => {
+  //   const lockOrientation = async () => {
+  //     try {
+  //       await ScreenOrientation.lockAsync(
+  //         ScreenOrientation.OrientationLock.PORTRAIT_UP
+  //       );
+  //     } catch (error) {
+  //       console.log("Error locking orientation:", error);
+  //     }
+  //   };
+  //   lockOrientation();
+  // }, []);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <StatusBar style="auto" translucent />
-        {/* <StatusBar
-          style="dark"
-          translucent={Platform.OS === 'android'}
-          hidden={false}
-          translucent
-          backgroundColor="transparent" 
-          style={theme === "dark" ? "light" : "dark"}
-          backgroundColor="#F7F9FC00"
-        /> */}
-
-        <AppContent />
+        <AppContent setUpdateAvailable={setUpdateAvailable}/>
+        <UpdateAvailableModal
+          visible={updateAvailable}
+          onUpdate={()=>Updates.reloadAsync()}
+          onDismiss={()=>setUpdateAvailable(false)}
+        />
       </Provider>
     </GestureHandlerRootView>
   );
-  // return isLoading ? (
-  //   <Splash setIsLoading={setIsLoading} />
-  // ) : (
-  //   <GestureHandlerRootView style={{ flex: 1 }}>
-  //     <Provider store={store}>
-  //       <StatusBar style="auto" translucent />
-  //       {/* <StatusBar
-  //         style="dark"
-  //         translucent={Platform.OS === 'android'}
-  //         hidden={false}
-  //         translucent
-  //         backgroundColor="transparent"
-  //         style={theme === "dark" ? "light" : "dark"}
-  //         backgroundColor="#F7F9FC00"
-  //       /> */}
-
-  //       <AppContent />
-  //     </Provider>
-  //   </GestureHandlerRootView>
-  // );
 }
