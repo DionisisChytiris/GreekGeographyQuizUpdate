@@ -59,6 +59,7 @@ import {
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
 import DailyBonusModal from "./Modals/DailyBonusModal";
+import BattleButton from "./components/BattleButton";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -137,6 +138,7 @@ export default function HomeScreen() {
 
   const handlePress = async () => {
     await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
+    // await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
     // await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
     console.log("Storage cleared-State reset to initial values");
   };
@@ -314,20 +316,20 @@ export default function HomeScreen() {
         </View>
       </Animated.View>
 
-      <Animated.View entering={FadeInDown.delay(500).springify()}>
+      <Animated.View entering={FadeInDown.delay(600).springify()}>
         <View style={styles.bankCoinAbsolute}>
           <View style={styles.bankContainer}>
-            <Image
+            {/* <Image
               source={require("../assets/Photos/bankbg.png")}
-              style={{ width: 90, height: 90 }}
-            />
+              style={{ width: 80, height: 80 }}
+            /> */}
             <View style={styles.coinsContainer}>
               <Image
                 source={require("../assets/Photos/goldbg.png")}
                 style={{ width: 28, height: 28 }}
               />
-              <Text style={[styles.categoryTitle, { fontSize: 14 }]}>
-                {coins}
+              <Text style={[styles.categoryTitle, { fontSize: 16 }]}>
+                {coins} 
               </Text>
             </View>
           </View>
@@ -373,23 +375,25 @@ export default function HomeScreen() {
                 // }, 100); // ✅ Adds a smooth reset delay
               }}
               style={{
+                position: 'absolute',
+                right: 50,
+                top: -20,
                 justifyContent: "center",
-                alignItems: "center",
-                paddingRight: 60,
+                alignItems: "center"
               }}
             >
               <Animated.View
                 style={{
                   position: "absolute",
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   opacity: 0.4,
                   transform: [{ rotate: rotation }, { scale: scale2 }],
                 }}
               >
                 <Image
                   source={require("../assets/Photos/starbg.png")}
-                  style={{ width: 200, height: 200, borderRadius: 50 }}
+                  style={{ width: 150, height: 150, borderRadius: 50 }}
                 />
               </Animated.View>
               <View
@@ -399,24 +403,23 @@ export default function HomeScreen() {
                   borderRadius: 10,
                   position: "absolute",
                   zIndex: 10,
+                  
                 }}
               >
                 <Image
                   source={require("../assets/Photos/goldbg.png")}
-                  style={{ width: 48, height: 48 }}
+                  style={{ width: 42, height: 42 }}
                 />
                 {/* <Text style={{ fontSize: 12, color: "white" }}>button</Text> */}
               </View>
             </Pressable>
           ) : null}
-          {/* <Pressable onPress={()=>navigation.navigate('BattleQuiz')} style={{backgroundColor: 'yellow', marginRight: -40}}>
-            <View>
-              <Text>Battle Quiz</Text>
-            </View>
-          </Pressable> */}
         </View>
       </Animated.View>
 
+      <Animated.View entering={FadeInDown.delay(590).springify()}>
+        <BattleButton />
+      </Animated.View>
       <Animated.View entering={FadeInDown.delay(400).springify()}>
         <ShareButton />
       </Animated.View>
@@ -539,12 +542,13 @@ const styles = StyleSheet.create({
   coinsContainer: {
     position: "absolute",
     bottom: 20,
-    left: 50,
+    left: -10,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     gap: 10,
-    backgroundColor: "#0cc0df",
+    backgroundColor: "#a0a7a890",
+    // backgroundColor: "magenta",
     paddingHorizontal: 10,
     borderRadius: 10,
     paddingVertical: 3,

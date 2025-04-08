@@ -1,35 +1,100 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ImageBackground,
-  Image,
-  Dimensions,
-  Platform,
-  Alert,
-  Modal,
-} from "react-native";
-import { useEffect, useState } from "react";
+import { View, Text, Pressable, ImageBackground, Image } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withSpring,
+} from "react-native-reanimated";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { useAppSelector } from "../../ReduxToolkit/store";
+import { useAppDispatch, useAppSelector } from "../../ReduxToolkit/store";
 import questions from "../../data/BattleQuiz/BattleQuestions";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import mockPlayers from "../../data/MockPlayers/Mockplayers";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeft, ArrowRight, Home } from "lucide-react-native";
+import { ArrowLeft, ArrowRight, Home, Music, Play, StopCircle } from "lucide-react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/BattleQuizStyles";
 import ModalLoading from "../Modals/ModalLoading";
+import { incrementCoinsBonus, saveCoins } from "../../ReduxToolkit/coinsSlice";
+// import { Audio } from 'expo-av';
+import { Asset } from "expo-asset";
+import useSoundDrumLoopPlayer from "../Utilities/useSoundDrumLoopPlayer";
 
 type BattleLinkProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
-const { height } = Dimensions.get("window");
+type Question = {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+};
+
+// const useSoundDrumLoopPlayer = (soundFile: string) => {
+//   const [sound, setSound] = useState<Audio.Sound | null>(null);
+//   const [isPlaying, setIsPlaying] = useState(false);
+
+//   // Load sound and handle cleanup on unmount
+//   useEffect(() => {
+//     const loadSound = async () => {
+//       try {
+//         // Ensure the sound is loaded properly
+//         const { sound } = await Audio.Sound.createAsync(
+//           { uri: soundFile }
+//         );
+//         setSound(sound);
+//         console.log('Sound loaded successfully!');
+//       } catch (error) {
+//         console.error('Error loading sound:', error);
+//       }
+//     };
+
+//     loadSound();
+
+//     // Cleanup when the component is unmounted
+//     return () => {
+//       if (sound) {
+//         sound.unloadAsync();
+//         console.log('Sound unloaded');
+//       }
+//     };
+//   }, [soundFile]);
+
+//   // Play sound function
+//   const playSound = async () => {
+//     if (sound && !isPlaying) {
+//       try {
+//         await sound.playAsync(); // Play the sound
+//         setIsPlaying(true);
+//         console.log('Sound is playing');
+//       } catch (error) {
+//         console.error('Error playing sound:', error);
+//       }
+//     }
+//   };
+
+//   // Stop sound function
+//   const stopSound = async () => {
+//     if (sound && isPlaying) {
+//       try {
+//         await sound.stopAsync(); // Stop the sound
+//         setIsPlaying(false);
+//         console.log('Sound stopped');
+//       } catch (error) {
+//         console.error('Error stopping sound:', error);
+//       }
+//     }
+//   };
+
+//   return { playSound, stopSound, isPlaying };
+// };
 
 export default function BattleQuiz() {
   const navigation = useNavigation<BattleLinkProp>();
+  const dispatch = useAppDispatch();
   const name = useAppSelector((state) => state.user.name);
+  const coins = useAppSelector((state) => state.coins.coins);
+  const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const [quiz, setQuiz] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [leftAnswers, setLeftAnswers] = useState<boolean[]>([]);
@@ -45,64 +110,96 @@ export default function BattleQuiz() {
   const [playerChoices, setPlayerChoices] = useState<string[]>([]);
   const [aiChoices, setAiChoices] = useState<string[]>([]);
   const randomTime = Math.ceil(Math.random() * (5000 - 1000) + 1000);
+  const scaleValue = useSharedValue(1);
+  const soundFile = Asset.fromModule(
+    require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
+  ).uri;
+  const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(soundFile);
+  const [isSoundStopped, setIsSoundStopped] = useState(false);
 
-  type Question = {
-    question: string;
-    options: string[];
-    correctAnswer: string;
+  const handleStopMusic = () => {
+    stopSound(); // Stop the sound
+    setIsSoundStopped(true); // Flag indicating the sound is stopped
+  };
+  const handlePlayMusic = () => {
+    isSoundEnabled && playSound(); // Stop the sound
+    setIsSoundStopped(false); // Flag indicating the sound is stopped
   };
 
+  // Play the sound only if it's not already playing and it wasn't stopped
+  useEffect(() => {
+    if (!isPlaying && !isSoundStopped) {
+      isSoundEnabled && playSound(); // Play sound if it's not already playing and not manually stopped
+    }
+  }, [isPlaying, isSoundStopped, playSound]);
+
+  useEffect(() => {
+    if (getScore(leftAnswers) > getScore(rightAnswers)) {
+      // Trigger scale-up and scale-down animation
+      setTimeout(() => {
+        scaleValue.value = withSequence(
+          withSpring(1.5, { damping: 10, stiffness: 200 }), // Scale up
+          withSpring(1) // Scale back down
+        );
+      }, 4500);
+    }
+  }, [gameEnded]); // Run when the game ends
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scaleValue.value }],
+  }));
+
   // Correct Sound Effect
-  const CorrectPlaySound = useSoundEffect(
-    require("../../assets/sounds/correct3.mp3")
+  const CorrectUserSound = useSoundEffect(
+    require("../../assets/sounds/BattleSounds/correctUser.mp3")
+  );
+  const CorrectMockSound = useSoundEffect(
+    require("../../assets/sounds/BattleSounds/correctMock.mp3")
   );
   // Wrong Sound Effect
-  const WrongPlaySound = useSoundEffect(
+  const WrongUserSound = useSoundEffect(
+    require("../../assets/sounds/BattleSounds/wrongUser.mp3")
+  );
+  const WrongMockSound = useSoundEffect(
     require("../../assets/sounds/wrong.mp3")
+  );
+  const coinsCollectSound = useSoundEffect(
+    require("../../assets/sounds/getCoin.wav")
+  );
+  const winnerSound = useSoundEffect(
+    require("../../assets/sounds/BattleSounds/WinnerPlaySound.mp3")
   );
 
   // const quiz = questions.sort(() => 0.5 - Math.random()).slice(0, 5);
   const shuffleArray = (array: Question[]) => {
     return [...array].sort(() => 0.5 - Math.random());
   };
-  
+
   const getNextQuizBatch = () => {
-    if (remainingQuestions.length < 5) {
-      // Reshuffle all questions when exhausted
+    if (remainingQuestions.length <= 5) {
+      // Only reshuffle if fewer than 5 questions are left
       const reshuffled = shuffleArray(questions);
       setRemainingQuestions(reshuffled.slice(5));
       setQuiz(reshuffled.slice(0, 5));
-      console.log("Reshuffling... Questions left after this batch:", reshuffled.length - 5);
+      console.log(
+        "Reshuffling... Questions left after this batch:",
+        reshuffled.length - 5
+      );
     } else {
       const nextBatch = remainingQuestions.slice(0, 5);
       setQuiz(nextBatch);
       setRemainingQuestions(remainingQuestions.slice(5));
-      console.log("Questions left after this batch:", remainingQuestions.slice(5).length);
+      console.log(
+        "Questions left after this batch:",
+        remainingQuestions.slice(5).length
+      );
     }
   };
-  
+
   useEffect(() => {
     const shuffled = shuffleArray(questions);
     setRemainingQuestions(shuffled.slice(5));
     setQuiz(shuffled.slice(0, 5));
-  }, []);
-
-  // const getRandomQuiz = () => {
-  //   const shuffledQuiz = [...questions]
-  //     .filter((q): q is Question => q.correctAnswer !== undefined)
-  //     .sort(() => 0.5 - Math.random())
-  //     .slice(0, 5);
-  //   setQuiz(shuffledQuiz);
-  // };
-
-  useEffect(() => {
-    getNextQuizBatch()
-    // getRandomQuiz();
-    // const shuffledQuiz = [...questions]
-    //   .filter((q): q is Question => q.correctAnswer !== undefined)
-    //   .sort(() => 0.5 - Math.random())
-    //   .slice(0, 5);
-    // setQuiz(shuffledQuiz);
   }, []);
 
   // Initial setup of the mock player
@@ -119,7 +216,7 @@ export default function BattleQuiz() {
     setGameEnded(false);
     setPlayerChoices([]);
     setAiChoices([]);
-    getNextQuizBatch()
+    getNextQuizBatch();
   };
 
   useEffect(() => {
@@ -149,57 +246,67 @@ export default function BattleQuiz() {
     }
   }, [isPlayerTurn, lastPlayerAnswer]);
 
-  if (!quiz[currentQuestion]) {
-    return <ModalLoading isModalVisible={true} onClose={()=>navigation.navigate('Quiz1')}/>;
-  }
+  const handleAnswer = useCallback(
+    (playerSide: "left" | "right", selectedAnswer: string) => {
+      const isCorrect = selectedAnswer === quiz[currentQuestion].correctAnswer;
 
-  const handleAnswer = (
-    playerSide: "left" | "right",
-    selectedAnswer: string
-  ) => {
-    const isCorrect = selectedAnswer === quiz[currentQuestion].correctAnswer;
+      if (playerSide === "left") {
+        setLeftAnswers((prev) => [...prev, isCorrect]);
+        setLastPlayerAnswer(selectedAnswer);
+        setIsPlayerTurn(false);
+        setPlayerChoices((prev) => [...prev, selectedAnswer]);
 
-    if (playerSide === "left") {
-      setLeftAnswers((prev) => [...prev, isCorrect]);
-      setLastPlayerAnswer(selectedAnswer);
-      setIsPlayerTurn(false);
-      setPlayerChoices((prev) => [...prev, selectedAnswer]);
+        if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
+          // console.log("correct answer player1");
+          isSoundEnabled && CorrectUserSound();
+        } else {
+          isSoundEnabled && WrongUserSound();
+          // console.log("wrong answer player1");
+        }
 
-      if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
-        console.log("corret answer player1");
-        CorrectPlaySound();
+        if (currentQuestion === quiz.length - 1) {
+          setTimeout(() => setGameEnded(true), 2500);
+        }
       } else {
-        console.log("wrong answer player1");
-      }
+        setRightAnswers((prev) => [...prev, isCorrect]);
+        setIsPlayerTurn(true);
+        setLastPlayerAnswer(null);
+        setAiChoices((prev) => [...prev, selectedAnswer]);
 
-      // Check if this was the last question
-      if (currentQuestion === quiz.length - 1) {
-        setTimeout(() => setGameEnded(true), 2500);
-      }
-    } else {
-      setRightAnswers((prev) => [...prev, isCorrect]);
-      setIsPlayerTurn(true);
-      setLastPlayerAnswer(null);
-      setAiChoices((prev) => [...prev, selectedAnswer]);
+        if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
+          // console.log("correct answer player2");
+          isSoundEnabled && CorrectMockSound();
+        } else {
+          isSoundEnabled && WrongMockSound();
+          // console.log("wrong answer player2");
+        }
 
-      if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
-        console.log("corret answer player2");
-      } else {
-        console.log("wrong answer player2");
+        if (currentQuestion < quiz.length - 1) {
+          setTimeout(() => {
+            setCurrentQuestion((prev) => prev + 1);
+            setPlayerChoices([]);
+            setAiChoices([]);
+          }, 1000);
+        } else {
+          setGameEnded(true);
+          if (getScore(leftAnswers) > getScore(rightAnswers)) {
+            handleStopMusic();
+            isSoundEnabled && winnerSound();
+            setTimeout(() => {
+              console.log("winner");
+              dispatch(incrementCoinsBonus());
+              dispatch(saveCoins(coins + 50));
+              isSoundEnabled && coinsCollectSound();
+            }, 4500);
+          } else {
+            handleStopMusic();
+            console.log("loser");
+          }
+        }
       }
-
-      // Only move to next question after both players have answered
-      if (currentQuestion < quiz.length - 1) {
-        setTimeout(() => {
-          setCurrentQuestion((prev) => prev + 1);
-          setPlayerChoices([]);
-          setAiChoices([]);
-        }, 1000);
-      } else {
-        setGameEnded(true);
-      }
-    }
-  };
+    },
+    [currentQuestion, quiz]
+  );
 
   const renderAnswerBoxes = (answers: boolean[]) => {
     return (
@@ -226,6 +333,17 @@ export default function BattleQuiz() {
   const getScore = (answers: boolean[]) => {
     return answers.filter((answer) => answer).length;
   };
+
+  if (!quiz[currentQuestion]) {
+    return (
+      <ModalLoading
+        isModalVisible={true}
+        onClose={() => {
+          navigation.navigate("Quiz1"), handleStopMusic(),restartQuiz();
+        }}
+      />
+    );
+  }
 
   return (
     <ImageBackground
@@ -284,6 +402,32 @@ export default function BattleQuiz() {
                       }}
                       style={styles.gameOverUserWin}
                     />
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 5,
+                        paddingTop: 50,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/Photos/goldbg.png")}
+                        style={{ width: 30, height: 30 }}
+                      />
+
+                      <Animated.View style={[{ margin: 0 }, animatedStyle]}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            color: "white",
+                          }}
+                        >
+                          {coins}
+                        </Text>
+                      </Animated.View>
+                    </View>
                   </View>
                 ) : getScore(rightAnswers) > getScore(leftAnswers) ? (
                   <View>
@@ -364,6 +508,7 @@ export default function BattleQuiz() {
             <Text style={styles.text1}>{aiChoices}</Text>
           </View>
         </View>
+
         {gameEnded &&
         leftAnswers.length === quiz.length &&
         rightAnswers.length === quiz.length ? (
@@ -393,7 +538,11 @@ export default function BattleQuiz() {
               style={{ borderRadius: 12 }}
               // style={styles.restartGradient}
             >
-              <Pressable onPress={restartQuiz}>
+              <Pressable
+                onPress={() => {
+                  restartQuiz(), handlePlayMusic();
+                }}
+              >
                 <Text
                   style={[
                     styles.text1,
@@ -410,19 +559,48 @@ export default function BattleQuiz() {
             </LinearGradient>
           </View>
         ) : (
-          <View style={styles.questionContainer}>
-            <Text style={styles.questionNumber}>
-              Ερώτηση {currentQuestion + 1}
-            </Text>
-            <Text style={styles.questionText}>
-              {quiz[currentQuestion]?.question || "No question available"}
-            </Text>
+            <View style={styles.questionContainer}>
+              <Text style={styles.questionNumber1}>
+                Ερώτηση {currentQuestion + 1}
+              </Text>
+              <Text style={styles.questionText}>
+                {quiz[currentQuestion]?.question || "No question available"}
+              </Text>
+              {/* <View style={styles.battleCoins}>
+              <Image
+                source={require("../../assets/Photos/goldbg.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Text style={{ fontSize: 12, color: "white" }}>{coins}</Text>
+            </View> */}
+           
+            {isSoundEnabled &&
+              (isPlaying || !isSoundStopped ? (
+                <Pressable
+                  style={styles.questionNumber2}
+                  onPress={handleStopMusic} // Call stop when button is pressed
+                >
+                  <Text style={{}}><StopCircle size={24} color="white" /></Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={styles.questionNumber2}
+                  onPress={handlePlayMusic} // Call play when button is pressed
+                >
+                  <Text style={{}}><Music size={24} color="white" /></Text>
+                </Pressable>
+              ))}
           </View>
         )}
 
+        {/* <Pressable onPress={handleStopMusic} style={{position: 'absolute', bottom: 220, right: 100}}>
+          <Text>Stop Music</Text>
+        </Pressable> */}
         {/* Return Home Button */}
         <Pressable
-          onPress={() => navigation.navigate("Quiz1")}
+          onPress={() => {
+            navigation.navigate("Quiz1"), handleStopMusic();
+          }}
           style={styles.returnQuizBtn}
         >
           <ArrowLeft size={16} color="#ffffff80" />
@@ -433,6 +611,9 @@ export default function BattleQuiz() {
   );
 }
 
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
