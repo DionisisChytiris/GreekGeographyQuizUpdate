@@ -12,13 +12,20 @@ import questions from "../../data/BattleQuiz/BattleQuestions";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import mockPlayers from "../../data/MockPlayers/Mockplayers";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeft, ArrowRight, Home, Music, Play, StopCircle } from "lucide-react-native";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Home,
+  Music,
+  Play,
+  StopCircle,
+} from "lucide-react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/BattleQuizStyles";
 import ModalLoading from "../Modals/ModalLoading";
 import { incrementCoinsBonus, saveCoins } from "../../ReduxToolkit/coinsSlice";
-// import { Audio } from 'expo-av';
+import { Audio } from "expo-av";
 import { Asset } from "expo-asset";
 import useSoundDrumLoopPlayer from "../Utilities/useSoundDrumLoopPlayer";
 
@@ -111,27 +118,108 @@ export default function BattleQuiz() {
   const [aiChoices, setAiChoices] = useState<string[]>([]);
   const randomTime = Math.ceil(Math.random() * (5000 - 1000) + 1000);
   const scaleValue = useSharedValue(1);
-  const soundFile = Asset.fromModule(
-    require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
-  ).uri;
-  const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(soundFile);
-  const [isSoundStopped, setIsSoundStopped] = useState(false);
+  // const soundFile = Asset.fromModule(
+  //   require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
+  // ).uri;
+  // const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(soundFile);
+  // const [isSoundStopped, setIsSoundStopped] = useState(false);
 
-  const handleStopMusic = () => {
-    stopSound(); // Stop the sound
-    setIsSoundStopped(true); // Flag indicating the sound is stopped
-  };
-  const handlePlayMusic = () => {
-    isSoundEnabled && playSound(); // Stop the sound
-    setIsSoundStopped(false); // Flag indicating the sound is stopped
-  };
+  // const [soundUri, setSoundUri] = useState<string | null>(null);
+  // const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(
+  //   soundUri ?? ""
+  // );
 
-  // Play the sound only if it's not already playing and it wasn't stopped
+  // useEffect(() => {
+  //   const prepareAudio = async () => {
+  //     try {
+  //       // Configure the audio mode (do this once per app)
+  //       await Audio.setAudioModeAsync({
+  //         allowsRecordingIOS: false,
+  //         staysActiveInBackground: false,
+  //         playsInSilentModeIOS: true,
+  //         shouldDuckAndroid: true,
+  //         // interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+  //         // interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+  //       });
+
+  //       const asset = Asset.fromModule(
+  //         require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
+  //       );
+  //       await asset.downloadAsync();
+  //       setSoundUri(asset.uri);
+  //     } catch (err) {
+  //       console.error("Error preparing audio asset:", err);
+  //     }
+  //   };
+
+  //   prepareAudio();
+  // }, []);
+
+  // const handleStopMusic = () => {
+  //   stopSound(); // Stop the sound
+  //   setIsSoundStopped(true); // Flag indicating the sound is stopped
+  // };
+  // const handlePlayMusic = () => {
+  //   isSoundEnabled && playSound(); // Stop the sound
+  //   setIsSoundStopped(false); // Flag indicating the sound is stopped
+  // };
+
+  // // Play the sound only if it's not already playing and it wasn't stopped
+  // useEffect(() => {
+  //   if (!isPlaying && !isSoundStopped) {
+  //     isSoundEnabled && playSound(); // Play sound if it's not already playing and not manually stopped
+  //   }
+  // }, [isPlaying, isSoundStopped, playSound]);
+
+  const soundRef = useRef<Audio.Sound | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Load and play sound on mount
   useEffect(() => {
-    if (!isPlaying && !isSoundStopped) {
-      isSoundEnabled && playSound(); // Play sound if it's not already playing and not manually stopped
+    const loadSound = async () => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/BattleSounds/DrumKitLoop.mp3'), // Path to sound file
+          {
+            isLooping: true,
+            volume: 1.0,
+            shouldPlay: true,
+          }
+        );
+        soundRef.current = sound;
+        await sound.playAsync();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error('Error loading sound:', error);
+      }
+    };
+
+    isSoundEnabled && loadSound();
+
+    // Unload sound on unmount
+    return () => {
+      if (soundRef.current) {
+        soundRef.current.unloadAsync();
+      }
+    };
+  }, []); // Empty dependency array to run only once
+
+  // Stop the background sound
+  const stopSound = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      setIsPlaying(false);
     }
-  }, [isPlaying, isSoundStopped, playSound]);
+  };
+
+   // Restart the sound
+   const restartSound = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.playAsync();
+      setIsPlaying(true);
+    }
+  };
 
   useEffect(() => {
     if (getScore(leftAnswers) > getScore(rightAnswers)) {
@@ -290,7 +378,8 @@ export default function BattleQuiz() {
         } else {
           setGameEnded(true);
           if (getScore(leftAnswers) > getScore(rightAnswers)) {
-            handleStopMusic();
+            // handleStopMusic();
+            stopSound()
             isSoundEnabled && winnerSound();
             setTimeout(() => {
               console.log("winner");
@@ -299,7 +388,8 @@ export default function BattleQuiz() {
               isSoundEnabled && coinsCollectSound();
             }, 4500);
           } else {
-            handleStopMusic();
+            stopSound()
+            // handleStopMusic();
             console.log("loser");
           }
         }
@@ -334,12 +424,14 @@ export default function BattleQuiz() {
     return answers.filter((answer) => answer).length;
   };
 
+  // if (!soundUri) return null; // Wait until the URI is ready
+
   if (!quiz[currentQuestion]) {
     return (
       <ModalLoading
         isModalVisible={true}
         onClose={() => {
-          navigation.navigate("Quiz1"), handleStopMusic(),restartQuiz();
+          navigation.navigate("Quiz1"), restartQuiz();
         }}
       />
     );
@@ -540,7 +632,9 @@ export default function BattleQuiz() {
             >
               <Pressable
                 onPress={() => {
-                  restartQuiz(), handlePlayMusic();
+                  restartQuiz(),
+                  restartSound()
+                  // handlePlayMusic();
                 }}
               >
                 <Text
@@ -559,35 +653,39 @@ export default function BattleQuiz() {
             </LinearGradient>
           </View>
         ) : (
-            <View style={styles.questionContainer}>
-              <Text style={styles.questionNumber1}>
-                Ερώτηση {currentQuestion + 1}
-              </Text>
-              <Text style={styles.questionText}>
-                {quiz[currentQuestion]?.question || "No question available"}
-              </Text>
-              {/* <View style={styles.battleCoins}>
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionNumber1}>
+              Ερώτηση {currentQuestion + 1}
+            </Text>
+            <Text style={styles.questionText}>
+              {quiz[currentQuestion]?.question || "No question available"}
+            </Text>
+            {/* <View style={styles.battleCoins}>
               <Image
                 source={require("../../assets/Photos/goldbg.png")}
                 style={{ width: 20, height: 20 }}
               />
               <Text style={{ fontSize: 12, color: "white" }}>{coins}</Text>
             </View> */}
-           
+
             {isSoundEnabled &&
-              (isPlaying || !isSoundStopped ? (
+              (isPlaying  ? (
                 <Pressable
                   style={styles.questionNumber2}
-                  onPress={handleStopMusic} // Call stop when button is pressed
+                  onPress={stopSound} // Call stop when button is pressed
                 >
-                  <Text style={{}}><StopCircle size={24} color="white" /></Text>
+                  <Text style={{}}>
+                    <StopCircle size={24} color="white" />
+                  </Text>
                 </Pressable>
               ) : (
                 <Pressable
                   style={styles.questionNumber2}
-                  onPress={handlePlayMusic} // Call play when button is pressed
+                  onPress={restartSound} // Call play when button is pressed
                 >
-                  <Text style={{}}><Music size={24} color="white" /></Text>
+                  <Text style={{}}>
+                    <Music size={24} color="white" />
+                  </Text>
                 </Pressable>
               ))}
           </View>
@@ -599,7 +697,9 @@ export default function BattleQuiz() {
         {/* Return Home Button */}
         <Pressable
           onPress={() => {
-            navigation.navigate("Quiz1"), handleStopMusic();
+            navigation.navigate("Quiz1"),
+            stopSound()
+            // handleStopMusic();
           }}
           style={styles.returnQuizBtn}
         >
