@@ -1,4 +1,11 @@
-import { View, Text, Pressable, ImageBackground, Image } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ImageBackground,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -113,64 +120,12 @@ export default function BattleQuiz() {
     name: string;
     img: string;
   } | null>(null);
+  const [isMockLoading, setIsMockLoading] = useState(false);
   const [remainingQuestions, setRemainingQuestions] = useState<Question[]>([]);
   const [playerChoices, setPlayerChoices] = useState<string[]>([]);
   const [aiChoices, setAiChoices] = useState<string[]>([]);
   const randomTime = Math.ceil(Math.random() * (5000 - 1000) + 1000);
   const scaleValue = useSharedValue(1);
-  // const soundFile = Asset.fromModule(
-  //   require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
-  // ).uri;
-  // const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(soundFile);
-  // const [isSoundStopped, setIsSoundStopped] = useState(false);
-
-  // const [soundUri, setSoundUri] = useState<string | null>(null);
-  // const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer(
-  //   soundUri ?? ""
-  // );
-
-  // useEffect(() => {
-  //   const prepareAudio = async () => {
-  //     try {
-  //       // Configure the audio mode (do this once per app)
-  //       await Audio.setAudioModeAsync({
-  //         allowsRecordingIOS: false,
-  //         staysActiveInBackground: false,
-  //         playsInSilentModeIOS: true,
-  //         shouldDuckAndroid: true,
-  //         // interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-  //         // interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-  //       });
-
-  //       const asset = Asset.fromModule(
-  //         require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3")
-  //       );
-  //       await asset.downloadAsync();
-  //       setSoundUri(asset.uri);
-  //     } catch (err) {
-  //       console.error("Error preparing audio asset:", err);
-  //     }
-  //   };
-
-  //   prepareAudio();
-  // }, []);
-
-  // const handleStopMusic = () => {
-  //   stopSound(); // Stop the sound
-  //   setIsSoundStopped(true); // Flag indicating the sound is stopped
-  // };
-  // const handlePlayMusic = () => {
-  //   isSoundEnabled && playSound(); // Stop the sound
-  //   setIsSoundStopped(false); // Flag indicating the sound is stopped
-  // };
-
-  // // Play the sound only if it's not already playing and it wasn't stopped
-  // useEffect(() => {
-  //   if (!isPlaying && !isSoundStopped) {
-  //     isSoundEnabled && playSound(); // Play sound if it's not already playing and not manually stopped
-  //   }
-  // }, [isPlaying, isSoundStopped, playSound]);
-
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -179,7 +134,7 @@ export default function BattleQuiz() {
     const loadSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
-          require('../../assets/sounds/BattleSounds/DrumKitLoop.mp3'), // Path to sound file
+          require("../../assets/sounds/BattleSounds/DrumKitLoop.mp3"), // Path to sound file
           {
             isLooping: true,
             volume: 1.0,
@@ -190,7 +145,7 @@ export default function BattleQuiz() {
         await sound.playAsync();
         setIsPlaying(true);
       } catch (error) {
-        console.error('Error loading sound:', error);
+        console.error("Error loading sound:", error);
       }
     };
 
@@ -212,8 +167,8 @@ export default function BattleQuiz() {
     }
   };
 
-   // Restart the sound
-   const restartSound = async () => {
+  // Restart the sound
+  const restartSound = async () => {
     if (soundRef.current) {
       await soundRef.current.stopAsync();
       await soundRef.current.playAsync();
@@ -290,6 +245,27 @@ export default function BattleQuiz() {
     setQuiz(shuffled.slice(0, 5));
   }, []);
 
+  const getRandomMockPlayer = () => {
+    return mockPlayers[Math.floor(Math.random() * mockPlayers.length)];
+  };
+
+  const findMockPlayer = () => {
+    setIsMockLoading(true);
+    setMockPlayer(null);
+
+    const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2000–5000ms
+
+    setTimeout(() => {
+      const player = getRandomMockPlayer();
+      setMockPlayer(player);
+      setIsMockLoading(false);
+    }, randomDelay);
+  };
+
+  useEffect(() => {
+    findMockPlayer(); // when component first mounts
+  }, []);
+
   // Initial setup of the mock player
   useEffect(() => {
     setMockPlayer(mockPlayers[Math.floor(Math.random() * mockPlayers.length)]);
@@ -305,6 +281,7 @@ export default function BattleQuiz() {
     setPlayerChoices([]);
     setAiChoices([]);
     getNextQuizBatch();
+    findMockPlayer();
   };
 
   useEffect(() => {
@@ -379,7 +356,7 @@ export default function BattleQuiz() {
           setGameEnded(true);
           if (getScore(leftAnswers) > getScore(rightAnswers)) {
             // handleStopMusic();
-            stopSound()
+            stopSound();
             isSoundEnabled && winnerSound();
             setTimeout(() => {
               console.log("winner");
@@ -388,7 +365,7 @@ export default function BattleQuiz() {
               isSoundEnabled && coinsCollectSound();
             }, 4500);
           } else {
-            stopSound()
+            stopSound();
             // handleStopMusic();
             console.log("loser");
           }
@@ -484,7 +461,7 @@ export default function BattleQuiz() {
             {gameEnded &&
             leftAnswers.length === quiz.length &&
             rightAnswers.length === quiz.length ? (
-              <View style={{}}>
+              <View>
                 {getScore(leftAnswers) > getScore(rightAnswers) ? (
                   <View>
                     <Text style={styles.text2}>Νικητής</Text>
@@ -507,7 +484,6 @@ export default function BattleQuiz() {
                         source={require("../../assets/Photos/goldbg.png")}
                         style={{ width: 30, height: 30 }}
                       />
-
                       <Animated.View style={[{ margin: 0 }, animatedStyle]}>
                         <Text
                           style={{
@@ -525,9 +501,7 @@ export default function BattleQuiz() {
                   <View>
                     <Text style={styles.text2}>Νικητής</Text>
                     <Image
-                      source={{
-                        uri: mockPlayer?.img,
-                      }}
+                      source={{ uri: mockPlayer?.img }}
                       style={styles.gameOverMockWin}
                     />
                   </View>
@@ -537,6 +511,8 @@ export default function BattleQuiz() {
                   </View>
                 )}
               </View>
+            ) : isMockLoading ? (
+              <Text style={{}}>Αναμονή αντιπάλου...</Text>
             ) : (
               quiz[currentQuestion].options.map((option, index) => (
                 <Pressable
@@ -545,7 +521,6 @@ export default function BattleQuiz() {
                     styles.optionButton,
                     pressed && styles.optionButtonPressed,
                   ]}
-                  // onPress={() => !isMockTurn && setSelectedAnswer(option)}
                   onPress={() => isPlayerTurn && handleAnswer("left", option)}
                   disabled={!isPlayerTurn}
                 >
@@ -572,10 +547,24 @@ export default function BattleQuiz() {
                 alignItems: "center",
               }}
             >
-              <Image
-                source={{ uri: mockPlayer?.img }}
-                style={styles.character}
-              />
+              {/* {isMockLoading ? (
+                <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <ActivityIndicator size="large" color="#2196F3" />
+                 
+                </View>
+              ) : mockPlayer ? (
+               null
+              ) : null} */}
+              {isMockLoading ? (
+                <View style={{ marginTop: 25 }}>
+                  <ActivityIndicator size="large" color="#2196F3" />
+                </View>
+              ) : (
+                <Image
+                  source={{ uri: mockPlayer?.img }}
+                  style={styles.character}
+                />
+              )}
 
               <Text
                 style={[
@@ -587,7 +576,15 @@ export default function BattleQuiz() {
               </Text>
             </View>
             <View style={styles.mockName}>
-              <Text style={styles.text1}>{mockPlayer?.name}</Text>
+              {isMockLoading ? (
+                <Text
+                  style={{ marginLeft: 60, color: "#f5f5f5", fontSize: 12 }}
+                >
+                  Αναζήτηση Αντιπάλου...
+                </Text>
+              ) : (
+                <Text style={styles.text1}>{mockPlayer?.name}</Text>
+              )}
               {!isPlayerTurn && (
                 <View style={[styles.thinkingIndicator, { marginRight: -30 }]}>
                   <Text style={styles.thinkingText}>...</Text>
@@ -632,8 +629,7 @@ export default function BattleQuiz() {
             >
               <Pressable
                 onPress={() => {
-                  restartQuiz(),
-                  restartSound()
+                  restartQuiz(), restartSound();
                   // handlePlayMusic();
                 }}
               >
@@ -669,7 +665,7 @@ export default function BattleQuiz() {
             </View> */}
 
             {isSoundEnabled &&
-              (isPlaying  ? (
+              (isPlaying ? (
                 <Pressable
                   style={styles.questionNumber2}
                   onPress={stopSound} // Call stop when button is pressed
@@ -697,8 +693,7 @@ export default function BattleQuiz() {
         {/* Return Home Button */}
         <Pressable
           onPress={() => {
-            navigation.navigate("Quiz1"),
-            stopSound()
+            navigation.navigate("Quiz1"), stopSound();
             // handleStopMusic();
           }}
           style={styles.returnQuizBtn}
