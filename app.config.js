@@ -22,6 +22,9 @@ export default {
       bundleIdentifier: "com.greekgeographyquizapp.dion",
       buildNumber: "2",
       newArchEnabled: true,
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false
+      }
     },
     android: {
       package: "com.greekgeographyquizapp.dion",
@@ -63,5 +66,5 @@ export default {
     updates: {
       url: "https://u.expo.dev/8e57705c-5ea4-459b-8705-25056f4c466f",
     },
-  },
+  }
 };
