@@ -70,7 +70,7 @@ export default function Settings() {
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const { consentGiven, setConsent } = useAnalyticsConsent(); // Get consent status and setter from the hook
   const [isConsentGiven, setIsConsentGiven] = useState(consentGiven); // Sync the component's state with consent
-  const [showPersonalData, setShowPersonalData] = useState(false)
+  const [showPersonalData, setShowPersonalData] = useState(false);
 
   useEffect(() => {
     console.log("consentGiven from hook:", consentGiven);
@@ -134,6 +134,7 @@ export default function Settings() {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [clientId, setClientId] = useState<string | null>(null);
+  const userId = getClientId();
 
   useEffect(() => {
     const fetchClientId = async () => {
@@ -170,7 +171,9 @@ export default function Settings() {
           >
             Ρυθμίσεις{" "}
           </Text>
-         
+          <View style={{ position: "absolute", bottom: 0, right: 5 }}>
+            <Text style={{fontSize: 10}}>{clientId || "Loading..."}</Text>
+          </View>
         </View>
         {/* <Text style={styles.title}>Ρυθμίσεις</Text> */}
         {/* </View> */}
@@ -358,8 +361,11 @@ export default function Settings() {
             <ChevronRight size={20} color="#666" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>setShowPersonalData(true)}  style={styles.menuItem}>
-          <View style={{ flexDirection: "row", gap: 20 }}>
+          <TouchableOpacity
+            onPress={() => setShowPersonalData(true)}
+            style={styles.menuItem}
+          >
+            <View style={{ flexDirection: "row", gap: 20 }}>
               <View
                 style={[styles.iconBackground, { backgroundColor: "#1b56fa" }]}
               >
@@ -369,7 +375,10 @@ export default function Settings() {
             </View>
             <ChevronRight size={20} color="#666" />
           </TouchableOpacity>
-          <PersonalDataModal visible={showPersonalData} onClose={()=>setShowPersonalData(false)}/>
+          <PersonalDataModal
+            visible={showPersonalData}
+            onClose={() => setShowPersonalData(false)}
+          />
           {/* <View style={styles.menuItemIcon}>
             <View style={{ flexDirection: "row", gap: 20 }}>
               <View
@@ -440,7 +449,7 @@ export default function Settings() {
             <Text style={styles.sectionTitle}>Νέα Εφαρμογή</Text>
           </View>
         </View>
-        <View style={[styles.section2, {marginBottom: 30}]}>
+        <View style={[styles.section2, { marginBottom: 30 }]}>
           <TouchableOpacity
             onPress={() => {
               Linking.openURL(urlNewApp);

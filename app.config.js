@@ -6,7 +6,7 @@ export default {
     slug: "GreekGeographyQuizApp",
     newArchEnabled: true,
     platforms: ["ios", "android"],
-    version: "1.0.8",
+    version: "1.0.9",
     icon: "./assets/adaptive-icon-test.png",
     orientation: "portrait",
     userInterfaceStyle: "light",
@@ -25,7 +25,7 @@ export default {
     },
     android: {
       package: "com.greekgeographyquizapp.dion",
-      versionCode: 40,
+      versionCode: 41,
       newArchEnabled: true,
       permissions: ["INTERNET", "ACCESS_NETWORK_STATE", "VIBRATE"],
       adaptiveIcon: {
