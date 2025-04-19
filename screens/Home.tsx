@@ -8,11 +8,15 @@ import {
   Dimensions,
   Platform,
   StatusBar,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
+import { trackEvent } from "../GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type HomeProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -21,14 +25,36 @@ const { width, height } = Dimensions.get("window");
 export default function HomeScreen() {
   const navigation = useNavigation<HomeProp>();
 
+  const handlePress = () => {
+    // Your button logic
+    // Alert.alert('Button Clicked!');
+    trackEvent(trackEventsOrganized.QUIZ_START);
+    // trackEvent(trackEventsOrganized.QUIZ_START, { quiz_start: "ClickMe" });
+
+    // Track the event
+    // trackEvent('button_click', {
+    //   screen: 'ExampleScreen',
+    //   button_name: 'ClickMe',
+    // });
+  };
+
+  const resetFirstLaunch = async () => {
+    try {
+      await AsyncStorage.removeItem('isFirstLaunch');
+      console.log("First launch key removed.");
+    } catch (error) {
+      console.error("Error removing first launch key:", error);
+    }
+  };
+
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <ImageBackground
         // source={{
         //   uri: "https://api.a0.dev/assets/image?text=stunning%20aerial%20view%20of%20greek%20islands%20with%20dramatic%20coastline%20crystal%20clear%20waters%20and%20ancient%20ruins&aspect=9:16",
         // }}
-        source={require('../assets/Photos/meteora.jpg')}
+        source={require("../assets/Photos/meteora.jpg")}
         style={styles.container}
       >
         {/* <ScrollView contentContainerStyle={styles.scrollContent}> */}
@@ -48,7 +74,10 @@ export default function HomeScreen() {
 
           <TouchableOpacity
             style={styles.startButton}
-            onPress={() => navigation.navigate("Quiz1")}
+            onPress={() => {
+              navigation.navigate("Quiz1"), handlePress()
+              // navigation.navigate("Quiz1"), handlePress(),resetFirstLaunch()
+            }}
           >
             <MaterialCommunityIcons
               name="flag-checkered"
@@ -101,11 +130,18 @@ const styles = StyleSheet.create({
   titleContainer: {
     alignItems: "center",
     marginBottom: 40,
-    marginTop:  Platform.OS ==='android'? height > 800? 50: 50 : 0
+    marginTop: Platform.OS === "android" ? (height > 800 ? 50 : 50) : 0,
   },
   title: {
-    marginHorizontal: Platform.OS ==='android'? height > 800? 50: 30 : 0,
-    fontSize: Platform.OS ==='android'? height > 800? 40:25 : height <900? 30:50,
+    marginHorizontal: Platform.OS === "android" ? (height > 800 ? 50 : 30) : 0,
+    fontSize:
+      Platform.OS === "android"
+        ? height > 800
+          ? 40
+          : 25
+        : height < 900
+        ? 30
+        : 50,
     // fontSize: height < 900 ? 30: 50,
     fontWeight: "bold",
     color: "white",
@@ -115,7 +151,14 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   subtitle: {
-    fontSize: Platform.OS ==='android'? height > 800? 18:16 : height <900? 20:30,
+    fontSize:
+      Platform.OS === "android"
+        ? height > 800
+          ? 18
+          : 16
+        : height < 900
+        ? 20
+        : 30,
     color: "white",
     marginTop: 10,
     textShadowColor: "rgba(0,0,0,0.75)",

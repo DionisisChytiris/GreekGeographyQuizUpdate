@@ -1,0 +1,18 @@
+export const trackEventsOrganized = {
+    QUIZ_START: 'quiz_start',
+    GENERAL_QUESTIONS: 'general_questions',
+    LAKES_RIVERS: 'lakes_rivers',
+    MOUNTAINS: 'mountains',
+    NOMOI_CITIES: 'nomoi_cities',
+    COLLECT_DAILY_BONUS: 'collect_daily_bonus',
+    SHARE_APP: 'share_app',
+    BATTLE: 'battle',
+    SETTINGS: 'settings',
+    REPEAT_BATTLE: 'repeat_battle',
+    HELP_FIFTY_PERCENT: 'help_fifty_percent',
+    BUY_EXTRA_FIFTY: 'buy_extra_fifty',
+    HELP_CALL_PERCENT: 'help_call_percent',
+    BUY_EXTRA_CALL: 'buy_extra_call',
+    HELP_HUNDRED_PERCENT: 'help_hundred_percent',
+    BUY_EXTRA_HUNDRED: 'buy_extra_hundred',
+  };

@@ -60,6 +60,9 @@ import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
 import DailyBonusModal from "./Modals/DailyBonusModal";
 import BattleButton from "./components/BattleButton";
+import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
+import { trackEvent } from "../GoogleAnalytics/trackEvent";
+import { loadHeart } from "../ReduxToolkit/livesSlice";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -228,6 +231,7 @@ export default function HomeScreen() {
           onPressOut={() => {
             navigation.navigate("Settings");
             setScale1(1);
+            trackEvent(trackEventsOrganized.SETTINGS)
           }}
           style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
         >
@@ -245,6 +249,7 @@ export default function HomeScreen() {
             title1="Γενικές Ερωτήσεις"
             icon1={<Globe2 size={32} color="white" />}
             gradient1={["#9B59B6", "#8E44AD"]}
+            trackEventName={trackEventsOrganized.GENERAL_QUESTIONS}
           />
         </View>
         <View style={{ width: dynamicWidth }}>
@@ -270,6 +275,7 @@ export default function HomeScreen() {
               title1="Λίμνες - Ποτάμια"
               icon1={<Waves size={32} color="white" />}
               gradient1={["#3498DB", "#2980B9"]}
+              trackEventName={trackEventsOrganized.LAKES_RIVERS}
             />
           )}
         </View>
@@ -290,6 +296,7 @@ export default function HomeScreen() {
               title1="Βουνά"
               icon1={<Mountain size={32} color="white" />}
               gradient1={["#4ECDC4", "#45B7AF"]}
+              trackEventName={trackEventsOrganized.MOUNTAINS}
             />
           )}
         </View>
@@ -311,6 +318,7 @@ export default function HomeScreen() {
               title1="Νομοί - Πόλεις"
               icon1={<MapPin size={32} color="white" />}
               gradient1={["#FF6B6B", "#FF8E8E"]}
+              trackEventName={trackEventsOrganized.NOMOI_CITIES}
             />
           )}
         </View>
@@ -356,6 +364,7 @@ export default function HomeScreen() {
                   );
                   return;
                 }
+                trackEvent(trackEventsOrganized.COLLECT_DAILY_BONUS)
                 dispatch(incrementCoinsBonus());
                 dispatch(saveCoins(coins + 50));
                 setScale2(1);

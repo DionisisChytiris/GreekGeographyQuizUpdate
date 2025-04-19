@@ -47,8 +47,6 @@ import Animated, {
 // } from "../Utilities/useAnimations";
 import TimerHeartSection from "../components/TimerHeartSection";
 import * as StoreReview from "expo-store-review";
-import ExitReturnButton from "../components/ExitReturnButton";
-import { stylesM } from "../styles/QuizStylesheet";
 import ModalExplanationQuestion from "../Modals/ModalExplanationQuestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
@@ -62,10 +60,15 @@ import {
 import {
   decrementHeart,
   incrementHeart,
+  loadHeart,
   resetLives,
+  saveHeart,
+  saveHeartAsync,
 } from "../../ReduxToolkit/livesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveProgress, getProgress } from "../../ReduxToolkit/progressSlice";
+import { trackEvent } from "../../GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -91,12 +94,12 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   quizName,
   lastQ1,
 }) => {
-  const navigation = useNavigation<LakeRiverProp>();
   const livesEnabled = useAppSelector((state) => state.lives.livesEnabled);
   const heart = useAppSelector((state) => state.lives.heart);
   const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const coins = useAppSelector((state) => state.coins.coins);
+  const navigation = useNavigation<LakeRiverProp>();
   // const data = questions;
   // Removed duplicate declaration of dispatch
   const data = dataT;
@@ -112,7 +115,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const [counter, setCounter] = useState<any>(15);
   let interval: any = null;
   const currentQuestion: any = data[index];
-  // const [heart, setHeart] = useState<any>(3);
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [ansBtnClr, setAnsBtnClr] = useState({
     default: ["#3d8be4", "#418ce0"],
@@ -126,7 +128,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     "Poppins-Bold": Poppins_700Bold,
   });
   const [isDisabled, setIsDisabled] = useState(true);
-
   useEffect(() => {
     if (!fontsLoaded || fontError) {
       return;
@@ -177,12 +178,33 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     if (livesEnabled && heart > 0) {
       // setHeart((prevHeart: number) => prevHeart - 1);
       dispatch(decrementHeart());
+      dispatch(saveHeartAsync(heart-1))
     }
   };
-
+  
   const resetQuiz = () => {
     setSelectedAnswerIndex(null);
     setAnswerStatus(null);
+    // dispatch(loadHeart());
+    dispatch(resetLives());
+    // setHeart(3); // Reset to the original value
+    setIndex(0); // Start from the first question
+    setCounter(15); // Reset the score or counter
+    setUserAnswers([]);
+    setPoints(0);
+    setSeconds(0);
+    setMinutes(0);
+    setIsDisabled(true);
+    setFifty([]);
+    setFiftyCoin(false);
+    setPhoneCoin(false);
+    setHundredCoin(false);
+  };
+
+  const resetQuizHome = () => {
+    setSelectedAnswerIndex(null);
+    setAnswerStatus(null);
+    // dispatch(loadHeart());
     dispatch(resetLives());
     // setHeart(3); // Reset to the original value
     setIndex(0); // Start from the first question
@@ -340,6 +362,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       if (isSoundEnabled) {
         coinsDropSound();
       }
+      trackEvent(trackEventsOrganized.BUY_EXTRA_CALL)
       setPhoneCoin(false);
       dispatch(decrementCoins(50)); // Decrement 1 coin
       dispatch(saveCoins(coins - 50)); // Save the updated coins after purchase
@@ -355,6 +378,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       if (isSoundEnabled) {
         coinsDropSound();
       }
+      trackEvent(trackEventsOrganized.BUY_EXTRA_FIFTY)
       // Check if the user has 30 or more coins
       setFiftyCoin(false);
       dispatch(decrementCoins(40)); // Decrement 1 coin
@@ -370,6 +394,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       if (isSoundEnabled) {
         coinsDropSound();
       }
+      trackEvent(trackEventsOrganized.BUY_EXTRA_HUNDRED)
       // Check if the user has 30 or more coins
       setHundredCoin(false);
       dispatch(decrementCoins(80)); // Decrement 1 coin
@@ -464,8 +489,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
 
   const startQuiz = async () => {
     dispatch(getProgress(progressKey));
-    // const lastQuestionIndex = await getProgress();
-    // setIndex(lastQuestionIndex); // Set the index to continue from the last answered question
   };
 
   useEffect(() => {
@@ -473,17 +496,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       setIndex(lastQuestionIndex); // Update the index when the progress is fetched
     }
   }, [lastQuestionIndex]);
-
-  // const getProgress = async () => {
-  //   try {
-  //     const lastQuestionIndex = await AsyncStorage.getItem(lastQ1);
-  //     // const lastQuestionIndex = await AsyncStorage.getItem('lastQuestion');
-  //     return lastQuestionIndex ? JSON.parse(lastQuestionIndex) : 0; // 0 if no progress
-  //   } catch (e) {
-  //     console.error("Failed to retrieve progress", e);
-  //     return 0;
-  //   }
-  // };
 
   const onAnswerQuestion = (currentIndex: any) => {
     // Save the last answered question index
@@ -497,7 +509,6 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
 
   useEffect(() => {
     startQuiz();
-    // getProgress
   }, []);
 
   return (
@@ -633,7 +644,8 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
             <HelpOptionsButton
               addFunction={async () => {
                 setFiftyCoin(true);
-                await fiftyPlaySound();
+                trackEvent(trackEventsOrganized.HELP_FIFTY_PERCENT)
+                isSoundEnabled && await fiftyPlaySound();
                 const wrongAnswers = currentQuestion.options
                   .map((option: any, index: any) => index)
                   .filter(
@@ -684,6 +696,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                   MessagePlaySound();
                   fiftyPlaySound(); // Play sound if enabled
                 }
+                trackEvent(trackEventsOrganized.HELP_CALL_PERCENT)
                 setCounter(counter + 15); // Increment counter when button is pressed
               }}
             />
@@ -719,6 +732,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                 setSelectedAnswerIndex(currentQuestion.correctAnswerIndex);
                 NextQuizDelay();
                 setCounter(false);
+                trackEvent(trackEventsOrganized.HELP_HUNDRED_PERCENT)
               }}
               addAbility={selectedAnswerIndex !== null}
             />

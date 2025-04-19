@@ -35,6 +35,8 @@ import { incrementCoinsBonus, saveCoins } from "../../ReduxToolkit/coinsSlice";
 import { Audio } from "expo-av";
 import { Asset } from "expo-asset";
 import useSoundDrumLoopPlayer from "../Utilities/useSoundDrumLoopPlayer";
+import { trackEvent } from "../../GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 
 type BattleLinkProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -512,7 +514,7 @@ export default function BattleQuiz() {
                 )}
               </View>
             ) : isMockLoading ? (
-              <Text style={{}}>Αναμονή αντιπάλου...</Text>
+              <Text style={{ textAlign: "center" }}>Αναμονή αντιπάλου...</Text>
             ) : (
               quiz[currentQuestion].options.map((option, index) => (
                 <Pressable
@@ -629,7 +631,9 @@ export default function BattleQuiz() {
             >
               <Pressable
                 onPress={() => {
-                  restartQuiz(), restartSound();
+                  restartQuiz(),
+                    restartSound(),
+                    trackEvent(trackEventsOrganized.REPEAT_BATTLE);
                   // handlePlayMusic();
                 }}
               >
@@ -643,7 +647,7 @@ export default function BattleQuiz() {
                     },
                   ]}
                 >
-                  Παίξε ξανά
+                  Νέα Μάχη
                 </Text>
               </Pressable>
             </LinearGradient>

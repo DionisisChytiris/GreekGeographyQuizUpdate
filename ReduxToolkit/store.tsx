@@ -16,7 +16,7 @@ export const store = configureStore({
     sound: soundReducer,
     coins: coinsReducer,
     progress: progressReducer,
-    show: showReducer,
+    show: showReducer
   }
 });
 

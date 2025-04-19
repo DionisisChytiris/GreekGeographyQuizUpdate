@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import { AntDesign } from "@expo/vector-icons";
-import { incrementHeart, resetLives } from "../../ReduxToolkit/livesSlice";
+import { incrementHeart, resetLives, saveHeart, saveHeartAsync } from "../../ReduxToolkit/livesSlice";
 import { decrementCoins, saveCoins } from "../../ReduxToolkit/coinsSlice";
 
 const { height } = Dimensions.get("window");
@@ -88,7 +88,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
           onPress={() => {
             navigation.navigate("Quiz1");
             onAnswerQuestion = onAnswerQuestion(index);
-            dispatch(resetLives());
+            // dispatch(resetLives());
             resetQuiz;
           }}
         >
@@ -123,6 +123,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
                       coinsDropSound();
                     }
                     dispatch(incrementHeart());
+                    dispatch(saveHeartAsync(heart+1))
                     dispatch(decrementCoins(50)); // Decrement 1 coin
                     dispatch(saveCoins(coins - 50));
                   } else {

@@ -10,6 +10,8 @@ import {
   Animated,
 } from "react-native";
 import { Share2 } from "lucide-react-native";
+import { trackEvent } from "../../GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 
 const ShareButton = () => {
   const [scale, setScale] = useState(1);
@@ -29,6 +31,7 @@ const ShareButton = () => {
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           console.log("Shared via", result.activityType);
+          trackEvent(trackEventsOrganized.SHARE_APP);
         } else {
           console.log("Shared successfully");
         }
@@ -36,7 +39,7 @@ const ShareButton = () => {
         console.log("Share dismissed");
       }
     } catch (error) {
-      Alert.alert("Error", "Something went wrong while sharing.");
+      Alert.alert("Σφάλμα", "Κάτι πήγε στραβά κατά την κοινοποίηση.");
       console.error(error);
     }
   };
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center", // This will horizontally center the text
     backgroundColor: "#464443",
-    paddingVertical: 12,
+    paddingVertical: "3%",
     paddingHorizontal: 40,
     borderRadius: 30,
     gap: 8,

@@ -40,6 +40,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
   const route = useRoute();
   const {
     resetQuiz,
+    resetQuizHome,
     index,
     totalQuestions,
     userAnswers,
@@ -48,6 +49,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
     minutes,
   }: any = route.params as {
     resetQuiz: () => void;
+    resetQuizHome: () => void;
     totalQuestions: number;
     index: number;
     points: number;

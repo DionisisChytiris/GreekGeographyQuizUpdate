@@ -12,6 +12,16 @@ import { Alert, StatusBar, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ScreenOrientation from "expo-screen-orientation";
 import UpdateAvailableModal from "./screens/Modals/UpdateAvailableModal";
+import ConsentModal from "./GoogleAnalytics/ConsentModal";
+import { useAnalyticsConsent } from "./GoogleAnalytics/useAnalyticsConsent";
+import { trackEvent } from "./GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "./GoogleAnalytics/trackEventsOrganized";
+import {
+  incrementHeart,
+  loadHeart,
+  loadHeartAsync,
+} from "./ReduxToolkit/livesSlice";
+import { loadShowState } from "./ReduxToolkit/lockCategorySlice";
 // Import the functions you need from the SDKs you need
 
 const saveUsageDate = async () => {
@@ -38,6 +48,8 @@ const AppContent = ({ setUpdateAvailable }) => {
   useEffect(() => {
     dispatch(loadName());
     dispatch(loadCoins());
+    dispatch(loadShowState())
+    dispatch(loadHeartAsync());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,18 +62,7 @@ const AppContent = ({ setUpdateAvailable }) => {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
-        setUpdateAvailable(true); 
-        // Alert.alert(
-        //   "Διαθέσιμη Ενημέρωση",
-        //   "Μια νέα έκδοση της εφαρμογής είναι διαθέσιμη. Παρακαλούμε επανεκκινήστε την εφαρμογή για να ενημερωθεί.",
-        //   [
-        //     { text: "Ακύρωση", style: "cancel" },
-        //     {
-        //       text: "Επανεκκίνηση",
-        //       onPress: () => Updates.reloadAsync(),
-        //     },
-        //   ]
-        // );
+        setUpdateAvailable(true);
       }
     } catch (e) {
       console.log("Error checking for updates:", e);
@@ -71,37 +72,6 @@ const AppContent = ({ setUpdateAvailable }) => {
   useEffect(() => {
     checkForUpdates();
   }, []);
-  
-  // <<<<<<< HEAD
-  //   // use only when create a new build
-  //   // const checkVersion = async () => {
-  //   //   const appStoreLink = Platform.OS === 'ios'
-  //   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'
-  //   //     : 'market://details?id=com.greekgeographyquizapp.dion';
-
-  // =======
-  //   // const checkVersion = async () => {
-
-  //   //   const appStoreLink = Platform.OS === 'ios'
-  //   //     ? 'itms-apps://itunes.apple.com/us/app/6504780092'
-  //   //     : 'market://details?id=com.greekgeographyquizapp.dion';
-
-  // >>>>>>> 92ce09298c1f5cdbfed369469c43f0898b028d61
-  //   Alert.alert(
-  //     "Διαθέσιμη Ενημέρωση",
-  //     "Παρακαλούμε ενημερώστε την εφαρμογή στην τελευταία έκδοση.",
-  //     [
-  //       { text: "Ακύρωση", style: "cancel" },
-  //       {
-  //         text: "Ενημέρωση",
-  //         onPress: () => Linking.openURL(appStoreLink),
-  //       },
-  //     ]
-  //   );
-  // };
-  // useEffect(() => {
-  //   checkVersion();
-  // }, []);
 
   return (
     <BottomSheetModalProvider>
@@ -113,6 +83,21 @@ const AppContent = ({ setUpdateAvailable }) => {
 export default function App() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { showConsentModal, acceptConsent1, declineConsent1, consentGiven} =
+    useAnalyticsConsent();
+
+  const handleButtonClick = () => {
+    if (consentGiven) {
+      // Send analytics event if consent is given
+      console.log("Sending analytics data...");
+    } else {
+      console.log("No consent given, analytics not tracked");
+    }
+  };
+
+  useEffect(() => {
+    handleButtonClick();
+  }, []);
 
   // useEffect(() => {
   //   const lockOrientation = async () => {
@@ -131,11 +116,16 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <StatusBar style="auto" translucent />
-        <AppContent setUpdateAvailable={setUpdateAvailable}/>
+        <AppContent setUpdateAvailable={setUpdateAvailable} />
         <UpdateAvailableModal
           visible={updateAvailable}
-          onUpdate={()=>Updates.reloadAsync()}
-          onDismiss={()=>setUpdateAvailable(false)}
+          onUpdate={() => Updates.reloadAsync()}
+          onDismiss={() => setUpdateAvailable(false)}
+        />
+        <ConsentModal
+          visible={showConsentModal}
+          onAccept={acceptConsent1}
+          onDecline={declineConsent1}
         />
       </Provider>
     </GestureHandlerRootView>

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { View, Pressable, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import { trackEvent } from "../../GoogleAnalytics/trackEvent";
+import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 
 // Define types for the props
 interface QuizScreenCategoryCardProps {
   id1: string;
   link1: string;
   title1: string;
+  trackEventName:string;
   icon1: React.ReactNode; // This can be any React element (like a component or an icon)
   gradient1: [string, string, ...string[]]; // Gradient colors for LinearGradient
 }
@@ -18,6 +21,7 @@ const QuizScreenCategoryCard: React.FC<QuizScreenCategoryCardProps> = ({
   title1,
   icon1,
   gradient1,
+  trackEventName
 }) => {
   const navigation = useNavigation<{
     navigate: (screen: string) => void;
@@ -33,6 +37,7 @@ const QuizScreenCategoryCard: React.FC<QuizScreenCategoryCardProps> = ({
       onPressOut={() => {
         setScale(1); // Scale back up
         navigation.navigate(link1); // Navigate to the linked screen
+        trackEvent(trackEventName);
       }}
     >
       <LinearGradient colors={gradient1} style={styles.categoryContent}>
