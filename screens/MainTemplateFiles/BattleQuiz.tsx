@@ -19,6 +19,7 @@ import questions from "../../data/BattleQuiz/BattleQuestions";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import mockPlayers from "../../data/MockPlayers/Mockplayers";
 import { useNavigation } from "@react-navigation/native";
+import * as StoreReview from "expo-store-review";
 import {
   ArrowLeft,
   ArrowRight,
@@ -293,7 +294,7 @@ export default function BattleQuiz() {
         let aiAnswer: string;
 
         // 60% chance to give correct answer
-        if (Math.random() < 0.6) {
+        if (Math.random() < 0.5) {
           aiAnswer = currentQuizData.correctAnswer;
         } else {
           // Pick a random wrong answer
@@ -312,6 +313,19 @@ export default function BattleQuiz() {
       return () => clearTimeout(timer);
     }
   }, [isPlayerTurn, lastPlayerAnswer]);
+
+  const requestReviewApp = async () => {
+      // console.log("requestReview function called");
+  
+      if (await StoreReview.hasAction()) {
+        console.log("StoreReview has action, requesting review...");
+        StoreReview.requestReview();
+        trackEvent(trackEventsOrganized.REVIEW_APP)
+        // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
+      } else {
+        console.log("In-app review is not supported or already given.");
+      }
+    };
 
   const handleAnswer = useCallback(
     (playerSide: "left" | "right", selectedAnswer: string) => {
@@ -362,6 +376,7 @@ export default function BattleQuiz() {
             isSoundEnabled && winnerSound();
             setTimeout(() => {
               console.log("winner");
+              requestReviewApp();
               dispatch(incrementCoinsBonus());
               dispatch(saveCoins(coins + 50));
               isSoundEnabled && coinsCollectSound();
