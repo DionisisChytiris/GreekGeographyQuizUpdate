@@ -294,7 +294,7 @@ export default function BattleQuiz() {
         let aiAnswer: string;
 
         // 60% chance to give correct answer
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.6) {
           aiAnswer = currentQuizData.correctAnswer;
         } else {
           // Pick a random wrong answer
@@ -320,7 +320,7 @@ export default function BattleQuiz() {
       if (await StoreReview.hasAction()) {
         console.log("StoreReview has action, requesting review...");
         StoreReview.requestReview();
-        trackEvent(trackEventsOrganized.REVIEW_APP)
+        trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN)
         // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
       } else {
         console.log("In-app review is not supported or already given.");
