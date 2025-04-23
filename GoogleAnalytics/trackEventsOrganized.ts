@@ -15,5 +15,6 @@ export const trackEventsOrganized = {
     BUY_EXTRA_CALL: 'buy_extra_call',
     HELP_HUNDRED_PERCENT: 'help_hundred_percent',
     BUY_EXTRA_HUNDRED: 'buy_extra_hundred',
-    REVIEW_PROMPT_SHOWN: 'review_prompt_show'
+    REVIEW_PROMPT_SHOWN: 'review_prompt_show',
+    CHARACTER_IMAGE: 'character_image'
   };

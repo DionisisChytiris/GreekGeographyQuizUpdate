@@ -38,6 +38,9 @@ import { Asset } from "expo-asset";
 import useSoundDrumLoopPlayer from "../Utilities/useSoundDrumLoopPlayer";
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
+import { Ionicons } from "@expo/vector-icons";
+import CharacterModal from "../Modals/SelectImageModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type BattleLinkProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -46,6 +49,16 @@ type Question = {
   options: string[];
   correctAnswer: string;
 };
+
+const imageOptions = [
+  "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1497899291447-f41b9a6c7a6f?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://plus.unsplash.com/premium_photo-1669725687150-15c603ac6a73?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1707732067917-7401e4db3fd0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://images.unsplash.com/photo-1584866459331-e9dae24a24ff?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+];
+
+const CHARACTER_KEY = "selectedCharacterUri";
 
 // const useSoundDrumLoopPlayer = (soundFile: string) => {
 //   const [sound, setSound] = useState<Audio.Sound | null>(null);
@@ -131,6 +144,7 @@ export default function BattleQuiz() {
   const scaleValue = useSharedValue(1);
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [modalImageVisible, setModalImageVisible] = useState(false);
 
   // Load and play sound on mount
   useEffect(() => {
@@ -315,17 +329,17 @@ export default function BattleQuiz() {
   }, [isPlayerTurn, lastPlayerAnswer]);
 
   const requestReviewApp = async () => {
-      // console.log("requestReview function called");
-  
-      if (await StoreReview.hasAction()) {
-        console.log("StoreReview has action, requesting review...");
-        StoreReview.requestReview();
-        trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN)
-        // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
-      } else {
-        console.log("In-app review is not supported or already given.");
-      }
-    };
+    // console.log("requestReview function called");
+
+    if (await StoreReview.hasAction()) {
+      console.log("StoreReview has action, requesting review...");
+      StoreReview.requestReview();
+      trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN);
+      // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
+    } else {
+      console.log("In-app review is not supported or already given.");
+    }
+  };
 
   const handleAnswer = useCallback(
     (playerSide: "left" | "right", selectedAnswer: string) => {
@@ -414,6 +428,33 @@ export default function BattleQuiz() {
     );
   };
 
+  const [characterUri, setCharacterUri] = useState(imageOptions[0]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const loadCharacter = async () => {
+      try {
+        const savedUri = await AsyncStorage.getItem(CHARACTER_KEY);
+        if (savedUri) {
+          setCharacterUri(savedUri);
+        }
+      } catch (error) {
+        console.log("Failed to load character image", error);
+      }
+    };
+    loadCharacter();
+  }, []);
+
+  const selectImage = async (uri: string) => {
+    try {
+      await AsyncStorage.setItem(CHARACTER_KEY, uri);
+      setCharacterUri(uri);
+      setModalVisible(false);
+    } catch (error) {
+      console.log("Failed to save character image", error);
+    }
+  };
+
   const getScore = (answers: boolean[]) => {
     return answers.filter((answer) => answer).length;
   };
@@ -445,10 +486,17 @@ export default function BattleQuiz() {
         {/* Left player character */}
         <View style={[styles.characterContainer]}>
           <View style={{ marginLeft: 40 }}>
+            <Pressable
+              style={{ position: "absolute", top: 0, left: 75 }}
+              onPress={() => {setModalVisible(true), trackEvent(trackEventsOrganized.CHARACTER_IMAGE)}}
+            >
+              <Ionicons name="add-circle" size={20} color="yellow" />
+            </Pressable>
             <View style={styles.containerImg}>
               <Image
                 source={{
-                  uri: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop",
+                  uri: characterUri,
+                  // uri: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop",
                 }}
                 style={styles.character}
               />
@@ -471,6 +519,13 @@ export default function BattleQuiz() {
             <Text style={styles.text1}>{playerChoices}</Text>
           </View>
         </View>
+
+        <CharacterModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onSelect={selectImage}
+          imageOptions={imageOptions}
+        />
 
         {/* Question and answers container */}
         <View style={styles.centerContainer}>
