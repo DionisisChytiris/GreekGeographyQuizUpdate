@@ -17,14 +17,14 @@ const CoverButton: React.FC<{
             position: "absolute",
             bottom: 0,
             left: 0,
-            // backgroundColor: "#cccccc80",
+            backgroundColor: "#cccccc80",
             borderRadius: 50,
             zIndex: 1
           }}
         >
           <Image
             source={require("../../assets/Photos/lockIconbg.png")}
-            style={{ width: 90, height: 90 }}
+            style={{ width: 80, height: 80 }}
           />
         </View>
       <View style={{ position: "absolute", top: 10, right: 10, zIndex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>

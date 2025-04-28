@@ -144,7 +144,6 @@ export default function BattleQuiz() {
   const scaleValue = useSharedValue(1);
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [modalImageVisible, setModalImageVisible] = useState(false);
 
   // Load and play sound on mount
   useEffect(() => {

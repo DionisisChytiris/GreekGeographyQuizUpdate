@@ -14,7 +14,7 @@ const coinsSlice = createSlice({
       state.coins = action.payload;
     },
     incrementCoins: (state) => {
-      state.coins += 10;
+      state.coins += 5;
     },
     incrementCoinsBonus: (state) => {
       state.coins += 50;

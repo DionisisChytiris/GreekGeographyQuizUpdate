@@ -69,6 +69,17 @@ const ModalNameInput: React.FC<ModalComponentProps> = ({
     }
   };
 
+  const sanitizeNameInput = (text: string) => {
+    // Allow only Greek letters, English letters, and spaces
+    const sanitized = text.replace(/[^a-zA-Zα-ωΑ-ΩάέίόύήώΆΈΊΌΎΉΏ\s]/g, "");
+
+    // Optional: Remove multiple spaces
+    const singleSpaced = sanitized.replace(/\s+/g, " ");
+
+    // Optional: Trim start and end spaces
+    return singleSpaced.trimStart();
+  };
+
   useEffect(() => {
     if (!fontsLoaded || fontError) {
       return;
@@ -98,7 +109,8 @@ const ModalNameInput: React.FC<ModalComponentProps> = ({
               placeholderTextColor="#7090f8"
               maxLength={12}
               value={nameT}
-              onChangeText={setNameT}
+              onChangeText={(text) => setNameT(sanitizeNameInput(text))}
+              // onChangeText={setNameT}
             />
           </View>
           <View style={{ height: 50 }} />

@@ -140,8 +140,8 @@ export default function HomeScreen() {
   }, [showModal]);
 
   const handlePress = async () => {
-    await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
-    // await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
+    // await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
+    await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
     // await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
     console.log("Storage cleared-State reset to initial values");
   };
@@ -152,30 +152,38 @@ export default function HomeScreen() {
 
 
   const UnlockMountainCtg = () => {
-    if (coins >= 300) {
+    if (coins >= 500) {
       if (isSoundEnabled) {
         coinsDropSound();
       }
-      dispatch(decrementCoins(300)); // Decrement 1 coin
-      dispatch(saveCoins(coins - 300)); // Save the updated coins after purchase
+      dispatch(decrementCoins(500)); // Decrement 1 coin
+      dispatch(saveCoins(coins - 500)); // Save the updated coins after purchase
       dispatch(setShow1(!show1));
     } else {
       Alert.alert(
-        "Χρειάζεσαι τουλάχιστον 300 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+        "Δεν υπάρχουν αρκετά νομίσματα", // Title
+        "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
+        [
+          { text: "ΟΚ" }
+        ]
       );
     }
   };
   const UnlockLakesCtg = () => {
-    if (coins >= 100) {
+    if (coins >= 200) {
       if (isSoundEnabled) {
         coinsDropSound();
       }
-      dispatch(decrementCoins(100)); // Decrement 1 coin
-      dispatch(saveCoins(coins - 100)); // Save the updated coins after purchase
+      dispatch(decrementCoins(200)); // Decrement 1 coin
+      dispatch(saveCoins(coins - 200)); // Save the updated coins after purchase
       dispatch(setShow2(!show2));
     } else {
       Alert.alert(
-        "Χρειάζεσαι τουλάχιστον 100 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+        "Δεν υπάρχουν αρκετά νομίσματα", // Title
+        "Χρειάζεσαι τουλάχιστον 200 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
+        [
+          { text: "ΟΚ" }
+        ]
       );
     }
   };
@@ -189,7 +197,11 @@ export default function HomeScreen() {
       dispatch(setShow3(!show3));
     } else {
       Alert.alert(
-        "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!"
+        "Δεν υπάρχουν αρκετά νομίσματα", // Title
+        "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
+        [
+          { text: "ΟΚ" }
+        ]
       );
     }
   };
@@ -258,7 +270,7 @@ export default function HomeScreen() {
             <CoverButton
               testFunction={UnlockLakesCtg}
               titleTest1="Λίμνες - Ποτάμια"
-              amount={100}
+              amount={200}
               iconTest1={<Waves size={32} color="white" />}
               gradient={["#3498DB", "#2980B9"]}
             />
@@ -285,7 +297,7 @@ export default function HomeScreen() {
             <CoverButton
               testFunction={UnlockMountainCtg}
               titleTest1="Βουνά"
-              amount={300}
+              amount={500}
               iconTest1={<Mountain size={32} color="white" />}
               gradient={["#4ECDC4", "#45B7AF"]}
             />

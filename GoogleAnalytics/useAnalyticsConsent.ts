@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { hasAnalyticsConsent, setAnalyticsConsent } from "./analyticsConsent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { trackEvent } from "./trackEvent";
+import { trackEventsOrganized } from "./trackEventsOrganized";
 
 export const useAnalyticsConsent = () => {
   const [consent, setConsent] = useState<boolean | null>(null);
@@ -59,6 +61,7 @@ export const useAnalyticsConsent = () => {
       await AsyncStorage.setItem('isFirstLaunch', 'false'); // Mark app as launched
       setConsent(true); // Update state
       setShowModal(false); // Hide the modal
+      trackEvent(trackEventsOrganized.CONSENT_FIRST_LAUNCH);
       console.log("Consent is given. Consent modal will not show again.");
     } catch (error) {
       console.error("Error during accepting consent:", error);
@@ -81,6 +84,7 @@ export const useAnalyticsConsent = () => {
       await AsyncStorage.setItem('isFirstLaunch', 'false'); // Mark app as launched
       setConsent(false); // Update state
       setShowModal(false); // Hide the modal
+      trackEvent(trackEventsOrganized.NO_CONSENT_FIRST_LAUNCH);
       console.log("User declined consent. Consent modal will not show again.");
     } catch (error) {
       console.error("Error during declining consent:", error);

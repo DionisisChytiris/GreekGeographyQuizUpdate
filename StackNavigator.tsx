@@ -22,6 +22,7 @@ import ResultsGeneral from "./screens/GeneralQuestionsQuizzes/ResultsGeneral";
 import Nomoi from "./screens/NomoiQuizzes/Nomoi";
 import ResultsNomoi from "./screens/NomoiQuizzes/ResultsNomoi";
 import BattleQuiz from "./screens/MainTemplateFiles/BattleQuiz";
+import Contact from "./screens/components/Contact";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -72,6 +73,15 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{
+            headerShown: false,
+            headerBackTitleVisible: false,
+            orientation: "portrait"
+          }}
+        />
+        <Stack.Screen
+          name="Contact"
+          component={Contact}
           options={{
             headerShown: false,
             headerBackTitleVisible: false,

@@ -20,7 +20,7 @@ const questions = [
     correctAnswer: "Κρήτη",
   },
   {
-    question: "Πού είναι η Ακρόπολη;",
+    question: "Πού βρίσκεται η Ακρόπολη;",
     options: ["Αθήνα", "Ρόδος", "Πάτρα", "Βόλος"],
     correctAnswer: "Αθήνα",
   },

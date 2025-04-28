@@ -1,5 +1,7 @@
 export const trackEventsOrganized = {
     QUIZ_START: 'quiz_start',
+    CONSENT_FIRST_LAUNCH: 'consent_first_launch',
+    NO_CONSENT_FIRST_LAUNCH: 'no_consent_first_launch',
     GENERAL_QUESTIONS: 'general_questions',
     LAKES_RIVERS: 'lakes_rivers',
     MOUNTAINS: 'mountains',

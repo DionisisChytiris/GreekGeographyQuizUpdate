@@ -305,7 +305,7 @@ export default function Settings() {
           >
             <View style={{ flexDirection: "row", gap: 20 }}>
               <View
-                style={[styles.iconBackground, { backgroundColor: "#a0a0a0" }]}
+                style={[styles.iconBackground, { backgroundColor: "#f53978" }]}
               >
                 <EvilIcons name="user" size={22} color="#fff" />
               </View>
@@ -379,63 +379,22 @@ export default function Settings() {
             visible={showPersonalData}
             onClose={() => setShowPersonalData(false)}
           />
-          {/* <View style={styles.menuItemIcon}>
+          {/* <TouchableOpacity
+             onPress={() => {
+              navigation.navigate("Contact");
+            }}
+            style={styles.menuItem}
+          >
             <View style={{ flexDirection: "row", gap: 20 }}>
               <View
-                style={[styles.iconBackground, { backgroundColor: "#459ef1" }]}
+                style={[styles.iconBackground, { backgroundColor: "#1cf747" }]}
               >
-                <BarChart size={18} color="white" />
+                <MaterialIcons name="message" size={16} color="#fff" />
               </View>
-              <Pressable
-                onPress={() =>
-                  Alert.alert(
-                    "Google Analytics",
-                    "Χρησιμοποιούμε το Google Analytics για να συλλέγουμε ανώνυμα δεδομένα σχετικά με τις αλληλεπιδράσεις σας με την εφαρμογή (όπως κλικ κουμπιών, προβολές οθονών και στατιστικά χρήσης). Αυτά τα δεδομένα μας βοηθούν να βελτιώσουμε τη λειτουργικότητα της εφαρμογής.",
-                    [{ text: "OK" }]
-                  )
-                }
-              >
-                <View
-                  style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
-                >
-                  <Text style={styles.menuText}>Google Analytics (GA4)</Text>
-                  <Info size={12} color="magenta" />
-                </View>
-              </Pressable>
+              <Text style={styles.menuText}>Eπικοινωνία</Text>
             </View>
-            <Switch
-              value={isConsentGiven}
-              onValueChange={handleConsentToggle} // Handle toggle
-              style={{
-                marginVertical: -10,
-                transform: [
-                  { scaleX: Platform.OS === "ios" ? 0.9 : 1 },
-                  { scaleY: Platform.OS === "ios" ? 0.9 : 1 },
-                ],
-              }}
-            />
-          </View> */}
-          {/* <Pressable
-            onPress={async () => {
-              const success = await deleteUserData();
-              if (success) {
-                Alert.alert(
-                  "Διαγραφή Δεδομένων",
-                  "Η χρήση Google Analytics έχει απενεργοποιηθεί για τη συσκευή σας. Η Google θα αφαιρέσει τα δεδομένα σας βάσει της πολιτικής διατήρησής της."
-                );
-              } else {
-                Alert.alert(
-                  "Αποτυχία διαγραφής των δεδομένων ανάλυσης. Δοκιμάστε ξανά αργότερα.")
-              }
-            }}
-          >
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={{ padding: 20 }}>Διαγραφή Δεδομένων GΑ4</Text>
-              <Text style={{ padding: 20 }}>Συνέχεια</Text>
-
-            </View>
-              <Text>{clientId || "Loading..."}</Text>
-          </Pressable> */}
+            <ChevronRight size={20} color="#666" />
+          </TouchableOpacity> */}
         </View>
 
         {/* More Apps */}
