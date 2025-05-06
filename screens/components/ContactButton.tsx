@@ -23,7 +23,7 @@ const ContactButton = () => {
               },
               {
                 text: "Εντάξει",
-                onPress: () => navigation.navigate("Contact"),
+                onPress: () => {navigation.navigate("Contact")},
               },
             ],
             { cancelable: true }

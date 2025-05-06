@@ -98,9 +98,9 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
             {index + 1} / {totalQuestions}
           </Text>
         </Pressable>
-        <View style={{transform: [{scale: 0.6}]}}>
+        {/* <View style={{transform: [{scale: 0.6}]}}>
           <ContactButton/>
-        </View>
+        </View> */}
       </View>
 
       <View style={{ width: "20%" }}>

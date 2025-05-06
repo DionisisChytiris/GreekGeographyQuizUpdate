@@ -283,6 +283,22 @@ export default function Contact() {
   //   }
   // }, [userMessage]);
 
+  const handleNameChange = (text: string) => {
+    // Allow letters, numbers, spaces, and emojis. Block other symbols.
+    const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s]/gu, "");
+    setName(filtered);
+  };
+  const handleEmailChange = (text: string) => {
+    // Allow letters, numbers, spaces, emojis, and common email symbols
+    const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s@._\-+]/gu, "");
+    setEmail(filtered);
+  };
+  const handleMessageChange = (text: string) => {
+    // Allow letters, numbers, spaces, and emojis. Block other symbols.
+    const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s]/gu, "");
+    setMessage(filtered);
+  };
+
   return (
     <View style={styles.container}>
       {/* <ScrollView style={styles.scrollView}> */}
@@ -335,7 +351,7 @@ export default function Contact() {
             <TextInput
               style={styles.input}
               value={name}
-              onChangeText={setName}
+              onChangeText={handleNameChange}
               placeholder="Εισάγεται το όνομά σας..."
               placeholderTextColor="#666"
             />
@@ -351,7 +367,7 @@ export default function Contact() {
             <TextInput
               style={styles.input}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={handleEmailChange}
               placeholder="Εισάγεται το email σας..."
               placeholderTextColor="#666"
               keyboardType="email-address"
@@ -374,7 +390,7 @@ export default function Contact() {
             <TextInput
               style={[styles.input, styles.messageInput]}
               value={message}
-              onChangeText={setMessage}
+              onChangeText={handleMessageChange}
               placeholder="Γράψτε το μήνυμά σας..."
               placeholderTextColor="#666"
               multiline
@@ -398,7 +414,10 @@ export default function Contact() {
             <Text style={[styles.label, { marginBottom: 20 }]}>
               Ιστορικό Μηνυμάτων
             </Text>
-            <MessagesWrapper/>
+            {/* <TouchableOpacity onPress={()=>setRefresh((prev)=>(!prev))} style={{position: 'absolute', top: 10, right: 20}}>
+              <Text>Refresh</Text>
+            </TouchableOpacity> */}
+            <MessagesWrapper refresh={refresh}/>
 {/* 
             {userMessage.length === 0 ? (
               <Text style={{ fontSize: 15, color: "#888" }}>

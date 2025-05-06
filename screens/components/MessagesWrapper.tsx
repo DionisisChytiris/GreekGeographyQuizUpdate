@@ -4,7 +4,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MessagesScreen from "./MessagesScreen"; // adjust the import path
 
-const MessagesWrapper = () => {
+const MessagesWrapper = ({refresh}:any) => {
   const [clientId, setClientId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +41,7 @@ const MessagesWrapper = () => {
     );
   }
 
-  return <MessagesScreen id={clientId} />;
+  return <MessagesScreen id={clientId} refresh={refresh} />;
 };
 
 export default MessagesWrapper;

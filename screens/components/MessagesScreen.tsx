@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 interface MessagesScreenProps {
   id: string;
+  refresh: any; // Adjust the type of 'refresh' as needed
 }
 
 interface Message {
@@ -16,10 +26,13 @@ interface Reply {
   _id: string;
   reply: string;
   createdAt: string;
+  refresh: any;
 }
 
-const MessagesScreen: React.FC<MessagesScreenProps> = ({ id }) => {
+const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [refr, setSefr] = useState(false);
+
 
   const fetchMessages = async () => {
     try {
@@ -38,7 +51,9 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id }) => {
               `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies`
             );
             if (!repliesResponse.ok) {
-              console.warn(`Failed to fetch replies for message ${message._id}`);
+              console.warn(
+                `Failed to fetch replies for message ${message._id}`
+              );
               return { ...message, replies: [] };
             }
             const replies = await repliesResponse.json();
@@ -56,6 +71,36 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id }) => {
     }
   };
 
+//   const fetchLatestReplies = async () => {
+//     try {
+//       // Only fetch the latest reply for each message
+//       const updatedMessages = await Promise.all(
+//         messages.map(async (message) => {
+//           if (message.replies.length > 0) {
+//             // Fetch the latest reply for the message
+//             const repliesResponse = await fetch(
+//               `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies`
+//             );
+//             if (!repliesResponse.ok) {
+//               console.warn(`Failed to fetch replies for message ${message._id}`);
+//               return message;
+//             }
+//             const replies = await repliesResponse.json();
+//             // Only update the last reply if it has changed
+//             const lastReply = replies[replies.length - 1];
+//             if (message.replies.length === 0 || message.replies[0]._id !== lastReply._id) {
+//               return { ...message, replies: [lastReply] };
+//             }
+//           }
+//           return message;
+//         })
+//       );
+//       setMessages(updatedMessages);
+//     } catch (error) {
+//       console.error("Error fetching latest replies:", error);
+//     }
+//   };
+
   const handleDeleteMessage = async (messageId: string) => {
     try {
       await fetch(
@@ -68,9 +113,20 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id }) => {
     }
   };
 
+//   useEffect(() => {
+//     if (refresh) {
+//       fetchLatestReplies();  // Only fetch the latest replies on refresh
+//     } else {
+//       fetchMessages();  // Fetch all messages and replies initially
+//     }
+//   }, [refresh]); // Trigger fetching based on the refresh prop
+
+
   useEffect(() => {
     fetchMessages();
-  }, []);
+  }, [refresh]);
+
+ 
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -132,7 +188,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginBottom:6,
+    marginBottom: 6,
   },
   userText: {
     fontSize: 16,
@@ -159,7 +215,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 0,
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    borderBottomRightRadius: 20,
+    marginBottom: 6,
   },
   adminText: {
     textAlign: "right",
