@@ -19,6 +19,7 @@ import {
   Globe as Globe2,
   MapPin,
   Mountain,
+  Home,
 } from "lucide-react-native";
 import {
   useFonts,
@@ -63,6 +64,8 @@ import BattleButton from "./components/BattleButton";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
 import { loadHeart } from "../ReduxToolkit/livesSlice";
+import { MaterialIcons } from "@expo/vector-icons";
+import ContactButton from "./components/ContactButton";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -150,7 +153,6 @@ export default function HomeScreen() {
     require("../assets/sounds/coinsDrop.wav")
   );
 
-
   const UnlockMountainCtg = () => {
     if (coins >= 500) {
       if (isSoundEnabled) {
@@ -163,9 +165,7 @@ export default function HomeScreen() {
       Alert.alert(
         "Δεν υπάρχουν αρκετά νομίσματα", // Title
         "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
-        [
-          { text: "ΟΚ" }
-        ]
+        [{ text: "ΟΚ" }]
       );
     }
   };
@@ -181,9 +181,7 @@ export default function HomeScreen() {
       Alert.alert(
         "Δεν υπάρχουν αρκετά νομίσματα", // Title
         "Χρειάζεσαι τουλάχιστον 200 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
-        [
-          { text: "ΟΚ" }
-        ]
+        [{ text: "ΟΚ" }]
       );
     }
   };
@@ -199,9 +197,7 @@ export default function HomeScreen() {
       Alert.alert(
         "Δεν υπάρχουν αρκετά νομίσματα", // Title
         "Χρειάζεσαι τουλάχιστον 500 νομίσματα για να ενεργοποιήσεις αυτή την κατηγορία!",
-        [
-          { text: "ΟΚ" }
-        ]
+        [{ text: "ΟΚ" }]
       );
     }
   };
@@ -243,7 +239,7 @@ export default function HomeScreen() {
           onPressOut={() => {
             navigation.navigate("Settings");
             setScale1(1);
-            trackEvent(trackEventsOrganized.SETTINGS)
+            trackEvent(trackEventsOrganized.SETTINGS);
           }}
           style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
         >
@@ -338,20 +334,22 @@ export default function HomeScreen() {
 
       <Animated.View entering={FadeInDown.delay(600).springify()}>
         <View style={styles.bankCoinAbsolute}>
-          <View style={styles.bankContainer}>
-            {/* <Image
-              source={require("../assets/Photos/bankbg.png")}
-              style={{ width: 80, height: 80 }}
-            /> */}
-            <View style={styles.coinsContainer}>
-              <Image
-                source={require("../assets/Photos/goldbg.png")}
-                style={{ width: 28, height: 28 }}
-              />
-              <Text style={[styles.categoryTitle, { fontSize: 16 }]}>
-                {coins} 
-              </Text>
+          <View style={{ flexDirection: "column" }}>
+            <View style={styles.bankContainer}>
+              <View style={styles.coinsContainer}>
+                <Image
+                  source={require("../assets/Photos/goldbg.png")}
+                  style={{ width: 28, height: 28 }}
+                />
+                <Text style={[styles.categoryTitle, { fontSize: 16 }]}>
+                  {coins}
+                </Text>
+              </View>
             </View>
+          </View>
+
+          <View style={{marginBottom: 20, transform: [{ scale: 0.8 }] }}>
+            <ContactButton />
           </View>
 
           <View>
@@ -376,7 +374,7 @@ export default function HomeScreen() {
                   );
                   return;
                 }
-                trackEvent(trackEventsOrganized.COLLECT_DAILY_BONUS)
+                trackEvent(trackEventsOrganized.COLLECT_DAILY_BONUS);
                 dispatch(incrementCoinsBonus());
                 dispatch(saveCoins(coins + 50));
                 setScale2(1);
@@ -396,11 +394,11 @@ export default function HomeScreen() {
                 // }, 100); // ✅ Adds a smooth reset delay
               }}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 right: 50,
                 top: -20,
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               <Animated.View
@@ -424,7 +422,6 @@ export default function HomeScreen() {
                   borderRadius: 10,
                   position: "absolute",
                   zIndex: 10,
-                  
                 }}
               >
                 <Image
@@ -459,7 +456,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7F9FC",
     // backgroundColor: '#F7F9FC',
-    paddingTop: Platform.OS === "ios" ? 0 : height<900? 12: 0,
+    paddingTop: Platform.OS === "ios" ? 0 : height < 900 ? 12 : 0,
     paddingHorizontal: 16,
     // alignItems: 'center'
     // alignItems: height > 900 ? "center" : "flex-start",

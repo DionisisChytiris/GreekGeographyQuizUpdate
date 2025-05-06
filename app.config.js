@@ -47,6 +47,8 @@ export default {
           initialOrientation: "PORTRAIT_UP",
         },
       ],
+      "expo-secure-store",
+       "expo-audio",
       "expo-font",
     ],
     web: {

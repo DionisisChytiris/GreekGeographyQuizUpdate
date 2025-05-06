@@ -18,6 +18,7 @@ import { useSoundEffect } from "../Utilities/useSoundEffects";
 import { AntDesign } from "@expo/vector-icons";
 import { incrementHeart, resetLives, saveHeart, saveHeartAsync } from "../../ReduxToolkit/livesSlice";
 import { decrementCoins, saveCoins } from "../../ReduxToolkit/coinsSlice";
+import ContactButton from "./ContactButton";
 
 const { height } = Dimensions.get("window");
 
@@ -97,6 +98,9 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
             {index + 1} / {totalQuestions}
           </Text>
         </Pressable>
+        <View style={{transform: [{scale: 0.6}]}}>
+          <ContactButton/>
+        </View>
       </View>
 
       <View style={{ width: "20%" }}>

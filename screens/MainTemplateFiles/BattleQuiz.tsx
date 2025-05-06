@@ -41,6 +41,7 @@ import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized
 import { Ionicons } from "@expo/vector-icons";
 import CharacterModal from "../Modals/SelectImageModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ContactButton from "../components/ContactButton";
 
 type BattleLinkProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -487,7 +488,10 @@ export default function BattleQuiz() {
           <View style={{ marginLeft: 40 }}>
             <Pressable
               style={{ position: "absolute", top: 0, left: 75 }}
-              onPress={() => {setModalVisible(true), trackEvent(trackEventsOrganized.CHARACTER_IMAGE)}}
+              onPress={() => {
+                setModalVisible(true),
+                trackEvent(trackEventsOrganized.CHARACTER_IMAGE);
+              }}
             >
               <Ionicons name="add-circle" size={20} color="yellow" />
             </Pressable>
@@ -726,16 +730,10 @@ export default function BattleQuiz() {
             <Text style={styles.questionNumber1}>
               Ερώτηση {currentQuestion + 1}
             </Text>
+
             <Text style={styles.questionText}>
               {quiz[currentQuestion]?.question || "No question available"}
             </Text>
-            {/* <View style={styles.battleCoins}>
-              <Image
-                source={require("../../assets/Photos/goldbg.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Text style={{ fontSize: 12, color: "white" }}>{coins}</Text>
-            </View> */}
 
             {isSoundEnabled &&
               (isPlaying ? (
@@ -757,6 +755,16 @@ export default function BattleQuiz() {
                   </Text>
                 </Pressable>
               ))}
+            <View
+              style={{
+                position: "absolute",
+                bottom: 10,
+                right: 10,
+                transform: [{ scale: 0.6 }],
+              }}
+            >
+              <ContactButton />
+            </View>
           </View>
         )}
 
@@ -779,9 +787,9 @@ export default function BattleQuiz() {
   );
 }
 
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
+// function dispatch(arg0: any) {
+//   throw new Error("Function not implemented.");
+// }
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,

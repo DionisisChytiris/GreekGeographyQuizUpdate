@@ -379,7 +379,7 @@ export default function Settings() {
             visible={showPersonalData}
             onClose={() => setShowPersonalData(false)}
           />
-          {/* <TouchableOpacity
+          <TouchableOpacity
              onPress={() => {
               navigation.navigate("Contact");
             }}
@@ -394,7 +394,7 @@ export default function Settings() {
               <Text style={styles.menuText}>Eπικοινωνία</Text>
             </View>
             <ChevronRight size={20} color="#666" />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
 
         {/* More Apps */}
