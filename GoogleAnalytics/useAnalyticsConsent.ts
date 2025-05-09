@@ -84,7 +84,6 @@ export const useAnalyticsConsent = () => {
       await AsyncStorage.setItem('isFirstLaunch', 'false'); // Mark app as launched
       setConsent(false); // Update state
       setShowModal(false); // Hide the modal
-      trackEvent(trackEventsOrganized.NO_CONSENT_FIRST_LAUNCH);
       console.log("User declined consent. Consent modal will not show again.");
     } catch (error) {
       console.error("Error during declining consent:", error);

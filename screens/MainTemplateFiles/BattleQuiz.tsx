@@ -334,7 +334,7 @@ export default function BattleQuiz() {
     if (await StoreReview.hasAction()) {
       console.log("StoreReview has action, requesting review...");
       StoreReview.requestReview();
-      trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN);
+      // trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN);
       // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
     } else {
       console.log("In-app review is not supported or already given.");
