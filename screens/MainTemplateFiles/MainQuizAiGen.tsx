@@ -805,7 +805,7 @@ const styles = StyleSheet.create({
   card: {
     height: Platform.OS === "android" ? '75%' : '80%',
     // height: Platform.OS === "android" ? height * 0.75 :height * 0.80,
-    margin: 16,
+    margin: height< 840? 20: 16,
     backgroundColor: "#fff",
     borderRadius: 24,
     overflow: "hidden",
@@ -817,12 +817,12 @@ const styles = StyleSheet.create({
   },
   questionImage: {
     width: "100%",
-    height: height > 1000 ? 400 : height > 900 ? 250 : 200,
+    height: height > 1000 ? 400 : height > 930 ? 250 : 200,
     resizeMode: "cover",
   },
   questionContainer: {
-    height: Platform.OS === "android" ? (height > 820 ? 150 : 80) : null,
-    paddingHorizontal: Platform.OS === "android" ? 5 : 10,
+    height: Platform.OS === "android" ? (height > 820 ? 130 : 80) : null,
+    paddingHorizontal: Platform.OS === "android" ? 10 : 10,
     paddingTop: Platform.OS === "android" ? 10 : 30,
     paddingBottom: Platform.OS === "android" ? 0 : 30,
     alignContent: "center",
@@ -831,7 +831,7 @@ const styles = StyleSheet.create({
   questionText: {
     fontFamily: "Poppins-SemiBold",
     // fontSize: 10,
-    fontSize: Platform.OS === 'ios'? 18 : height > 800 ? 22 : 16,
+    fontSize: Platform.OS === 'ios'? 20: height > 820 ? 24 : 18,
     color: "#333",
     textAlign: "center",
   },
@@ -844,7 +844,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   answerButton: {
-    height: 55,
+    height: Platform.OS === 'ios'? 50: height > 820 ? 60 : 50,
     borderRadius: 16,
     overflow: "hidden",
   },
@@ -852,11 +852,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 14,
+    padding: 12,
   },
   answerText: {
     fontFamily: "Poppins-SemiBold",
-    fontSize: 18,
+    fontSize: Platform.OS === 'ios'? 16: height > 820 ? 20:  16,
     color: "#fff",
   },
   // progressBarContainer: {
