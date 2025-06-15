@@ -101,17 +101,40 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
 //     }
 //   };
 
-  const handleDeleteMessage = async (messageId: string) => {
-    try {
-      await fetch(
-        `https://greek-geography-quiz-app-backend.vercel.app/messages/${messageId}`,
-        { method: "DELETE" }
-      );
+const handleDeleteMessage = async (messageId: string) => {
+  try {
+    const response = await fetch(
+      `https://greek-geography-quiz-app-backend.vercel.app/messages/${messageId}?client_id=${id}`,
+      { method: "DELETE" }
+    );
+
+    if (response.ok) {
+      Alert.alert("Διαγραφή μηνύματος");
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
-    } catch (error) {
+    } else {
+      const errorText = await response.text();
+      console.error("Failed to delete message:", errorText);
       Alert.alert("Αποτυχία διαγραφής μηνύματος");
     }
-  };
+  } catch (error) {
+    console.error("Fetch error:", error);
+    Alert.alert("Αποτυχία διαγραφής μηνύματος");
+  }
+};
+
+
+  // const handleDeleteMessage = async (messageId: string) => {
+  //   try {
+  //     await fetch(
+  //       `https://greek-geography-quiz-app-backend.vercel.app/messages/${messageId}`,
+  //       { method: "DELETE" }
+  //     );
+  //     Alert.alert("Διαγραφή μηνύματος");
+  //     setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+  //   } catch (error) {
+  //     Alert.alert("Αποτυχία διαγραφής μηνύματος");
+  //   }
+  // };
 
 //   useEffect(() => {
 //     if (refresh) {

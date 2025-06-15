@@ -143,10 +143,10 @@ export default function HomeScreen() {
   }, [showModal]);
 
   const handlePress = async () => {
-    // await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
-    // await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
+    await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
+    await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
     await AsyncStorage.removeItem("isFirstLaunch"); // Remove firstlaunch from AsyncStorage
-    // await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
+    await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
     console.log("Storage cleared-State reset to initial values");
   };
 

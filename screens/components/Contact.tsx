@@ -412,7 +412,7 @@ export default function Contact() {
           {/* <View style={styles.userMessageContainer}> */}
           <View style={[styles.card, { marginVertical: 40 }]}>
             <Text style={[styles.label, { marginBottom: 20 }]}>
-              Ιστορικό Μηνυμάτων
+              Ιστορικό Μηνυμάτων 
             </Text>
             {/* <TouchableOpacity onPress={()=>setRefresh((prev)=>(!prev))} style={{position: 'absolute', top: 10, right: 20}}>
               <Text>Refresh</Text>
