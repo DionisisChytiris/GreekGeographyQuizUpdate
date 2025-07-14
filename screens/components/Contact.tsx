@@ -221,7 +221,6 @@ export default function Contact() {
     }
   };
 
-
   // const handleDeleteMessage = async (message_Id: string) => {
   //   try {
   //     const client_id = await AsyncStorage.getItem("analytics_client_id");
@@ -293,9 +292,11 @@ export default function Contact() {
     const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s@._\-+]/gu, "");
     setEmail(filtered);
   };
-const handleMessageChange = (text: string) => {
-  // Allow letters, numbers, emojis, spaces, and specific symbols: , . - ! "
-  const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s,.\-!"']/gu, "");
+  const handleMessageChange = (text: string) => {
+  const filtered = text.replace(
+    /[^\p{L}\p{N}\s,.\-:/!"'’”“–—()@#&%€$£•…！？\u{1F600}-\u{1F64F}\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,
+    ""
+  );
   setMessage(filtered);
 };
 
@@ -412,13 +413,13 @@ const handleMessageChange = (text: string) => {
           {/* <View style={styles.userMessageContainer}> */}
           <View style={[styles.card, { marginVertical: 40 }]}>
             <Text style={[styles.label, { marginBottom: 20 }]}>
-              Ιστορικό Μηνυμάτων 
+              Ιστορικό Μηνυμάτων
             </Text>
             {/* <TouchableOpacity onPress={()=>setRefresh((prev)=>(!prev))} style={{position: 'absolute', top: 10, right: 20}}>
               <Text>Refresh</Text>
             </TouchableOpacity> */}
-            <MessagesWrapper refresh={refresh}/>
-{/* 
+            <MessagesWrapper refresh={refresh} />
+            {/* 
             {userMessage.length === 0 ? (
               <Text style={{ fontSize: 15, color: "#888" }}>
                 Δεν υπάρχει ιστορικό μηνυμάτων.
@@ -492,7 +493,6 @@ const handleMessageChange = (text: string) => {
               εφαρμογής.
             </Text>
           </View>
-         
         </ScrollView>
       </KeyboardAvoidingView>
 
