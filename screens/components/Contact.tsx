@@ -293,11 +293,11 @@ export default function Contact() {
     const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s@._\-+]/gu, "");
     setEmail(filtered);
   };
-  const handleMessageChange = (text: string) => {
-    // Allow letters, numbers, spaces, and emojis. Block other symbols.
-    const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s]/gu, "");
-    setMessage(filtered);
-  };
+const handleMessageChange = (text: string) => {
+  // Allow letters, numbers, emojis, spaces, and specific symbols: , . - ! "
+  const filtered = text.replace(/[^\p{L}\p{N}\p{Emoji}\s,.\-!"']/gu, "");
+  setMessage(filtered);
+};
 
   return (
     <View style={styles.container}>
