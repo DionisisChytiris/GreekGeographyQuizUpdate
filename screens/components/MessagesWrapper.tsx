@@ -41,7 +41,7 @@ const MessagesWrapper = ({refresh}:any) => {
     );
   }
 
-  return <MessagesScreen id={clientId} refresh={refresh} />;
+  return <MessagesScreen id={clientId} app_id="greek-geography" refresh={refresh} />;
 };
 
 export default MessagesWrapper;

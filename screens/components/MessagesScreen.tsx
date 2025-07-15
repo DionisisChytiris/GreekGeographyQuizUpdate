@@ -12,6 +12,7 @@ import { useCallback } from "react";
 
 interface MessagesScreenProps {
   id: string;
+  app_id: string;  
   refresh: any; // Adjust the type of 'refresh' as needed
 }
 
@@ -29,7 +30,7 @@ interface Reply {
   refresh: any;
 }
 
-const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
+const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [refr, setSefr] = useState(false);
 
@@ -37,7 +38,7 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `https://greek-geography-quiz-app-backend.vercel.app/messages?client_id=${id}`
+        `https://greek-geography-quiz-app-backend.vercel.app/messages?client_id=${id}&app_id=${app_id}`
       );
 
       if (!response.ok) throw new Error("Failed to fetch messages");
@@ -48,7 +49,7 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
         data.map(async (message: Message) => {
           try {
             const repliesResponse = await fetch(
-              `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies`
+              `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies?app_id=${app_id}`
             );
             if (!repliesResponse.ok) {
               console.warn(
@@ -104,7 +105,7 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, refresh }) => {
 const handleDeleteMessage = async (messageId: string) => {
   try {
     const response = await fetch(
-      `https://greek-geography-quiz-app-backend.vercel.app/messages/${messageId}?client_id=${id}`,
+      `https://greek-geography-quiz-app-backend.vercel.app/messages/${messageId}?client_id=${id}&app_id=${app_id}`,
       { method: "DELETE" }
     );
 

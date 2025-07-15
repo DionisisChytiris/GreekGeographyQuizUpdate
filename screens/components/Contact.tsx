@@ -195,6 +195,7 @@ export default function Contact() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            app_id: "greek-geography",
             client_id,
             name: name.trim() || undefined,
             email: email.trim() || undefined,
