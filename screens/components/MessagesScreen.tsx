@@ -49,7 +49,8 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) 
         data.map(async (message: Message) => {
           try {
             const repliesResponse = await fetch(
-              `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies?app_id=${app_id}`
+              // `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies?app_id=${app_id}`
+              `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies`
             );
             if (!repliesResponse.ok) {
               console.warn(
@@ -66,6 +67,7 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) 
         })
       );
 
+      // console.log("Messages with replies:", messagesWithReplies);
       setMessages(messagesWithReplies);
     } catch (error) {
       Alert.alert("Failed to load messages");
