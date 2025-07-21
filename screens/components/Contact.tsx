@@ -13,10 +13,9 @@ import {
   TextInput,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { AntDesign, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import {  MaterialIcons, Feather } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ChevronLeft, Home } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
@@ -327,7 +326,7 @@ export default function Contact() {
               }}
               style={styles.homeButton}
             >
-              <Home size={24} color="#dddbdb" />
+              <Feather name="home" size={24} color="#dddbdb" />
             </TouchableOpacity>
             <View style={styles.heroContent}>
               <Text style={styles.heroTitle}>Γεωγραφία της Ελλάδας</Text>

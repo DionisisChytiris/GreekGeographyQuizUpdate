@@ -8,28 +8,14 @@ import {
   Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { useRouter } from 'expo-router';
-import {
-  Award,
-  ArrowLeft,
-  Share2,
-  Trophy,
-  Target,
-  Clock,
-  Repeat,
-  Home,
-  Brain,
-  Medal,
-  Lightbulb,
-} from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import { PieChart } from "react-native-gifted-charts";
-import { useAppSelector } from "../../ReduxToolkit/store";
-import questions from "../../data/LakeRiver/questions";
-import { useEffect, useRef} from "react";
+
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -141,11 +127,11 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
   const renderIcon = (iconName: string) => {
     switch (iconName) {
       case "Brain":
-        return <Brain color="#fff" size={64} />;
+        return <MaterialCommunityIcons name="brain" color="#fff" size={64} />;
       case "Medal":
-        return <Medal color="#fff" size={64} />;
+        return <MaterialCommunityIcons name="medal" color="#fff" size={64} />;
       case "Trophy":
-        return <Trophy color="#fff" size={64} />;
+        return <MaterialCommunityIcons name="trophy-award" color="#fff" size={64} />;
       default:
         return null;
     }
@@ -172,7 +158,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
             // onPress={() => router.push('/quiz')}
           >
             {/* <ArrowLeft size={24} color="#333" /> */}
-            <Home size={24} color="#666" />
+            <Feather name="home" size={24} color="#666" />
           </Pressable>
           <View>
             <Text>{QuizTitle}</Text>
@@ -185,7 +171,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
             }}
             style={styles.shareButton}
           >
-            <Repeat size={20} color="#666" />
+            <MaterialCommunityIcons name="repeat" size={20} color="#666" />
           </Pressable>
         </View>
 
@@ -242,7 +228,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
             {/* <View style={[styles.statCard, {backgroundColor: feedback.colors.third}]}> */}
-            <Target size={24} color={feedback.colors.primary} />
+            <Feather name="target"  size={24} color={feedback.colors.primary} />
             <Text
               style={[styles.statValue, { color: feedback.colors.statsText }]}
             >
@@ -258,7 +244,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
               <Text style={styles.statLabel}>Ακρίβεια</Text> */}
           </View>
           <View style={styles.statCard}>
-            <Clock size={24} color={feedback.colors.primary} />
+            <Feather name="clock" size={24} color={feedback.colors.primary} />
             <Text
               style={[styles.statValue, { color: feedback.colors.statsText }]}
             >
@@ -271,7 +257,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
             </Text>
           </View>
           <View style={styles.statCard}>
-            <Award size={24} color={feedback.colors.primary} />
+            <MaterialCommunityIcons name="trophy-award" size={24} color={feedback.colors.primary} />
             <Text
               style={[styles.statValue, { color: feedback.colors.statsText }]}
             >

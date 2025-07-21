@@ -6,7 +6,7 @@ export default {
     slug: "GreekGeographyQuizApp",
     newArchEnabled: true,
     platforms: ["ios", "android"],
-    version: "1.0.9",
+    version: "1.0.13",
     icon: "./assets/adaptive-icon-test.png",
     orientation: "portrait",
     userInterfaceStyle: "light",
@@ -21,15 +21,18 @@ export default {
       requireFullScreen: true,
       bundleIdentifier: "com.greekgeographyquizapp.dion",
       buildNumber: "2",
+
       newArchEnabled: true,
+      jsEngine: "jsc",
       infoPlist: {
-        ITSAppUsesNonExemptEncryption: false
-      }
+        ITSAppUsesNonExemptEncryption: false,
+      },
     },
     android: {
       package: "com.greekgeographyquizapp.dion",
-      versionCode: 41,
+      versionCode: 45,
       newArchEnabled: true,
+      jsEngine: "jsc",
       permissions: ["INTERNET", "ACCESS_NETWORK_STATE", "VIBRATE"],
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon-test.png",
@@ -48,7 +51,7 @@ export default {
         },
       ],
       "expo-secure-store",
-       "expo-audio",
+      "expo-audio",
       "expo-font",
     ],
     web: {
@@ -57,7 +60,7 @@ export default {
     extra: {
       eas: {
         projectId: "8e57705c-5ea4-459b-8705-25056f4c466f",
-      }
+      },
     },
     androidStatusBar: {
       translucent: true,
@@ -68,5 +71,5 @@ export default {
     updates: {
       url: "https://u.expo.dev/8e57705c-5ea4-459b-8705-25056f4c466f",
     },
-  }
+  },
 };

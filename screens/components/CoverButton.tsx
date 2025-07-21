@@ -1,7 +1,6 @@
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Lock, LockIcon, Phone } from "lucide-react-native";
 
 const CoverButton: React.FC<{
   iconTest1: React.ReactNode;

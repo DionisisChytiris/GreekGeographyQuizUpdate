@@ -20,25 +20,15 @@ import { useSoundEffect } from "../Utilities/useSoundEffects";
 import mockPlayers from "../../data/MockPlayers/Mockplayers";
 import { useNavigation } from "@react-navigation/native";
 import * as StoreReview from "expo-store-review";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Home,
-  Music,
-  Play,
-  StopCircle,
-} from "lucide-react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import styles from "../styles/BattleQuizStyles";
 import ModalLoading from "../Modals/ModalLoading";
 import { incrementCoinsBonus, saveCoins } from "../../ReduxToolkit/coinsSlice";
 import { Audio } from "expo-av";
-import { Asset } from "expo-asset";
-import useSoundDrumLoopPlayer from "../Utilities/useSoundDrumLoopPlayer";
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import CharacterModal from "../Modals/SelectImageModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ContactButton from "../components/ContactButton";
@@ -742,7 +732,7 @@ export default function BattleQuiz() {
                   onPress={stopSound} // Call stop when button is pressed
                 >
                   <Text style={{}}>
-                    <StopCircle size={24} color="white" />
+                    <Feather name="stop-circle" size={24} color="white" />
                   </Text>
                 </Pressable>
               ) : (
@@ -751,7 +741,7 @@ export default function BattleQuiz() {
                   onPress={restartSound} // Call play when button is pressed
                 >
                   <Text style={{}}>
-                    <Music size={24} color="white" />
+                    <Feather name="music" size={24} color="white" />
                   </Text>
                 </Pressable>
               ))}
@@ -779,8 +769,9 @@ export default function BattleQuiz() {
           }}
           style={styles.returnQuizBtn}
         >
-          <ArrowLeft size={16} color="#ffffff80" />
-          <Home size={16} color="#ffffff80" />
+          <Feather name="arrow-left" size={16} color="#ffffff80" />
+
+          <Feather name="home" size={16} color="#ffffff80" />
         </Pressable>
       </LinearGradient>
     </ImageBackground>

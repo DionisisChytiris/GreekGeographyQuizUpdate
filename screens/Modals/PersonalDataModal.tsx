@@ -1,5 +1,5 @@
 // components/ConsentModal.tsx
-import { BarChart, ChevronDown, ChevronUp } from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from "react";
 import {
   Modal,
@@ -94,7 +94,7 @@ const PersonalDataModal = ({
             <View style={styles.analyticsBorder}>
               <View style={styles.analyticsBox}>
                 <View style={styles.iconBox}>
-                  <BarChart size={16} color="white" />
+                  <Feather name="bar-chart-2" size={16} color="white" />
                 </View>
                 <Text
                   style={{ fontSize: 15, paddingBottom: 0, fontWeight: "bold" }}
@@ -107,9 +107,9 @@ const PersonalDataModal = ({
                 >
                   <View style={{ paddingLeft: 20 }}>
                     {showAnalytics ? (
-                      <ChevronUp size={16} color="grey" />
+                      <Feather name="chevron-up" size={16} color="grey" />
                     ) : (
-                      <ChevronDown size={16} color="grey" />
+                      <Feather name="chevron-down" size={16} color="grey" />
                     )}
                   </View>
                 </TouchableOpacity>
@@ -214,7 +214,7 @@ const PersonalDataModal = ({
             <View style={[styles.analyticsBorder, { marginTop: 20 }]}>
               <View style={styles.analyticsBox}>
                 <View style={styles.iconBox}>
-                  <BarChart size={16} color="white" />
+                  <Feather name="bar-chart-2" size={16} color="white" />
                 </View>
                 <Text
                   style={{ fontSize: 15, paddingBottom: 0, fontWeight: "bold" }}

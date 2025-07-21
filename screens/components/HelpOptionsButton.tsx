@@ -1,9 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React, { useState } from "react";
-// import { Home, Power } from "lucide-react-native";
-// import { useNavigation } from "@react-navigation/native";
-// import { StackNavigationProp } from "@react-navigation/stack";
-// import { RootStackParamList } from "../../Types/RootStackParamList";
 
 interface HelpOptionsButtonProps {
   addFunction: () => void;

@@ -11,16 +11,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  Menu,
-  Share2,
-  MapPin,
-  Mountain,
-  Waves,
-  Globe as Globe2,
-  Trash,
-  Icon,
-} from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons'; // if you prefer this for "globe"
 import {
   useFonts,
   Poppins_400Regular,
@@ -34,8 +28,6 @@ import { RootStackParamList } from "../Types/RootStackParamList";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
 import { useAppSelector, useAppDispatch } from "../ReduxToolkit/store";
-import GeneralQuestions from "./GeneralQuestionsQuizzes/GeneralQuestions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getProgress } from "../ReduxToolkit/progressSlice";
 // import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
 // import { StatusBar } from 'expo-status-bar';
@@ -117,7 +109,7 @@ export default function HomeScreen() {
     {
       id: "GeneralQuestions",
       title: "Γενικές Ερωτήσεις",
-      icon: Globe2,
+      icon: <Feather name="globe" size={24} color="black" />,
       gradient: ["#9B59B6", "#8E44AD"],
       track: trackData4,
       image:
@@ -126,7 +118,7 @@ export default function HomeScreen() {
     {
       id: "LakeRiver",
       title: "Λίμνες - Ποτάμια",
-      icon: Waves,
+      icon: <MaterialCommunityIcons name="wave" size={24} color="black" />,
       gradient: ["#3498DB", "#2980B9"],
       track: trackData3,
       image:
@@ -135,7 +127,7 @@ export default function HomeScreen() {
     {
       id: "Mountain",
       title: "Βουνά",
-      icon: Mountain,
+      icon: <MaterialIcons name="terrain" size={24} color="black" />,
       gradient: ["#4ECDC4", "#45B7AF"],
       track: trackData2,
       image:
@@ -144,7 +136,7 @@ export default function HomeScreen() {
     {
       id: "Nomoi",
       title: "Νομοί - Πόλεις",
-      icon: MapPin,
+      icon: <Feather name="map-pin" size={24} color="black" />,
       gradient: ["#FF6B6B", "#FF8E8E"],
       track: trackData1,
       image:
@@ -201,7 +193,7 @@ export default function HomeScreen() {
           }}
           style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
         >
-          <Menu size={24} color="#333" />
+          <Feather name="menu"size={24} color="#333" />
         </Pressable>
       </Animated.View>
 

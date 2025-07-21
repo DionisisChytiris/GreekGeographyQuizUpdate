@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { Home, Power } from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
@@ -26,7 +26,7 @@ const ExitReturnButton: React.FC<ExitReturnButtonProps> = ({
         }}
         style={[styles.exitButton, { backgroundColor, transform: [{ scale }] }]}
       >
-        <Home size={20} color="#696969" />
+        <Feather name="home" size={20} color="#696969" />
         {/* <Power size={16} color="#696969" />
         <Text style={{ fontSize: 14, color: "#696969" }}>Έξοδος</Text> */}
       </Pressable>

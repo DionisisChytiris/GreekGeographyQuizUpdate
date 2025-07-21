@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
-import { Share2 } from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 
@@ -69,7 +69,7 @@ const ShareButton = () => {
         onPressOut={onShare}
         style={[styles.shareButton, { transform: [{ scale: scale }] }]}
       >
-        <Share2 size={24} color="#fff" />
+        <Feather name="share-2" size={24} color="#fff" />
         <Text style={styles.shareText}>Μοιραστείτε την εφαρμογή</Text>
       </Pressable>
 

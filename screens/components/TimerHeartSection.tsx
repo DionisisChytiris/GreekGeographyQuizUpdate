@@ -10,9 +10,7 @@ import {
   Button,
   Image,
 } from "react-native";
-import { Heart, ArrowLeft, Info, Ban, Coins } from "lucide-react-native";
 import { NavigationProp } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import { AntDesign } from "@expo/vector-icons";

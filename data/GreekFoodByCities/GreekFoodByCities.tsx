@@ -1,0 +1,388 @@
+const questions =[
+    {
+  id: "1f",
+  question: "Από ποια περιοχή προέρχεται η φασολάδα;",
+  options: [
+    { id: "0", answer: "Ήπειρος" },
+    { id: "1", answer: "Θράκη" },
+    { id: "2", answer: "Αττική" },
+    { id: "3", answer: "Πελοπόννησος" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/fasolada.jpg'),
+  result1: "Η φασολάδα θεωρείται εθνικό φαγητό της Ελλάδας, με ισχυρή παράδοση στην Ήπειρο.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "2f",
+  question: "Από ποιο νησί είναι οι ρεβιθοκεφτέδες;",
+  options: [
+    { id: "0", answer: "Σίφνος" },
+    { id: "1", answer: "Νάξος" },
+    { id: "2", answer: "Κρήτη" },
+    { id: "3", answer: "Λέσβος" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/revithokeftedes.jpg'),
+  result1: "Οι ρεβιθοκεφτέδες είναι παραδοσιακό φαγητό της Σίφνου, συχνά σερβίρονται σε γιορτές.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "3f",
+  question: "Από ποια πόλη είναι το μπουγιουρντί;",
+  options: [
+    { id: "0", answer: "Λάρισα" },
+    { id: "1", answer: "Καβάλα" },
+    { id: "2", answer: "Θεσσαλονίκη" },
+    { id: "3", answer: "Σέρρες" },
+  ],
+  correctAnswerIndex: 2,
+  img: require('../../assets/MorePhotos/bougiourdi.jpg'),
+  result1: "Το μπουγιουρντί είναι ορεκτικό με φέτα και πιπεριές, αγαπημένο στη Θεσσαλονίκη.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "4f",
+  question: "Τι είναι το γαμοπίλαφο και από πού προέρχεται;",
+  options: [
+    { id: "0", answer: "Κέρκυρα" },
+    { id: "1", answer: "Κρήτη" },
+    { id: "2", answer: "Λέρος" },
+    { id: "3", answer: "Νάξος" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/gamopilafo.jpg'),
+  result1: "Το γαμοπίλαφο είναι παραδοσιακό κρητικό πιάτο, που σερβίρεται σε γάμους.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "5f",
+  question: "Από πού προέρχεται η σκαλτσούνια;",
+  options: [
+    { id: "0", answer: "Μάνη" },
+    { id: "1", answer: "Κρήτη" },
+    { id: "2", answer: "Σάμος" },
+    { id: "3", answer: "Λήμνος" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/skaltsounia.jpg'),
+  result1: "Τα σκαλτσούνια είναι παραδοσιακά κρητικά γλυκίσματα, ιδιαίτερα των Χριστουγέννων.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "6f",
+  question: "Το μπουρδέτο είναι φαγητό από ποια περιοχή;",
+  options: [
+    { id: "0", answer: "Κέρκυρα" },
+    { id: "1", answer: "Κεφαλονιά" },
+    { id: "2", answer: "Ζάκυνθος" },
+    { id: "3", answer: "Λευκάδα" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/bourdeto.jpg'),
+  result1: "Το μπουρδέτο είναι πικάντικο ψαρόσουπα από την Κέρκυρα με κόκκινη σάλτσα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "7f",
+  question: "Πού τρώνε παραδοσιακά την παστιτσάδα;",
+  options: [
+    { id: "0", answer: "Κέρκυρα" },
+    { id: "1", answer: "Κρήτη" },
+    { id: "2", answer: "Πάτρα" },
+    { id: "3", answer: "Καλαμάτα" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/pastitsada.jpg'),
+  result1: "Η παστιτσάδα είναι κυρίως πιάτο της Κέρκυρας με μακαρόνια και κόκκινη σάλτσα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "8f",
+  question: "Από ποια πόλη προέρχονται τα σουτζουκάκια;",
+  options: [
+    { id: "0", answer: "Καβάλα" },
+    { id: "1", answer: "Σμύρνη" },
+    { id: "2", answer: "Ξάνθη" },
+    { id: "3", answer: "Βόλος" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/soutzoukakia.jpg'),
+  result1: "Τα σουτζουκάκια είναι πιάτο με προσφυγική καταγωγή από τη Σμύρνη.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "9f",
+  question: "Από ποια περιοχή προέρχεται το κουλούρι Θεσσαλονίκης;",
+  options: [
+    { id: "0", answer: "Αθήνα" },
+    { id: "1", answer: "Θεσσαλονίκη" },
+    { id: "2", answer: "Βέροια" },
+    { id: "3", answer: "Καρδίτσα" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/koulouri.jpg'),
+  result1: "Το κουλούρι Θεσσαλονίκης είναι χαρακτηριστικό σνακ της πόλης, με σησάμι.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "10f",
+  question: "Η μπατζίνα είναι πίτα από ποιο μέρος;",
+  options: [
+    { id: "0", answer: "Ήπειρος" },
+    { id: "1", answer: "Θεσσαλία" },
+    { id: "2", answer: "Αρκαδία" },
+    { id: "3", answer: "Εύβοια" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/batzina.jpg'),
+  result1: "Η μπατζίνα είναι κολοκυθόπιτα χωρίς φύλλο, παραδοσιακή της Θεσσαλίας.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "11f",
+  question: "Από ποια περιοχή είναι η φάβα με κάπαρη;",
+  options: [
+    { id: "0", answer: "Σαντορίνη" },
+    { id: "1", answer: "Τήνος" },
+    { id: "2", answer: "Κάλυμνος" },
+    { id: "3", answer: "Χίος" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/fava.jpg'),
+  result1: "Η φάβα Σαντορίνης είναι από τις πιο φημισμένες, με μοναδική γεύση και κάπαρη.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "12f",
+  question: "Η ζυμαρόπιτα είναι παραδοσιακό πιάτο από:",
+  options: [
+    { id: "0", answer: "Ήπειρο" },
+    { id: "1", answer: "Θράκη" },
+    { id: "2", answer: "Πελοπόννησο" },
+    { id: "3", answer: "Μακεδονία" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/zymaropita.jpg'),
+  result1: "Η ζυμαρόπιτα είναι ηπειρώτικη πίτα χωρίς φύλλο με φέτα και αυγό.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "13f",
+  question: "Το κοντοσούβλι είναι κρέας που ψήνεται σε:",
+  options: [
+    { id: "0", answer: "Κατσαρόλα" },
+    { id: "1", answer: "Ταψί" },
+    { id: "2", answer: "Σούβλα" },
+    { id: "3", answer: "Γκριλ" },
+  ],
+  correctAnswerIndex: 2,
+  img: require('../../assets/MorePhotos/kontosouvli.jpg'),
+  result1: "Το κοντοσούβλι είναι χοιρινό ή αρνί ψημένο σε σούβλα, ιδιαίτερα το Πάσχα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "14f",
+  question: "Η πλαστός είναι πίτα χωρίς φύλλο από ποιο μέρος;",
+  options: [
+    { id: "0", answer: "Ήπειρος" },
+    { id: "1", answer: "Θεσσαλία" },
+    { id: "2", answer: "Αττική" },
+    { id: "3", answer: "Κρήτη" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/plastos.jpg'),
+  result1: "Ο πλαστός είναι παραδοσιακή θεσσαλική πίτα με καλαμποκάλευρο και χόρτα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "15f",
+  question: "Πού φτιάχνεται το παραδοσιακό παστέλι με σουσάμι;",
+  options: [
+    { id: "0", answer: "Σύρος" },
+    { id: "1", answer: "Καλαμάτα" },
+    { id: "2", answer: "Σάμος" },
+    { id: "3", answer: "Άργος" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/pasteli.jpg'),
+  result1: "Το παστέλι Καλαμάτας είναι γλύκισμα με μέλι και σουσάμι, γνωστό σε όλη την Ελλάδα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "16f",
+  question: "Πού σερβίρουν παραδοσιακά σπετζοφάι;",
+  options: [
+    { id: "0", answer: "Μαγνησία" },
+    { id: "1", answer: "Εύβοια" },
+    { id: "2", answer: "Φθιώτιδα" },
+    { id: "3", answer: "Λακωνία" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/spetzofai.jpg'),
+  result1: "Το σπετζοφάι είναι πιάτο από Πήλιο και Μαγνησία, με λουκάνικο και πιπεριές.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "17f",
+  question: "Από ποιο νησί είναι οι λουκουμάδες Σύρου;",
+  options: [
+    { id: "0", answer: "Κέα" },
+    { id: "1", answer: "Σύρος" },
+    { id: "2", answer: "Άνδρος" },
+    { id: "3", answer: "Ρόδος" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/loukoumades.jpg'),
+  result1: "Οι λουκουμάδες Σύρου είναι παραδοσιακό γλύκισμα, συχνά γεμιστό ή με μέλι και κανέλα.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "18f",
+  question: "Η κακαβιά είναι σούπα που γίνεται με:",
+  options: [
+    { id: "0", answer: "Κόκκινο κρέας" },
+    { id: "1", answer: "Φακές" },
+    { id: "2", answer: "Μικρά ψάρια" },
+    { id: "3", answer: "Κοτόπουλο" },
+  ],
+  correctAnswerIndex: 2,
+  img: require('../../assets/MorePhotos/kakavia.jpg'),
+  result1: "Η κακαβιά είναι παραδοσιακή ψαρόσουπα με ψάρια, πατάτα και λεμόνι, από νησιωτικές περιοχές.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "19f",
+  question: "Η μπουγάτσα με κρέμα είναι χαρακτηριστική πόλης;",
+  options: [
+    { id: "0", answer: "Βόλος" },
+    { id: "1", answer: "Θεσσαλονίκη" },
+    { id: "2", answer: "Ιωάννινα" },
+    { id: "3", answer: "Αθήνα" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/mpougatsa.jpg'),
+  result1: "Η μπουγάτσα Θεσσαλονίκης με κρέμα, ζάχαρη και κανέλα είναι εμβληματικό πρωινό.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "20f",
+  question: "Το κοκορέτσι συνήθως σερβίρεται:",
+  options: [
+    { id: "0", answer: "Σε γιορτές" },
+    { id: "1", answer: "Σε νηστείες" },
+    { id: "2", answer: "Στο Πάσχα" },
+    { id: "3", answer: "Μόνο σε μοναστήρια" },
+  ],
+  correctAnswerIndex: 2,
+  img: require('../../assets/MorePhotos/kokoretsi.jpg'),
+  result1: "Το κοκορέτσι είναι παραδοσιακό πασχαλινό έδεσμα με εντόσθια και αντεριές.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "21f",
+  question: "Το εξοχικό είναι πιάτο με:",
+  options: [
+    { id: "0", answer: "Ψάρι" },
+    { id: "1", answer: "Χοιρινό και λαχανικά" },
+    { id: "2", answer: "Ρύζι και κιμά" },
+    { id: "3", answer: "Αυγά και κολοκύθι" },
+  ],
+  correctAnswerIndex: 1,
+  img: require('../../assets/MorePhotos/exohiko.jpg'),
+  result1: "Το εξοχικό είναι καλοκαιρινό φαγητό με χοιρινό, ντομάτα, πιπεριές και τυρί.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "22f",
+  question: "Η καρυδόπιτα είναι γλυκό:",
+  options: [
+    { id: "0", answer: "Με καρύδια και σιρόπι" },
+    { id: "1", answer: "Με φρούτα" },
+    { id: "2", answer: "Με γιαούρτι" },
+    { id: "3", answer: "Με αυγά και αλεύρι μόνο" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/karydopita.jpg'),
+  result1: "Η καρυδόπιτα είναι σιροπιαστό γλυκό με καρύδια, συνήθως χειμωνιάτικο.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "23f",
+  question: "Το γαλακτομπούρεκο είναι γλύκισμα με:",
+  options: [
+    { id: "0", answer: "Κρέμα σιμιγδαλιού" },
+    { id: "1", answer: "Φρούτα" },
+    { id: "2", answer: "Κολοκύθα" },
+    { id: "3", answer: "Ρυζόγαλο" },
+  ],
+  correctAnswerIndex: 0,
+  img: require('../../assets/MorePhotos/galaktoboureko.jpg'),
+  result1: "Το γαλακτομπούρεκο είναι παραδοσιακό γλυκό ταψιού με κρέμα σιμιγδαλιού και φύλλο.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+{
+  id: "24f",
+  question: "Ποια περιοχή είναι γνωστή για την γίδα βραστή;",
+  options: [
+    { id: "0", answer: "Ήπειρος" },
+    { id: "1", answer: "Θράκη" },
+    { id: "2", answer: "Κρήτη" },
+    { id: "3", answer: "Ρούμελη" },
+  ],
+  correctAnswerIndex: 3,
+  img: require('../../assets/MorePhotos/gida.jpg'),
+  result1: "Η γίδα βραστή είναι χαρακτηριστικό φαγητό της Ρούμελης και συνοδεύεται με τραχανά ή ρύζι.",
+  result2: "",
+  result3: "",
+  result4: ""
+},
+
+]
+export default questions

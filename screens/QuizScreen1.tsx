@@ -12,15 +12,10 @@ import {
   DimensionValue,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
-import {
-  Menu,
-  Waves,
-  Globe as Globe2,
-  MapPin,
-  Mountain,
-  Home,
-} from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   useFonts,
   Poppins_400Regular,
@@ -63,8 +58,6 @@ import DailyBonusModal from "./Modals/DailyBonusModal";
 import BattleButton from "./components/BattleButton";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
-import { loadHeart } from "../ReduxToolkit/livesSlice";
-import { MaterialIcons } from "@expo/vector-icons";
 import ContactButton from "./components/ContactButton";
 
 const { height } = Dimensions.get("window");
@@ -244,7 +237,8 @@ export default function HomeScreen() {
           }}
           style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
         >
-          <Menu size={24} color="#333" />
+          {/* <Menu size={24} color="#333" /> */}
+          <Feather name="menu" size={24} color="#333" />
         </Pressable>
       </Animated.View>
       <Animated.View
@@ -256,7 +250,8 @@ export default function HomeScreen() {
             id1="ifa"
             link1="GeneralQuestions"
             title1="Γενικές Ερωτήσεις"
-            icon1={<Globe2 size={32} color="white" />}
+            // icon1={<Globe2 size={32} color="white" />}
+            icon1={<Feather name="globe" size={32} color="white" />}
             gradient1={["#9B59B6", "#8E44AD"]}
             trackEventName={trackEventsOrganized.GENERAL_QUESTIONS}
           />
@@ -268,7 +263,8 @@ export default function HomeScreen() {
               testFunction={UnlockLakesCtg}
               titleTest1="Λίμνες - Ποτάμια"
               amount={200}
-              iconTest1={<Waves size={32} color="white" />}
+              // iconTest1={<Waves size={32} color="white" />}
+              iconTest1={<MaterialCommunityIcons name="wave" size={32} color="white" />}
               gradient={["#3498DB", "#2980B9"]}
             />
           ) : (
@@ -282,7 +278,7 @@ export default function HomeScreen() {
               id1="ifaasd"
               link1="LakeRiver"
               title1="Λίμνες - Ποτάμια"
-              icon1={<Waves size={32} color="white" />}
+              icon1={<MaterialCommunityIcons name="wave" size={32} color="white" />}
               gradient1={["#3498DB", "#2980B9"]}
               trackEventName={trackEventsOrganized.LAKES_RIVERS}
             />
@@ -295,7 +291,7 @@ export default function HomeScreen() {
               testFunction={UnlockMountainCtg}
               titleTest1="Βουνά"
               amount={500}
-              iconTest1={<Mountain size={32} color="white" />}
+              iconTest1={<MaterialIcons name="terrain" size={32} color="white" />}
               gradient={["#4ECDC4", "#45B7AF"]}
             />
           ) : (
@@ -303,7 +299,7 @@ export default function HomeScreen() {
               id1="adsfifa"
               link1="Mountain"
               title1="Βουνά"
-              icon1={<Mountain size={32} color="white" />}
+              icon1={<MaterialIcons name="terrain" size={32} color="white" />}
               gradient1={["#4ECDC4", "#45B7AF"]}
               trackEventName={trackEventsOrganized.MOUNTAINS}
             />
@@ -317,7 +313,7 @@ export default function HomeScreen() {
               testFunction={UnlockNomoiCtg}
               titleTest1="Νομοί - Πόλεις"
               amount={500}
-              iconTest1={<MapPin size={32} color="white" />}
+              iconTest1={<Feather name="map-pin" size={32} color="white" />}
               gradient={["#FF6B6B", "#FF8E8E"]}
             />
           ) : (
@@ -325,7 +321,7 @@ export default function HomeScreen() {
               id1="gerwifa"
               link1="Nomoi"
               title1="Νομοί - Πόλεις"
-              icon1={<MapPin size={32} color="white" />}
+              icon1={<Feather name="map-pin" size={32} color="white" />}
               gradient1={["#FF6B6B", "#FF8E8E"]}
               trackEventName={trackEventsOrganized.NOMOI_CITIES}
             />

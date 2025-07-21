@@ -7,41 +7,15 @@ import {
   Dimensions,
   Linking,
   Platform,
-  Image,
-  Pressable,
-  Alert,
+  Image
 } from "react-native";
-// import { useRouter } from 'expo-router';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ArrowLeft,
-  Settings as IconSettings,
-  User,
-  Bell,
-  Globe,
-  Flag,
-  LogOut,
-  TrendingUp,
-  Activity,
-  BarChart,
-  Info,
-  Check,
-  Circle,
-} from "lucide-react-native";
 import React, { useEffect, useState } from "react";
-import EvilIcons from "@expo/vector-icons/EvilIcons";
-// import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-// import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons,  Feather } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
-import * as SecureStore from "expo-secure-store";
 import { toggleLives } from "../ReduxToolkit/livesSlice";
 import { toggleTimer } from "../ReduxToolkit/timerSlice";
 import { toggleSound } from "../ReduxToolkit/soundSlice";
@@ -155,7 +129,7 @@ export default function Settings() {
           }}
           style={styles.header}
         >
-          <ChevronLeft size={24} color="#000" />
+          <Feather name="chevron-left" size={24} color="#000" />
         </TouchableOpacity>
         <View style={styles.sectionHeaderTitle}>
           <Text
@@ -182,7 +156,7 @@ export default function Settings() {
         <View style={styles.section1}>
           <View style={styles.sectionHeader}>
             <View style={styles.iconBackground}>
-              <IconSettings size={18} color="#fffdfd" />
+              <Feather name="settings" size={18} color="#fffdfd"/>
             </View>
             <Text style={styles.sectionTitle}>Εξατομίκευση</Text>
           </View>
@@ -307,11 +281,11 @@ export default function Settings() {
               <View
                 style={[styles.iconBackground, { backgroundColor: "#f53978" }]}
               >
-                <EvilIcons name="user" size={22} color="#fff" />
+              <Feather name="arrow-right" size={24} color="#fff" />
               </View>
               <Text style={styles.menuText}>Αλλαγή Ονόματος</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
         </View>
 
@@ -319,7 +293,7 @@ export default function Settings() {
         <View style={[styles.section1, { marginTop: 20 }]}>
           <View style={styles.sectionHeader}>
             <View style={styles.iconBackground}>
-              <Globe size={18} color="#fff" />
+              <Feather name="globe" size={18} color="#fff" />
             </View>
             <Text style={styles.sectionTitle}>Περισσότερα</Text>
           </View>
@@ -339,7 +313,7 @@ export default function Settings() {
               </View>
               <Text style={styles.menuText}>Σχετικά</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -358,7 +332,7 @@ export default function Settings() {
               </View>
               <Text style={styles.menuText}>Πολιτική Απορρήτου</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -373,7 +347,7 @@ export default function Settings() {
               </View>
               <Text style={styles.menuText}>Προσωπικά Δεδομένα</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
           <PersonalDataModal
             visible={showPersonalData}
@@ -393,7 +367,7 @@ export default function Settings() {
               </View>
               <Text style={styles.menuText}>Eπικοινωνία</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
         </View>
 
@@ -428,7 +402,7 @@ export default function Settings() {
 
               <Text style={styles.menuText}>Παγκόσμια Γεωγραφία</Text>
             </View>
-            <ChevronRight size={20} color="#666" />
+            <Feather name="chevron-right" size={20} color="#666" />
           </TouchableOpacity>
         </View>
       </View>

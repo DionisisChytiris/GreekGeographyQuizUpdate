@@ -16,8 +16,7 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { Quicksand_400Regular } from "@expo-google-fonts/quicksand";
-import { Feather, Mail, Phone } from "lucide-react-native";
-import { useSoundEffect } from "../Utilities/useSoundEffects";
+import { Feather } from '@expo/vector-icons';
 import { useAppSelector } from "../../ReduxToolkit/store";
 
 type ModalComponentProps = {
@@ -122,7 +121,7 @@ const ModalExplanationQuestion: React.FC<ModalComponentProps> = ({
             >
               {/* Animated Phone Icon */}
               <Animated.View style={{ transform: [{ rotate: rotation }] }}>
-                <Phone size={24} color="green" />
+                <Feather name="phone" size={24} color="green" />
               </Animated.View>
               {/* <Phone size={24} color="green" /> */}
               <View>
@@ -133,7 +132,7 @@ const ModalExplanationQuestion: React.FC<ModalComponentProps> = ({
         ) : (
           <View style={styles.modalView}>
             <View style={{ marginTop: 20, transform: [{ rotate: "-25deg" }] }}>
-              <Mail size={28} color="green" />
+              <Feather name="mail" size={28} color="green" />
             </View>
             {currentQuestion?.imgMap ? (
               <View

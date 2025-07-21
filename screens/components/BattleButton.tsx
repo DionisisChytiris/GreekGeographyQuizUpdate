@@ -9,12 +9,7 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
-import {
-  MaterialCommunityIcons,
-  FontAwesome5,
-  Ionicons,
-} from "@expo/vector-icons";
-import { Navigation, Share2 } from "lucide-react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
@@ -71,12 +66,16 @@ const BattleButton = () => {
   //   }, []);
 
   return (
-    <View style={{ margin: 0}}>
+    <View style={{ margin: 0 }}>
       <Pressable
         onPressIn={() => {
           setScale(0.95);
         }}
-        onPressOut={() => {navigation.navigate("BattleQuiz"),trackEvent(trackEventsOrganized.BATTLE),setScale(1);}}
+        onPressOut={() => {
+          navigation.navigate("BattleQuiz"),
+            trackEvent(trackEventsOrganized.BATTLE),
+            setScale(1);
+        }}
         style={[styles.shareButton, { transform: [{ scale: scale }] }]}
       >
         <MaterialCommunityIcons name="sword-cross" size={24} color="white" />
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center", // This will horizontally center the text
     backgroundColor: "#FF4081",
-    paddingVertical: '3%',
+    paddingVertical: "3%",
     paddingHorizontal: 40,
     borderRadius: 30,
     gap: 8,

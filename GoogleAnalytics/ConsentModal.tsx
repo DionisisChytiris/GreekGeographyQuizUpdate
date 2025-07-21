@@ -1,11 +1,5 @@
 // components/ConsentModal.tsx
-import {
-  ArrowRight,
-  BarChart,
-  ChevronDown,
-  ChevronUp,
-  Menu,
-} from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from "react";
 import {
   Modal,
@@ -79,7 +73,7 @@ const ConsentModal = ({ visible, onAccept, onDecline }: ConsentModalProps) => {
             <View style={styles.analyticsBorder}>
               <View style={styles.analyticsBox}>
                 <View style={styles.iconBox}>
-                  <BarChart size={16} color="white" />
+                  <Feather name="bar-chart-2" size={16} color="white" />
                 </View>
                 <Text
                   style={{ fontSize: 15, paddingBottom: 0, fontWeight: "bold" }}
@@ -92,9 +86,9 @@ const ConsentModal = ({ visible, onAccept, onDecline }: ConsentModalProps) => {
                 >
                   <View style={{ paddingLeft: 20 }}>
                     {showAnalytics ? (
-                      <ChevronUp size={16} color="grey" />
+                      <Feather name="chevron-up" size={16} color="gray" />
                     ) : (
-                      <ChevronDown size={16} color="grey" />
+                      <Feather name="chevron-down" size={16} color="gray" />
                     )}
                   </View>
                 </TouchableOpacity>
@@ -164,10 +158,10 @@ const ConsentModal = ({ visible, onAccept, onDecline }: ConsentModalProps) => {
                 style={{ flexDirection: "row", alignItems: "center", gap: 5, marginLeft: 20 }}
               >
                 <View style={styles.menuBtn}>
-                  <Menu size={12} color="grey" />
+                   <Feather name="menu" size={12} color="grey" />
                 </View>
 
-                <ArrowRight size={12} color="grey" />
+                <Feather name="arrow-right" size={12} color="gray" />
                 <Text
                   style={{ fontSize: 12, paddingBottom: 0, fontWeight: "bold" }}
                 >

@@ -14,7 +14,8 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ArrowRight, Ban, Phone } from "lucide-react-native";
+import { Feather } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import {
   useFonts,
@@ -22,23 +23,15 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import questions from "../../data/LakeRiver/questions";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
-import ProgressBar from "../components/ProgressBar";
-import FeedbackBottomSheet from "../components/FeedBackBottomSheet";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withSpring,
-  withSequence,
-  FadeInDown,
-  FadeInUp,
-  withRepeat,
+  withSpring
 } from "react-native-reanimated";
 // import {
 //   useAnswerAnimations,
@@ -683,7 +676,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
               </View>
               <View style={{ width: 60, opacity: 0.3 }}>
                 <HelpOptionsButton
-                  optionText={<Phone size={20} color="#696969" />}
+                  optionText={<Feather name="phone" size={20} color="#696969" />}
                   addAbility={isDisabled} // Set addAbility to null to disable the button
                   addFunction={() => {}} // No action when clicked
                 />
@@ -695,7 +688,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
               style={[{ width: "20%", opacity: opacity }, animScale2]} // Apply animation styles
             >
               <HelpOptionsButton
-                optionText={<Phone size={20} color="#696969" />}
+                optionText={<Feather name="phone" size={20} color="#696969" />}
                 addAbility={selectedAnswerIndex !== null} // Enable button only if a valid answer is selected
                 addFunction={() => {
                   setPhoneCoin(true); // Set PhoneCoin to true when the button is pressed
@@ -779,9 +772,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
               addAbility={isDisabled}
               optionText={
                 isDisabled ? (
-                  <Ban size={20} color="#ffffff" />
+                  <FontAwesome name="ban" size={20} color="#ffffff" />
                 ) : (
-                  <ArrowRight size={26} color="#ffffff" />
+                  <Feather name="arrow-right" size={26} color="#ffffff" />
                 )
               }
               backgroundColor={isDisabled ? "#b3e4d1" : "#3ce992"}

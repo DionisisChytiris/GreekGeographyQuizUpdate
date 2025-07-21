@@ -14,7 +14,7 @@ import MapTest from "./screens/Atestcomponents/MapTest";
 import DragAndDropQuiz from "./screens/Atestcomponents/DragDropQuiz";
 import MapQuiz from "./screens/Atestcomponents/MapQuiz";
 import Calendar from "./screens/Atestcomponents/Calendar";
-import FirstPageTest from "./screens/Atestcomponents/FirstPageTest";
+// import FirstPageTest from "./screens/Atestcomponents/FirstPageTest";
 import ResultsMountain from "./screens/MountainQuizzes/ResultMountain";
 import ResultsLake from "./screens/LakeRiverQuizzes/ResultsLake";
 import GeneralQuestions from "./screens/GeneralQuestionsQuizzes/GeneralQuestions";
@@ -169,7 +169,7 @@ const StackNavigator = () => {
             orientation: "portrait"
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="MapQuiz"
           component={FirstPageTest}
           options={{
@@ -177,7 +177,7 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             orientation: "portrait"
           }}
-        />
+        /> */}
         <Stack.Screen
           name="BattleQuiz"
           component={BattleQuiz}
