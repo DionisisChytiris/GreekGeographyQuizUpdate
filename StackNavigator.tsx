@@ -23,6 +23,12 @@ import Nomoi from "./screens/NomoiQuizzes/Nomoi";
 import ResultsNomoi from "./screens/NomoiQuizzes/ResultsNomoi";
 import BattleQuiz from "./screens/MainTemplateFiles/BattleQuiz";
 import Contact from "./screens/components/Contact";
+import BonusQuizzes from "./screens/BonusQuizzes";
+import QuizDynamil from "./screens/QuizScreenDynamil";
+import GreekTraditionsQuizzes from "./screens/GreekTraditionsQuizzes/GreekTraditionsQuizzes";
+import TraditionalFoodQuizzes from "./screens/TraditionalFoodQuizzes/TraditionalFoodQuizzes";
+import ResultsGreekTraditions from "./screens/GreekTraditionsQuizzes/ResultsGreekTraditions";
+import ResultsTraditionalFood from "./screens/TraditionalFoodQuizzes/ResultsTraditionalFood";
 
 // const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -142,7 +148,7 @@ const StackNavigator = () => {
             orientation: "portrait"
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="DragDrop"
           component={DragDrop}
           options={{
@@ -159,8 +165,8 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             orientation: "portrait"
           }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="MapTest"
           component={MapTest}
           options={{
@@ -168,7 +174,7 @@ const StackNavigator = () => {
             headerBackTitleVisible: false,
             orientation: "portrait"
           }}
-        />
+        /> */}
         {/* <Stack.Screen
           name="MapQuiz"
           component={FirstPageTest}
@@ -191,6 +197,24 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Quiz1"
           component={QuizScreen1}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="QuizDynamil"
+          component={QuizDynamil}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="BonusQuizzes"
+          component={BonusQuizzes}
           options={{
             orientation: "portrait",
             headerBackTitleVisible: false,
@@ -227,6 +251,42 @@ const StackNavigator = () => {
         <Stack.Screen
           name="GeneralQuestions"
           component={GeneralQuestions}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="GreekTraditions"
+          component={GreekTraditionsQuizzes}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="ResultsGreekTraditions"
+          component={ResultsGreekTraditions}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="TraditionalFood"
+          component={TraditionalFoodQuizzes}
+          options={{
+            orientation: "portrait",
+            headerBackTitleVisible: false,
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="ResultsTraditionalFood"
+          component={ResultsTraditionalFood}
           options={{
             orientation: "portrait",
             headerBackTitleVisible: false,

@@ -12,10 +12,10 @@ import {
   DimensionValue,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Feather } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   useFonts,
   Poppins_400Regular,
@@ -54,11 +54,13 @@ import {
 } from "../ReduxToolkit/coinsSlice";
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
-import DailyBonusModal from "./Modals/DailyBonusModal";
+// import DailyBonusModal from "./Modals/DailyBonusModal";
 import BattleButton from "./components/BattleButton";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
-import ContactButton from "./components/ContactButton";
+// import ContactButton from "./components/ContactButton";
+import MainQuizCoinsDailyCollection from "./components/MainQuizCoinsDailyCollection";
+import { MainQuizMoreCategories } from "./components/MainQuizMoreCategories";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
@@ -76,9 +78,10 @@ export default function HomeScreen() {
     (state) => state.show
   );
   const [scale1, setScale1] = useState(1);
-  const [scale2, setScale2] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [isClaimed, setIsClaimed] = useState(false);
+  // const [scale2, setScale2] = useState(1);
+  // const [scale3, setScale3] = useState(1);
+  // const [showModal, setShowModal] = useState(false);
+  // const [isClaimed, setIsClaimed] = useState(false);
   const [fontsLoaded, fontError] = useFonts({
     "Poppins-Regular": Poppins_400Regular,
     "Poppins-SemiBold": Poppins_600SemiBold,
@@ -97,43 +100,44 @@ export default function HomeScreen() {
   } else {
     dynamicWidth = "47.7%"; // Phones
   }
-  const rotateAnim = useSharedValue(0);
-  // const rotateAnim = useMemo(() => new Animated.Value(0), []);
 
-  useEffect(() => {
-    startRotation();
-    checkLastClaimDate();
-  }, []);
+  // const rotateAnim = useSharedValue(0);
+  // // const rotateAnim = useMemo(() => new Animated.Value(0), []);
 
-  const checkLastClaimDate = async () => {
-    const lastClaimDate = await AsyncStorage.getItem("lastClaimDate");
-    const today = new Date().toISOString().split("T")[0];
-    if (lastClaimDate === today) {
-      setIsClaimed(true);
-    }
-  };
+  // useEffect(() => {
+  //   startRotation();
+  //   checkLastClaimDate();
+  // }, []);
 
-  const startRotation = () => {
-    rotateAnim.value = withRepeat(
-      withTiming(1, { duration: 2500, easing: Easing.linear }),
-      -1,
-      false
-    );
-  };
+  // const checkLastClaimDate = async () => {
+  //   const lastClaimDate = await AsyncStorage.getItem("lastClaimDate");
+  //   const today = new Date().toISOString().split("T")[0];
+  //   if (lastClaimDate === today) {
+  //     setIsClaimed(true);
+  //   }
+  // };
 
-  const rotation = useDerivedValue(
-    () => interpolate(rotateAnim.value, [0, 1], [0, 360]) + "deg"
-  );
+  // const startRotation = () => {
+  //   rotateAnim.value = withRepeat(
+  //     withTiming(1, { duration: 2500, easing: Easing.linear }),
+  //     -1,
+  //     false
+  //   );
+  // };
+
+  // const rotation = useDerivedValue(
+  //   () => interpolate(rotateAnim.value, [0, 1], [0, 360]) + "deg"
+  // );
 
   useEffect(() => {
     dispatch(loadShowState());
   }, [dispatch]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowModal(false);
-    }, 3000);
-  }, [showModal]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShowModal(false);
+  //   }, 3000);
+  // }, [showModal]);
 
   const handlePress = async () => {
     await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
@@ -196,11 +200,11 @@ export default function HomeScreen() {
     }
   };
 
-  const [coins1, setCoins1] = useState(0);
-  // Coins Collect Sound Effect
-  const coinsCollectSound = useSoundEffect(
-    require("../assets/sounds/getCoin.wav")
-  );
+  // const [coins1, setCoins1] = useState(0);
+  // // Coins Collect Sound Effect
+  // const coinsCollectSound = useSoundEffect(
+  //   require("../assets/sounds/getCoin.wav")
+  // );
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -228,6 +232,7 @@ export default function HomeScreen() {
             σου στην γεωγραφία;
           </Text>
         </View>
+       
         <Pressable
           onPressIn={() => setScale1(1.25)}
           onPressOut={() => {
@@ -240,6 +245,19 @@ export default function HomeScreen() {
           {/* <Menu size={24} color="#333" /> */}
           <Feather name="menu" size={24} color="#333" />
         </Pressable>
+
+        {/* <Pressable
+          onPressIn={() => setScale1(1.25)}
+          onPressOut={() => {
+            Alert.alert('hey')
+            setScale1(1);
+            trackEvent(trackEventsOrganized.SETTINGS);
+          }}
+          style={[styles.menuButton, { transform: [{ scale: scale1 }],position: 'absolute', top: 60, right: 0}]}
+        >
+          <Feather name="shopping-cart" size={16} color="#333" />
+        </Pressable> */}
+
       </Animated.View>
       <Animated.View
         style={styles.categoriesGrid}
@@ -264,7 +282,9 @@ export default function HomeScreen() {
               titleTest1="Λίμνες - Ποτάμια"
               amount={200}
               // iconTest1={<Waves size={32} color="white" />}
-              iconTest1={<MaterialCommunityIcons name="wave" size={32} color="white" />}
+              iconTest1={
+                <MaterialCommunityIcons name="wave" size={32} color="white" />
+              }
               gradient={["#3498DB", "#2980B9"]}
             />
           ) : (
@@ -278,7 +298,9 @@ export default function HomeScreen() {
               id1="ifaasd"
               link1="LakeRiver"
               title1="Λίμνες - Ποτάμια"
-              icon1={<MaterialCommunityIcons name="wave" size={32} color="white" />}
+              icon1={
+                <MaterialCommunityIcons name="wave" size={32} color="white" />
+              }
               gradient1={["#3498DB", "#2980B9"]}
               trackEventName={trackEventsOrganized.LAKES_RIVERS}
             />
@@ -291,7 +313,9 @@ export default function HomeScreen() {
               testFunction={UnlockMountainCtg}
               titleTest1="Βουνά"
               amount={500}
-              iconTest1={<MaterialIcons name="terrain" size={32} color="white" />}
+              iconTest1={
+                <MaterialIcons name="terrain" size={32} color="white" />
+              }
               gradient={["#4ECDC4", "#45B7AF"]}
             />
           ) : (
@@ -330,8 +354,8 @@ export default function HomeScreen() {
       </Animated.View>
 
       <Animated.View entering={FadeInDown.delay(600).springify()}>
-        <View style={styles.bankCoinAbsolute}>
-          <View style={{ flexDirection: "column" }}>
+        {/* <View style={styles.bankCoinAbsolute}> */}
+          {/* <View style={{ flexDirection: "column" }}>
             <View style={styles.bankContainer}>
               <View style={styles.coinsContainer}>
                 <Image
@@ -343,92 +367,15 @@ export default function HomeScreen() {
                 </Text>
               </View>
             </View>
-          </View>
+          </View> */}
 
-          <View style={{marginBottom: 20, transform: [{ scale: 0.8 }] }}>
-            <ContactButton />
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 30}}>
+          <View  style={{width: '48%'}}>
+            <MainQuizMoreCategories/>
           </View>
-
-          <View>
-            <DailyBonusModal
-              visible={showModal}
-              onClose={() => setShowModal(false)}
-            />
+          <View  style={{width: '48%'}}>
+            <MainQuizCoinsDailyCollection/>
           </View>
-
-          {!isClaimed ? (
-            <Pressable
-              onPressIn={() => setScale2(0.95)}
-              onPressOut={async () => {
-                if (isSoundEnabled) {
-                  // CorrectPlaySound();
-                  coinsCollectSound();
-                }
-                if (isClaimed) {
-                  Alert.alert(
-                    "Already Claimed",
-                    "You have already claimed your daily reward."
-                  );
-                  return;
-                }
-                trackEvent(trackEventsOrganized.COLLECT_DAILY_BONUS);
-                dispatch(incrementCoinsBonus());
-                dispatch(saveCoins(coins + 50));
-                setScale2(1);
-                setShowModal(true);
-                setIsClaimed(true);
-                await AsyncStorage.setItem(
-                  "lastClaimDate",
-                  new Date().toISOString().split("T")[0]
-                );
-                // await logEvent(analytics, 'daily_bonus_collected', {
-                //   coins_collected: 50,
-                //   timestamp: new Date().toISOString(),
-                // });
-                // Alert.alert("Success", "You received 10 coins!");
-                // setTimeout(() => {
-                //   setScale2(1);
-                // }, 100); // ✅ Adds a smooth reset delay
-              }}
-              style={{
-                position: "absolute",
-                right: 50,
-                top: -20,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Animated.View
-                style={{
-                  position: "absolute",
-                  width: 150,
-                  height: 150,
-                  opacity: 0.4,
-                  transform: [{ rotate: rotation }, { scale: scale2 }],
-                }}
-              >
-                <Image
-                  source={require("../assets/Photos/starbg.png")}
-                  style={{ width: 150, height: 150, borderRadius: 50 }}
-                />
-              </Animated.View>
-              <View
-                style={{
-                  // backgroundColor: "gold",
-                  padding: 5,
-                  borderRadius: 10,
-                  position: "absolute",
-                  zIndex: 10,
-                }}
-              >
-                <Image
-                  source={require("../assets/Photos/goldbg.png")}
-                  style={{ width: 42, height: 42 }}
-                />
-                {/* <Text style={{ fontSize: 12, color: "white" }}>button</Text> */}
-              </View>
-            </Pressable>
-          ) : null}
         </View>
       </Animated.View>
 
@@ -452,11 +399,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F7F9FC",
-    // backgroundColor: '#F7F9FC',
     paddingTop: Platform.OS === "ios" ? 0 : height < 900 ? 12 : 0,
     paddingHorizontal: 16,
-    // alignItems: 'center'
-    // alignItems: height > 900 ? "center" : "flex-start",
   },
   backgroundImage: {
     position: "absolute",
@@ -469,7 +413,6 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 9999,
     width: "100%",
-    // padding: 40,
     backgroundColor: "#F7F9FC90",
     height: height > 1000 ? "38%" : "32%",
   },
@@ -480,7 +423,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     width: "100%",
     marginTop: height > 1000 ? 20 : 0,
-    // padding: 16,
   },
   greeting: {
     fontSize: 24,
@@ -512,19 +454,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: height > 1000 ? 40 : 0,
     width: height > 1000 ? "80%" : "100%",
-    // width: width>900?"60%":"50%",
   },
   categoryCard: {
     width: "100%",
     aspectRatio: 1,
     borderRadius: 20,
     overflow: "hidden",
-    // backgroundColor: "#F7F9FC90",
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 4 },
-    // shadowOpacity: 0.15,
-    // shadowRadius: 8,
-    // elevation: 5,
   },
   categoryContent: {
     flex: 1,
@@ -545,8 +480,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 40,
-    // backgroundColor: "#57df45",
-    // backgroundColor: "#f5f5f5",
   },
   bankContainer: {
     flexDirection: "row",
@@ -563,7 +496,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     backgroundColor: "#a0a7a890",
-    // backgroundColor: "magenta",
     paddingHorizontal: 10,
     borderRadius: 10,
     paddingVertical: 3,
@@ -583,6 +515,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins-SemiBold",
     textAlign: "center", // Ensures text is centered if there is any overflow or multiline text
+  },
+  bonusQuizBtn: {
+    width: "70%",
+    height: 80,
+    marginTop: -40,
+    marginLeft: -30,
+    padding: 10,
+    borderRadius: 15,
+    backgroundColor: "#e3eaf1",
   },
 });
 

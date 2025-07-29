@@ -11,7 +11,12 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome, Feather, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
+import {
+  FontAwesome,
+  Feather,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import {
   useFonts,
   Poppins_400Regular,
@@ -26,6 +31,9 @@ import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
 import { useAppSelector, useAppDispatch } from "../ReduxToolkit/store";
 import { getProgress } from "../ReduxToolkit/progressSlice";
+import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
+import { trackEvent } from "../GoogleAnalytics/trackEvent";
+import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
 // import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
 // import { StatusBar } from 'expo-status-bar';
 
@@ -38,7 +46,7 @@ type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 // Prevent splash screen from auto-hiding
 // SplashScreen.preventAutoHideAsync();
 
-export default function QuizDynamil() {
+export default function BonusQuizzes() {
   const navigation = useNavigation<QuizScreenProp>();
   const name = useAppSelector((state) => state.user.name);
   const [scale1, setScale1] = useState(1);
@@ -73,22 +81,22 @@ export default function QuizDynamil() {
   const progressKey = "lastQuestion3";
   const dispatch = useAppDispatch();
 
-  const [trackData1, setTrackData1] = useState(`${lastQuestionIndex1 ?? 0}/60`);
-  const [trackData2, setTrackData2] = useState(`${lastQuestionIndex2 ?? 0}/60`);
-  const [trackData3, setTrackData3] = useState(`${lastQuestionIndex3 ?? 0}/60`);
-  const [trackData4, setTrackData4] = useState(`${lastQuestionIndex4 ?? 0}/60`);
+  // const [trackData1, setTrackData1] = useState(`${lastQuestionIndex1 ?? 0}/60`);
+  // const [trackData2, setTrackData2] = useState(`${lastQuestionIndex2 ?? 0}/60`);
+  // const [trackData3, setTrackData3] = useState(`${lastQuestionIndex3 ?? 0}/60`);
+  // const [trackData4, setTrackData4] = useState(`${lastQuestionIndex4 ?? 0}/60`);
 
-  useEffect(() => {
-    setTrackData1(`${lastQuestionIndex1 ?? 0}/60`);
-    setTrackData2(`${lastQuestionIndex2 ?? 0}/60`);
-    setTrackData3(`${lastQuestionIndex3 ?? 0}/60`);
-    setTrackData4(`${lastQuestionIndex4 ?? 0}/60`);
-  }, [
-    lastQuestionIndex1,
-    lastQuestionIndex2,
-    lastQuestionIndex3,
-    lastQuestionIndex4,
-  ]);
+  // useEffect(() => {
+  //   setTrackData1(`${lastQuestionIndex1 ?? 0}/60`);
+  //   setTrackData2(`${lastQuestionIndex2 ?? 0}/60`);
+  //   setTrackData3(`${lastQuestionIndex3 ?? 0}/60`);
+  //   setTrackData4(`${lastQuestionIndex4 ?? 0}/60`);
+  // }, [
+  //   lastQuestionIndex1,
+  //   lastQuestionIndex2,
+  //   lastQuestionIndex3,
+  //   lastQuestionIndex4,
+  // ]);
 
   useEffect(() => {
     dispatch(getProgress(progressKey));
@@ -105,46 +113,22 @@ export default function QuizDynamil() {
     track: any;
   }[] = [
     {
-      id: "GeneralQuestions",
-      title: "Γενικές Ερωτήσεις",
-      // icon: <FontAwesome name="globe" size={24} color="black" />,
+      id: "GreekTraditions",
+      title: "Έθιμα & Παραδόσεις",
       icon: FontAwesome,
-      iconName: 'globe',
-      gradient: ["#9B59B6", "#8E44AD"],
-      track: trackData4,
+      iconName: "globe",
+      gradient: ["#626ccc", "#3f4dca"],
+      track: null,
       image:
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80",
     },
-    // {
-    //   id: "LakeRiver",
-    //   title: "Λίμνες - Ποτάμια",
-    //   // icon: <MaterialCommunityIcons name="wave" size={24} color="black" />,
-    //   icon: MaterialCommunityIcons,
-    //   iconName: 'wave',
-    //   gradient: ["#3498DB", "#2980B9"],
-    //   track: trackData3,
-    //   image:
-    //     "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&q=80",
-    // },
-    // {
-    //   id: "Mountain",
-    //   title: "Βουνά",
-    //   // icon: <MaterialIcons name="terrain" size={24} color="black" />,
-    //   icon: MaterialIcons,
-    //   iconName: 'terrain',
-    //   gradient: ["#4ECDC4", "#45B7AF"],
-    //   track: trackData2,
-    //   image:
-    //     "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80",
-    // },
     {
-      id: "Nomoi",
-      title: "Νομοί - Πόλεις",
-      // icon: <Feather name="map-pin" size={24} color="black" />,
+      id: "TraditionalFood",
+      title: "Παραδοσιακά Φαγητά ανά Περιοχή",
       icon: Feather,
-      iconName: 'map-pin',
-      gradient: ["#FF6B6B", "#FF8E8E"],
-      track: trackData1,
+      iconName: "map-pin",
+      gradient: ["#b160c5", "#c94dc9"],
+      track: null,
       image:
         "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80",
     },
@@ -154,14 +138,10 @@ export default function QuizDynamil() {
     return null;
   }
 
-  // const [disabledCategories, setDisabledCategories] = useState<string[]>([]);
-
   const handleCategoryPress = (categoryId: string) => {
     const categoryToScreenMap: Record<string, string> = {
-      GeneralQuestions: "GeneralQuestions",
-      // LakeRiver: "LakeRiver",
-      // Mountain: "Mountain",
-      Nomoi: "Nomoi",
+      GreekTraditions: "GreekTraditions",
+      TraditionalFood: "TraditionalFood",
     };
 
     const screenName = categoryToScreenMap[categoryId];
@@ -178,47 +158,83 @@ export default function QuizDynamil() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
-      <Animated.View
-        entering={FadeInUp.delay(200).springify()}
-        style={styles.header}
-      >
-        <View>
-          {/* <Text style={styles.greeting}>Hello Explorer! 👋</Text> */}
-          <Text style={styles.greeting}>Γειά σου {name}! 👋</Text>
-          {/* <Text style={styles.subtitle}>Ready to test your geography knowledge?</Text> */}
-          <Text style={styles.subtitle}>Έτοιμος να τεστάρεις τις γνώσεις </Text>
-          <Text style={[styles.subtitle, { marginTop: -5 }]}>
-            σου στην γεωγραφία;
+      <Animated.View entering={FadeInUp.delay(200).springify()}>
+        <View style={styles.header}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Quiz1");
+            }}
+            style={{ marginLeft: 10 }}
+          >
+            <Feather name="home" size={24} color="#000" />
+          </Pressable>
+
+          <Pressable
+            onPressIn={() => setScale1(1.25)}
+            onPressOut={() => {
+              navigation.navigate("Quiz1");
+              setScale1(1);
+            }}
+            style={[
+              styles.menuButton,
+              { transform: [{ scale: scale1 }], padding: 0 },
+            ]}
+          >
+            <Image
+              source={require("../assets/adaptive-icon-test.png")}
+              style={{ width: 45, height: 45 }}
+            />
+          </Pressable>
+        </View>
+        <View style={{ marginTop: -20, marginBottom: 20 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: "#595a5f",
+              paddingHorizontal: 10,
+            }}
+          >
+            Γνώρισε τα παραδοσιακά φαγητά κάθε περιοχής και τα μοναδικά έθιμα
+            της Ελλάδας μέσα από διασκεδαστικά quiz!
           </Text>
         </View>
-        <Pressable
-          onPressIn={() => setScale1(1.25)}
-          onPressOut={() => {
-            navigation.navigate("Settings");
-            setScale1(1);
-          }}
-          style={[styles.menuButton, { transform: [{ scale: scale1 }] }]}
-        >
-          <Feather name="menu"size={24} color="#333" />
-        </Pressable>
       </Animated.View>
 
       <Animated.View
         style={styles.categoriesGrid}
         entering={FadeInDown.delay(300).springify()}
       >
-         {/* <QuizScreenCategoryCard
-          id1="ifa"
-          link1="Mountain"
-          title1="Mountain"
-          icon1={<Waves size={32} color="white" />}
-          gradient1={["#9B59B6", "#8E44AD"]}
+        <View style={{ flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{width: '48%'}}>
+          <QuizScreenCategoryCard
+            id1="itrad"
+            link1="GreekTraditions"
+            title1="Έθιμα & Παραδόσεις"
+            trackEventName={trackEventsOrganized.GREEK_TRADITIONS}
+            icon1={null}
+            gradient1={["#626ccc", "#3f4dca"]}
+          />
+
+        </View>
+         <View style={{width: '48%'}}>
+
+          <QuizScreenCategoryCard
+            id1="ifaasdf"
+            link1="TraditionalFood"
+            title1="Παραδοσιακά Φαγητά ανά Περιοχή"
+            trackEventName={trackEventsOrganized.GREEK_FOOD}
+            icon1={null}
+            gradient1={["#b160c5", "#c94dc9"]}
+          />
+         </View>
+
+        </View>
+        {/* <QuizScreenCategoryCard
         /> */}
-        {categories.map((category) => {
+        {/* {categories.map((category) => {
           const Icon = category.icon;
           const isPressed = pressedCategory === category.id;
           const isDisabled = enable === category.id;
-          // const isDisabled = enable && enable.toString() === category.id;
           return (
             <Pressable
               key={category.id}
@@ -228,65 +244,34 @@ export default function QuizDynamil() {
               ]}
               onPressIn={() => {
                 setPressedCategory(category.id);
-                // setEnable(category.id)
               }}
               onPressOut={() => {
                 handleCategoryPress(category.id);
                 setPressedCategory(null);
               }}
               disabled={isDisabled}
-              // disabled={disabledCategories.includes(category.id) || enable}
             >
-              {/* <Image
-                source={{ uri: category.image }}
-                style={styles.categoryBackground}
-              /> */}
-
               <LinearGradient
                 colors={category.gradient}
                 style={styles.categoryContent}
               >
                 <Icon size={32} color="white" />
-                {/* <View style={{ position: "absolute", top: 20, right: 30 }}>
-                  <Text style={{ color: "white" }}>{category.track}</Text>
-                </View> */}
+
                 <Text style={styles.categoryTitle}>{category.title}</Text>
               </LinearGradient>
             </Pressable>
           );
-        })}
-       
-
-        {/* <Image
-           source={{
-            uri: "https://api.a0.dev/assets/image?text=stunning%20aerial%20view%20of%20greek%20islands%20with%20dramatic%20coastline%20crystal%20clear%20waters%20and%20ancient%20ruins&aspect=9:16",
-            }}
-            resizeMode="cover"
-            style={{width: '100%', height: 150, borderRadius: 10}}
-            /> */}
+        })} */}
       </Animated.View>
-
-      {/* <View style={{position: 'absolute', bottom: 150,left: 50}}>
-        <Text>coins: {coins}</Text>
-        <Text>{lastQuestionIndex}/60</Text>
-      </View> */}
-
-      {/* <Animated.View entering={FadeInDown.delay(450).springify()}>
-        <Pressable
-          onPressIn={() => setScale2(0.95)}
-          onPressOut={() => {navigation.navigate("Calendar"), setScale2(1)}}
-          style={[
-            styles.shareButton,
-            { marginBottom: 20, backgroundColor: "magenta",transform: [{scale:scale2}] },
-          ]}
-        >
-          <Share2 size={24} color="#fff" />
-          <Text style={styles.shareText}>Iχνηλάτης Εφαρμογής</Text>
-        </Pressable>
-      </Animated.View> */}
-      <Animated.View entering={FadeInDown.delay(400).springify()}>
-        <ShareButton />
-      </Animated.View>
+      <Image
+        source={require("../assets/Photos/imgBonus.png")}
+        style={{
+          width: "100%",
+          height: 300,
+          borderRadius: 20,
+          marginBottom: 20,
+        }}
+      />
       <View style={{ marginBottom: 20 }} />
     </SafeAreaView>
   );
@@ -372,6 +357,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Poppins-SemiBold",
     color: "white",
+    width: 150,
   },
   shareButton: {
     flexDirection: "row",

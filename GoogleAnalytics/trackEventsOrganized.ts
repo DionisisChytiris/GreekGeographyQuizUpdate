@@ -17,5 +17,7 @@ export const trackEventsOrganized = {
     HELP_HUNDRED_PERCENT: 'help_hundred_percent',
     BUY_EXTRA_HUNDRED: 'buy_extra_hundred',
     // REVIEW_PROMPT_SHOWN: 'review_prompt_show',
-    CHARACTER_IMAGE: 'character_image'
+    CHARACTER_IMAGE: 'character_image',
+    GREEK_TRADITIONS: 'greek_traditions_customs',
+    GREEK_FOOD: 'greek_food'
   };

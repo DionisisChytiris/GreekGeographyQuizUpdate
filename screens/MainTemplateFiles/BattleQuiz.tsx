@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Image,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -111,10 +112,12 @@ const CHARACTER_KEY = "selectedCharacterUri";
 // };
 
 export default function BattleQuiz() {
+  const intervalRef = useRef<number | null>(null); // 👈 Fix type for TS
   const navigation = useNavigation<BattleLinkProp>();
   const dispatch = useAppDispatch();
   const name = useAppSelector((state) => state.user.name);
   const coins = useAppSelector((state) => state.coins.coins);
+  const isTimerEnabled = useAppSelector((state) => state.timer.isTimerEnabled);
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const [quiz, setQuiz] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -135,6 +138,7 @@ export default function BattleQuiz() {
   const scaleValue = useSharedValue(1);
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [counter, setCounter] = useState<any>(30);
 
   // Load and play sound on mount
   useEffect(() => {
@@ -259,6 +263,7 @@ export default function BattleQuiz() {
   const findMockPlayer = () => {
     setIsMockLoading(true);
     setMockPlayer(null);
+    // setCounter(null);
 
     const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2000–5000ms
 
@@ -266,6 +271,7 @@ export default function BattleQuiz() {
       const player = getRandomMockPlayer();
       setMockPlayer(player);
       setIsMockLoading(false);
+      // setCounter(15);
     }, randomDelay);
   };
 
@@ -290,6 +296,14 @@ export default function BattleQuiz() {
     getNextQuizBatch();
     findMockPlayer();
   };
+
+  useEffect(() => {
+    if (isMockLoading) {
+      setCounter(null);
+    } else {
+      setCounter(30);
+    }
+  }, [isMockLoading]);
 
   useEffect(() => {
     if (!isPlayerTurn && lastPlayerAnswer) {
@@ -318,6 +332,30 @@ export default function BattleQuiz() {
     }
   }, [isPlayerTurn, lastPlayerAnswer]);
 
+  useEffect(() => {
+    if (isTimerEnabled && counter > 0) {
+      intervalRef.current = setInterval(() => {
+        setCounter((prevCounter: number) => prevCounter - 1);
+      }, 1000);
+    } else if (counter === 0) {
+      setLeftAnswers(Array(5).fill(false)); // or any number instead of 0
+      setRightAnswers(Array(5).fill(true));
+      // Alert.alert("You lost!");
+      // navigation.navigate(resultsPage, { ... });
+    }
+
+    // if (counter <= 5 && counter > 0 && isSoundEnabled) {
+    //   useSoundEffect(require("../../assets/sounds/click.mp3"));
+    // }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isTimerEnabled, counter]);
+
   const requestReviewApp = async () => {
     // console.log("requestReview function called");
 
@@ -344,23 +382,30 @@ export default function BattleQuiz() {
         if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
           // console.log("correct answer player1");
           isSoundEnabled && CorrectUserSound();
+          setCounter(30);
         } else {
           isSoundEnabled && WrongUserSound();
+          setCounter(30);
           // console.log("wrong answer player1");
         }
 
         if (currentQuestion === quiz.length - 1) {
           setTimeout(() => setGameEnded(true), 2500);
         }
+        // if (counter === 0) {
+        //   setRightAnswers((prev)=>[...prev, !isCorrect])
+        // }
       } else {
         setRightAnswers((prev) => [...prev, isCorrect]);
         setIsPlayerTurn(true);
         setLastPlayerAnswer(null);
         setAiChoices((prev) => [...prev, selectedAnswer]);
+        setTimeout(() => setCounter(30), 1000);
 
         if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
           // console.log("correct answer player2");
           isSoundEnabled && CorrectMockSound();
+          // setCounter(15)
         } else {
           isSoundEnabled && WrongMockSound();
           // console.log("wrong answer player2");
@@ -480,7 +525,7 @@ export default function BattleQuiz() {
               style={{ position: "absolute", top: 0, left: 75 }}
               onPress={() => {
                 setModalVisible(true),
-                trackEvent(trackEventsOrganized.CHARACTER_IMAGE);
+                  trackEvent(trackEventsOrganized.CHARACTER_IMAGE);
               }}
             >
               <Ionicons name="add-circle" size={20} color="yellow" />
@@ -506,6 +551,13 @@ export default function BattleQuiz() {
             <View style={styles.userName}>
               <Text style={styles.text1}>{name ? name : "Εξερευνητής"}</Text>
             </View>
+
+            
+            {!isMockLoading && isPlayerTurn && (
+              <View style={[styles.thinkingIndicator,{position: 'absolute',top:110, height:30, width: 70}]}>
+                <Text style={[styles.thinkingText,{paddingHorizontal:15}]}>...</Text>
+              </View>
+            )}
           </View>
           <View style={styles.sideContainer}>
             {renderAnswerBoxes(leftAnswers)}
@@ -523,9 +575,10 @@ export default function BattleQuiz() {
         {/* Question and answers container */}
         <View style={styles.centerContainer}>
           <View style={styles.optionsContainer}>
-            {gameEnded &&
-            leftAnswers.length === quiz.length &&
-            rightAnswers.length === quiz.length ? (
+            {(gameEnded &&
+              leftAnswers.length === quiz.length &&
+              rightAnswers.length === quiz.length) ||
+            counter === 0 ? (
               <View>
                 {getScore(leftAnswers) > getScore(rightAnswers) ? (
                   <View>
@@ -621,7 +674,7 @@ export default function BattleQuiz() {
                null
               ) : null} */}
               {isMockLoading ? (
-                <View style={{ marginTop: 25 }}>
+                <View style={{ marginTop: 25, height: 60 }}>
                   <ActivityIndicator size="large" color="#2196F3" />
                 </View>
               ) : (
@@ -663,9 +716,10 @@ export default function BattleQuiz() {
           </View>
         </View>
 
-        {gameEnded &&
-        leftAnswers.length === quiz.length &&
-        rightAnswers.length === quiz.length ? (
+        {(gameEnded &&
+          leftAnswers.length === quiz.length &&
+          rightAnswers.length === quiz.length) ||
+        counter === 0 ? (
           <View style={styles.questionContainer}>
             <Text
               style={[
@@ -720,6 +774,12 @@ export default function BattleQuiz() {
             <Text style={styles.questionNumber1}>
               Ερώτηση {currentQuestion + 1}
             </Text>
+
+            {isTimerEnabled && !isMockLoading && (
+              <View style={{ position: "absolute", top: -30, left: 180 }}>
+                <Text style={{ fontSize: 20, color: "white" }}>{counter}</Text>
+              </View>
+            )}
 
             <Text style={styles.questionText}>
               {quiz[currentQuestion]?.question || "No question available"}

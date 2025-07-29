@@ -5,6 +5,8 @@ export type RootStackParamList = {
   LoseScreenREndTime: undefined;
   Quiz: undefined;
   Quiz1: undefined;
+  QuizDynamil: undefined;
+  BonusQuizzes: undefined;
   Introduction: undefined;
   Instructions: undefined;
   Settings: undefined;
@@ -14,6 +16,10 @@ export type RootStackParamList = {
   DragDropQuiz: undefined;
   BattleQuiz: undefined;
   MapTest: undefined;
+  GreekTraditions: undefined;
+  ResultsGreekTraditions: undefined;
+  TraditionalFood: undefined;
+  ResultsTraditionalFood: undefined;
   AboutApp: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;

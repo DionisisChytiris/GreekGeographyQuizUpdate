@@ -12,10 +12,11 @@ import {
   ImageBackground,
   ScrollView,
   StatusBar,
+  ImageSourcePropType,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Feather } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   useFonts,
@@ -31,7 +32,7 @@ import { useSoundEffect } from "../Utilities/useSoundEffects";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withSpring
+  withSpring,
 } from "react-native-reanimated";
 // import {
 //   useAnswerAnimations,
@@ -63,6 +64,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveProgress, getProgress } from "../../ReduxToolkit/progressSlice";
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
+import ModalBrokenHeart from "../Modals/ModalBrokenHeart";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
@@ -70,11 +72,11 @@ const { width, height } = Dimensions.get("window");
 
 type MainQuizAiGenProps = {
   dataT: {
-    id: number;
+    id: string;
     question: string;
     options: { answer: string }[];
     correctAnswerIndex: number;
-    img: any;
+    img?: ImageSourcePropType | null;
   }[];
   resultsPage: any;
   quizName: string;
@@ -93,6 +95,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const isSoundEnabled = useAppSelector((state) => state.sound.isSoundEnabled);
   const coins = useAppSelector((state) => state.coins.coins);
   const navigation = useNavigation<LakeRiverProp>();
+  const [showBrokenHeartModal, setShowBrokenHeartModal] = useState(false);
   // const data = questions;
   // Removed duplicate declaration of dispatch
   const data = dataT;
@@ -172,6 +175,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       // setHeart((prevHeart: number) => prevHeart - 1);
       dispatch(decrementHeart());
       dispatch(saveHeartAsync(heart - 1));
+    }
+    if (heart > 1) {
+      setShowBrokenHeartModal(true);
     }
   };
 
@@ -504,50 +510,97 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     startQuiz();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShowBrokenHeartModal(false);
+    }, 2000);
+  }, [showBrokenHeartModal]);
+
   return (
     <SafeAreaView style={styles.container}>
-        <TimerHeartSection
-          navigation={navigation}
-          quizName={quizName}
-          index={index}
-          heart={heart}
-          totalQuestions={totalQuestions}
-          counter={counter}
-          onAnswerQuestion={onAnswerQuestion}
-          resetQuiz={resetQuiz}
+      <TimerHeartSection
+        navigation={navigation}
+        quizName={quizName}
+        index={index}
+        heart={heart}
+        totalQuestions={totalQuestions}
+        counter={counter}
+        onAnswerQuestion={onAnswerQuestion}
+        resetQuiz={resetQuiz}
+      />
+
+      <View
+        style={{
+          flex: 1,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ModalBrokenHeart
+          visible={showBrokenHeartModal}
+          onClose={() => setShowBrokenHeartModal(false)}
         />
-    
-        {/* Question Card */}
-        <View style={styles.card}>
-          <View>
+      </View>
+
+      {/* Question Card */}
+      <View style={styles.card}>
+        <View>
+          {currentQuestion?.img ? (
             <ImageBackground
               key={currentQuestion?.id}
-              source={currentQuestion?.img}
+              source={currentQuestion.img}
               style={styles.questionImage}
             />
-            <View style={{ position: "absolute", top: 0, right: 0 }}>
-              <ModalExplanationQuestion
-                visible={modalVisible}
-                onClose={() => setModalVisible(false)}
-                title="Επεξήγηση"
-                currentQuestion={currentQuestion}
-              />
+          ) : (
+            <View
+              style={{ height: 70, padding: 15, flexDirection: "row", gap: 5 }}
+            >
+              {/* <Text style={{color: 'blue'}}>Έθιμα</Text>
+                <Text style={{color: 'black'}}>&</Text>
+                <Text style={{color: 'magenta'}}>Παραδόσεις</Text> */}
             </View>
-            <ScrollView showsVerticalScrollIndicator={true}>
-            <View style={styles.questionContainer}>
+          )}
+
+          <View style={{ position: "absolute", top: 0, right: 0 }}>
+            <ModalExplanationQuestion
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              title="Επεξήγηση"
+              currentQuestion={currentQuestion}
+            />
+          </View>
+          <ScrollView showsVerticalScrollIndicator={true}>
+            <View
+              style={[
+                styles.questionContainer,
+                !currentQuestion?.img && {
+                  height: 180,
+                  backgroundColor: "#e6f4fd",
+                  borderRadius: 16,
+                  marginHorizontal: 10,
+                },
+              ]}
+            >
               <Text style={styles.questionText}>
                 {currentQuestion?.question}
               </Text>
             </View>
-
-            </ScrollView>
-          </View>
-          {/* Answer Grid */}
-          {/* <Animated.View
+          </ScrollView>
+        </View>
+        {/* Answer Grid */}
+        {/* <Animated.View
             entering={FadeInUp.delay(100).springify()}
             style={styles.answersGrid}
           > */}
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={true}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={true}
+        >
           <View style={styles.answersGrid}>
             {currentQuestion?.options.map((item: any, index: any) => {
               const animatedStyle = useAnimatedStyle(() => ({
@@ -609,179 +662,177 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
               );
             })}
           </View>
-                </ScrollView>
-        </View>
+        </ScrollView>
+      </View>
 
-        {/* Bottom Section Helps */}
-        <View style={styles.bottomButtonsBox}>
-          {/* 50% Help*/}
-          {fiftyCoin ? (
-            <Pressable onPress={buyExtraFifty}>
-              <View style={styles.coinText}>
-                <Image
-                  source={require("../../assets/Photos/goldbg.png")}
-                  style={{ width: 20, height: 20 }}
-                />
-                <Text style={{ fontSize: 12 }}>40</Text>
-              </View>
-              <View style={{ width: 60, opacity: 0.3 }}>
-                <HelpOptionsButton
-                  optionText="50%"
-                  addAbility={isDisabled} // Set addAbility to null to disable the button
-                  addFunction={() => {}} // No action when clicked
-                />
-              </View>
-            </Pressable>
-          ) : (
-            <Animated.View
-              style={[
-                {
-                  width: "20%",
-                  opacity: opacity,
-                },
-                animScale1,
-              ]}
-            >
-              <HelpOptionsButton
-                addFunction={async () => {
-                  setFiftyCoin(true);
-                  trackEvent(trackEventsOrganized.HELP_FIFTY_PERCENT);
-                  isSoundEnabled && (await fiftyPlaySound());
-                  const wrongAnswers = currentQuestion.options
-                    .map((option: any, index: any) => index)
-                    .filter(
-                      (index: any) =>
-                        index !== currentQuestion.correctAnswerIndex
-                    );
-
-                  const randomWrongAnswers = wrongAnswers
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, 2);
-                  setFifty(randomWrongAnswers);
-                }}
-                addAbility={selectedAnswerIndex !== null}
-                optionText="50%"
+      {/* Bottom Section Helps */}
+      <View style={styles.bottomButtonsBox}>
+        {/* 50% Help*/}
+        {fiftyCoin ? (
+          <Pressable onPress={buyExtraFifty}>
+            <View style={styles.coinText}>
+              <Image
+                source={require("../../assets/Photos/goldbg.png")}
+                style={{ width: 20, height: 20 }}
               />
-            </Animated.View>
-          )}
-          {/* Phone Help */}
-          {phoneCoin ? (
-            <Pressable onPress={buyExtraCall}>
-              <View style={styles.coinText}>
-                <Image
-                  source={require("../../assets/Photos/goldbg.png")}
-                  style={{ width: 20, height: 20 }}
-                />
-                <Text style={{ fontSize: 12 }}>50</Text>
-              </View>
-              <View style={{ width: 60, opacity: 0.3 }}>
-                <HelpOptionsButton
-                  optionText={<Feather name="phone" size={20} color="#696969" />}
-                  addAbility={isDisabled} // Set addAbility to null to disable the button
-                  addFunction={() => {}} // No action when clicked
-                />
-              </View>
-            </Pressable>
-          ) : (
-            // When PhoneCoin is false, show the button with animation
-            <Animated.View
-              style={[{ width: "20%", opacity: opacity }, animScale2]} // Apply animation styles
-            >
+              <Text style={{ fontSize: 12 }}>40</Text>
+            </View>
+            <View style={{ width: 60, opacity: 0.3 }}>
+              <HelpOptionsButton
+                optionText="50%"
+                addAbility={isDisabled} // Set addAbility to null to disable the button
+                addFunction={() => {}} // No action when clicked
+              />
+            </View>
+          </Pressable>
+        ) : (
+          <Animated.View
+            style={[
+              {
+                width: "20%",
+                opacity: opacity,
+              },
+              animScale1,
+            ]}
+          >
+            <HelpOptionsButton
+              addFunction={async () => {
+                setFiftyCoin(true);
+                trackEvent(trackEventsOrganized.HELP_FIFTY_PERCENT);
+                isSoundEnabled && (await fiftyPlaySound());
+                const wrongAnswers = currentQuestion.options
+                  .map((option: any, index: any) => index)
+                  .filter(
+                    (index: any) => index !== currentQuestion.correctAnswerIndex
+                  );
+
+                const randomWrongAnswers = wrongAnswers
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 2);
+                setFifty(randomWrongAnswers);
+              }}
+              addAbility={selectedAnswerIndex !== null}
+              optionText="50%"
+            />
+          </Animated.View>
+        )}
+        {/* Phone Help */}
+        {phoneCoin ? (
+          <Pressable onPress={buyExtraCall}>
+            <View style={styles.coinText}>
+              <Image
+                source={require("../../assets/Photos/goldbg.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Text style={{ fontSize: 12 }}>50</Text>
+            </View>
+            <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
                 optionText={<Feather name="phone" size={20} color="#696969" />}
-                addAbility={selectedAnswerIndex !== null} // Enable button only if a valid answer is selected
-                addFunction={() => {
-                  setPhoneCoin(true); // Set PhoneCoin to true when the button is pressed
-                  setModalVisible(true); // Show modal
-                  if (isSoundEnabled) {
-                    DialPlaySound();
-                    MessagePlaySound();
-                    fiftyPlaySound(); // Play sound if enabled
-                  }
-                  trackEvent(trackEventsOrganized.HELP_CALL_PERCENT);
-                  setCounter(counter + 15); // Increment counter when button is pressed
-                }}
+                addAbility={isDisabled} // Set addAbility to null to disable the button
+                addFunction={() => {}} // No action when clicked
               />
-            </Animated.View>
-          )}
+            </View>
+          </Pressable>
+        ) : (
+          // When PhoneCoin is false, show the button with animation
+          <Animated.View
+            style={[{ width: "20%", opacity: opacity }, animScale2]} // Apply animation styles
+          >
+            <HelpOptionsButton
+              optionText={<Feather name="phone" size={20} color="#696969" />}
+              addAbility={selectedAnswerIndex !== null} // Enable button only if a valid answer is selected
+              addFunction={() => {
+                setPhoneCoin(true); // Set PhoneCoin to true when the button is pressed
+                setModalVisible(true); // Show modal
+                if (isSoundEnabled) {
+                  DialPlaySound();
+                  MessagePlaySound();
+                  fiftyPlaySound(); // Play sound if enabled
+                }
+                trackEvent(trackEventsOrganized.HELP_CALL_PERCENT);
+                setCounter(counter + 15); // Increment counter when button is pressed
+              }}
+            />
+          </Animated.View>
+        )}
 
-          {/* 100% Help */}
-          {hundredCoin ? (
-            <Pressable onPress={buyExtraHundred}>
-              <View style={styles.coinText}>
-                <Image
-                  source={require("../../assets/Photos/goldbg.png")}
-                  style={{ width: 20, height: 20 }}
-                />
-                <Text style={{ fontSize: 12 }}>80</Text>
-              </View>
-              <View style={{ width: 60, opacity: 0.3 }}>
-                <HelpOptionsButton
-                  optionText="100%"
-                  addAbility={isDisabled} // Set addAbility to null to disable the button
-                  addFunction={() => {}} // No action when clicked
-                />
-              </View>
-            </Pressable>
-          ) : (
-            <Animated.View
-              style={[{ width: "20%", opacity: opacity }, animScale3]}
-            >
+        {/* 100% Help */}
+        {hundredCoin ? (
+          <Pressable onPress={buyExtraHundred}>
+            <View style={styles.coinText}>
+              <Image
+                source={require("../../assets/Photos/goldbg.png")}
+                style={{ width: 20, height: 20 }}
+              />
+              <Text style={{ fontSize: 12 }}>80</Text>
+            </View>
+            <View style={{ width: 60, opacity: 0.3 }}>
               <HelpOptionsButton
                 optionText="100%"
-                addFunction={() => {
-                  setHundredCoin(true);
-                  setSelectedAnswerIndex(currentQuestion.correctAnswerIndex);
-                  NextQuizDelay();
-                  setCounter(false);
-                  trackEvent(trackEventsOrganized.HELP_HUNDRED_PERCENT);
-                }}
-                addAbility={selectedAnswerIndex !== null}
+                addAbility={isDisabled} // Set addAbility to null to disable the button
+                addFunction={() => {}} // No action when clicked
               />
-            </Animated.View>
-          )}
-          {/* </Animated.View> */}
-          {/* Next Question Button */}
-          <View style={{ width: "20%" }}>
+            </View>
+          </Pressable>
+        ) : (
+          <Animated.View
+            style={[{ width: "20%", opacity: opacity }, animScale3]}
+          >
             <HelpOptionsButton
+              optionText="100%"
               addFunction={() => {
-                setFifty([]);
-                if (index + 1 === data.length) {
-                  navigation.navigate(resultsPage, {
-                    resetQuiz,
-                    totalQuestions,
-                    index,
-                    userAnswers,
-                    points,
-                    seconds,
-                    minutes,
-                  });
-                } else {
-                  onAnswerQuestion;
-                  setIndex((prev) => prev + 1);
-                  setSelectedAnswerIndex(null);
-                  setCurrentColor(ansBtnClr.default);
-                  setIsDisabled(true);
-                  if (isSoundEnabled) {
-                    // CorrectPlaySound();
-                    imgPlaySound();
-                  }
-                  setCounter(15);
-                }
+                setHundredCoin(true);
+                setSelectedAnswerIndex(currentQuestion.correctAnswerIndex);
+                NextQuizDelay();
+                setCounter(false);
+                trackEvent(trackEventsOrganized.HELP_HUNDRED_PERCENT);
               }}
-              addAbility={isDisabled}
-              optionText={
-                isDisabled ? (
-                  <FontAwesome name="ban" size={20} color="#ffffff" />
-                ) : (
-                  <Feather name="arrow-right" size={26} color="#ffffff" />
-                )
-              }
-              backgroundColor={isDisabled ? "#b3e4d1" : "#3ce992"}
+              addAbility={selectedAnswerIndex !== null}
             />
-          </View>
+          </Animated.View>
+        )}
+        {/* </Animated.View> */}
+        {/* Next Question Button */}
+        <View style={{ width: "20%" }}>
+          <HelpOptionsButton
+            addFunction={() => {
+              setFifty([]);
+              if (index + 1 === data.length) {
+                navigation.navigate(resultsPage, {
+                  resetQuiz,
+                  totalQuestions,
+                  index,
+                  userAnswers,
+                  points,
+                  seconds,
+                  minutes,
+                });
+              } else {
+                onAnswerQuestion;
+                setIndex((prev) => prev + 1);
+                setSelectedAnswerIndex(null);
+                setCurrentColor(ansBtnClr.default);
+                setIsDisabled(true);
+                if (isSoundEnabled) {
+                  // CorrectPlaySound();
+                  imgPlaySound();
+                }
+                setCounter(15);
+              }
+            }}
+            addAbility={isDisabled}
+            optionText={
+              isDisabled ? (
+                <FontAwesome name="ban" size={20} color="#ffffff" />
+              ) : (
+                <Feather name="arrow-right" size={26} color="#ffffff" />
+              )
+            }
+            backgroundColor={isDisabled ? "#b3e4d1" : "#3ce992"}
+          />
         </View>
-
+      </View>
     </SafeAreaView>
   );
 };
@@ -796,9 +847,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   card: {
-    height: Platform.OS === "android" ? '75%' : '80%',
+    height: Platform.OS === "android" ? "75%" : "80%",
     // height: Platform.OS === "android" ? height * 0.75 :height * 0.80,
-    margin: height< 840? 20: 16,
+    margin: height < 840 ? 20 : 16,
     backgroundColor: "#fff",
     borderRadius: 24,
     overflow: "hidden",
@@ -824,7 +875,7 @@ const styles = StyleSheet.create({
   questionText: {
     fontFamily: "Poppins-SemiBold",
     // fontSize: 10,
-    fontSize: Platform.OS === 'ios'? 20: height > 820 ? 24 : 18,
+    fontSize: Platform.OS === "ios" ? 20 : height > 820 ? 24 : 18,
     color: "#333",
     textAlign: "center",
   },
@@ -837,7 +888,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   answerButton: {
-    height: Platform.OS === 'ios'? 50: height > 820 ? 60 : 50,
+    height: Platform.OS === "ios" ? 50 : height > 820 ? 60 : 50,
     borderRadius: 16,
     overflow: "hidden",
   },
@@ -849,7 +900,7 @@ const styles = StyleSheet.create({
   },
   answerText: {
     fontFamily: "Poppins-SemiBold",
-    fontSize: Platform.OS === 'ios'? 16: height > 820 ? 20:  16,
+    fontSize: Platform.OS === "ios" ? 16 : height > 820 ? 20 : 16,
     color: "#fff",
   },
   // progressBarContainer: {

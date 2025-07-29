@@ -9,7 +9,7 @@ const questions = [
       { id: "3", answer: "Πόντος" },
     ],
     correctAnswerIndex: 2,
-    img: require("../../assets/MorePhotos/momogeroi.jpg"),
+    // img: require("../../assets/MorePhotos"),
     result1:
       "Οι Μωμόγεροι είναι ένα αρχέγονο έθιμο που αναβιώνει κυρίως στη Δυτική Μακεδονία, με ρίζες από τον Πόντο.",
     result2: "",
@@ -26,7 +26,8 @@ const questions = [
       { id: "3", answer: "Ύδρα" },
     ],
     correctAnswerIndex: 3,
-    img: require("../../assets/MorePhotos/lampriatis.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/lampriatis.jpg"),
     result1:
       "Ο Λαμπριάτης είναι πασχαλινό έδεσμα που ψήνεται παραδοσιακά στην Ύδρα την Κυριακή του Πάσχα.",
     result2: "",
@@ -43,7 +44,8 @@ const questions = [
       { id: "3", answer: "Γενίτσαροι & Μπούλες" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/galaxidi.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/galaxidi.jpg"),
     result1:
       "Τα Αλευρομουτζουρώματα είναι ένα αποκριάτικο έθιμο στο Γαλαξίδι, όπου οι συμμετέχοντες βάφονται με χρώματα και αλεύρι.",
     result2: "",
@@ -60,7 +62,8 @@ const questions = [
       { id: "3", answer: "Καλαμάτα" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/boules.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/boules.jpg"),
     result1:
       "Οι «Γενίτσαροι και Μπούλες» είναι αποκριάτικο έθιμο που τελείται στη Νάουσα, με ρίζες στη Βαλκανική παράδοση.",
     result2: "",
@@ -77,7 +80,8 @@ const questions = [
       { id: "3", answer: "Λέσβος" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/botides.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/botides.jpg"),
     result1:
       "Οι 'μπότηδες' είναι πήλινα δοχεία που πετιούνται από τα μπαλκόνια το πρωί του Μεγάλου Σαββάτου στην Κέρκυρα.",
     result2: "",
@@ -94,7 +98,8 @@ const questions = [
       { id: "3", answer: "Έδεσσα" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/fanos.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/fanos.jpg"),
     result1:
       "Ο Φανός είναι αποκριάτικο έθιμο της Κοζάνης με άναμμα φωτιών, χορό και τραγούδια.",
     result2: "",
@@ -111,7 +116,8 @@ const questions = [
       { id: "3", answer: "Νάξος" },
     ],
     correctAnswerIndex: 2,
-    img: require("../../assets/MorePhotos/kamila.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/kamila.jpg"),
     result1:
       "Η 'Καμήλα' είναι αποκριάτικο έθιμο που τελείται σε χωριά των Σερρών, με πομπή και λαϊκή μουσική.",
     result2: "",
@@ -128,7 +134,8 @@ const questions = [
       { id: "3", answer: "Εύβοια" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/anastenarides.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/anastenarides.jpg"),
     result1:
       "Οι Αναστενάρηδες είναι θρησκευτικό δρώμενο με πυροβασία που αναβιώνει στη Μακεδονία και τη Θράκη.",
     result2: "",
@@ -145,7 +152,8 @@ const questions = [
       { id: "3", answer: "Φλώρινα" },
     ],
     correctAnswerIndex: 3,
-    img: require("../../assets/MorePhotos/fotaries.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/fotaries.jpg"),
     result1:
       "Οι Φωταριές ανάβουν κάθε χρόνο στη Φλώρινα για τον εορτασμό των Χριστουγέννων.",
     result2: "",
@@ -162,7 +170,8 @@ const questions = [
       { id: "3", answer: "Νάξος" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/rouketopolemos.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/rouketopolemos.jpg"),
     result1:
       "Ο ρουκετοπόλεμος της Χίου είναι πασχαλινό έθιμο που γίνεται στον Βροντάδο, ανάμεσα σε δύο ενορίες.",
     result2: "",
@@ -179,7 +188,8 @@ const questions = [
       { id: "3", answer: "Θάσος" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/arapissa.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/arapissa.jpg"),
     result1:
       "Η 'Αράπισσα' είναι διονυσιακό έθιμο που αναβιώνει κάθε Γενάρη στη Δράμα με εντυπωσιακές φορεσιές.",
     result2: "",
@@ -196,7 +206,8 @@ const questions = [
       { id: "3", answer: "Άργος" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/saitopolemos.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/saitopolemos.jpg"),
     result1:
       "Ο σαϊτοπόλεμος είναι πασχαλινό έθιμο της Καλαμάτας, όπου ομάδες ρίχνουν σαΐτες με καπνό και ήχο.",
     result2: "",
@@ -213,7 +224,8 @@ const questions = [
       { id: "3", answer: "Τρίκαλα" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/kamila2.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/kamila2.jpg"),
     result1:
       "Η 'Καμήλα' είναι σατιρικό έθιμο που αναβιώνει σε χωριά των Σερρών κάθε Απόκριες.",
     result2: "",
@@ -230,7 +242,8 @@ const questions = [
       { id: "3", answer: "Νάξος" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/skouroskoulouri.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/skouroskoulouri.jpg"),
     result1:
       "Το κουλούρι της Λαμπρής είναι παραδοσιακό πασχαλινό γλύκισμα της Σκύρου.",
     result2: "",
@@ -247,7 +260,8 @@ const questions = [
       { id: "3", answer: "Λήμνος" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/fotia_ai_gianni.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/fotia_ai_gianni.jpg"),
     result1:
       "Την παραμονή του Αη Γιάννη ανάβουν φωτιές και πηδούν από πάνω στη Χαλκιδική, για καλή τύχη.",
     result2: "",
@@ -264,7 +278,8 @@ const questions = [
       { id: "3", answer: "Λευκάδα" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/stamnes.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/stamnes.jpg"),
     result1:
       "Το έθιμο της ρίψης πήλινων σταμνών (μπότηδων) γίνεται στην Κέρκυρα το Μεγάλο Σάββατο.",
     result2: "",
@@ -281,7 +296,8 @@ const questions = [
       { id: "3", answer: "Αποκριάτικο" },
     ],
     correctAnswerIndex: 2,
-    img: require("../../assets/MorePhotos/klidonas.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/klidonas.jpg"),
     result1:
       "Ο Κλήδωνας είναι καλοκαιρινό έθιμο που γίνεται του Αη Γιάννη, με προφητικά λόγια για τις ανύπαντρες.",
     result2: "",
@@ -298,7 +314,8 @@ const questions = [
       { id: "3", answer: "Νάουσα" },
     ],
     correctAnswerIndex: 2,
-    img: require("../../assets/MorePhotos/tsolias.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/tsolias.jpg"),
     result1:
       "Στο Διδυμότειχο τελείται αποκριάτικο δρώμενο με Καμήλα και Τσολιά που σατιρίζει την εξουσία.",
     result2: "",
@@ -315,7 +332,8 @@ const questions = [
       { id: "3", answer: "Θράκη" },
     ],
     correctAnswerIndex: 0,
-    img: require("../../assets/MorePhotos/spathia.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/spathia.jpg"),
     result1:
       "Ο Χορός των Σπαθιών είναι ένα μακεδονικό δρώμενο με πολεμική χορογραφία από άντρες ντυμένους πολεμιστές.",
     result2: "",
@@ -332,7 +350,8 @@ const questions = [
       { id: "3", answer: "Λευκή φουστανέλα" },
     ],
     correctAnswerIndex: 3,
-    img: require("../../assets/MorePhotos/sarakatsanoi.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/sarakatsanoi.jpg"),
     result1:
       "Οι Σαρακατσαναίοι φορούσαν φουστανέλα, παραδοσιακή στολή των ορεσίβιων πληθυσμών.",
     result2: "",
@@ -349,7 +368,8 @@ const questions = [
       { id: "3", answer: "Στην Πρωτοχρονιά" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/isaia.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/isaia.jpg"),
     result1:
       "Ο Χορός του Ησαΐα είναι το πρώτο βήμα του ζευγαριού μετά τον γάμο, γύρω από την Αγία Τράπεζα.",
     result2: "",
@@ -366,7 +386,8 @@ const questions = [
       { id: "3", answer: "Στεμνίτσα" },
     ],
     correctAnswerIndex: 1,
-    img: require("../../assets/MorePhotos/tranos.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/tranos.jpg"),
     result1:
       "Ο Τρανός Χορός της Σιάτιστας είναι ένα από τα μεγαλύτερα παραδοσιακά χορευτικά έθιμα της Δυτικής Μακεδονίας.",
     result2: "",
@@ -383,7 +404,8 @@ const questions = [
       { id: "3", answer: "Πόρος" },
     ],
     correctAnswerIndex: 2,
-    img: require("../../assets/MorePhotos/analipsi.jpg"),
+    img:null,
+    // img: require("../../assets/MorePhotos/analipsi.jpg"),
     result1:
       "Στη Σκιάθο, την Ανάληψη οι κάτοικοι μπαίνουν ομαδικά στη θάλασσα για να 'πλυθούν' συμβολικά.",
     result2: "",

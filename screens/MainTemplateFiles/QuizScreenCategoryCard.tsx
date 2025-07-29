@@ -11,7 +11,7 @@ interface QuizScreenCategoryCardProps {
   link1: string;
   title1: string;
   trackEventName:string;
-  icon1: React.ReactNode; // This can be any React element (like a component or an icon)
+  icon1?: React.ReactNode; // This can be any React element (like a component or an icon)
   gradient1: [string, string, ...string[]]; // Gradient colors for LinearGradient
 }
 

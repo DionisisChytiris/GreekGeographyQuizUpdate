@@ -525,6 +525,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#fff",
     marginTop: 16,
+    textAlign: 'center'
   },
   scoreText: {
     fontFamily: "Poppins-Bold",

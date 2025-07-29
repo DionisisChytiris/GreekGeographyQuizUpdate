@@ -68,8 +68,9 @@ const AppContent = ({ setUpdateAvailable }) => {
       console.log("Error checking for updates:", e);
     }
   };
-
+  
   useEffect(() => {
+    // setUpdateAvailable(true);
     checkForUpdates();
   }, []);
 
