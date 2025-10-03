@@ -7,10 +7,10 @@ import {
   Dimensions,
   Linking,
   Platform,
-  Image
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { MaterialIcons,  Feather } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -146,7 +146,7 @@ export default function Settings() {
             Ρυθμίσεις{" "}
           </Text>
           <View style={{ position: "absolute", bottom: 0, right: 5 }}>
-            <Text style={{fontSize: 10}}>{clientId || "Loading..."}</Text>
+            <Text style={{ fontSize: 10 }}>{clientId || "Loading..."}</Text>
           </View>
         </View>
         {/* <Text style={styles.title}>Ρυθμίσεις</Text> */}
@@ -156,7 +156,7 @@ export default function Settings() {
         <View style={styles.section1}>
           <View style={styles.sectionHeader}>
             <View style={styles.iconBackground}>
-              <Feather name="settings" size={18} color="#fffdfd"/>
+              <Feather name="settings" size={18} color="#fffdfd" />
             </View>
             <Text style={styles.sectionTitle}>Εξατομίκευση</Text>
           </View>
@@ -281,7 +281,7 @@ export default function Settings() {
               <View
                 style={[styles.iconBackground, { backgroundColor: "#f53978" }]}
               >
-              <Feather name="arrow-right" size={24} color="#fff" />
+                <Feather name="arrow-right" size={24} color="#fff" />
               </View>
               <Text style={styles.menuText}>Αλλαγή Ονόματος</Text>
             </View>
@@ -354,7 +354,7 @@ export default function Settings() {
             onClose={() => setShowPersonalData(false)}
           />
           <TouchableOpacity
-             onPress={() => {
+            onPress={() => {
               navigation.navigate("Contact");
             }}
             style={styles.menuItem}
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     paddingTop: 60,
     paddingHorizontal: 20,
-    height: 1000
+    height: 1000,
   },
   header: {
     width: "20%",

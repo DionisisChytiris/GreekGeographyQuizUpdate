@@ -94,7 +94,7 @@ const CalendarComponent = () => {
           navigation.navigate("Quiz1");
         }}
       >
-        <AntDesign name="closecircle" size={34} color="white" />
+        <AntDesign name="close-circle" size={34} color="white" />
       </Pressable>
       <Text
         style={{

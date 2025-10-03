@@ -61,7 +61,7 @@ const SetUserName = () => {
             dispatch(setNameInput(""));
           }}
         >
-          <AntDesign name="closecircle" size={34} color="white" />
+          <AntDesign name="close-circle" size={34} color="white" />
         </Pressable>
         <View style={styles.popupContainer}>
           <Text style={styles.text}>

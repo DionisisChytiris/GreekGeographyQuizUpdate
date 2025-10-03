@@ -44,7 +44,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
         style={styles.btnArrow}
         onPress={() => navigation.navigate("Quiz1")}
       >
-        <AntDesign name="arrowleft" size={20} color={color1}/>
+        <AntDesign name="left" size={20} color={color1}/>
       </Pressable>
 
       {/* Question Counter */}

@@ -91,7 +91,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
             resetQuiz;
           }}
         >
-          <AntDesign name="arrowleft" size={20} color="black" />
+          <AntDesign name="left" size={20} color="black" />
           <Text style={styles.progress}>
             {index + 1} / {totalQuestions}
           </Text>
