@@ -10,12 +10,7 @@ Get the app on:
 - Google Play: [GreekGeographyQuiz on Google Play](https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion))
 - App Store: [GreekGeographyQuiz on the App Store](https://apps.apple.com/app/id6504780092))
 
-## Download
 
-- App Store (iOS)
-  - URL: https://apps.apple.com/app/id6504780092
-- Google Play (Android)
-  - URL: https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME](https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion)
 
 ## Key features
 - Multiple quiz types and question generation (MainQuizAiGen, BattleQuiz).
