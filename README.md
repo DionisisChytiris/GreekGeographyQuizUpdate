@@ -5,6 +5,13 @@ React Native / Expo quiz app about Greek geography. Provides single-player quiz 
 
 ## Download
 
+Get the app on:
+
+- Google Play: [GreekGeographyQuiz on Google Play](https://play.google.com/store/apps/details?id=com.greekgeographyquizapp.dion))
+- App Store: [GreekGeographyQuiz on the App Store](https://apps.apple.com/app/id6504780092))
+
+## Download
+
 - App Store (iOS)
   - URL: https://apps.apple.com/app/id6504780092
 - Google Play (Android)
