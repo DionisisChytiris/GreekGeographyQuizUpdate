@@ -1,6 +1,15 @@
 import { useEffect } from "react";
 import { useSharedValue, withSequence, withSpring, useAnimatedStyle } from "react-native-reanimated";
 
+/**
+ * Hook that creates a scale animation using Reanimated.
+ * Performs a scale-up then scale-down sequence with spring physics after a delay.
+ * 
+ * @param delay - Delay in milliseconds before animation starts
+ * @param scaleUp - Target scale value for the up animation (default: 1.2)
+ * @param scaleDown - Target scale value for the down animation (default: 1)
+ * @returns Animated style object with transform scale property
+ */
 export const useScaleAnim = (delay: number, scaleUp: number = 1.2, scaleDown: number = 1) => {
   const scaleValue = useSharedValue(1);
 

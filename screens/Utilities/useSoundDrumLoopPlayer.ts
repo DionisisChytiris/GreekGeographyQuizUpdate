@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Audio } from 'expo-av';
+import { logError } from '../../utils/logger';
 
+/**
+ * Custom hook for playing looping drum/background sounds.
+ * Manages sound state and provides play/stop controls with automatic cleanup.
+ * 
+ * @param soundFile - URI string of the sound file to play
+ * @returns Object with playSound function, stopSound function, and isPlaying state
+ * 
+ * @example
+ * const { playSound, stopSound, isPlaying } = useSoundDrumLoopPlayer('https://example.com/sound.mp3');
+ */
 const useSoundDrumLoopPlayer = (soundFile: string) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,9 +25,8 @@ const useSoundDrumLoopPlayer = (soundFile: string) => {
           { shouldPlay: false, isLooping: true } // Set looping to true, and don't play immediately
         );
         setSound(sound);
-        // console.log('Sound loaded successfully!');
       } catch (error) {
-        console.error('Error loading sound:', error);
+        logError('Error loading sound:', error);
       }
     };
 
@@ -37,9 +47,8 @@ const useSoundDrumLoopPlayer = (soundFile: string) => {
       try {
         await sound.playAsync(); // Play the sound
         setIsPlaying(true); // Update isPlaying after the sound starts
-        // console.log('Sound is playing');
       } catch (error) {
-        console.error('Error playing sound:', error);
+        logError('Error playing sound:', error);
       }
     }
   };
@@ -50,9 +59,8 @@ const useSoundDrumLoopPlayer = (soundFile: string) => {
       try {
         await sound.stopAsync(); // Stop the sound
         setIsPlaying(false); // Update isPlaying to false
-        console.log('Sound stopped');
       } catch (error) {
-        console.error('Error stopping sound:', error);
+        logError('Error stopping sound:', error);
       }
     }
   };

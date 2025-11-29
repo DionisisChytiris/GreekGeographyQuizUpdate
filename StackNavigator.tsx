@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home, SetUserName } from "./screens";
 import { LakeRiver } from "./screens/LakeRiverQuizzes";
@@ -7,14 +7,8 @@ import { Mountain } from "./screens/MountainQuizzes";
 import { RootStackParamList } from "./Types/RootStackParamList";
 import QuizScreen1 from "./screens/QuizScreen1";
 import Settings from "./screens/Settings";
-import { useAppSelector } from "./ReduxToolkit/store";
 import AboutApp from "./screens/components/AboutApp";
-import DragDrop from "./screens/Atestcomponents/DragDropQuiz";
-import MapTest from "./screens/Atestcomponents/MapTest";
-import DragAndDropQuiz from "./screens/Atestcomponents/DragDropQuiz";
-import MapQuiz from "./screens/Atestcomponents/MapQuiz";
 import Calendar from "./screens/Atestcomponents/Calendar";
-// import FirstPageTest from "./screens/Atestcomponents/FirstPageTest";
 import ResultsMountain from "./screens/MountainQuizzes/ResultMountain";
 import ResultsLake from "./screens/LakeRiverQuizzes/ResultsLake";
 import GeneralQuestions from "./screens/GeneralQuestionsQuizzes/GeneralQuestions";
@@ -30,269 +24,45 @@ import TraditionalFoodQuizzes from "./screens/TraditionalFoodQuizzes/Traditional
 import ResultsGreekTraditions from "./screens/GreekTraditionsQuizzes/ResultsGreekTraditions";
 import ResultsTraditionalFood from "./screens/TraditionalFoodQuizzes/ResultsTraditionalFood";
 
-// const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const navigationRef = createNavigationContainerRef();
+const defaultScreenOptions = {
+  headerShown: false,
+  headerBackTitleVisible: false,
+  orientation: "portrait" as const,
+};
 
 const StackNavigator = () => {
-  // const [name, setName] = React.useState("");
-  const name = useAppSelector((state) => state.user.name);
-  
-  // const getData = () => {
-  //   try {
-  //     AsyncStorage.getItem("UserData").then((value) => {
-  //       if (value != null) {
-  //         let user = JSON.parse(value);
-  //         setName(user.Name);
-  //       }
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          ...defaultScreenOptions,
           contentStyle: { backgroundColor: "lightgrey" },
         }}
       >
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="SetUserName"
-          component={SetUserName}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="Contact"
-          component={Contact}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="Calendar"
-          component={Calendar}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="ResultsLake"
-          component={ResultsLake}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="ResultsMountain"
-          component={ResultsMountain}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="ResultsGeneral"
-          component={ResultsGeneral}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="ResultsNomoi"
-          component={ResultsNomoi}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="AboutApp"
-          component={AboutApp}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        {/* <Stack.Screen
-          name="DragDrop"
-          component={DragDrop}
-          options={{
-            headerShown: true,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-        <Stack.Screen
-          name="DragDropQuiz"
-          component={DragAndDropQuiz}
-          options={{
-            headerShown: true,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        /> */}
-        {/* <Stack.Screen
-          name="MapTest"
-          component={MapTest}
-          options={{
-            headerShown: true,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        /> */}
-        {/* <Stack.Screen
-          name="MapQuiz"
-          component={FirstPageTest}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        /> */}
-        <Stack.Screen
-          name="BattleQuiz"
-          component={BattleQuiz}
-          options={{
-            headerShown: false,
-            headerBackTitleVisible: false,
-            orientation: "portrait"
-          }}
-        />
-
-        <Stack.Screen
-          name="Quiz1"
-          component={QuizScreen1}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="QuizDynamil"
-          component={QuizDynamil}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="BonusQuizzes"
-          component={BonusQuizzes}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="LakeRiver"
-          component={LakeRiver}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="Mountain"
-          component={Mountain}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="Nomoi"
-          component={Nomoi}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="GeneralQuestions"
-          component={GeneralQuestions}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="GreekTraditions"
-          component={GreekTraditionsQuizzes}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="ResultsGreekTraditions"
-          component={ResultsGreekTraditions}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="TraditionalFood"
-          component={TraditionalFoodQuizzes}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="ResultsTraditionalFood"
-          component={ResultsTraditionalFood}
-          options={{
-            orientation: "portrait",
-            headerBackTitleVisible: false,
-            headerShown: false
-          }}
-        />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="SetUserName" component={SetUserName} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen name="Calendar" component={Calendar} />
+        <Stack.Screen name="ResultsLake" component={ResultsLake} />
+        <Stack.Screen name="ResultsMountain" component={ResultsMountain} />
+        <Stack.Screen name="ResultsGeneral" component={ResultsGeneral} />
+        <Stack.Screen name="ResultsNomoi" component={ResultsNomoi} />
+        <Stack.Screen name="AboutApp" component={AboutApp} />
+        <Stack.Screen name="BattleQuiz" component={BattleQuiz} />
+        <Stack.Screen name="Quiz1" component={QuizScreen1} />
+        <Stack.Screen name="QuizDynamil" component={QuizDynamil} />
+        <Stack.Screen name="BonusQuizzes" component={BonusQuizzes} />
+        <Stack.Screen name="LakeRiver" component={LakeRiver} />
+        <Stack.Screen name="Mountain" component={Mountain} />
+        <Stack.Screen name="Nomoi" component={Nomoi} />
+        <Stack.Screen name="GeneralQuestions" component={GeneralQuestions} />
+        <Stack.Screen name="GreekTraditions" component={GreekTraditionsQuizzes} />
+        <Stack.Screen name="ResultsGreekTraditions" component={ResultsGreekTraditions} />
+        <Stack.Screen name="TraditionalFood" component={TraditionalFoodQuizzes} />
+        <Stack.Screen name="ResultsTraditionalFood" component={ResultsTraditionalFood} />
       </Stack.Navigator>
     </NavigationContainer>
   );

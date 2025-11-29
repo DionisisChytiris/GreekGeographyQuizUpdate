@@ -12,6 +12,7 @@ import {
 import { Feather } from '@expo/vector-icons';
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
+import { logInfo, logError } from "../../utils/logger";
 
 const ShareButton = () => {
   const [scale, setScale] = useState(1);
@@ -30,17 +31,17 @@ const ShareButton = () => {
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
-          console.log("Shared via", result.activityType);
+          logInfo("Shared via", result.activityType);
           trackEvent(trackEventsOrganized.SHARE_APP);
         } else {
-          console.log("Shared successfully");
+          logInfo("Shared successfully");
         }
       } else if (result.action === Share.dismissedAction) {
-        console.log("Share dismissed");
+        logInfo("Share dismissed");
       }
     } catch (error) {
       Alert.alert("Σφάλμα", "Κάτι πήγε στραβά κατά την κοινοποίηση.");
-      console.error(error);
+      logError("Share error:", error);
     }
   };
 

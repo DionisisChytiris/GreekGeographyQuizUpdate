@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, Alert, Animated, Easing, Image } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Animated, Easing, Image, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const DailyRewardButton = () => {
-  const [coins, setCoins] = useState(0);
-  const [isClaimed, setIsClaimed] = useState(false);
+/**
+ * Daily coins bonus component.
+ * Allows users to claim daily coin rewards with a rotating coin animation.
+ */
+const DailyRewardButton: React.FC = () => {
+  const [coins, setCoins] = useState<number>(0);
+  const [isClaimed, setIsClaimed] = useState<boolean>(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     checkLastClaimDate();
     loadCoins();
     startRotation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const startRotation = () => {
+  const startRotation = (): void => {
     Animated.loop(
       Animated.timing(rotateAnim, {
         toValue: 1,
@@ -24,7 +29,7 @@ const DailyRewardButton = () => {
     ).start();
   };
 
-  const checkLastClaimDate = async () => {
+  const checkLastClaimDate = async (): Promise<void> => {
     const lastClaimDate = await AsyncStorage.getItem("lastClaimDate");
     const today = new Date().toISOString().split("T")[0];
     if (lastClaimDate === today) {
@@ -32,12 +37,17 @@ const DailyRewardButton = () => {
     }
   };
 
-  const loadCoins = async () => {
+  const loadCoins = async (): Promise<void> => {
     const storedCoins = await AsyncStorage.getItem("coins");
-    if (storedCoins) setCoins(parseInt(storedCoins));
+    if (storedCoins) {
+      const coinsValue = parseInt(storedCoins, 10);
+      if (!isNaN(coinsValue)) {
+        setCoins(coinsValue);
+      }
+    }
   };
 
-  const claimReward = async () => {
+  const claimReward = async (): Promise<void> => {
     if (isClaimed) {
       Alert.alert("Already Claimed", "You have already claimed your daily reward.");
       return;

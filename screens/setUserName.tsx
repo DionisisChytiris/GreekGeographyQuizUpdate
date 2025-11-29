@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { setNameInput } from "../ReduxToolkit/setUserNameSlice";
 import { AntDesign } from "@expo/vector-icons";
+import { logError } from "../utils/logger";
 
 type SetUserProp = StackNavigationProp<RootStackParamList, "SetUserName">;
 
@@ -41,7 +42,7 @@ const SetUserName = () => {
         navigation.navigate("Quiz1");
         dispatch(setNameInput(name));
       } catch (e) {
-        console.log(e);
+        logError("Error setting user name:", e);
       }
     }
   };

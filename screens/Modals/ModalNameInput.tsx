@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { setNameInput } from "../../ReduxToolkit/setUserNameSlice";
 import { useAppSelector } from "../../ReduxToolkit/store";
 import { ScrollView } from "react-native-gesture-handler";
+import { logError } from "../../utils/logger";
 import {
   useFonts,
   Poppins_400Regular,
@@ -64,7 +65,7 @@ const ModalNameInput: React.FC<ModalComponentProps> = ({
         navigation.navigate("Quiz1");
         dispatch(setNameInput(nameT));
       } catch (e) {
-        console.log(e);
+        logError("Error saving user name:", e);
       }
     }
   };

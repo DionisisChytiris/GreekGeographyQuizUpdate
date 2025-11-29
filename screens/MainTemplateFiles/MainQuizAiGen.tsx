@@ -57,7 +57,6 @@ import {
   incrementHeart,
   loadHeart,
   resetLives,
-  saveHeart,
   saveHeartAsync,
 } from "../../ReduxToolkit/livesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -65,20 +64,35 @@ import { saveProgress, getProgress } from "../../ReduxToolkit/progressSlice";
 import { trackEvent } from "../../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../../GoogleAnalytics/trackEventsOrganized";
 import ModalBrokenHeart from "../Modals/ModalBrokenHeart";
+import { logInfo } from "../../utils/logger";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "LakeRiver">;
 
 const { width, height } = Dimensions.get("window");
 
+type QuizQuestion = {
+  id: string;
+  question: string;
+  options: { answer: string }[];
+  correctAnswerIndex: number;
+  img?: ImageSourcePropType | null;
+};
+
+/**
+ * Result screens that accept the full quiz result data format.
+ * These screens receive resetQuiz, totalQuestions, userAnswers, etc. directly.
+ */
+type ResultScreenName = 
+  | "ResultsLake" 
+  | "ResultsMountain" 
+  | "ResultsGeneral" 
+  | "ResultsNomoi"
+  | "ResultsGreekTraditions"
+  | "ResultsTraditionalFood";
+
 type MainQuizAiGenProps = {
-  dataT: {
-    id: string;
-    question: string;
-    options: { answer: string }[];
-    correctAnswerIndex: number;
-    img?: ImageSourcePropType | null;
-  }[];
-  resultsPage: any;
+  dataT: QuizQuestion[];
+  resultsPage: ResultScreenName;
   quizName: string;
   lastQ1: string;
 };
@@ -104,13 +118,13 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   const [points, setPoints] = useState(0);
   // const [coins, setCoins] = useState(0);
   const [answerStatus, setAnswerStatus] = useState<boolean | null>(null);
-  const [answers, setAnswers] = useState<any>([]);
+  const [answers, setAnswers] = useState<number[]>([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(
     null
   );
-  const [counter, setCounter] = useState<any>(15);
-  let interval: any = null;
-  const currentQuestion: any = data[index];
+  const [counter, setCounter] = useState<number | null | false>(15);
+  let interval: ReturnType<typeof setInterval> | null = null;
+  const currentQuestion: QuizQuestion | undefined = data[index];
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const [ansBtnClr, setAnsBtnClr] = useState({
     default: ["#3d8be4", "#418ce0"],
@@ -234,39 +248,44 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     ]);
   };
 
+  /**
+   * Navigates to the results page with quiz data.
+   * All result screens in ResultScreenName accept the same params format.
+   */
+  const navigateToResults = () => {
+    const params = {
+      resetQuiz,
+      totalQuestions,
+      index,
+      userAnswers,
+      points,
+      seconds,
+      minutes,
+    };
+    // Type assertion is safe because all ResultScreenName screens accept these params
+    (navigation.navigate as any)(resultsPage, params);
+  };
+
   useEffect(() => {
     if (heart === 0) {
-      navigation.navigate(resultsPage, {
-        resetQuiz,
-        totalQuestions,
-        index,
-        userAnswers,
-        points,
-        seconds,
-        minutes,
-      });
+      navigateToResults();
     }
   }, [heart]);
 
   useEffect(() => {
-    if (isTimerEnabled && counter > 0) {
+    if (isTimerEnabled && counter !== null && counter !== false && counter > 0) {
       interval = setInterval(() => {
-        setCounter((prevCounter: any) => prevCounter - 1);
+        setCounter((prevCounter) => {
+          if (prevCounter === null || prevCounter === false) return null;
+          return prevCounter - 1;
+        });
       }, 1000);
     } else if (counter === 0) {
       // Navigate to results page when the timer hits 0
-      navigation.navigate(resultsPage, {
-        resetQuiz,
-        totalQuestions,
-        index,
-        userAnswers,
-        points,
-        seconds,
-        minutes,
-      });
+      navigateToResults();
     }
 
-    if (counter <= 5 && counter > 0) {
+    if (counter !== null && counter !== false && counter <= 5 && counter > 0) {
       if (isSoundEnabled) {
         click5sSound();
       }
@@ -310,14 +329,12 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
   }, [selectedAnswerIndex]);
 
   const requestReview = async () => {
-    // console.log("requestReview function called");
-
     if (await StoreReview.hasAction()) {
-      console.log("StoreReview has action, requesting review...");
+      logInfo("StoreReview has action, requesting review...");
       StoreReview.requestReview();
       // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
     } else {
-      console.log("In-app review is not supported or already given.");
+      logInfo("In-app review is not supported or already given.");
     }
   };
   // Create shared values for scales based on the number of options
@@ -411,15 +428,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     setTimeout(() => {
       setFifty([]);
       if (index + 1 === data.length) {
-        navigation.navigate(resultsPage, {
-          resetQuiz,
-          totalQuestions,
-          index,
-          userAnswers,
-          points,
-          seconds,
-          minutes,
-        });
+        navigateToResults();
       } else {
         setIndex((prev) => prev + 1);
         setSelectedAnswerIndex(null);
@@ -496,13 +505,13 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
     }
   }, [lastQuestionIndex]);
 
-  const onAnswerQuestion = (currentIndex: any) => {
+  const onAnswerQuestion = (currentIndex: number) => {
     // Save the last answered question index
     // saveProgress(currentIndex);
     dispatch(
       saveProgress({ key: progressKey, lastQuestionIndex: currentIndex })
     );
-    console.log("successfully saved");
+    logInfo("Progress saved successfully");
     // Proceed to the next question...
   };
 
@@ -602,7 +611,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
           showsVerticalScrollIndicator={true}
         >
           <View style={styles.answersGrid}>
-            {currentQuestion?.options.map((item: any, index: any) => {
+            {currentQuestion?.options.map((item, index: number) => {
               const animatedStyle = useAnimatedStyle(() => ({
                 transform: [{ scale: scales[index].value }],
               }));
@@ -701,9 +710,9 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                 trackEvent(trackEventsOrganized.HELP_FIFTY_PERCENT);
                 isSoundEnabled && (await fiftyPlaySound());
                 const wrongAnswers = currentQuestion.options
-                  .map((option: any, index: any) => index)
+                  .map((_option, index: number) => index)
                   .filter(
-                    (index: any) => index !== currentQuestion.correctAnswerIndex
+                    (index: number) => index !== currentQuestion.correctAnswerIndex
                   );
 
                 const randomWrongAnswers = wrongAnswers
@@ -751,7 +760,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
                   fiftyPlaySound(); // Play sound if enabled
                 }
                 trackEvent(trackEventsOrganized.HELP_CALL_PERCENT);
-                setCounter(counter + 15); // Increment counter when button is pressed
+                setCounter(counter !== null && counter !== false ? counter + 15 : 15); // Increment counter when button is pressed
               }}
             />
           </Animated.View>
@@ -799,15 +808,7 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
             addFunction={() => {
               setFifty([]);
               if (index + 1 === data.length) {
-                navigation.navigate(resultsPage, {
-                  resetQuiz,
-                  totalQuestions,
-                  index,
-                  userAnswers,
-                  points,
-                  seconds,
-                  minutes,
-                });
+                navigateToResults();
               } else {
                 onAnswerQuestion;
                 setIndex((prev) => prev + 1);

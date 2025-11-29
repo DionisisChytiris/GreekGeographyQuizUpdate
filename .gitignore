@@ -1,41 +1,144 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
-# dependencies
+# Dependencies
 node_modules/
+.pnp/
+.pnp.js
 
 # Expo
 .expo/
+.expo-shared/
 dist/
 web-build/
-
-# Native
-*.orig.*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
+*.orig.*
+*.pem
+
+# EAS Build
+eas-build-*.tgz
+eas-build-artifacts/
 
 # Metro
 .metro-health-check*
 
-# debug
+# Build outputs
+build/
+*.tsbuildinfo
+
+# Debug
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# macOS
-.DS_Store
-*.pem
-
-
+# Environment variables
 .env
 .env.local
-.env.production
 .env.development
+.env.test
+.env.production
+.env*.local
 
-# typescript
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# IDE - IntelliJ / WebStorm / Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE - Other
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+.cache/
+.temp/
+.tmp/
+
+# Watchman
+.watchmanconfig
+
+# Misc
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.bak
+*.swp
+*~.nib
+*.orig
+
+# React Native
+*.hprof
+
+# TypeScript
 *.tsbuildinfo
 
-help.txt
+# Optional: Lock files (uncomment if you want to ignore them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
 
+# Temporary documentation/assessment files
+help.txt
+packageJson.txt
+CODE_QUALITY_ASSESSMENT.md
+CODE_QUALITY_ASSESSMENT_LATEST.md
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Local configuration
+*.local
+local.json

@@ -23,6 +23,7 @@ import { useAppSelector } from "../ReduxToolkit/store";
 import ModalNameInput from "./Modals/ModalNameInput";
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import { useAnalyticsConsent } from "../GoogleAnalytics/useAnalyticsConsent";
+import { logDebug, logError } from "../utils/logger";
 import {
   hasAnalyticsConsent,
   setAnalyticsConsent,
@@ -47,7 +48,7 @@ export default function Settings() {
   const [showPersonalData, setShowPersonalData] = useState(false);
 
   useEffect(() => {
-    console.log("consentGiven from hook:", consentGiven);
+    logDebug("consentGiven from hook:", consentGiven);
     setIsConsentGiven(!consentGiven);
   }, []);
 
@@ -60,7 +61,7 @@ export default function Settings() {
       const latest = await hasAnalyticsConsent();
       setIsConsentGiven(latest);
     } catch (error) {
-      console.error("Error updating consent:", error);
+      logError("Error updating consent:", error);
       setIsConsentGiven(!newConsentStatus);
     }
   };

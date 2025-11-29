@@ -3,18 +3,25 @@ import {
   Text,
   Pressable,
   ImageBackground,
-  Dimensions,
   StyleSheet,
 } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../Types/RootStackParamList";
 
-const AboutApp = () => {
-  const navigation = useNavigation();
+type AboutAppNavigationProp = StackNavigationProp<RootStackParamList, "AboutApp">;
+
+/**
+ * About App screen component.
+ * Displays information about the Greek Geography Quiz app, including features and sections.
+ */
+const AboutApp: React.FC = () => {
+  const navigation = useNavigation<AboutAppNavigationProp>();
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground

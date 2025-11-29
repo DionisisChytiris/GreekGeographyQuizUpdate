@@ -1,10 +1,10 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 interface HelpOptionsButtonProps {
   addFunction: () => void;
-  optionText: any;
-  addAbility: any;
+  optionText: string | ReactNode;
+  addAbility: boolean;
   backgroundColor?: string;
 }
 

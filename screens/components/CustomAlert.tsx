@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Modal, View, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { logError } from "../../utils/logger";
 
-const CustomAlert = () => {
-  const [name, setName] = useState("");
+interface UserData {
+  Name: string;
+}
+
+/**
+ * Custom alert component that displays a congratulatory message
+ * when the user achieves over 90% score.
+ */
+const CustomAlert: React.FC = () => {
+  const [name, setName] = useState<string>("");
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getData = () => {
+  const getData = async (): Promise<void> => {
     try {
-      AsyncStorage.getItem("UserData").then((value) => {
-        if (value != null) {
-          let user = JSON.parse(value);
-          setName(user.Name);
-        }
-      });
+      const value = await AsyncStorage.getItem("UserData");
+      if (value != null) {
+        const user: UserData = JSON.parse(value);
+        setName(user.Name);
+      }
     } catch (e) {
-      console.log(e);
+      logError("Error loading user data:", e);
     }
   };
 

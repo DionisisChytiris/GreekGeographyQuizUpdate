@@ -19,7 +19,7 @@ export default function App() {
     translateY: useSharedValue(0),
   }));
 
-  const checkDropZone = (index: number, option:any):boolean => {
+  const checkDropZone = (index: number, option: string): boolean => {
     // Logic for checking if the item is dropped in the correct area
     if (
       positions[index].translateX.value >= -50 &&
@@ -49,7 +49,7 @@ export default function App() {
     });
   };
 
-  const createGesture = (index:any) =>
+  const createGesture = (index: number) =>
     Gesture.Pan()
       .onUpdate((event) => {
         if (!droppedStates[index]) {

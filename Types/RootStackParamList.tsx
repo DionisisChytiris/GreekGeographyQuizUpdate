@@ -1,3 +1,32 @@
+import { ImageSourcePropType } from "react-native";
+
+/**
+ * Type for quiz result data passed to result screens.
+ * Contains user answers, quiz statistics, and reset functionality.
+ */
+export type QuizResultData = {
+  resetQuiz: () => void;
+  totalQuestions: number;
+  index: number;
+  userAnswers: {
+    question: string;
+    userChoice: string;
+    correctAnswer: string;
+  }[];
+  points: number;
+  seconds: number;
+  minutes: number;
+};
+
+/**
+ * Type for simplified quiz result data (legacy format).
+ * Used in older result screens that only need points and data.
+ */
+export type SimpleQuizResult = {
+  points: number;
+  data: QuizResultData;
+};
+
 export type RootStackParamList = {
   Home: undefined;
   SetUserName: undefined;
@@ -17,20 +46,36 @@ export type RootStackParamList = {
   BattleQuiz: undefined;
   MapTest: undefined;
   GreekTraditions: undefined;
-  ResultsGreekTraditions: undefined;
+  ResultsGreekTraditions: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points: number;
+    seconds: number;
+    minutes: number;
+  };
   TraditionalFood: undefined;
-  ResultsTraditionalFood: undefined;
+  ResultsTraditionalFood: {
+    resetQuiz: () => void;
+    totalQuestions: number;
+    index: number;
+    userAnswers: { question: string; userChoice: string; correctAnswer: string }[];
+    points: number;
+    seconds: number;
+    minutes: number;
+  };
   AboutApp: undefined;
   LakeRiver: undefined;
   LakeRiverRepeat: undefined;
-  LakeRiverResults: { points: number; data: any };
-  LakeRiverResultsRepeat: { points: number; data: any };
+  LakeRiverResults: SimpleQuizResult;
+  LakeRiverResultsRepeat: SimpleQuizResult;
   LakeRiverLoseScreen: undefined;
   LakeRiverLoseScreenR: undefined;
   Mountain: undefined;
   MountainRepeat: undefined;
-  MountainResults: { points: number; data: any };
-  MountainResultsRepeat: { points: number; data: any };
+  MountainResults: SimpleQuizResult;
+  MountainResultsRepeat: SimpleQuizResult;
   MountainLoseScreen: undefined;
   MountainLoseScreenR: undefined;
   LoseScreen: undefined;
@@ -48,15 +93,15 @@ export type RootStackParamList = {
   Nomoi5: undefined;
   Nomoi5R: undefined;
   Nomoi6: undefined;
-  Nomoi6Final: { points: number; data: any };
+  Nomoi6Final: SimpleQuizResult;
   Nomoi6R: undefined;
   NomoiResultTemplate: undefined;
-  NomoiResult1: { points: number; data: any };
-  NomoiResult2: { points: number; data: any };
-  NomoiResult3: { points: number; data: any };
-  NomoiResult4: { points: number; data: any };
-  NomoiResult5: { points: number; data: any };
-  NomoiResult6: { points: number; data: any };
+  NomoiResult1: SimpleQuizResult;
+  NomoiResult2: SimpleQuizResult;
+  NomoiResult3: SimpleQuizResult;
+  NomoiResult4: SimpleQuizResult;
+  NomoiResult5: SimpleQuizResult;
+  NomoiResult6: SimpleQuizResult;
   NomoiLoseScreen1: undefined;
   NomoiLoseScreen1R: undefined;
   NomoiLoseScreen1Time: undefined;
@@ -86,16 +131,16 @@ export type RootStackParamList = {
   GeneralQuestions5: undefined;
   GeneralQuestions5R: undefined;
   // GeneralQuestionsResult1: undefined;
-  GeneralQuestionsResult1: { points: number; data: any };
-  GeneralQuestionsResult2: { points: number; data: any };
-  GeneralQuestionsResult3: { points: number; data: any };
-  GeneralQuestionsResult4: { points: number; data: any };
-  GeneralQuestionsResult5: { points: number; data: any };
-  GeneralQuestionsResult1R: { points: number; data: any };
-  GeneralQuestionsResult2R: { points: number; data: any };
-  GeneralQuestionsResult3R: { points: number; data: any };
-  GeneralQuestionsResult4R: { points: number; data: any };
-  GeneralQuestionsResult5R: { points: number; data: any };
+  GeneralQuestionsResult1: SimpleQuizResult;
+  GeneralQuestionsResult2: SimpleQuizResult;
+  GeneralQuestionsResult3: SimpleQuizResult;
+  GeneralQuestionsResult4: SimpleQuizResult;
+  GeneralQuestionsResult5: SimpleQuizResult;
+  GeneralQuestionsResult1R: SimpleQuizResult;
+  GeneralQuestionsResult2R: SimpleQuizResult;
+  GeneralQuestionsResult3R: SimpleQuizResult;
+  GeneralQuestionsResult4R: SimpleQuizResult;
+  GeneralQuestionsResult5R: SimpleQuizResult;
   GQLoseScreen1: undefined;
   GQLoseScreen2: undefined;
   GQLoseScreen3: undefined;
@@ -108,7 +153,7 @@ export type RootStackParamList = {
   GQLoseScreenR5: undefined;
   GenQResLoseScreen: undefined;
   GenQResLoseScreenR: undefined;
-  GenerQuestTemplate: { points: number; data: any };
+  GenerQuestTemplate: SimpleQuizResult;
   GeneralQuizMenu: undefined;
   Calendar: undefined;
   // ResultsAi: undefined;
@@ -151,13 +196,17 @@ export type RootStackParamList = {
   // GeneralQuizMenu: { points: number, data: any }
 };
 
+/**
+ * Type for quiz question data structure.
+ * Used across different quiz screens.
+ */
 export type Question = {
   id: number;
   question: string;
   options: string[];
   correctAnswerIndex: number;
-  img: any;
-  imgMap: any;
+  img: ImageSourcePropType | null | undefined;
+  imgMap: ImageSourcePropType | null | undefined;
   answer: string;
   result1: string;
   result2: string;

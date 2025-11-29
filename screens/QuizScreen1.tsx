@@ -54,17 +54,15 @@ import {
 } from "../ReduxToolkit/coinsSlice";
 import { useSoundEffect } from "./Utilities/useSoundEffects";
 import CoverButton from "./components/CoverButton";
-// import DailyBonusModal from "./Modals/DailyBonusModal";
 import BattleButton from "./components/BattleButton";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
-// import ContactButton from "./components/ContactButton";
 import MainQuizCoinsDailyCollection from "./components/MainQuizCoinsDailyCollection";
 import { MainQuizMoreCategories } from "./components/MainQuizMoreCategories";
+import { logInfo } from "../utils/logger";
 
 const { height } = Dimensions.get("window");
 const { width } = Dimensions.get("window");
-// const { width } = Dimensions.get("window");
 
 type QuizScreenProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -78,10 +76,6 @@ export default function HomeScreen() {
     (state) => state.show
   );
   const [scale1, setScale1] = useState(1);
-  // const [scale2, setScale2] = useState(1);
-  // const [scale3, setScale3] = useState(1);
-  // const [showModal, setShowModal] = useState(false);
-  // const [isClaimed, setIsClaimed] = useState(false);
   const [fontsLoaded, fontError] = useFonts({
     "Poppins-Regular": Poppins_400Regular,
     "Poppins-SemiBold": Poppins_600SemiBold,
@@ -89,7 +83,6 @@ export default function HomeScreen() {
   });
   const { width } = useWindowDimensions();
 
-  // Adjust width dynamically
   let dynamicWidth: DimensionValue;
   if (width > 1440) {
     dynamicWidth = "22%"; // Desktop
@@ -101,50 +94,16 @@ export default function HomeScreen() {
     dynamicWidth = "47.7%"; // Phones
   }
 
-  // const rotateAnim = useSharedValue(0);
-  // // const rotateAnim = useMemo(() => new Animated.Value(0), []);
-
-  // useEffect(() => {
-  //   startRotation();
-  //   checkLastClaimDate();
-  // }, []);
-
-  // const checkLastClaimDate = async () => {
-  //   const lastClaimDate = await AsyncStorage.getItem("lastClaimDate");
-  //   const today = new Date().toISOString().split("T")[0];
-  //   if (lastClaimDate === today) {
-  //     setIsClaimed(true);
-  //   }
-  // };
-
-  // const startRotation = () => {
-  //   rotateAnim.value = withRepeat(
-  //     withTiming(1, { duration: 2500, easing: Easing.linear }),
-  //     -1,
-  //     false
-  //   );
-  // };
-
-  // const rotation = useDerivedValue(
-  //   () => interpolate(rotateAnim.value, [0, 1], [0, 360]) + "deg"
-  // );
-
   useEffect(() => {
     dispatch(loadShowState());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowModal(false);
-  //   }, 3000);
-  // }, [showModal]);
 
   const handlePress = async () => {
     await AsyncStorage.removeItem("lastClaimDate"); // Remove item from AsyncStorage
     await AsyncStorage.removeItem("coins"); // Remove coins from AsyncStorage
     await AsyncStorage.removeItem("isFirstLaunch"); // Remove firstlaunch from AsyncStorage
     await AsyncStorage.removeItem("showState"); // Remove item from AsyncStorage
-    console.log("Storage cleared-State reset to initial values");
+    logInfo("Storage cleared - State reset to initial values");
   };
 
   const coinsDropSound = useSoundEffect(
@@ -200,16 +159,9 @@ export default function HomeScreen() {
     }
   };
 
-  // const [coins1, setCoins1] = useState(0);
-  // // Coins Collect Sound Effect
-  // const coinsCollectSound = useSoundEffect(
-  //   require("../assets/sounds/getCoin.wav")
-  // );
-
   if (!fontsLoaded && !fontError) {
     return null;
   }
-  // console.log("Current show state:", show1);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
@@ -246,18 +198,6 @@ export default function HomeScreen() {
           <Feather name="menu" size={24} color="#333" />
         </Pressable>
 
-        {/* <Pressable
-          onPressIn={() => setScale1(1.25)}
-          onPressOut={() => {
-            Alert.alert('hey')
-            setScale1(1);
-            trackEvent(trackEventsOrganized.SETTINGS);
-          }}
-          style={[styles.menuButton, { transform: [{ scale: scale1 }],position: 'absolute', top: 60, right: 0}]}
-        >
-          <Feather name="shopping-cart" size={16} color="#333" />
-        </Pressable> */}
-
       </Animated.View>
       <Animated.View
         style={styles.categoriesGrid}
@@ -268,32 +208,23 @@ export default function HomeScreen() {
             id1="ifa"
             link1="GeneralQuestions"
             title1="Γενικές Ερωτήσεις"
-            // icon1={<Globe2 size={32} color="white" />}
             icon1={<Feather name="globe" size={32} color="white" />}
             gradient1={["#9B59B6", "#8E44AD"]}
             trackEventName={trackEventsOrganized.GENERAL_QUESTIONS}
           />
         </View>
         <View style={{ width: dynamicWidth }}>
-          {/* {show2 && <CoverButton test={UnlockLakesCtg} />} */}
           {show2 ? (
             <CoverButton
               testFunction={UnlockLakesCtg}
               titleTest1="Λίμνες - Ποτάμια"
               amount={200}
-              // iconTest1={<Waves size={32} color="white" />}
               iconTest1={
                 <MaterialCommunityIcons name="wave" size={32} color="white" />
               }
               gradient={["#3498DB", "#2980B9"]}
             />
           ) : (
-            // <CoverButton1
-            //   testFunction={UnlockLakesCtg}
-            //   titleTest1="Λίμνες - Ποτάμια"
-            //   iconTest1={<Waves size={32} color="white" />}
-            //   gradient={["#3498DB", "#2980B9"]}
-            // />
             <QuizScreenCategoryCard
               id1="ifaasd"
               link1="LakeRiver"
@@ -330,8 +261,6 @@ export default function HomeScreen() {
           )}
         </View>
         <View style={{ width: dynamicWidth }}>
-          {/* <View style={{ width: width>900? "22%": "47.7%" }}> */}
-          {/* {show3 && <CoverButton test={UnlockNomoiCtg} />} */}
           {show3 ? (
             <CoverButton
               testFunction={UnlockNomoiCtg}
@@ -354,21 +283,6 @@ export default function HomeScreen() {
       </Animated.View>
 
       <Animated.View entering={FadeInDown.delay(600).springify()}>
-        {/* <View style={styles.bankCoinAbsolute}> */}
-          {/* <View style={{ flexDirection: "column" }}>
-            <View style={styles.bankContainer}>
-              <View style={styles.coinsContainer}>
-                <Image
-                  source={require("../assets/Photos/goldbg.png")}
-                  style={{ width: 28, height: 28 }}
-                />
-                <Text style={[styles.categoryTitle, { fontSize: 16 }]}>
-                  {coins}
-                </Text>
-              </View>
-            </View>
-          </View> */}
-
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 30}}>
           <View  style={{width: '48%'}}>
             <MainQuizMoreCategories/>
@@ -401,20 +315,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F9FC",
     paddingTop: Platform.OS === "ios" ? 0 : height < 900 ? 12 : 0,
     paddingHorizontal: 16,
-  },
-  backgroundImage: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
-  coverButton: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: 9999,
-    width: "100%",
-    backgroundColor: "#F7F9FC90",
-    height: height > 1000 ? "38%" : "32%",
   },
   header: {
     flexDirection: "row",
@@ -455,55 +355,10 @@ const styles = StyleSheet.create({
     marginTop: height > 1000 ? 40 : 0,
     width: height > 1000 ? "80%" : "100%",
   },
-  categoryCard: {
-    width: "100%",
-    aspectRatio: 1,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-  categoryContent: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "space-between",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-  },
-  categoryTitle: {
-    fontSize: 18,
-    fontFamily: "Poppins-SemiBold",
-    color: "white",
-  },
-  bankCoinAbsolute: {
-    position: "absolute",
-    bottom: Platform.OS === "ios" ? 30 : 0,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 40,
-  },
-  bankContainer: {
-    flexDirection: "row",
-    gap: 10,
-    paddingBottom: 40,
-    paddingHorizontal: 0,
-  },
-  coinsContainer: {
-    position: "absolute",
-    bottom: 20,
-    left: -10,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    backgroundColor: "#a0a7a890",
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    paddingVertical: 3,
-  },
   shareButton: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center", // This will horizontally center the text
+    justifyContent: "center",
     backgroundColor: "#464443",
     paddingVertical: 12,
     paddingHorizontal: 40,
@@ -514,124 +369,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontFamily: "Poppins-SemiBold",
-    textAlign: "center", // Ensures text is centered if there is any overflow or multiline text
-  },
-  bonusQuizBtn: {
-    width: "70%",
-    height: 80,
-    marginTop: -40,
-    marginLeft: -30,
-    padding: 10,
-    borderRadius: 15,
-    backgroundColor: "#e3eaf1",
+    textAlign: "center",
   },
 });
-
-// const categories: {
-// const categories: {
-//   id: string;
-//   title: string;
-//   icon: any;
-//   gradient: [string, string, ...string[]];
-//   image: string;
-//   track: any;
-// }[] = [
-//   {
-//     id: "GeneralQuestions",
-//     title: "Γενικές Ερωτήσεις",
-//     icon: Globe2,
-//     gradient: ["#9B59B6", "#8E44AD"],
-//     track: trackData4,
-//     image:
-//       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80",
-//   },
-//   {
-//     id: "LakeRiver",
-//     title: "Λίμνες - Ποτάμια",
-//     icon: Waves,
-//     gradient: ["#3498DB", "#2980B9"],
-//     track: trackData3,
-//     image:
-//       "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&q=80",
-//   },
-//   {
-//     id: "Mountain",
-//     title: "Βουνά",
-//     icon: Mountain,
-//     gradient: ["#4ECDC4", "#45B7AF"],
-//     track: trackData2,
-//     image:
-//       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80",
-//   },
-//   {
-//     id: "Nomoi",
-//     title: "Νομοί - Πόλεις",
-//     icon: MapPin,
-//     gradient: ["#FF6B6B", "#FF8E8E"],
-//     track: trackData1,
-//     image:
-//       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80",
-//   },
-// ];
-
-// const handleCategoryPress = (categoryId: string) => {
-//   const categoryToScreenMap: Record<string, string> = {
-//     GeneralQuestions: "GeneralQuestions",
-//     LakeRiver: "LakeRiver",
-//     Mountain: "Mountain",
-//     Nomoi: "Nomoi",
-//   };
-
-//   const screenName = categoryToScreenMap[categoryId];
-
-//   if (screenName) {
-//     // console.log(`Navigating to ${screenName} with category:`, categoryId);
-//     navigation.navigate(screenName as any, { categoryId });
-//   } else {
-//     console.warn("Category not found:", categoryId);
-//   }
-// };
-
-// const dispatch = useAppDispatch();
-// const coins = useAppSelector((state) => state.coins.coins);
-
-// const progressKey1 = "lastQuestion3";
-// const progressKey2 = "lastQuestion2";
-// const progressKey3 = "lastQuestion1";
-// const progressKey4 = "lastQuestion4";
-// const lastQuestionIndex1 = useAppSelector(
-//   (state) => state.progress.progress[progressKey1]
-// );
-// const lastQuestionIndex2 = useAppSelector(
-//   (state) => state.progress.progress[progressKey2]
-// );
-// const lastQuestionIndex3 = useAppSelector(
-//   (state) => state.progress.progress[progressKey3]
-// );
-// const lastQuestionIndex4 = useAppSelector(
-//   (state) => state.progress.progress[progressKey4]
-// );
-
-// const progressKey = "lastQuestion3";
-// const dispatch = useAppDispatch();
-
-// const [trackData1, setTrackData1] = useState(`${lastQuestionIndex1 ?? 0}/60`);
-// const [trackData2, setTrackData2] = useState(`${lastQuestionIndex2 ?? 0}/60`);
-// const [trackData3, setTrackData3] = useState(`${lastQuestionIndex3 ?? 0}/60`);
-// const [trackData4, setTrackData4] = useState(`${lastQuestionIndex4 ?? 0}/60`);
-
-// useEffect(() => {
-//   setTrackData1(`${lastQuestionIndex1 ?? 0}/60`);
-//   setTrackData2(`${lastQuestionIndex2 ?? 0}/60`);
-//   setTrackData3(`${lastQuestionIndex3 ?? 0}/60`);
-//   setTrackData4(`${lastQuestionIndex4 ?? 0}/60`);
-// }, [
-//   lastQuestionIndex1,
-//   lastQuestionIndex2,
-//   lastQuestionIndex3,
-//   lastQuestionIndex4,
-// ]);
-
-// useEffect(() => {
-//   dispatch(getProgress(progressKey));
-// }, [dispatch, progressKey]);

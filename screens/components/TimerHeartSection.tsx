@@ -14,7 +14,7 @@ import { NavigationProp } from "@react-navigation/native";
 import { useAppSelector, useAppDispatch } from "../../ReduxToolkit/store";
 import { useSoundEffect } from "../Utilities/useSoundEffects";
 import { AntDesign } from "@expo/vector-icons";
-import { incrementHeart, resetLives, saveHeart, saveHeartAsync } from "../../ReduxToolkit/livesSlice";
+import { incrementHeart, resetLives, saveHeartAsync } from "../../ReduxToolkit/livesSlice";
 import { decrementCoins, saveCoins } from "../../ReduxToolkit/coinsSlice";
 import ContactButton from "./ContactButton";
 
@@ -25,10 +25,10 @@ interface YourComponentProps {
   index: number;
   totalQuestions: number;
   heart: number;
-  counter: number;
+  counter: number | null | false;
   quizName: string;
-  onAnswerQuestion: any;
-  resetQuiz: any;
+  onAnswerQuestion: (currentIndex: number) => void;
+  resetQuiz: () => void;
 }
 
 const TimerHeartSection: React.FC<YourComponentProps> = ({
@@ -156,7 +156,7 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
           </View>
         )}
         {/* Timer */}
-        {isTimerEnabled && (
+        {isTimerEnabled && counter !== null && counter !== false && (
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreText}>{counter}</Text>
           </View>

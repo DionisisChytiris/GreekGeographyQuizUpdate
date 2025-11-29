@@ -3,8 +3,13 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MessagesScreen from "./MessagesScreen"; // adjust the import path
+import { logError } from "../../utils/logger";
 
-const MessagesWrapper = ({refresh}:any) => {
+interface MessagesWrapperProps {
+  refresh?: boolean;
+}
+
+const MessagesWrapper = ({refresh}: MessagesWrapperProps) => {
   const [clientId, setClientId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +21,7 @@ const MessagesWrapper = ({refresh}:any) => {
           setClientId(storedId);
         }
       } catch (error) {
-        console.error("Error loading client_id:", error);
+        logError("Error loading client_id:", error);
       } finally {
         setLoading(false);
       }

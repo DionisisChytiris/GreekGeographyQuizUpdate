@@ -18,13 +18,22 @@ import {
 import { Quicksand_400Regular } from "@expo-google-fonts/quicksand";
 import { Feather } from '@expo/vector-icons';
 import { useAppSelector } from "../../ReduxToolkit/store";
+import { ImageSourcePropType } from "react-native";
+
+type QuizQuestion = {
+  id: string;
+  question: string;
+  options: { answer: string }[];
+  correctAnswerIndex: number;
+  img?: ImageSourcePropType | null;
+};
 
 type ModalComponentProps = {
   visible: boolean;
   onClose: () => void;
   title: string;
   // message: string;
-  currentQuestion: any;
+  currentQuestion: QuizQuestion | undefined;
 };
 
 const ModalExplanationQuestion: React.FC<ModalComponentProps> = ({

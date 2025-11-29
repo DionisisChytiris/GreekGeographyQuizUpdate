@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isSoundEnabled: true, // Default sound is enabled
+interface SoundState {
+  isSoundEnabled: boolean;
+}
+
+const initialState: SoundState = {
+  isSoundEnabled: true,
 };
 
 const soundSlice = createSlice({
@@ -16,3 +20,4 @@ const soundSlice = createSlice({
 
 export const { toggleSound } = soundSlice.actions;
 export default soundSlice.reducer;
+

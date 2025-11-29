@@ -19,7 +19,18 @@ import { PieChart } from "react-native-gifted-charts";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
-export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
+interface ResultsMainAiPageProps {
+  pageRepeat?: keyof RootStackParamList;
+  QuizTitle?: string;
+}
+
+type UserAnswer = {
+  question: string;
+  userChoice: string;
+  correctAnswer: string;
+};
+
+export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: ResultsMainAiPageProps) {
   //   const router = useRouter();
   const navigation = useNavigation<LakeRiverProp>();
   // const resetQuiz = useAppSelector((state) => state.reset.resetQuiz);
@@ -33,17 +44,13 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
     points,
     seconds,
     minutes,
-  }: any = route.params as {
+  } = route.params as {
     resetQuiz: () => void;
-    resetQuizHome: () => void;
+    resetQuizHome?: () => void;
     totalQuestions: number;
     index: number;
     points: number;
-    userAnswers: {
-      question: string;
-      userChoice: string;
-      correctAnswer: string;
-    }[];
+    userAnswers: UserAnswer[];
     seconds: number;
     minutes: number;
   };
@@ -167,7 +174,10 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
             onPress={() => {
               resetQuiz();
               // if (resetQuiz) resetQuiz()
-              navigation.navigate(pageRepeat);
+              if (pageRepeat) {
+                // Type assertion is safe because pageRepeat is validated to be a valid screen name
+                (navigation.navigate as any)(pageRepeat);
+              }
             }}
             style={styles.shareButton}
           >
@@ -387,7 +397,7 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
               </View>
               ))} */}
           {userAnswers && userAnswers.length > 0 ? (
-            userAnswers.map((answer: any, index: number) => (
+            userAnswers.map((answer: UserAnswer, index: number) => (
               <View
                 key={`${answer.question}-${index}`}
                 style={styles.reviewCard}
@@ -448,7 +458,10 @@ export default function ResultsMainAiPage({ pageRepeat, QuizTitle }: any) {
           <Pressable
             onPress={() => {
               resetQuiz();
-              navigation.navigate(pageRepeat);
+              if (pageRepeat) {
+                // Type assertion is safe because pageRepeat is validated to be a valid screen name
+                (navigation.navigate as any)(pageRepeat);
+              }
             }}
             // onPress={() => router.push('/quiz')}
             style={styles.retryButton}

@@ -33,6 +33,7 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import CharacterModal from "../Modals/SelectImageModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ContactButton from "../components/ContactButton";
+import { logInfo, logError } from "../../utils/logger";
 
 type BattleLinkProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
@@ -138,7 +139,7 @@ export default function BattleQuiz() {
   const scaleValue = useSharedValue(1);
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [counter, setCounter] = useState<any>(30);
+  const [counter, setCounter] = useState<number | null>(30);
 
   // Load and play sound on mount
   useEffect(() => {
@@ -156,7 +157,7 @@ export default function BattleQuiz() {
         await sound.playAsync();
         setIsPlaying(true);
       } catch (error) {
-        console.error("Error loading sound:", error);
+        logError("Error loading sound:", error);
       }
     };
 
@@ -235,7 +236,7 @@ export default function BattleQuiz() {
       const reshuffled = shuffleArray(questions);
       setRemainingQuestions(reshuffled.slice(5));
       setQuiz(reshuffled.slice(0, 5));
-      console.log(
+      logInfo(
         "Reshuffling... Questions left after this batch:",
         reshuffled.length - 5
       );
@@ -243,7 +244,7 @@ export default function BattleQuiz() {
       const nextBatch = remainingQuestions.slice(0, 5);
       setQuiz(nextBatch);
       setRemainingQuestions(remainingQuestions.slice(5));
-      console.log(
+      logInfo(
         "Questions left after this batch:",
         remainingQuestions.slice(5).length
       );
@@ -333,9 +334,12 @@ export default function BattleQuiz() {
   }, [isPlayerTurn, lastPlayerAnswer]);
 
   useEffect(() => {
-    if (isTimerEnabled && counter > 0) {
+    if (isTimerEnabled && counter !== null && counter > 0) {
       intervalRef.current = setInterval(() => {
-        setCounter((prevCounter: number) => prevCounter - 1);
+        setCounter((prevCounter) => {
+          if (prevCounter === null) return null;
+          return prevCounter - 1;
+        });
       }, 1000);
     } else if (counter === 0) {
       setLeftAnswers(Array(5).fill(false)); // or any number instead of 0
@@ -357,15 +361,13 @@ export default function BattleQuiz() {
   }, [isTimerEnabled, counter]);
 
   const requestReviewApp = async () => {
-    // console.log("requestReview function called");
-
     if (await StoreReview.hasAction()) {
-      console.log("StoreReview has action, requesting review...");
+      logInfo("StoreReview has action, requesting review...");
       StoreReview.requestReview();
       // trackEvent(trackEventsOrganized.REVIEW_PROMPT_SHOWN);
       // Alert.alert("Congratulations!", "You answered 3 in a row correctly!");
     } else {
-      console.log("In-app review is not supported or already given.");
+      logInfo("In-app review is not supported or already given.");
     }
   };
 
@@ -424,7 +426,7 @@ export default function BattleQuiz() {
             stopSound();
             isSoundEnabled && winnerSound();
             setTimeout(() => {
-              console.log("winner");
+              logInfo("Winner in battle quiz");
               requestReviewApp();
               dispatch(incrementCoinsBonus());
               dispatch(saveCoins(coins + 50));
@@ -433,7 +435,7 @@ export default function BattleQuiz() {
           } else {
             stopSound();
             // handleStopMusic();
-            console.log("loser");
+            logInfo("Loser in battle quiz");
           }
         }
       }
@@ -474,7 +476,7 @@ export default function BattleQuiz() {
           setCharacterUri(savedUri);
         }
       } catch (error) {
-        console.log("Failed to load character image", error);
+        logError("Failed to load character image", error);
       }
     };
     loadCharacter();
@@ -486,7 +488,7 @@ export default function BattleQuiz() {
       setCharacterUri(uri);
       setModalVisible(false);
     } catch (error) {
-      console.log("Failed to save character image", error);
+      logError("Failed to save character image", error);
     }
   };
 
@@ -775,7 +777,7 @@ export default function BattleQuiz() {
               Ερώτηση {currentQuestion + 1}
             </Text>
 
-            {isTimerEnabled && !isMockLoading && (
+            {isTimerEnabled && !isMockLoading && counter !== null && (
               <View style={{ position: "absolute", top: -30, left: 180 }}>
                 <Text style={{ fontSize: 20, color: "white" }}>{counter}</Text>
               </View>

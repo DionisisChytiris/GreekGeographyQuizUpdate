@@ -4,11 +4,9 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
-  ScrollView,
   Dimensions,
   Platform,
   StatusBar,
-  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -16,48 +14,35 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../Types/RootStackParamList";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type HomeProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
+/**
+ * Home screen component - the landing page of the app.
+ * Displays app introduction, features, and navigation to quiz categories.
+ * 
+ * @returns JSX.Element - The home screen component
+ */
 export default function HomeScreen() {
   const navigation = useNavigation<HomeProp>();
 
+  /**
+   * Handles the quiz start button press.
+   * Tracks analytics event when user starts a quiz.
+   */
   const handlePress = () => {
-    // Your button logic
-    // Alert.alert('Button Clicked!');
     trackEvent(trackEventsOrganized.QUIZ_START);
-    // trackEvent(trackEventsOrganized.QUIZ_START, { quiz_start: "ClickMe" });
-
-    // Track the event
-    // trackEvent('button_click', {
-    //   screen: 'ExampleScreen',
-    //   button_name: 'ClickMe',
-    // });
-  };
-
-  const resetFirstLaunch = async () => {
-    try {
-      await AsyncStorage.removeItem('isFirstLaunch');
-      console.log("First launch key removed.");
-    } catch (error) {
-      console.error("Error removing first launch key:", error);
-    }
   };
 
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <ImageBackground
-        // source={{
-        //   uri: "https://api.a0.dev/assets/image?text=stunning%20aerial%20view%20of%20greek%20islands%20with%20dramatic%20coastline%20crystal%20clear%20waters%20and%20ancient%20ruins&aspect=9:16",
-        // }}
         source={require("../assets/Photos/meteora.jpg")}
         style={styles.container}
       >
-        {/* <ScrollView contentContainerStyle={styles.scrollContent}> */}
         <View style={styles.overlay}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Γεωγραφία της Ελλάδας</Text>
@@ -75,8 +60,8 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={styles.startButton}
             onPress={() => {
-              navigation.navigate("Quiz1"), handlePress()
-              // navigation.navigate("Quiz1"), handlePress(),resetFirstLaunch()
+              navigation.navigate("Quiz1");
+              handlePress();
             }}
           >
             <MaterialCommunityIcons
@@ -108,7 +93,6 @@ export default function HomeScreen() {
             </View>
           </View>
         </View>
-        {/* </ScrollView> */}
       </ImageBackground>
     </View>
   );
@@ -117,9 +101,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
   },
   overlay: {
     flex: 1,
@@ -142,7 +123,6 @@ const styles = StyleSheet.create({
         : height < 900
         ? 30
         : 50,
-    // fontSize: height < 900 ? 30: 50,
     fontWeight: "bold",
     color: "white",
     textAlign: "center",

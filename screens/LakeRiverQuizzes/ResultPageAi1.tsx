@@ -17,6 +17,12 @@ import { PieChart } from "react-native-gifted-charts";
 
 type LakeRiverProp = StackNavigationProp<RootStackParamList, "Quiz1">;
 
+type UserAnswer = {
+  question: string;
+  userChoice: string;
+  correctAnswer: string;
+};
+
 export default function ResultsScreen() {
   //   const router = useRouter();
   const navigation = useNavigation<LakeRiverProp>();
@@ -29,16 +35,12 @@ export default function ResultsScreen() {
     points,
     seconds,
     minutes,
-  }: any = route.params as {
-    resetQuiz: any;
+  } = route.params as {
+    resetQuiz: () => void;
     totalQuestions: number;
     index: number;
     points: number;
-    userAnswers: {
-      question: string;
-      userChoice: string;
-      correctAnswer: string;
-    }[];
+    userAnswers: UserAnswer[];
     seconds: number;
     minutes: number;
   };
@@ -382,7 +384,7 @@ export default function ResultsScreen() {
               </View>
               ))} */}
           {userAnswers && userAnswers.length > 0 ? (
-            userAnswers.map((answer: any, index: number) => (
+            userAnswers.map((answer: UserAnswer, index: number) => (
               <View
                 key={`${answer.question}-${index}`}
                 style={styles.reviewCard}

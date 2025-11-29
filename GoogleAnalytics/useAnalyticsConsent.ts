@@ -4,7 +4,21 @@ import { hasAnalyticsConsent, setAnalyticsConsent } from "./analyticsConsent";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { trackEvent } from "./trackEvent";
 import { trackEventsOrganized } from "./trackEventsOrganized";
+import { logError } from "../utils/logger";
 
+/**
+ * Custom hook for managing analytics consent state and UI.
+ * Handles first-launch modal display and consent persistence.
+ * Provides functions to accept/decline consent and manage consent state.
+ * 
+ * @returns Object containing:
+ *   - consentGiven: boolean - Whether user has given consent
+ *   - showConsentModal: boolean - Whether to show the consent modal
+ *   - acceptConsent/acceptConsent1: Function - Accept consent handlers
+ *   - declineConsent/declineConsent1: Function - Decline consent handlers
+ *   - deleteGA4Consent: Function - Delete consent data
+ *   - setConsent: Function - Update consent programmatically
+ */
 export const useAnalyticsConsent = () => {
   const [consent, setConsent] = useState<boolean | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -31,17 +45,11 @@ export const useAnalyticsConsent = () => {
       if (isFirstLaunch === null) {
         // If it is, show the modal and mark that the app has been launched before
         setShowModal(true);
-        console.log("First launch - showing consent modal");
-  
-        // Set the key in AsyncStorage to track the first launch
       } else {
         // If it's not the first launch, check consent status
         const result = await hasAnalyticsConsent();
         if (result) {
           setConsent(result);
-          console.log("Consent is given");
-        } else {
-          console.log("Consent is NOT given");
         }
       }
     };
@@ -53,7 +61,6 @@ export const useAnalyticsConsent = () => {
     await setAnalyticsConsent(true);
     setConsent(true);
     setShowModal(false);
-    console.log("Consent is given.");
   };
   const acceptConsent1 = async () => {
     try {
@@ -62,9 +69,8 @@ export const useAnalyticsConsent = () => {
       setConsent(true); // Update state
       setShowModal(false); // Hide the modal
       trackEvent(trackEventsOrganized.CONSENT_FIRST_LAUNCH);
-      console.log("Consent is given. Consent modal will not show again.");
     } catch (error) {
-      console.error("Error during accepting consent:", error);
+      logError("Error during accepting consent:", error);
     }
   };
   
@@ -84,9 +90,8 @@ export const useAnalyticsConsent = () => {
       await AsyncStorage.setItem('isFirstLaunch', 'false'); // Mark app as launched
       setConsent(false); // Update state
       setShowModal(false); // Hide the modal
-      console.log("User declined consent. Consent modal will not show again.");
     } catch (error) {
-      console.error("Error during declining consent:", error);
+      logError("Error during declining consent:", error);
     }
   };
 

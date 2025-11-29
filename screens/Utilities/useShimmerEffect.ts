@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
-// Custom Hook to handle the shimmer effect animation
+/**
+ * Custom hook that creates a looping shimmer/shine animation effect.
+ * Animation starts after a 2 second delay and loops continuously.
+ * Used for highlighting buttons or cards with a shine effect.
+ * 
+ * @returns Animated.Value configured for horizontal shimmer animation (-100 to 300)
+ */
 const useShimmerEffect = () => {
   const shineAnim = useRef(new Animated.Value(-100)).current; // Start off-screen
 

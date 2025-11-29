@@ -2,7 +2,14 @@
 import axios from "axios";
 import { hasAnalyticsConsent } from "./analyticsConsent";
 import { getClientId } from "./getClientIdAsyncStorage";
+import { logInfo, logWarn, logError } from "../utils/logger";
 
+/**
+ * Deletes user analytics data from the backend server.
+ * Only proceeds if user has given analytics consent.
+ * 
+ * @returns Promise that resolves to true if deletion successful, false otherwise
+ */
 export const deleteUserData = async (): Promise<boolean> => {
   const consent = await hasAnalyticsConsent();
   if (!consent) return false;
@@ -16,14 +23,14 @@ export const deleteUserData = async (): Promise<boolean> => {
     );
 
     if (response.status === 200) {
-      console.log("User data deletion request successful");
+      logInfo("User data deletion request successful");
       return true;
     } else {
-      console.warn("Data deletion request failed:", response.data);
+      logWarn("Data deletion request failed:", response.data);
       return false;
     }
   } catch (error: any) {
-    console.error("User data deletion error:", error.message);
+    logError("User data deletion error:", error.message);
     return false;
   }
 };

@@ -26,6 +26,7 @@ import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import ShareButton from "./components/ShareButton";
 import { useAppSelector, useAppDispatch } from "../ReduxToolkit/store";
 import { getProgress } from "../ReduxToolkit/progressSlice";
+import { logWarn } from "../utils/logger";
 // import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
 // import { StatusBar } from 'expo-status-bar';
 
@@ -168,9 +169,9 @@ export default function QuizDynamil() {
 
     if (screenName) {
       // console.log(`Navigating to ${screenName} with category:`, categoryId);
-      navigation.navigate(screenName as any, { categoryId });
+      navigation.navigate(screenName as keyof RootStackParamList, { categoryId });
     } else {
-      console.warn("Category not found:", categoryId);
+      logWarn("Category not found:", categoryId);
     }
   };
 

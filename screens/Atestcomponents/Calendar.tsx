@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../Types/RootStackParamList";
 import { AntDesign } from "@expo/vector-icons";
+import { logError } from "../../utils/logger";
 
 type GenerQTProp = StackNavigationProp<
   RootStackParamList,
@@ -58,19 +59,34 @@ LocaleConfig.locales["gr"] = {
 // Set the default locale to Greek
 LocaleConfig.defaultLocale = "gr";
 
+/**
+ * Type for date marking in react-native-calendars.
+ * Matches the structure expected by the Calendar component's markedDates prop.
+ */
+type DateMarking = {
+  marked?: boolean;
+  selected?: boolean;
+  selectedColor?: string;
+  dotColor?: string;
+  disabled?: boolean;
+  customStyles?: Record<string, unknown>;
+  [key: string]: unknown; // Allow additional properties from AsyncStorage
+};
+
 const CalendarComponent = () => {
   const navigation = useNavigation<GenerQTProp>();
-  const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
+  const [markedDates, setMarkedDates] = useState<Record<string, DateMarking>>({});
 
   useEffect(() => {
     const loadUsageDates = async () => {
       try {
         const storedDates = await AsyncStorage.getItem("usedDates");
         if (storedDates) {
-          setMarkedDates(JSON.parse(storedDates));
+          const parsedDates = JSON.parse(storedDates) as Record<string, DateMarking>;
+          setMarkedDates(parsedDates);
         }
       } catch (error) {
-        console.error("Error loading usage dates:", error);
+        logError("Error loading usage dates:", error);
       }
     };
     loadUsageDates();

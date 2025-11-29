@@ -34,6 +34,7 @@ import { getProgress } from "../ReduxToolkit/progressSlice";
 import { trackEventsOrganized } from "../GoogleAnalytics/trackEventsOrganized";
 import { trackEvent } from "../GoogleAnalytics/trackEvent";
 import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
+import { logWarn } from "../utils/logger";
 // import QuizScreenCategoryCard from "./MainTemplateFiles/QuizScreenCategoryCard";
 // import { StatusBar } from 'expo-status-bar';
 
@@ -148,9 +149,9 @@ export default function BonusQuizzes() {
 
     if (screenName) {
       // console.log(`Navigating to ${screenName} with category:`, categoryId);
-      navigation.navigate(screenName as any, { categoryId });
+      navigation.navigate(screenName as keyof RootStackParamList, { categoryId });
     } else {
-      console.warn("Category not found:", categoryId);
+      logWarn("Category not found:", categoryId);
     }
   };
 

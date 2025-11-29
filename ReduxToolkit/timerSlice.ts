@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isTimerEnabled: true,  // default is true (enabled)
+interface TimerState {
+  isTimerEnabled: boolean;
+}
+
+const initialState: TimerState = {
+  isTimerEnabled: true,
 };
 
 const timerSlice = createSlice({
@@ -16,3 +20,4 @@ const timerSlice = createSlice({
 
 export const { toggleTimer } = timerSlice.actions;
 export default timerSlice.reducer;
+

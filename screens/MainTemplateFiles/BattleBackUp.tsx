@@ -113,7 +113,7 @@ export default function BattleQuiz() {
       console.log("mockPlayerScore: ", mockPlayerScore);
     }
     setMockResults((prev) => {
-      const newResults:any = [...prev];
+      const newResults: Array<boolean | null> = [...prev];
       newResults[currentQuestion] = isCorrect;
       return newResults;
     });

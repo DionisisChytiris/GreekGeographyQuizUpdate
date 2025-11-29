@@ -9,11 +9,12 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
+import { logWarn, logError } from "../../utils/logger";
 
 interface MessagesScreenProps {
   id: string;
   app_id: string;  
-  refresh: any; // Adjust the type of 'refresh' as needed
+  refresh: boolean | undefined;
 }
 
 interface Message {
@@ -27,7 +28,6 @@ interface Reply {
   _id: string;
   reply: string;
   createdAt: string;
-  refresh: any;
 }
 
 const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) => {
@@ -53,7 +53,7 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) 
               `https://greek-geography-quiz-app-backend.vercel.app/messages/${message._id}/replies`
             );
             if (!repliesResponse.ok) {
-              console.warn(
+              logWarn(
                 `Failed to fetch replies for message ${message._id}`
               );
               return { ...message, replies: [] };
@@ -61,15 +61,15 @@ const MessagesScreen: React.FC<MessagesScreenProps> = ({ id, app_id, refresh }) 
             const replies = await repliesResponse.json();
             return { ...message, replies };
           } catch (err) {
-            console.error("Error fetching replies:", err);
+            logError("Error fetching replies:", err);
             return { ...message, replies: [] };
           }
         })
       );
 
-      // console.log("Messages with replies:", messagesWithReplies);
       setMessages(messagesWithReplies);
     } catch (error) {
+      logError("Failed to load messages:", error);
       Alert.alert("Failed to load messages");
     }
   };
@@ -116,11 +116,11 @@ const handleDeleteMessage = async (messageId: string) => {
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
     } else {
       const errorText = await response.text();
-      console.error("Failed to delete message:", errorText);
+      logError("Failed to delete message:", errorText);
       Alert.alert("Αποτυχία διαγραφής μηνύματος");
     }
   } catch (error) {
-    console.error("Fetch error:", error);
+    logError("Fetch error:", error);
     Alert.alert("Αποτυχία διαγραφής μηνύματος");
   }
 };
