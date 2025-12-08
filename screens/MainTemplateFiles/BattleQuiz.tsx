@@ -524,40 +524,55 @@ export default function BattleQuiz() {
         <View style={[styles.characterContainer]}>
           <View style={{ marginLeft: 40 }}>
             <Pressable
-              style={{ position: "absolute", top: 0, left: 75 }}
               onPress={() => {
                 setModalVisible(true),
                   trackEvent(trackEventsOrganized.CHARACTER_IMAGE);
               }}
             >
-              <Ionicons name="add-circle" size={20} color="yellow" />
-            </Pressable>
-            <View style={styles.containerImg}>
-              <Image
-                source={{
-                  uri: characterUri,
-                  // uri: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop",
+              <View
+                style={{
+                  position: "absolute",
+                  top: -20,
+                  left: 50,
+                  padding: 20,
+                  zIndex: 999,
                 }}
-                style={styles.character}
-              />
-              <Text
-                style={[
-                  styles.score,
-                  { position: "absolute", top: 20, right: -50, fontSize: 24 },
-                ]}
               >
-                {getScore(leftAnswers)}
-              </Text>
-            </View>
+                <Ionicons name="add-circle" size={20} color="yellow" />
+              </View>
+              <View style={styles.containerImg}>
+                <Image
+                  source={{
+                    uri: characterUri,
+                    // uri: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop",
+                  }}
+                  style={styles.character}
+                />
+                <Text
+                  style={[
+                    styles.score,
+                    { position: "absolute", top: 20, right: -50, fontSize: 24 },
+                  ]}
+                >
+                  {getScore(leftAnswers)}
+                </Text>
+              </View>
+            </Pressable>
 
             <View style={styles.userName}>
               <Text style={styles.text1}>{name ? name : "Εξερευνητής"}</Text>
             </View>
 
-            
             {!isMockLoading && isPlayerTurn && (
-              <View style={[styles.thinkingIndicator,{position: 'absolute',top:110, height:30, width: 70}]}>
-                <Text style={[styles.thinkingText,{paddingHorizontal:15}]}>...</Text>
+              <View
+                style={[
+                  styles.thinkingIndicator,
+                  { position: "absolute", top: 110, height: 30, width: 70 },
+                ]}
+              >
+                <Text style={[styles.thinkingText, { paddingHorizontal: 15 }]}>
+                  ...
+                </Text>
               </View>
             )}
           </View>
