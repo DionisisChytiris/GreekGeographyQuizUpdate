@@ -21,13 +21,28 @@ const HelpOptionsButton: React.FC<HelpOptionsButtonProps> = ({
   return (
     <View>
       <Pressable
-        onPressIn={() => setScale(0.85)}
+        onPressIn={() => {
+          if (!addAbility) {
+            setScale(0.85);
+          }
+        }}
         onPressOut={() => { 
           setScale(1); // Reset scale back to 1 when press is released
-          addFunction(); // Call the addFunction when the press is released
         }}
-        disabled={addAbility}
-        style={[styles.exitButton, { backgroundColor, transform: [{ scale }] }]}
+        onPress={() => {
+          if (!addAbility) {
+            addFunction(); // Call the addFunction when pressed
+          }
+        }}
+        disabled={addAbility} // addAbility: true = disabled, false = enabled
+        style={[
+          styles.exitButton, 
+          { 
+            backgroundColor, 
+            transform: [{ scale }],
+            opacity: addAbility ? 0.5 : 1, // Visual feedback when disabled
+          }
+        ]}
       >
         {typeof optionText === "string" ? (
           <Text style={{ zIndex: 1, color: "black", fontSize: 14 }}>

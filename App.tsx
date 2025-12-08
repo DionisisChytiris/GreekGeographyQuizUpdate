@@ -2,12 +2,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
 import StackNavigator from "./StackNavigator";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { Provider, useDispatch } from "react-redux";
-import { store } from "./ReduxToolkit/store";
+import { Provider } from "react-redux";
+import { store, useAppDispatch } from "./ReduxToolkit/store";
 import { loadName } from "./ReduxToolkit/setUserNameSlice";
 import { loadCoins } from "./ReduxToolkit/coinsSlice";
 import * as Updates from "expo-updates";
-import { StatusBar } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UpdateAvailableModal from "./screens/Modals/UpdateAvailableModal";
 import ConsentModal from "./GoogleAnalytics/ConsentModal";
@@ -46,7 +46,7 @@ const saveUsageDate = async (): Promise<void> => {
  * Loads persisted state on mount and checks for OTA updates.
  */
 const AppContent: React.FC<AppContentProps> = ({ setUpdateAvailable }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(loadName());

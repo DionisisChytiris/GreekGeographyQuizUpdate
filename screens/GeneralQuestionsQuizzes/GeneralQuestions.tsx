@@ -7,9 +7,14 @@ import questions from '../../data/GeneralQuestions/questions';
  * Displays a quiz with general geography questions about Greece.
  */
 const GeneralQuestions: React.FC = () => {
+  const convertedQuestions = questions.map(q => ({
+    ...q,
+    id: String(q.id)
+  }));
+
   return (
     <MainQuizAiGen
-      dataT={questions}
+      dataT={convertedQuestions}
       resultsPage="ResultsGeneral"
       quizName="Γενικές Ερωτήσεις"
       lastQ1="lastQuestion4"
