@@ -101,7 +101,8 @@ const TimerHeartSection: React.FC<YourComponentProps> = ({
         </View> */}
       </View>
 
-      <View style={{ width: "20%" }}>
+      <View style={{ position: "absolute", top: 0, left: "45%",zIndex:1
+       }}>
         <View style={[styles.livesContainer, { backgroundColor: "#fafafa" }]}>
           <Image
             source={require("../../assets/Photos/goldbg.png")}
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingTop: Platform.OS === "ios" ? 12 : 0,
-    marginBottom: -5,
+    marginBottom: -10,
     // backgroundColor: "yellow",
   },
   quizName: {

@@ -1122,7 +1122,17 @@ const MainQuizAiGen: React.FC<MainQuizAiGenProps> = ({
       </Animated.View>
 
       {/* Bottom Section Helps */}
-      <View style={styles.bottomButtonsBox}>
+      <View
+        style={[
+          styles.bottomButtonsBox,
+          {
+            paddingBottom: Math.max(
+              Platform.OS === "ios" ? 20 : insets.bottom + 8,
+              12
+            ),
+          },
+        ]}
+      >
         {/* 50% Help*/}
         {fiftyCoin ? (
           <Pressable onPress={buyExtraFifty}>
@@ -1356,7 +1366,9 @@ const styles = StyleSheet.create({
   card: {
     height: Platform.OS === "android" ? "75%" : "80%",
     // height: Platform.OS === "android" ? height * 0.75 :height * 0.80,
-    margin: height < 840 ? 20 : 16,
+    marginHorizontal: height < 840 ? 20 : 16,
+    marginTop: height < 840 ? 20 : 16,
+    marginBottom: height < 840 ? 10 : 6,
     backgroundColor: "#fff",
     borderRadius: 24,
     overflow: "hidden",
@@ -1619,7 +1631,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingTop: 8,
-    paddingBottom: Platform.OS === "ios" ? 20 : 12,
+    // paddingBottom is set dynamically using safe area insets
     backgroundColor: "rgba(255, 255, 255, 0.45)",
     borderTopWidth: 1,
     borderTopColor: "#E0E0E0",
