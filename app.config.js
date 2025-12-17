@@ -5,7 +5,7 @@ export default {
     newArchEnabled: true,
     platforms: ["ios", "android"],
     version: "1.0.25",
-
+    icon: "./assets/adaptive-icon-ios.png",
     jsEngine: "hermes",
 
     ios: {
@@ -13,6 +13,7 @@ export default {
       requireFullScreen: true,
       bundleIdentifier: "com.greekgeographyquizapp.dion",
       buildNumber: "56",
+      icon: "./assets/adaptive-icon-test.png",
       newArchEnabled: true,
       jsEngine: "hermes",
     },
