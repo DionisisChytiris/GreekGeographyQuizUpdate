@@ -4,28 +4,31 @@ export default {
     slug: "GreekGeographyQuizApp",
     newArchEnabled: true,
     platforms: ["ios", "android"],
-    version: "1.0.25",
-    icon: "./assets/adaptive-icon-ios.png",
+    version: "1.0.26",
+    icon: "./assets/iconApp.png",
     jsEngine: "hermes",
 
     ios: {
       supportsTablet: true,
       requireFullScreen: true,
       bundleIdentifier: "com.greekgeographyquizapp.dion",
-      buildNumber: "56",
-      icon: "./assets/adaptive-icon-test.png",
+      buildNumber: "57",
+      icon: "./assets/iconApp.png", // ✅ SAME file
       newArchEnabled: true,
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
       jsEngine: "hermes",
     },
 
     android: {
       package: "com.greekgeographyquizapp.dion",
-      versionCode: 56,
+      versionCode: 57,
       newArchEnabled: true,
       jsEngine: "hermes",
     },
 
-    runtimeVersion: "1.0.25",
+    runtimeVersion: "1.0.26",
 
     updates: {
       url: "https://u.expo.dev/8e57705c-5ea4-459b-8705-25056f4c466f",
